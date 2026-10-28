@@ -140,5 +140,5 @@ repository" reads the same entry from `CITATION.cff`.
 
 ## What comes next
 
-CartBench, a benchmark for commerce agents built on CartTrace, is planned for early 2027. Until then, `rerun` puts
-any model, open or frontier, through the same stores, tasks and shoppers.
+Next is Commerce-1, a planned small model trained on CartTrace that predicts when a shopping agent is about to fail.
+Meanwhile, `rerun` puts any model, open or frontier, through the same stores, tasks and shoppers.
