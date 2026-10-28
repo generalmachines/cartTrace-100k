@@ -1,7 +1,7 @@
 """The one way inference reaches a model server: a GPU slot, the inference retry policy, timing, stats and errors.
 
-Why one path. Chat and Clef calls differ only in the request body and in how the reply is read. Everything else must
-be the same for both, or the cap and the status file stop meaning what they say:
+Why one path. Chat and decision-model calls differ only in the request body and in how the reply is read. Everything
+else must be the same for both, or the cap and the status file stop meaning what they say:
 - every request holds a GPU slot while it is on the wire, and never during a backoff sleep;
 - it is timed by the injected clock from the moment the slot is held;
 - it lands in the per-process stats with its tokens and the model that answered;

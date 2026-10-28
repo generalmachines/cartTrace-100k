@@ -1,7 +1,7 @@
 """The caps that hold right now: each endpoint's host-wide cap and the collector's episode target, followed live (D114).
 
-Why live. Infra caps the shared GPU servers by time of day (Qwen 16 by day and 56 from 22:00 to 08:00, Clef and
-Clef-flash 7), and a call above the cap is refused, not queued. A collector runs for days, and a restart cuts rows off
+Why live. Infra caps the shared GPU servers by time of day (Qwen 16 by day and 56 from 22:00 to 08:00, the two decision
+models 7), and a call above the cap is refused, not queued. A collector runs for days, and a restart cuts rows off
 mid-run, so a running process must follow the caps without one:
 - the schedule (`endpoints.<name>.schedule`, in `gpu.timezone`) is evaluated on every call against the clock, so every
   process on the host changes cap at the same minute;

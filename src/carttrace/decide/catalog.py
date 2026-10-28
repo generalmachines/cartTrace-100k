@@ -32,7 +32,8 @@ from carttrace.decide.types import DecisionType
 DEFAULT_DIR = Path(__file__).resolve().parents[3] / "data" / "decisions"
 """data/decisions in this repository; callers with settings pass `settings.data_dir / "decisions"`."""
 MAX_CHARS_CEILING = 60_000
-"""No decision reads more evidence than this; a bigger budget is a typo, and Clef's context would not hold it."""
+"""No decision reads more evidence than this; a bigger budget is a typo, and the decision model's context would not hold
+it."""
 
 _ID = re.compile(r"^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$")
 _WORD = re.compile(r"^[a-z][a-z0-9_]*$")

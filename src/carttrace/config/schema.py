@@ -404,10 +404,10 @@ class Collect(_Section):
     """Also append every result to results_path, as before the database. Off: the database is the only writer."""
     decisions: Literal["on", "off"] = "off"
     """Sandbox v1 final (D115): whether an episode's decisions (supervision, triage, the shopper's field mapping) may
-    ask a decision model. "off", the default and always for a v1 row, decides by rule alone and calls no Clef or
-    Clef-flash at all: every such type is in shadow, so a model's answer changed nothing, and Clef is the judge's
-    alone. A decision no rule answers abstains with its type's safe default and keeps its evidence in the decision's
-    context (`offline_evidence`), so a calibration can ask the model offline later."""
+    ask a decision model. "off", the default and always for a v1 row, decides by rule alone and calls no decision
+    model at all: every such type is in shadow, so a model's answer changed nothing, and the decision model is the
+    judge's alone. A decision no rule answers abstains with its type's safe default and keeps its evidence in the
+    decision's context (`offline_evidence`), so a calibration can ask the model offline later."""
     idle_timeout_s: float = Field(default=1800.0, gt=0)
     """D122: an episode whose bundle gets no new record (a turn, a wire record, a sandbox event) for this long is cut
     as `idle_timeout` and its row runs again (a v1 row is quarantined, D111). Longer than one model call can take
@@ -688,21 +688,22 @@ class Judge(_Section):
     version: str = Field(default="judge-v1", min_length=1)
     """Name the judge writes its output under, next to each bundle (judge/<version>.json)."""
     use_clef: bool = True
-    """Ask Clef the decision questions state cannot answer. False gives a code-only card."""
+    """Ask the decision model the decision questions state cannot answer. False gives a code-only card."""
     panel: list[str] = Field(default_factory=list)
     """More decision engines asked the same questions (clef, or another decide stage but clef-flash), each recorded on
     the step beside the primary's answer and never counted; `carttrace judge calibrate --panel` reports where they
     disagree, and the labelling queue puts those questions first."""
     order: list[str] = Field(default_factory=lambda: ["rule", "clef"], min_length=1)
-    """The decide stages the judge asks, in order: rules, then the full Clef model. Never clef-flash, and never the
-    shared decide.order, so a collection setting cannot route the judge to another model."""
+    """The decide stages the judge asks, in order: rules, then the full decision model (clef). Never clef-flash, and
+    never the shared decide.order, so a collection setting cannot route the judge to another model."""
 
     @model_validator(mode="after")
     def _full_clef_only(self) -> Judge:
-        # the judge uses the full Clef model only, never clef-flash.
+        # the judge uses the full decision model (clef) only, never clef-flash.
         if "clef-flash" in (*self.order, *self.panel):
             raise ValueError(
-                "the judge asks the full Clef model only: leave clef-flash out of judge.order and judge.panel"
+                "the judge asks the full decision model (clef) only: "
+                "leave clef-flash out of judge.order and judge.panel"
             )
         return self
 
@@ -711,7 +712,7 @@ class BenchScorecard(_Section):
     """The store scorecard (carttrace.bench.scorecard)."""
 
     count_unvalidated_clef: bool = True
-    """Count Clef answers of types not yet promoted (no human validation yet) in a score's value, marked "Clef
+    """Count decision-model answers of types not yet promoted (no human validation yet) in a score's value, marked "Clef
     unvalidated: x%". False keeps them out of the value and marks the score partial."""
 
 
@@ -741,13 +742,15 @@ class DecideFallbackCli(_Section):
 
 
 class DecideFallback(_Section):
-    """The fallback stage (D61): a model that is not the agent under test answers a decision only when both Clef
-    stages failed or were skipped by their breakers, and only for the decision types listed here. Off by default."""
+    """The fallback stage (D61): a model that is not the agent under test answers a decision only when both
+    decision-model stages failed or were skipped by their breakers, and only for the decision types listed here. Off by
+    default."""
 
     endpoint: str | None = None
     """Where the fallback asks: an endpoint of kind chat in config.json endpoints (label probabilities from its
     logprobs), or "claude_cli" for the signed-in Claude Code CLI (decide.fallback.cli). None: no fallback, and a
-    decision abstains when Clef gives no answer, as before D56. It may never be the agent's endpoint or model."""
+    decision abstains when the decision model gives no answer, as before D56. It may never be the agent's endpoint or
+    model."""
     types: list[str] = Field(default_factory=list)
     """Decision type ids or shell patterns (shopper.*, supervise.*) the fallback may answer. Empty: none. The judge's
     own types are left out on purpose: their routing is the judge session's to choose."""
@@ -765,12 +768,12 @@ class DecideFallback(_Section):
 
 class Decide(_Section):
     order: list[DecideStep] = Field(min_length=1)
-    """Who answers, in order: rule, then clef-flash, then clef on escalation, then fallback when both Clef stages
-    failed (only for decide.fallback.types, and only when decide.fallback.endpoint is set)."""
+    """Who answers, in order: rule, then clef-flash, then clef on escalation, then fallback when both decision-model
+    stages failed (only for decide.fallback.types, and only when decide.fallback.endpoint is set)."""
     breaker_failures: int = Field(ge=1)
-    """Consecutive Clef failures that open the circuit breaker."""
+    """Consecutive decision-model failures that open the circuit breaker."""
     breaker_cooldown_s: float = Field(gt=0)
-    """Seconds an open breaker waits before trying Clef again."""
+    """Seconds an open breaker waits before trying the decision model again."""
     fallback: DecideFallback = Field(default_factory=DecideFallback)
 
     @field_validator("order", mode="before")
@@ -788,7 +791,9 @@ class Decide(_Section):
         if len(set(self.order)) != len(self.order):
             raise ValueError("decide.order lists a step twice")
         if "fallback" in self.order and self.order[-1] != "fallback":
-            raise ValueError("decide.order must list fallback last: it answers only after the Clef stages failed")
+            raise ValueError(
+                "decide.order must list fallback last: it answers only after the decision-model stages failed"
+            )
         return self
 
 
@@ -1181,7 +1186,7 @@ class Costs(_Section):
     locally; these prices turn the token counts every bundle records into an API-equivalent bill."""
 
     prices: dict[str, Price] = Field(default_factory=_default_prices)
-    """Keyed by our agent model (the header's served model) or our decision endpoint (clef, clef_flash). Clef is our
+    """Keyed by our agent model (the header's served model) or our decision endpoint (clef, clef_flash). That is our
     own model with no list price, so it is priced as the API judge named here. A model with no price costs nothing on
     the page and is listed as unpriced."""
     prices_as_of: str = Field(default="2026-10-15", pattern=r"^\d{4}-\d{2}-\d{2}$")
@@ -1189,13 +1194,13 @@ class Costs(_Section):
     alternatives: dict[str, Price] = Field(default_factory=_default_alternatives)
     """Cheaper agent models the what-if table prices the same tokens at."""
     judge_alternatives: dict[str, Price] = Field(default_factory=_default_judge_alternatives)
-    """Other API judges the Clef table prices the same calls at."""
+    """Other API judges the decision-model table prices the same calls at."""
     snapshot_dir: RepoPath = Path("var/costs")
     """Where `carttrace dashboard prices --refresh` writes dated OpenRouter price snapshots; the newest overrides the prices
     above for every id it lists."""
     clef_output_tokens: int = Field(default=5, ge=0)
-    """A Clef call records one token total; this many of them are counted as output (a yes or no answer), the rest as
-    input."""
+    """A decision-model call records one token total; this many of them are counted as output (a yes or no answer), the
+    rest as input."""
     cache_hit_share: float = Field(default=0.8, ge=0.0, le=1.0)
     """For the prompt-caching what-if: the share of prompt tokens a provider's prefix cache would serve. An agent call
     repeats the whole conversation so far, so most of each prompt was sent before."""

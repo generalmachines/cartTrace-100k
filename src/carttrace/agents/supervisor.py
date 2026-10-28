@@ -2,10 +2,10 @@
 
 Why through carttrace.decide. An agent that repeats one search, or keeps calling a tool that fails, holds a GPU slot and a
 store's goodwill for nothing, so the runner ends such episodes early (D9). Whether an agent is looping is a typed
-decision: a rule answers the plain cases (the same call three times in six steps, five failures in a row) and Clef
-reads the rest. A false stop throws away an episode that might have finished, so only an effective decision stops
-one: a live type with no backend error. While a type is in shadow its answers are logged for calibration and never
-stop anything.
+decision: a rule answers the plain cases (the same call three times in six steps, five failures in a row) and the
+decision model reads the rest. A false stop throws away an episode that might have finished, so only an effective
+decision stops one: a live type with no backend error. While a type is in shadow its answers are logged for calibration
+and never stop anything.
 
 The agent calls `check` after every step; the supervisor asks the engine only every `every_steps` steps
 (collect.supervise_every_steps), with the last twelve steps as evidence, as data/decisions/supervise.yaml asks.

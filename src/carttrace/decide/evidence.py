@@ -2,10 +2,10 @@
 
 Why only the declared keys. Callers often pass more than a type needs (a whole status file, every turn so far).
 Hashing everything would give two identical questions different hashes, so replays and human labels would no longer
-join on `evidence_sha`; showing everything would let a rule or Clef read evidence the log cannot prove it saw. A
-decision sees the keys its type declares and nothing else, and `evidence_sha` is the hash of exactly that, written as
-canonical JSON. The same round trip turns pydantic models and tuples into plain JSON, so a rule and the prompt read the
-very value that was hashed.
+join on `evidence_sha`; showing everything would let a rule or the decision model read evidence the log cannot prove it
+saw. A decision sees the keys its type declares and nothing else, and `evidence_sha` is the hash of exactly that,
+written as canonical JSON. The same round trip turns pydantic models and tuples into plain JSON, so a rule and the
+prompt read the very value that was hashed.
 """
 
 from __future__ import annotations

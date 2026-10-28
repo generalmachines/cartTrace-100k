@@ -580,12 +580,12 @@ class _Run:
 
 def decisions_offline(settings: Settings, manifest: Manifest) -> bool:
     """Whether the run's episodes decide by rule alone, asking no decision model (D115): collect.decisions off, or a
-    sandbox v1 manifest, whose decisions are all in shadow and whose Clef belongs to the judge."""
+    sandbox v1 manifest, whose decisions are all in shadow and whose decision model belongs to the judge."""
     return settings.collect.decisions == "off" or manifest.plan.v1 is not None
 
 
 def _engine(settings: Settings, *, offline: bool = False) -> DecisionEngine:
-    """The run's decision engine; `offline`: rules alone, no scorer built and so no Clef or Clef-flash client, each
+    """The run's decision engine; `offline`: rules alone, no scorer built and so no decision-model client, each
     abstention keeping its evidence for an offline answer (D115)."""
     from carttrace.decide.factory import build_engine
 

@@ -4,8 +4,8 @@ Two kinds of call, because the system asks models two kinds of thing:
 - `ChatService.chat(role, messages, tools)`: a conversation turn (the agent; the shopper only if a template cannot
   answer). The caller names the role, never the model.
 - `LabelScorer.score(role, query, labels)`: the probability of each label as the next token, renormalised over the
-  labels, from Clef's /generative_scoring. This is what the decision engine is built on: one forward pass for two
-  labels and one per label for more, no decoding, no free text.
+  labels, from the decision model's /generative_scoring. This is what the decision engine is built on: one forward pass
+  for two labels and one per label for more, no decoding, no free text.
 
 Every call passes through the host-wide cap for its endpoint (`gpu_slot`), and every result carries the served model
 next to the requested one, because one server can answer an alias with a different model.
@@ -69,8 +69,8 @@ class ScoreResult(BaseModel):
     endpoint: str | None = None
     """Name of the config.json endpoint that answered (clef_flash, clef, ...)."""
     probabilities_from: ProbabilitySource | None = None
-    """Where the probabilities came from when not from Clef's /generative_scoring (None): "logprobs", a chat
-    endpoint's next-token log probabilities; "text", only the answer's text, with a configured confidence."""
+    """Where the probabilities came from when not from the decision model's /generative_scoring (None): "logprobs", a
+    chat endpoint's next-token log probabilities; "text", only the answer's text, with a configured confidence."""
     cost_usd: float | None = None
     """What the call cost, when the backend reports it (the Claude CLI does); None for our own model servers."""
 

@@ -2,8 +2,9 @@
 
 Why resolved per call. Most types have a fixed answer space, but some take options from the evidence at call time:
 shopper.field asks which hidden-spec field the agent means, and every task has different fields. The space is resolved
-once per decision, before any rule or model runs, so a rule's answer, Clef's letters and the abstain value are all
-checked against the same list, and a malformed options list is refused as bad evidence instead of reaching Clef.
+once per decision, before any rule or model runs, so a rule's answer, the decision model's letters and the abstain value
+are all checked against the same list, and a malformed options list is refused as bad evidence instead of reaching the
+decision model.
 """
 
 from __future__ import annotations
@@ -17,9 +18,9 @@ from carttrace.core.errors import ValidationError
 from carttrace.decide.types import Answer, DecisionType, Kind
 
 YES, NO = "yes", "no"
-"""The two labels of every bool decision, as Clef scores them and as Decision.probabilities keys them."""
+"""The two labels of every bool decision, as the decision model scores them and as Decision.probabilities keys them."""
 MAX_OPTIONS = 26
-"""Enum options are lettered A to Z for Clef, so one decision offers at most 26."""
+"""Enum options are lettered A to Z for the decision model, so one decision offers at most 26."""
 MAX_OPTION_CHARS = 80
 """An option supplied by the evidence is a short label (a field name), never a sentence."""
 
@@ -29,7 +30,7 @@ class AnswerSpace:
     type_id: str
     kind: Kind
     options: tuple[str, ...] = ()
-    """Options in the order Clef sees them: supplied ones first, then the type's own. Empty for a bool."""
+    """Options in the order the decision model sees them: supplied ones first, then the type's own. Empty for a bool."""
     notes: Mapping[str, str] = field(default_factory=dict)
     """A one-line note per option, where the type or the evidence gave one."""
 
@@ -82,7 +83,7 @@ def resolve_space(dtype: DecisionType, evidence: Mapping[str, Any]) -> AnswerSpa
         )
     if len(options) > MAX_OPTIONS:
         raise ValidationError(
-            f"{dtype.id}: {len(options)} options is more than the {MAX_OPTIONS} Clef can letter",
+            f"{dtype.id}: {len(options)} options is more than the {MAX_OPTIONS} that the decision model can letter",
             hint=f"pass at most {MAX_OPTIONS - len(dtype.options)} options in {dtype.options_from!r}",
         )
     return AnswerSpace(dtype.id, dtype.kind, options, {**notes, **dtype.option_notes})

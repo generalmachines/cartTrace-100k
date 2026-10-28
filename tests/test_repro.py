@@ -205,6 +205,15 @@ def test_dataset_bundle_spells_the_roster_domain_as_the_world_domain_and_nothing
     assert served_domain(records, "ct-034.example", None) is records
 
 
+def test_a_rerun_endpoint_given_with_or_without_v1_is_called_once_at_v1() -> None:
+    from carttrace.repro.cli import server_root
+
+    for url in ("http://127.0.0.1:8000/v1", "http://127.0.0.1:8000/v1/", "http://127.0.0.1:8000"):
+        assert server_root(url) == "http://127.0.0.1:8000"
+    assert server_root("https://openrouter.ai/api/v1") == "https://openrouter.ai/api"
+    assert server_root("https://example.test/v10") == "https://example.test/v10"
+
+
 @pytest.mark.dataset
 @pytest.mark.skipif(
     not os.environ.get("CARTTRACE_DATASET"),

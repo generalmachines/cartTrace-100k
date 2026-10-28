@@ -1,8 +1,8 @@
 """Which hidden-spec fields an agent's message asks about, by keyword: the rule step of the shopper.field decision.
 
 Why a rule first. The shopper reveals a field only when asked, so a wrong mapping leaks a preference the agent never
-asked for, and an engine call per message would spend a Clef pass on "What size do you wear?". The rule answers
-when the words are plain; anything it cannot place goes to the decision engine (data/decisions/shopper.yaml). It
+asked for, and an engine call per message would spend a decision-model pass on "What size do you wear?". The rule
+answers when the words are plain; anything it cannot place goes to the decision engine (data/decisions/shopper.yaml). It
 follows the lab's classifier (lab/shopper.py, 2026-09-18), with what the lab learned:
 
 - only text that asks unlocks a field: sentences with a question mark, and requests such as "Let me know your
