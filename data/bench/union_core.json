@@ -1,0 +1,8284 @@
+{
+ "categories": {
+  "arts-crafts-music": {
+   "badge.claims": [
+    9,
+    31
+   ],
+   "badge.merchandising": [
+    1,
+    31
+   ],
+   "delivery.cost": [
+    5,
+    31
+   ],
+   "delivery.estimate": [
+    8,
+    31
+   ],
+   "delivery.free_threshold": [
+    1,
+    31
+   ],
+   "delivery.pickup": [
+    6,
+    31
+   ],
+   "delivery.regions": [
+    14,
+    31
+   ],
+   "delivery.restrictions": [
+    3,
+    31
+   ],
+   "delivery.shipping_details": [
+    2,
+    31
+   ],
+   "identity.brand": [
+    8,
+    31
+   ],
+   "identity.gtin": [
+    7,
+    31
+   ],
+   "identity.product_type": [
+    9,
+    31
+   ],
+   "identity.sku": [
+    12,
+    31
+   ],
+   "identity.tags": [
+    3,
+    31
+   ],
+   "media.alt_text": [
+    13,
+    31
+   ],
+   "media.images": [
+    15,
+    31
+   ],
+   "media.video": [
+    4,
+    31
+   ],
+   "nav.recommendations": [
+    9,
+    31
+   ],
+   "policy.privacy": [
+    9,
+    31
+   ],
+   "policy.shipping": [
+    5,
+    31
+   ],
+   "policy.terms": [
+    11,
+    31
+   ],
+   "policy.warranty": [
+    14,
+    31
+   ],
+   "price.cart_total": [
+    2,
+    31
+   ],
+   "price.compare_at": [
+    2,
+    31
+   ],
+   "price.current": [
+    11,
+    31
+   ],
+   "price.promo_banner": [
+    9,
+    31
+   ],
+   "price.taxable": [
+    1,
+    31
+   ],
+   "price.unit": [
+    1,
+    31
+   ],
+   "product.capacity": [
+    1,
+    31
+   ],
+   "product.care": [
+    1,
+    31
+   ],
+   "product.category_facts": [
+    5,
+    31
+   ],
+   "product.compatibility": [
+    10,
+    31
+   ],
+   "product.description": [
+    12,
+    31
+   ],
+   "product.directions": [
+    1,
+    31
+   ],
+   "product.documents": [
+    6,
+    31
+   ],
+   "product.features": [
+    4,
+    31
+   ],
+   "product.ingredients": [
+    1,
+    31
+   ],
+   "product.materials": [
+    2,
+    31
+   ],
+   "product.measurements": [
+    4,
+    31
+   ],
+   "product.origin": [
+    2,
+    31
+   ],
+   "product.power": [
+    3,
+    31
+   ],
+   "product.size_chart": [
+    4,
+    31
+   ],
+   "product.specs": [
+    10,
+    31
+   ],
+   "product.title": [
+    13,
+    31
+   ],
+   "product.warnings": [
+    2,
+    31
+   ],
+   "product.weight": [
+    3,
+    31
+   ],
+   "product.whats_included": [
+    2,
+    31
+   ],
+   "returns.fee": [
+    3,
+    31
+   ],
+   "returns.policy": [
+    9,
+    31
+   ],
+   "returns.window": [
+    6,
+    31
+   ],
+   "reviews.count": [
+    5,
+    31
+   ],
+   "reviews.qa": [
+    2,
+    31
+   ],
+   "reviews.rating": [
+    5,
+    31
+   ],
+   "reviews.text": [
+    8,
+    31
+   ],
+   "stock.count": [
+    1,
+    31
+   ],
+   "stock.pickup": [
+    5,
+    31
+   ],
+   "stock.preorder": [
+    5,
+    31
+   ],
+   "store.about": [
+    16,
+    31
+   ],
+   "store.contact": [
+    12,
+    31
+   ],
+   "store.faq": [
+    3,
+    31
+   ],
+   "store.llms_txt": [
+    5,
+    31
+   ],
+   "store.loyalty": [
+    9,
+    31
+   ],
+   "store.payment_methods": [
+    16,
+    31
+   ],
+   "store.robots": [
+    29,
+    31
+   ],
+   "store.site_search": [
+    7,
+    31
+   ],
+   "store.sitemap": [
+    13,
+    31
+   ],
+   "store.ucp_discovery": [
+    13,
+    31
+   ],
+   "variant.availability": [
+    12,
+    31
+   ],
+   "variant.colour": [
+    4,
+    31
+   ],
+   "variant.options": [
+    4,
+    31
+   ],
+   "variant.size": [
+    8,
+    31
+   ]
+  },
+  "automotive-parts": {
+   "badge.claims": [
+    3,
+    17
+   ],
+   "badge.merchandising": [
+    3,
+    17
+   ],
+   "delivery.cost": [
+    8,
+    17
+   ],
+   "delivery.estimate": [
+    11,
+    17
+   ],
+   "delivery.free_threshold": [
+    6,
+    17
+   ],
+   "delivery.pickup": [
+    6,
+    17
+   ],
+   "delivery.regions": [
+    9,
+    17
+   ],
+   "delivery.requires_shipping": [
+    2,
+    17
+   ],
+   "delivery.restrictions": [
+    5,
+    17
+   ],
+   "delivery.shipping_details": [
+    3,
+    17
+   ],
+   "identity.audience": [
+    1,
+    17
+   ],
+   "identity.brand": [
+    7,
+    17
+   ],
+   "identity.gtin": [
+    7,
+    17
+   ],
+   "identity.product_type": [
+    7,
+    17
+   ],
+   "identity.sku": [
+    8,
+    17
+   ],
+   "identity.tags": [
+    2,
+    17
+   ],
+   "media.alt_text": [
+    8,
+    17
+   ],
+   "media.images": [
+    8,
+    17
+   ],
+   "media.video": [
+    1,
+    17
+   ],
+   "nav.collections": [
+    1,
+    17
+   ],
+   "nav.recommendations": [
+    8,
+    17
+   ],
+   "policy.privacy": [
+    9,
+    17
+   ],
+   "policy.shipping": [
+    7,
+    17
+   ],
+   "policy.terms": [
+    8,
+    17
+   ],
+   "policy.warranty": [
+    12,
+    17
+   ],
+   "price.compare_at": [
+    1,
+    17
+   ],
+   "price.current": [
+    8,
+    17
+   ],
+   "price.promo_banner": [
+    9,
+    17
+   ],
+   "price.taxable": [
+    1,
+    17
+   ],
+   "price.unit": [
+    1,
+    17
+   ],
+   "product.category_facts": [
+    4,
+    17
+   ],
+   "product.compatibility": [
+    6,
+    17
+   ],
+   "product.description": [
+    8,
+    17
+   ],
+   "product.directions": [
+    3,
+    17
+   ],
+   "product.documents": [
+    5,
+    17
+   ],
+   "product.features": [
+    4,
+    17
+   ],
+   "product.materials": [
+    7,
+    17
+   ],
+   "product.measurements": [
+    3,
+    17
+   ],
+   "product.power": [
+    1,
+    17
+   ],
+   "product.published_date": [
+    1,
+    17
+   ],
+   "product.size_chart": [
+    4,
+    17
+   ],
+   "product.specs": [
+    8,
+    17
+   ],
+   "product.title": [
+    8,
+    17
+   ],
+   "product.warnings": [
+    4,
+    17
+   ],
+   "product.weight": [
+    3,
+    17
+   ],
+   "product.whats_included": [
+    1,
+    17
+   ],
+   "returns.fee": [
+    3,
+    17
+   ],
+   "returns.final_sale": [
+    1,
+    17
+   ],
+   "returns.policy": [
+    11,
+    17
+   ],
+   "returns.window": [
+    9,
+    17
+   ],
+   "reviews.count": [
+    4,
+    17
+   ],
+   "reviews.qa": [
+    4,
+    17
+   ],
+   "reviews.rating": [
+    5,
+    17
+   ],
+   "reviews.text": [
+    5,
+    17
+   ],
+   "stock.count": [
+    3,
+    17
+   ],
+   "stock.pickup": [
+    3,
+    17
+   ],
+   "stock.preorder": [
+    2,
+    17
+   ],
+   "stock.qty_limits": [
+    1,
+    17
+   ],
+   "store.about": [
+    11,
+    17
+   ],
+   "store.agents_md": [
+    1,
+    17
+   ],
+   "store.contact": [
+    9,
+    17
+   ],
+   "store.faq": [
+    6,
+    17
+   ],
+   "store.llms_txt": [
+    4,
+    17
+   ],
+   "store.loyalty": [
+    5,
+    17
+   ],
+   "store.market": [
+    1,
+    17
+   ],
+   "store.payment_methods": [
+    12,
+    17
+   ],
+   "store.robots": [
+    17,
+    17
+   ],
+   "store.site_search": [
+    9,
+    17
+   ],
+   "store.sitemap": [
+    11,
+    17
+   ],
+   "store.ucp_discovery": [
+    3,
+    17
+   ],
+   "variant.availability": [
+    8,
+    17
+   ],
+   "variant.colour": [
+    4,
+    17
+   ],
+   "variant.options": [
+    2,
+    17
+   ],
+   "variant.size": [
+    4,
+    17
+   ]
+  },
+  "baby-kids": {
+   "badge.claims": [
+    11,
+    30
+   ],
+   "badge.merchandising": [
+    3,
+    30
+   ],
+   "delivery.cost": [
+    11,
+    30
+   ],
+   "delivery.estimate": [
+    16,
+    30
+   ],
+   "delivery.free_threshold": [
+    8,
+    30
+   ],
+   "delivery.pickup": [
+    4,
+    30
+   ],
+   "delivery.regions": [
+    17,
+    30
+   ],
+   "delivery.requires_shipping": [
+    9,
+    30
+   ],
+   "delivery.restrictions": [
+    5,
+    30
+   ],
+   "delivery.shipping_details": [
+    2,
+    30
+   ],
+   "identity.audience": [
+    5,
+    30
+   ],
+   "identity.brand": [
+    16,
+    30
+   ],
+   "identity.gtin": [
+    15,
+    30
+   ],
+   "identity.product_type": [
+    12,
+    30
+   ],
+   "identity.sku": [
+    18,
+    30
+   ],
+   "identity.tags": [
+    10,
+    30
+   ],
+   "media.alt_text": [
+    15,
+    30
+   ],
+   "media.images": [
+    21,
+    30
+   ],
+   "media.video": [
+    2,
+    30
+   ],
+   "nav.collections": [
+    9,
+    30
+   ],
+   "nav.recommendations": [
+    10,
+    30
+   ],
+   "offer.bundle": [
+    2,
+    30
+   ],
+   "offer.gift_card": [
+    3,
+    30
+   ],
+   "policy.minimum_order": [
+    1,
+    30
+   ],
+   "policy.privacy": [
+    17,
+    30
+   ],
+   "policy.shipping": [
+    13,
+    30
+   ],
+   "policy.terms": [
+    15,
+    30
+   ],
+   "policy.warranty": [
+    15,
+    30
+   ],
+   "price.cart_total": [
+    6,
+    30
+   ],
+   "price.compare_at": [
+    10,
+    30
+   ],
+   "price.current": [
+    18,
+    30
+   ],
+   "price.discount": [
+    1,
+    30
+   ],
+   "price.promo_banner": [
+    19,
+    30
+   ],
+   "price.taxable": [
+    10,
+    30
+   ],
+   "product.care": [
+    6,
+    30
+   ],
+   "product.category_facts": [
+    7,
+    30
+   ],
+   "product.compatibility": [
+    9,
+    30
+   ],
+   "product.description": [
+    19,
+    30
+   ],
+   "product.directions": [
+    4,
+    30
+   ],
+   "product.documents": [
+    8,
+    30
+   ],
+   "product.features": [
+    5,
+    30
+   ],
+   "product.fit_notes": [
+    3,
+    30
+   ],
+   "product.ingredients": [
+    1,
+    30
+   ],
+   "product.materials": [
+    13,
+    30
+   ],
+   "product.measurements": [
+    12,
+    30
+   ],
+   "product.origin": [
+    2,
+    30
+   ],
+   "product.published_date": [
+    9,
+    30
+   ],
+   "product.size_chart": [
+    10,
+    30
+   ],
+   "product.specs": [
+    15,
+    30
+   ],
+   "product.title": [
+    18,
+    30
+   ],
+   "product.warnings": [
+    4,
+    30
+   ],
+   "product.weight": [
+    13,
+    30
+   ],
+   "product.whats_included": [
+    4,
+    30
+   ],
+   "returns.fee": [
+    3,
+    30
+   ],
+   "returns.final_sale": [
+    3,
+    30
+   ],
+   "returns.policy": [
+    16,
+    30
+   ],
+   "returns.window": [
+    13,
+    30
+   ],
+   "reviews.count": [
+    6,
+    30
+   ],
+   "reviews.qa": [
+    4,
+    30
+   ],
+   "reviews.rating": [
+    6,
+    30
+   ],
+   "reviews.text": [
+    12,
+    30
+   ],
+   "stock.cart_sold_out": [
+    2,
+    30
+   ],
+   "stock.count": [
+    3,
+    30
+   ],
+   "stock.pickup": [
+    2,
+    30
+   ],
+   "stock.preorder": [
+    6,
+    30
+   ],
+   "stock.tracking": [
+    5,
+    30
+   ],
+   "store.about": [
+    21,
+    30
+   ],
+   "store.agents_md": [
+    10,
+    30
+   ],
+   "store.checkout_gates": [
+    1,
+    30
+   ],
+   "store.contact": [
+    17,
+    30
+   ],
+   "store.faq": [
+    10,
+    30
+   ],
+   "store.llms_txt": [
+    13,
+    30
+   ],
+   "store.loyalty": [
+    11,
+    30
+   ],
+   "store.market": [
+    9,
+    30
+   ],
+   "store.payment_methods": [
+    22,
+    30
+   ],
+   "store.robots": [
+    29,
+    30
+   ],
+   "store.site_search": [
+    12,
+    30
+   ],
+   "store.sitemap": [
+    17,
+    30
+   ],
+   "store.size_guide": [
+    5,
+    30
+   ],
+   "store.ucp_discovery": [
+    12,
+    30
+   ],
+   "variant.availability": [
+    18,
+    30
+   ],
+   "variant.colour": [
+    9,
+    30
+   ],
+   "variant.cut": [
+    1,
+    30
+   ],
+   "variant.options": [
+    11,
+    30
+   ],
+   "variant.size": [
+    11,
+    30
+   ]
+  },
+  "bags-accessories": {
+   "badge.claims": [
+    12,
+    34
+   ],
+   "badge.merchandising": [
+    5,
+    34
+   ],
+   "delivery.cost": [
+    14,
+    34
+   ],
+   "delivery.estimate": [
+    20,
+    34
+   ],
+   "delivery.free_threshold": [
+    4,
+    34
+   ],
+   "delivery.pickup": [
+    2,
+    34
+   ],
+   "delivery.regions": [
+    25,
+    34
+   ],
+   "delivery.requires_shipping": [
+    15,
+    34
+   ],
+   "delivery.restrictions": [
+    11,
+    34
+   ],
+   "delivery.shipping_details": [
+    1,
+    34
+   ],
+   "identity.audience": [
+    2,
+    34
+   ],
+   "identity.brand": [
+    24,
+    34
+   ],
+   "identity.gtin": [
+    17,
+    34
+   ],
+   "identity.product_type": [
+    24,
+    34
+   ],
+   "identity.sku": [
+    25,
+    34
+   ],
+   "identity.tags": [
+    17,
+    34
+   ],
+   "media.alt_text": [
+    22,
+    34
+   ],
+   "media.images": [
+    28,
+    34
+   ],
+   "nav.collections": [
+    15,
+    34
+   ],
+   "nav.recommendations": [
+    9,
+    34
+   ],
+   "offer.bundle": [
+    8,
+    34
+   ],
+   "offer.personalisation": [
+    3,
+    34
+   ],
+   "policy.minimum_order": [
+    1,
+    34
+   ],
+   "policy.privacy": [
+    26,
+    34
+   ],
+   "policy.shipping": [
+    21,
+    34
+   ],
+   "policy.subscription": [
+    1,
+    34
+   ],
+   "policy.terms": [
+    25,
+    34
+   ],
+   "policy.warranty": [
+    25,
+    34
+   ],
+   "price.cart_total": [
+    17,
+    34
+   ],
+   "price.compare_at": [
+    15,
+    34
+   ],
+   "price.current": [
+    27,
+    34
+   ],
+   "price.discount": [
+    2,
+    34
+   ],
+   "price.promo_banner": [
+    23,
+    34
+   ],
+   "price.taxable": [
+    16,
+    34
+   ],
+   "product.capacity": [
+    11,
+    34
+   ],
+   "product.care": [
+    4,
+    34
+   ],
+   "product.category_facts": [
+    7,
+    34
+   ],
+   "product.compatibility": [
+    13,
+    34
+   ],
+   "product.description": [
+    27,
+    34
+   ],
+   "product.directions": [
+    2,
+    34
+   ],
+   "product.documents": [
+    6,
+    34
+   ],
+   "product.features": [
+    9,
+    34
+   ],
+   "product.fit_notes": [
+    6,
+    34
+   ],
+   "product.materials": [
+    16,
+    34
+   ],
+   "product.measurements": [
+    20,
+    34
+   ],
+   "product.origin": [
+    2,
+    34
+   ],
+   "product.published_date": [
+    15,
+    34
+   ],
+   "product.size_chart": [
+    10,
+    34
+   ],
+   "product.specs": [
+    24,
+    34
+   ],
+   "product.title": [
+    27,
+    34
+   ],
+   "product.weight": [
+    18,
+    34
+   ],
+   "product.whats_included": [
+    3,
+    34
+   ],
+   "returns.fee": [
+    12,
+    34
+   ],
+   "returns.final_sale": [
+    2,
+    34
+   ],
+   "returns.policy": [
+    27,
+    34
+   ],
+   "returns.window": [
+    14,
+    34
+   ],
+   "reviews.count": [
+    7,
+    34
+   ],
+   "reviews.qa": [
+    3,
+    34
+   ],
+   "reviews.rating": [
+    7,
+    34
+   ],
+   "reviews.text": [
+    16,
+    34
+   ],
+   "stock.cart_sold_out": [
+    5,
+    34
+   ],
+   "stock.count": [
+    5,
+    34
+   ],
+   "stock.pickup": [
+    1,
+    34
+   ],
+   "stock.preorder": [
+    11,
+    34
+   ],
+   "stock.tracking": [
+    6,
+    34
+   ],
+   "store.about": [
+    25,
+    34
+   ],
+   "store.agents_md": [
+    15,
+    34
+   ],
+   "store.checkout_gates": [
+    1,
+    34
+   ],
+   "store.contact": [
+    26,
+    34
+   ],
+   "store.faq": [
+    18,
+    34
+   ],
+   "store.llms_txt": [
+    18,
+    34
+   ],
+   "store.loyalty": [
+    6,
+    34
+   ],
+   "store.market": [
+    15,
+    34
+   ],
+   "store.payment_methods": [
+    29,
+    34
+   ],
+   "store.robots": [
+    29,
+    34
+   ],
+   "store.site_search": [
+    14,
+    34
+   ],
+   "store.sitemap": [
+    25,
+    34
+   ],
+   "store.size_guide": [
+    3,
+    34
+   ],
+   "store.ucp_discovery": [
+    18,
+    34
+   ],
+   "variant.availability": [
+    27,
+    34
+   ],
+   "variant.colour": [
+    22,
+    34
+   ],
+   "variant.cut": [
+    1,
+    34
+   ],
+   "variant.options": [
+    21,
+    34
+   ],
+   "variant.size": [
+    18,
+    34
+   ]
+  },
+  "books-stationery": {
+   "badge.claims": [
+    8,
+    29
+   ],
+   "badge.merchandising": [
+    5,
+    29
+   ],
+   "delivery.cost": [
+    9,
+    29
+   ],
+   "delivery.estimate": [
+    11,
+    29
+   ],
+   "delivery.free_threshold": [
+    4,
+    29
+   ],
+   "delivery.pickup": [
+    1,
+    29
+   ],
+   "delivery.regions": [
+    16,
+    29
+   ],
+   "delivery.requires_shipping": [
+    3,
+    29
+   ],
+   "delivery.restrictions": [
+    5,
+    29
+   ],
+   "delivery.shipping_details": [
+    1,
+    29
+   ],
+   "identity.audience": [
+    2,
+    29
+   ],
+   "identity.brand": [
+    8,
+    29
+   ],
+   "identity.gtin": [
+    9,
+    29
+   ],
+   "identity.product_type": [
+    6,
+    29
+   ],
+   "identity.sku": [
+    12,
+    29
+   ],
+   "identity.tags": [
+    4,
+    29
+   ],
+   "media.alt_text": [
+    8,
+    29
+   ],
+   "media.images": [
+    13,
+    29
+   ],
+   "media.video": [
+    3,
+    29
+   ],
+   "nav.collections": [
+    3,
+    29
+   ],
+   "nav.recommendations": [
+    6,
+    29
+   ],
+   "offer.personalisation": [
+    3,
+    29
+   ],
+   "offer.subscription": [
+    1,
+    29
+   ],
+   "policy.privacy": [
+    12,
+    29
+   ],
+   "policy.shipping": [
+    8,
+    29
+   ],
+   "policy.terms": [
+    10,
+    29
+   ],
+   "policy.warranty": [
+    9,
+    29
+   ],
+   "price.cart_total": [
+    2,
+    29
+   ],
+   "price.compare_at": [
+    3,
+    29
+   ],
+   "price.current": [
+    12,
+    29
+   ],
+   "price.promo_banner": [
+    11,
+    29
+   ],
+   "price.taxable": [
+    3,
+    29
+   ],
+   "product.capacity": [
+    2,
+    29
+   ],
+   "product.care": [
+    1,
+    29
+   ],
+   "product.category_facts": [
+    8,
+    29
+   ],
+   "product.compatibility": [
+    4,
+    29
+   ],
+   "product.description": [
+    13,
+    29
+   ],
+   "product.directions": [
+    1,
+    29
+   ],
+   "product.documents": [
+    3,
+    29
+   ],
+   "product.features": [
+    5,
+    29
+   ],
+   "product.fit_notes": [
+    1,
+    29
+   ],
+   "product.ingredients": [
+    1,
+    29
+   ],
+   "product.materials": [
+    2,
+    29
+   ],
+   "product.measurements": [
+    7,
+    29
+   ],
+   "product.origin": [
+    2,
+    29
+   ],
+   "product.published_date": [
+    4,
+    29
+   ],
+   "product.size_chart": [
+    2,
+    29
+   ],
+   "product.specs": [
+    10,
+    29
+   ],
+   "product.title": [
+    12,
+    29
+   ],
+   "product.warnings": [
+    1,
+    29
+   ],
+   "product.weight": [
+    7,
+    29
+   ],
+   "product.whats_included": [
+    1,
+    29
+   ],
+   "returns.policy": [
+    9,
+    29
+   ],
+   "returns.window": [
+    8,
+    29
+   ],
+   "reviews.count": [
+    3,
+    29
+   ],
+   "reviews.qa": [
+    1,
+    29
+   ],
+   "reviews.rating": [
+    3,
+    29
+   ],
+   "reviews.text": [
+    7,
+    29
+   ],
+   "stock.cart_sold_out": [
+    1,
+    29
+   ],
+   "stock.count": [
+    5,
+    29
+   ],
+   "stock.preorder": [
+    6,
+    29
+   ],
+   "stock.tracking": [
+    2,
+    29
+   ],
+   "store.about": [
+    16,
+    29
+   ],
+   "store.agents_md": [
+    3,
+    29
+   ],
+   "store.checkout_gates": [
+    2,
+    29
+   ],
+   "store.contact": [
+    11,
+    29
+   ],
+   "store.faq": [
+    8,
+    29
+   ],
+   "store.llms_txt": [
+    3,
+    29
+   ],
+   "store.loyalty": [
+    5,
+    29
+   ],
+   "store.market": [
+    3,
+    29
+   ],
+   "store.payment_methods": [
+    9,
+    29
+   ],
+   "store.robots": [
+    28,
+    29
+   ],
+   "store.site_search": [
+    9,
+    29
+   ],
+   "store.sitemap": [
+    15,
+    29
+   ],
+   "store.ucp_discovery": [
+    11,
+    29
+   ],
+   "variant.availability": [
+    12,
+    29
+   ],
+   "variant.colour": [
+    4,
+    29
+   ],
+   "variant.options": [
+    5,
+    29
+   ],
+   "variant.size": [
+    4,
+    29
+   ]
+  },
+  "clothing-adult": {
+   "badge.claims": [
+    7,
+    32
+   ],
+   "badge.merchandising": [
+    1,
+    32
+   ],
+   "delivery.cost": [
+    8,
+    32
+   ],
+   "delivery.estimate": [
+    11,
+    32
+   ],
+   "delivery.free_threshold": [
+    3,
+    32
+   ],
+   "delivery.pickup": [
+    3,
+    32
+   ],
+   "delivery.regions": [
+    12,
+    32
+   ],
+   "delivery.requires_shipping": [
+    3,
+    32
+   ],
+   "delivery.restrictions": [
+    8,
+    32
+   ],
+   "identity.audience": [
+    1,
+    32
+   ],
+   "identity.brand": [
+    6,
+    32
+   ],
+   "identity.gtin": [
+    6,
+    32
+   ],
+   "identity.product_type": [
+    17,
+    32
+   ],
+   "identity.sku": [
+    21,
+    32
+   ],
+   "identity.tags": [
+    15,
+    32
+   ],
+   "media.alt_text": [
+    15,
+    32
+   ],
+   "media.images": [
+    21,
+    32
+   ],
+   "nav.collections": [
+    3,
+    32
+   ],
+   "nav.recommendations": [
+    5,
+    32
+   ],
+   "offer.bundle": [
+    1,
+    32
+   ],
+   "offer.gift_card": [
+    1,
+    32
+   ],
+   "offer.gift_options": [
+    1,
+    32
+   ],
+   "offer.personalisation": [
+    1,
+    32
+   ],
+   "policy.privacy": [
+    24,
+    32
+   ],
+   "policy.shipping": [
+    23,
+    32
+   ],
+   "policy.subscription": [
+    1,
+    32
+   ],
+   "policy.terms": [
+    23,
+    32
+   ],
+   "policy.warranty": [
+    12,
+    32
+   ],
+   "price.cart_total": [
+    15,
+    32
+   ],
+   "price.compare_at": [
+    10,
+    32
+   ],
+   "price.current": [
+    21,
+    32
+   ],
+   "price.discount": [
+    2,
+    32
+   ],
+   "price.promo_banner": [
+    14,
+    32
+   ],
+   "price.taxable": [
+    3,
+    32
+   ],
+   "product.care": [
+    3,
+    32
+   ],
+   "product.category_facts": [
+    3,
+    32
+   ],
+   "product.compatibility": [
+    4,
+    32
+   ],
+   "product.description": [
+    21,
+    32
+   ],
+   "product.documents": [
+    4,
+    32
+   ],
+   "product.features": [
+    1,
+    32
+   ],
+   "product.fit_notes": [
+    6,
+    32
+   ],
+   "product.materials": [
+    7,
+    32
+   ],
+   "product.measurements": [
+    6,
+    32
+   ],
+   "product.origin": [
+    1,
+    32
+   ],
+   "product.published_date": [
+    3,
+    32
+   ],
+   "product.size_chart": [
+    9,
+    32
+   ],
+   "product.specs": [
+    8,
+    32
+   ],
+   "product.title": [
+    21,
+    32
+   ],
+   "product.warnings": [
+    1,
+    32
+   ],
+   "product.weight": [
+    3,
+    32
+   ],
+   "returns.fee": [
+    6,
+    32
+   ],
+   "returns.final_sale": [
+    3,
+    32
+   ],
+   "returns.policy": [
+    24,
+    32
+   ],
+   "returns.window": [
+    9,
+    32
+   ],
+   "reviews.count": [
+    4,
+    32
+   ],
+   "reviews.qa": [
+    1,
+    32
+   ],
+   "reviews.rating": [
+    4,
+    32
+   ],
+   "reviews.text": [
+    9,
+    32
+   ],
+   "stock.cart_sold_out": [
+    3,
+    32
+   ],
+   "stock.count": [
+    2,
+    32
+   ],
+   "stock.pickup": [
+    3,
+    32
+   ],
+   "stock.preorder": [
+    1,
+    32
+   ],
+   "stock.tracking": [
+    3,
+    32
+   ],
+   "store.about": [
+    14,
+    32
+   ],
+   "store.agents_md": [
+    3,
+    32
+   ],
+   "store.contact": [
+    21,
+    32
+   ],
+   "store.faq": [
+    6,
+    32
+   ],
+   "store.llms_txt": [
+    5,
+    32
+   ],
+   "store.loyalty": [
+    5,
+    32
+   ],
+   "store.market": [
+    3,
+    32
+   ],
+   "store.payment_methods": [
+    26,
+    32
+   ],
+   "store.robots": [
+    18,
+    32
+   ],
+   "store.site_search": [
+    9,
+    32
+   ],
+   "store.sitemap": [
+    13,
+    32
+   ],
+   "store.size_guide": [
+    6,
+    32
+   ],
+   "store.ucp_discovery": [
+    6,
+    32
+   ],
+   "variant.availability": [
+    21,
+    32
+   ],
+   "variant.colour": [
+    13,
+    32
+   ],
+   "variant.cut": [
+    5,
+    32
+   ],
+   "variant.options": [
+    17,
+    32
+   ],
+   "variant.size": [
+    18,
+    32
+   ]
+  },
+  "computers-accessories": {
+   "badge.claims": [
+    12,
+    29
+   ],
+   "delivery.cost": [
+    6,
+    29
+   ],
+   "delivery.estimate": [
+    10,
+    29
+   ],
+   "delivery.free_threshold": [
+    3,
+    29
+   ],
+   "delivery.pickup": [
+    3,
+    29
+   ],
+   "delivery.regions": [
+    15,
+    29
+   ],
+   "delivery.requires_shipping": [
+    2,
+    29
+   ],
+   "delivery.restrictions": [
+    6,
+    29
+   ],
+   "delivery.shipping_details": [
+    2,
+    29
+   ],
+   "identity.brand": [
+    9,
+    29
+   ],
+   "identity.gtin": [
+    7,
+    29
+   ],
+   "identity.product_type": [
+    10,
+    29
+   ],
+   "identity.sku": [
+    13,
+    29
+   ],
+   "identity.tags": [
+    3,
+    29
+   ],
+   "media.alt_text": [
+    11,
+    29
+   ],
+   "media.images": [
+    12,
+    29
+   ],
+   "media.video": [
+    3,
+    29
+   ],
+   "nav.collections": [
+    2,
+    29
+   ],
+   "nav.recommendations": [
+    12,
+    29
+   ],
+   "offer.bundle": [
+    1,
+    29
+   ],
+   "offer.subscription": [
+    1,
+    29
+   ],
+   "policy.privacy": [
+    15,
+    29
+   ],
+   "policy.shipping": [
+    5,
+    29
+   ],
+   "policy.terms": [
+    8,
+    29
+   ],
+   "policy.warranty": [
+    19,
+    29
+   ],
+   "price.compare_at": [
+    3,
+    29
+   ],
+   "price.current": [
+    11,
+    29
+   ],
+   "price.promo_banner": [
+    10,
+    29
+   ],
+   "price.taxable": [
+    3,
+    29
+   ],
+   "product.capacity": [
+    3,
+    29
+   ],
+   "product.category_facts": [
+    4,
+    29
+   ],
+   "product.compatibility": [
+    13,
+    29
+   ],
+   "product.description": [
+    12,
+    29
+   ],
+   "product.documents": [
+    11,
+    29
+   ],
+   "product.features": [
+    7,
+    29
+   ],
+   "product.materials": [
+    5,
+    29
+   ],
+   "product.measurements": [
+    9,
+    29
+   ],
+   "product.power": [
+    3,
+    29
+   ],
+   "product.published_date": [
+    2,
+    29
+   ],
+   "product.size_chart": [
+    2,
+    29
+   ],
+   "product.specs": [
+    12,
+    29
+   ],
+   "product.title": [
+    11,
+    29
+   ],
+   "product.warnings": [
+    4,
+    29
+   ],
+   "product.weight": [
+    8,
+    29
+   ],
+   "product.whats_included": [
+    5,
+    29
+   ],
+   "returns.fee": [
+    1,
+    29
+   ],
+   "returns.policy": [
+    9,
+    29
+   ],
+   "returns.window": [
+    8,
+    29
+   ],
+   "reviews.count": [
+    3,
+    29
+   ],
+   "reviews.qa": [
+    4,
+    29
+   ],
+   "reviews.rating": [
+    3,
+    29
+   ],
+   "reviews.text": [
+    6,
+    29
+   ],
+   "stock.count": [
+    3,
+    29
+   ],
+   "stock.pickup": [
+    2,
+    29
+   ],
+   "stock.preorder": [
+    5,
+    29
+   ],
+   "store.about": [
+    15,
+    29
+   ],
+   "store.agents_md": [
+    2,
+    29
+   ],
+   "store.checkout_gates": [
+    2,
+    29
+   ],
+   "store.contact": [
+    14,
+    29
+   ],
+   "store.faq": [
+    6,
+    29
+   ],
+   "store.llms_txt": [
+    8,
+    29
+   ],
+   "store.loyalty": [
+    2,
+    29
+   ],
+   "store.market": [
+    2,
+    29
+   ],
+   "store.payment_methods": [
+    12,
+    29
+   ],
+   "store.robots": [
+    28,
+    29
+   ],
+   "store.site_search": [
+    8,
+    29
+   ],
+   "store.sitemap": [
+    15,
+    29
+   ],
+   "store.ucp_discovery": [
+    6,
+    29
+   ],
+   "variant.availability": [
+    11,
+    29
+   ],
+   "variant.colour": [
+    8,
+    29
+   ],
+   "variant.options": [
+    5,
+    29
+   ],
+   "variant.size": [
+    7,
+    29
+   ]
+  },
+  "consumer-electronics": {
+   "badge.claims": [
+    14,
+    34
+   ],
+   "badge.merchandising": [
+    3,
+    34
+   ],
+   "delivery.cost": [
+    14,
+    34
+   ],
+   "delivery.estimate": [
+    16,
+    34
+   ],
+   "delivery.free_threshold": [
+    7,
+    34
+   ],
+   "delivery.pickup": [
+    10,
+    34
+   ],
+   "delivery.regions": [
+    25,
+    34
+   ],
+   "delivery.requires_shipping": [
+    3,
+    34
+   ],
+   "delivery.restrictions": [
+    8,
+    34
+   ],
+   "delivery.shipping_details": [
+    3,
+    34
+   ],
+   "identity.brand": [
+    18,
+    34
+   ],
+   "identity.gtin": [
+    12,
+    34
+   ],
+   "identity.product_type": [
+    10,
+    34
+   ],
+   "identity.sku": [
+    14,
+    34
+   ],
+   "identity.tags": [
+    4,
+    34
+   ],
+   "media.alt_text": [
+    15,
+    34
+   ],
+   "media.images": [
+    15,
+    34
+   ],
+   "media.video": [
+    1,
+    34
+   ],
+   "nav.collections": [
+    2,
+    34
+   ],
+   "nav.recommendations": [
+    14,
+    34
+   ],
+   "offer.subscription": [
+    2,
+    34
+   ],
+   "policy.privacy": [
+    18,
+    34
+   ],
+   "policy.shipping": [
+    13,
+    34
+   ],
+   "policy.terms": [
+    15,
+    34
+   ],
+   "policy.warranty": [
+    28,
+    34
+   ],
+   "price.cart_total": [
+    1,
+    34
+   ],
+   "price.compare_at": [
+    4,
+    34
+   ],
+   "price.current": [
+    15,
+    34
+   ],
+   "price.promo_banner": [
+    22,
+    34
+   ],
+   "price.taxable": [
+    2,
+    34
+   ],
+   "price.unit": [
+    1,
+    34
+   ],
+   "product.care": [
+    1,
+    34
+   ],
+   "product.category_facts": [
+    8,
+    34
+   ],
+   "product.compatibility": [
+    16,
+    34
+   ],
+   "product.description": [
+    14,
+    34
+   ],
+   "product.documents": [
+    13,
+    34
+   ],
+   "product.features": [
+    10,
+    34
+   ],
+   "product.materials": [
+    4,
+    34
+   ],
+   "product.measurements": [
+    11,
+    34
+   ],
+   "product.origin": [
+    3,
+    34
+   ],
+   "product.power": [
+    6,
+    34
+   ],
+   "product.published_date": [
+    3,
+    34
+   ],
+   "product.size_chart": [
+    6,
+    34
+   ],
+   "product.specs": [
+    18,
+    34
+   ],
+   "product.title": [
+    14,
+    34
+   ],
+   "product.warnings": [
+    1,
+    34
+   ],
+   "product.weight": [
+    11,
+    34
+   ],
+   "product.whats_included": [
+    9,
+    34
+   ],
+   "returns.fee": [
+    6,
+    34
+   ],
+   "returns.final_sale": [
+    1,
+    34
+   ],
+   "returns.policy": [
+    18,
+    34
+   ],
+   "returns.window": [
+    15,
+    34
+   ],
+   "reviews.count": [
+    6,
+    34
+   ],
+   "reviews.qa": [
+    9,
+    34
+   ],
+   "reviews.rating": [
+    7,
+    34
+   ],
+   "reviews.text": [
+    16,
+    34
+   ],
+   "stock.count": [
+    5,
+    34
+   ],
+   "stock.pickup": [
+    5,
+    34
+   ],
+   "stock.preorder": [
+    10,
+    34
+   ],
+   "stock.tracking": [
+    2,
+    34
+   ],
+   "store.about": [
+    26,
+    34
+   ],
+   "store.agents_md": [
+    3,
+    34
+   ],
+   "store.checkout_gates": [
+    1,
+    34
+   ],
+   "store.contact": [
+    21,
+    34
+   ],
+   "store.faq": [
+    10,
+    34
+   ],
+   "store.llms_txt": [
+    14,
+    34
+   ],
+   "store.loyalty": [
+    9,
+    34
+   ],
+   "store.market": [
+    2,
+    34
+   ],
+   "store.payment_methods": [
+    21,
+    34
+   ],
+   "store.robots": [
+    34,
+    34
+   ],
+   "store.site_search": [
+    13,
+    34
+   ],
+   "store.sitemap": [
+    27,
+    34
+   ],
+   "store.ucp_discovery": [
+    7,
+    34
+   ],
+   "variant.availability": [
+    16,
+    34
+   ],
+   "variant.colour": [
+    11,
+    34
+   ],
+   "variant.cut": [
+    1,
+    34
+   ],
+   "variant.options": [
+    7,
+    34
+   ],
+   "variant.size": [
+    4,
+    34
+   ]
+  },
+  "food-non-alcohol": {
+   "badge.claims": [
+    24,
+    39
+   ],
+   "badge.merchandising": [
+    4,
+    39
+   ],
+   "delivery.cost": [
+    14,
+    39
+   ],
+   "delivery.estimate": [
+    24,
+    39
+   ],
+   "delivery.free_threshold": [
+    10,
+    39
+   ],
+   "delivery.pickup": [
+    4,
+    39
+   ],
+   "delivery.regions": [
+    27,
+    39
+   ],
+   "delivery.requires_shipping": [
+    16,
+    39
+   ],
+   "delivery.restrictions": [
+    17,
+    39
+   ],
+   "delivery.shipping_details": [
+    3,
+    39
+   ],
+   "identity.audience": [
+    1,
+    39
+   ],
+   "identity.brand": [
+    26,
+    39
+   ],
+   "identity.gtin": [
+    20,
+    39
+   ],
+   "identity.product_type": [
+    30,
+    39
+   ],
+   "identity.sku": [
+    33,
+    39
+   ],
+   "identity.tags": [
+    22,
+    39
+   ],
+   "media.alt_text": [
+    31,
+    39
+   ],
+   "media.images": [
+    35,
+    39
+   ],
+   "media.video": [
+    1,
+    39
+   ],
+   "nav.collections": [
+    16,
+    39
+   ],
+   "nav.recommendations": [
+    12,
+    39
+   ],
+   "offer.bundle": [
+    11,
+    39
+   ],
+   "offer.gift_card": [
+    3,
+    39
+   ],
+   "offer.gift_options": [
+    1,
+    39
+   ],
+   "offer.subscription": [
+    15,
+    39
+   ],
+   "policy.minimum_order": [
+    1,
+    39
+   ],
+   "policy.privacy": [
+    33,
+    39
+   ],
+   "policy.shipping": [
+    19,
+    39
+   ],
+   "policy.subscription": [
+    8,
+    39
+   ],
+   "policy.terms": [
+    33,
+    39
+   ],
+   "policy.warranty": [
+    28,
+    39
+   ],
+   "price.cart_total": [
+    16,
+    39
+   ],
+   "price.compare_at": [
+    18,
+    39
+   ],
+   "price.current": [
+    33,
+    39
+   ],
+   "price.discount": [
+    3,
+    39
+   ],
+   "price.promo_banner": [
+    26,
+    39
+   ],
+   "price.taxable": [
+    16,
+    39
+   ],
+   "price.unit": [
+    1,
+    39
+   ],
+   "product.allergens": [
+    4,
+    39
+   ],
+   "product.capacity": [
+    2,
+    39
+   ],
+   "product.care": [
+    4,
+    39
+   ],
+   "product.category_facts": [
+    27,
+    39
+   ],
+   "product.compatibility": [
+    9,
+    39
+   ],
+   "product.description": [
+    35,
+    39
+   ],
+   "product.directions": [
+    2,
+    39
+   ],
+   "product.documents": [
+    11,
+    39
+   ],
+   "product.features": [
+    5,
+    39
+   ],
+   "product.fit_notes": [
+    1,
+    39
+   ],
+   "product.ingredients": [
+    16,
+    39
+   ],
+   "product.materials": [
+    8,
+    39
+   ],
+   "product.measurements": [
+    7,
+    39
+   ],
+   "product.nutrition": [
+    11,
+    39
+   ],
+   "product.origin": [
+    4,
+    39
+   ],
+   "product.power": [
+    2,
+    39
+   ],
+   "product.published_date": [
+    16,
+    39
+   ],
+   "product.size_chart": [
+    4,
+    39
+   ],
+   "product.specs": [
+    27,
+    39
+   ],
+   "product.title": [
+    35,
+    39
+   ],
+   "product.warnings": [
+    4,
+    39
+   ],
+   "product.weight": [
+    20,
+    39
+   ],
+   "product.whats_included": [
+    7,
+    39
+   ],
+   "returns.fee": [
+    1,
+    39
+   ],
+   "returns.policy": [
+    24,
+    39
+   ],
+   "returns.window": [
+    8,
+    39
+   ],
+   "reviews.count": [
+    12,
+    39
+   ],
+   "reviews.qa": [
+    8,
+    39
+   ],
+   "reviews.rating": [
+    12,
+    39
+   ],
+   "reviews.text": [
+    23,
+    39
+   ],
+   "stock.cart_sold_out": [
+    2,
+    39
+   ],
+   "stock.count": [
+    9,
+    39
+   ],
+   "stock.pickup": [
+    1,
+    39
+   ],
+   "stock.preorder": [
+    12,
+    39
+   ],
+   "stock.qty_limits": [
+    2,
+    39
+   ],
+   "stock.tracking": [
+    5,
+    39
+   ],
+   "store.about": [
+    29,
+    39
+   ],
+   "store.agents_md": [
+    16,
+    39
+   ],
+   "store.checkout_gates": [
+    2,
+    39
+   ],
+   "store.contact": [
+    27,
+    39
+   ],
+   "store.faq": [
+    19,
+    39
+   ],
+   "store.llms_txt": [
+    17,
+    39
+   ],
+   "store.loyalty": [
+    13,
+    39
+   ],
+   "store.market": [
+    16,
+    39
+   ],
+   "store.payment_methods": [
+    29,
+    39
+   ],
+   "store.robots": [
+    32,
+    39
+   ],
+   "store.site_search": [
+    15,
+    39
+   ],
+   "store.sitemap": [
+    30,
+    39
+   ],
+   "store.ucp_discovery": [
+    18,
+    39
+   ],
+   "variant.availability": [
+    34,
+    39
+   ],
+   "variant.colour": [
+    11,
+    39
+   ],
+   "variant.options": [
+    27,
+    39
+   ],
+   "variant.size": [
+    21,
+    39
+   ]
+  },
+  "footwear": {
+   "badge.claims": [
+    7,
+    25
+   ],
+   "badge.merchandising": [
+    6,
+    25
+   ],
+   "delivery.cost": [
+    10,
+    25
+   ],
+   "delivery.estimate": [
+    7,
+    25
+   ],
+   "delivery.free_threshold": [
+    6,
+    25
+   ],
+   "delivery.pickup": [
+    3,
+    25
+   ],
+   "delivery.regions": [
+    14,
+    25
+   ],
+   "delivery.requires_shipping": [
+    4,
+    25
+   ],
+   "delivery.restrictions": [
+    5,
+    25
+   ],
+   "delivery.shipping_details": [
+    4,
+    25
+   ],
+   "identity.audience": [
+    4,
+    25
+   ],
+   "identity.brand": [
+    9,
+    25
+   ],
+   "identity.gtin": [
+    7,
+    25
+   ],
+   "identity.product_type": [
+    5,
+    25
+   ],
+   "identity.sku": [
+    9,
+    25
+   ],
+   "identity.tags": [
+    4,
+    25
+   ],
+   "media.alt_text": [
+    10,
+    25
+   ],
+   "media.images": [
+    12,
+    25
+   ],
+   "media.video": [
+    1,
+    25
+   ],
+   "nav.collections": [
+    5,
+    25
+   ],
+   "nav.recommendations": [
+    8,
+    25
+   ],
+   "offer.bundle": [
+    3,
+    25
+   ],
+   "policy.privacy": [
+    13,
+    25
+   ],
+   "policy.shipping": [
+    10,
+    25
+   ],
+   "policy.terms": [
+    14,
+    25
+   ],
+   "policy.warranty": [
+    11,
+    25
+   ],
+   "price.cart_total": [
+    4,
+    25
+   ],
+   "price.compare_at": [
+    6,
+    25
+   ],
+   "price.current": [
+    11,
+    25
+   ],
+   "price.promo_banner": [
+    12,
+    25
+   ],
+   "price.taxable": [
+    4,
+    25
+   ],
+   "product.care": [
+    7,
+    25
+   ],
+   "product.category_facts": [
+    4,
+    25
+   ],
+   "product.compatibility": [
+    2,
+    25
+   ],
+   "product.description": [
+    10,
+    25
+   ],
+   "product.documents": [
+    5,
+    25
+   ],
+   "product.features": [
+    3,
+    25
+   ],
+   "product.fit_notes": [
+    4,
+    25
+   ],
+   "product.materials": [
+    7,
+    25
+   ],
+   "product.measurements": [
+    8,
+    25
+   ],
+   "product.origin": [
+    1,
+    25
+   ],
+   "product.published_date": [
+    4,
+    25
+   ],
+   "product.size_chart": [
+    11,
+    25
+   ],
+   "product.specs": [
+    12,
+    25
+   ],
+   "product.title": [
+    10,
+    25
+   ],
+   "product.weight": [
+    5,
+    25
+   ],
+   "returns.fee": [
+    7,
+    25
+   ],
+   "returns.final_sale": [
+    1,
+    25
+   ],
+   "returns.policy": [
+    14,
+    25
+   ],
+   "returns.window": [
+    11,
+    25
+   ],
+   "reviews.count": [
+    6,
+    25
+   ],
+   "reviews.qa": [
+    1,
+    25
+   ],
+   "reviews.rating": [
+    6,
+    25
+   ],
+   "reviews.text": [
+    9,
+    25
+   ],
+   "stock.cart_sold_out": [
+    1,
+    25
+   ],
+   "stock.count": [
+    2,
+    25
+   ],
+   "stock.pickup": [
+    2,
+    25
+   ],
+   "stock.preorder": [
+    3,
+    25
+   ],
+   "stock.tracking": [
+    2,
+    25
+   ],
+   "store.about": [
+    17,
+    25
+   ],
+   "store.agents_md": [
+    5,
+    25
+   ],
+   "store.checkout_gates": [
+    1,
+    25
+   ],
+   "store.contact": [
+    14,
+    25
+   ],
+   "store.faq": [
+    9,
+    25
+   ],
+   "store.llms_txt": [
+    7,
+    25
+   ],
+   "store.loyalty": [
+    6,
+    25
+   ],
+   "store.market": [
+    4,
+    25
+   ],
+   "store.payment_methods": [
+    14,
+    25
+   ],
+   "store.robots": [
+    25,
+    25
+   ],
+   "store.site_search": [
+    6,
+    25
+   ],
+   "store.sitemap": [
+    15,
+    25
+   ],
+   "store.size_guide": [
+    7,
+    25
+   ],
+   "store.ucp_discovery": [
+    8,
+    25
+   ],
+   "variant.availability": [
+    9,
+    25
+   ],
+   "variant.colour": [
+    10,
+    25
+   ],
+   "variant.options": [
+    8,
+    25
+   ],
+   "variant.size": [
+    9,
+    25
+   ]
+  },
+  "furniture": {
+   "badge.claims": [
+    13,
+    31
+   ],
+   "badge.merchandising": [
+    5,
+    31
+   ],
+   "delivery.cost": [
+    14,
+    31
+   ],
+   "delivery.estimate": [
+    15,
+    31
+   ],
+   "delivery.free_threshold": [
+    1,
+    31
+   ],
+   "delivery.pickup": [
+    10,
+    31
+   ],
+   "delivery.regions": [
+    17,
+    31
+   ],
+   "delivery.requires_shipping": [
+    6,
+    31
+   ],
+   "delivery.restrictions": [
+    5,
+    31
+   ],
+   "delivery.shipping_details": [
+    3,
+    31
+   ],
+   "identity.brand": [
+    20,
+    31
+   ],
+   "identity.gtin": [
+    12,
+    31
+   ],
+   "identity.product_type": [
+    13,
+    31
+   ],
+   "identity.sku": [
+    17,
+    31
+   ],
+   "identity.tags": [
+    7,
+    31
+   ],
+   "media.alt_text": [
+    19,
+    31
+   ],
+   "media.images": [
+    21,
+    31
+   ],
+   "media.video": [
+    2,
+    31
+   ],
+   "nav.collections": [
+    6,
+    31
+   ],
+   "nav.recommendations": [
+    9,
+    31
+   ],
+   "offer.gift_card": [
+    1,
+    31
+   ],
+   "policy.privacy": [
+    13,
+    31
+   ],
+   "policy.shipping": [
+    13,
+    31
+   ],
+   "policy.terms": [
+    13,
+    31
+   ],
+   "policy.warranty": [
+    19,
+    31
+   ],
+   "price.cart_total": [
+    1,
+    31
+   ],
+   "price.compare_at": [
+    4,
+    31
+   ],
+   "price.current": [
+    21,
+    31
+   ],
+   "price.promo_banner": [
+    22,
+    31
+   ],
+   "price.taxable": [
+    5,
+    31
+   ],
+   "product.care": [
+    4,
+    31
+   ],
+   "product.category_facts": [
+    7,
+    31
+   ],
+   "product.compatibility": [
+    8,
+    31
+   ],
+   "product.description": [
+    20,
+    31
+   ],
+   "product.documents": [
+    11,
+    31
+   ],
+   "product.features": [
+    7,
+    31
+   ],
+   "product.materials": [
+    8,
+    31
+   ],
+   "product.measurements": [
+    12,
+    31
+   ],
+   "product.origin": [
+    1,
+    31
+   ],
+   "product.published_date": [
+    6,
+    31
+   ],
+   "product.size_chart": [
+    5,
+    31
+   ],
+   "product.specs": [
+    16,
+    31
+   ],
+   "product.title": [
+    18,
+    31
+   ],
+   "product.warnings": [
+    1,
+    31
+   ],
+   "product.weight": [
+    10,
+    31
+   ],
+   "product.whats_included": [
+    3,
+    31
+   ],
+   "returns.fee": [
+    7,
+    31
+   ],
+   "returns.policy": [
+    16,
+    31
+   ],
+   "returns.window": [
+    13,
+    31
+   ],
+   "reviews.count": [
+    8,
+    31
+   ],
+   "reviews.qa": [
+    8,
+    31
+   ],
+   "reviews.rating": [
+    8,
+    31
+   ],
+   "reviews.text": [
+    15,
+    31
+   ],
+   "stock.count": [
+    4,
+    31
+   ],
+   "stock.pickup": [
+    2,
+    31
+   ],
+   "stock.preorder": [
+    7,
+    31
+   ],
+   "stock.qty_limits": [
+    1,
+    31
+   ],
+   "stock.tracking": [
+    1,
+    31
+   ],
+   "store.about": [
+    22,
+    31
+   ],
+   "store.agents_md": [
+    6,
+    31
+   ],
+   "store.contact": [
+    16,
+    31
+   ],
+   "store.faq": [
+    11,
+    31
+   ],
+   "store.llms_txt": [
+    11,
+    31
+   ],
+   "store.loyalty": [
+    3,
+    31
+   ],
+   "store.market": [
+    6,
+    31
+   ],
+   "store.payment_methods": [
+    21,
+    31
+   ],
+   "store.robots": [
+    30,
+    31
+   ],
+   "store.site_search": [
+    10,
+    31
+   ],
+   "store.sitemap": [
+    23,
+    31
+   ],
+   "store.size_guide": [
+    2,
+    31
+   ],
+   "store.ucp_discovery": [
+    8,
+    31
+   ],
+   "variant.availability": [
+    19,
+    31
+   ],
+   "variant.colour": [
+    10,
+    31
+   ],
+   "variant.options": [
+    13,
+    31
+   ],
+   "variant.size": [
+    10,
+    31
+   ]
+  },
+  "garden-outdoor-home": {
+   "badge.claims": [
+    20,
+    29
+   ],
+   "badge.merchandising": [
+    5,
+    29
+   ],
+   "delivery.cost": [
+    16,
+    29
+   ],
+   "delivery.estimate": [
+    22,
+    29
+   ],
+   "delivery.free_threshold": [
+    10,
+    29
+   ],
+   "delivery.pickup": [
+    6,
+    29
+   ],
+   "delivery.regions": [
+    24,
+    29
+   ],
+   "delivery.requires_shipping": [
+    11,
+    29
+   ],
+   "delivery.restrictions": [
+    17,
+    29
+   ],
+   "delivery.shipping_details": [
+    5,
+    29
+   ],
+   "identity.audience": [
+    1,
+    29
+   ],
+   "identity.brand": [
+    19,
+    29
+   ],
+   "identity.gtin": [
+    18,
+    29
+   ],
+   "identity.product_type": [
+    18,
+    29
+   ],
+   "identity.sku": [
+    22,
+    29
+   ],
+   "identity.tags": [
+    11,
+    29
+   ],
+   "media.alt_text": [
+    22,
+    29
+   ],
+   "media.images": [
+    25,
+    29
+   ],
+   "media.video": [
+    6,
+    29
+   ],
+   "nav.collections": [
+    13,
+    29
+   ],
+   "nav.recommendations": [
+    21,
+    29
+   ],
+   "offer.bundle": [
+    6,
+    29
+   ],
+   "offer.gift_card": [
+    2,
+    29
+   ],
+   "offer.subscription": [
+    4,
+    29
+   ],
+   "policy.minimum_order": [
+    1,
+    29
+   ],
+   "policy.privacy": [
+    22,
+    29
+   ],
+   "policy.shipping": [
+    16,
+    29
+   ],
+   "policy.subscription": [
+    1,
+    29
+   ],
+   "policy.terms": [
+    21,
+    29
+   ],
+   "policy.warranty": [
+    28,
+    29
+   ],
+   "price.cart_total": [
+    4,
+    29
+   ],
+   "price.compare_at": [
+    10,
+    29
+   ],
+   "price.current": [
+    23,
+    29
+   ],
+   "price.promo_banner": [
+    21,
+    29
+   ],
+   "price.taxable": [
+    11,
+    29
+   ],
+   "product.capacity": [
+    4,
+    29
+   ],
+   "product.care": [
+    5,
+    29
+   ],
+   "product.category_facts": [
+    18,
+    29
+   ],
+   "product.compatibility": [
+    18,
+    29
+   ],
+   "product.description": [
+    21,
+    29
+   ],
+   "product.directions": [
+    3,
+    29
+   ],
+   "product.documents": [
+    17,
+    29
+   ],
+   "product.features": [
+    15,
+    29
+   ],
+   "product.ingredients": [
+    4,
+    29
+   ],
+   "product.materials": [
+    11,
+    29
+   ],
+   "product.measurements": [
+    14,
+    29
+   ],
+   "product.origin": [
+    1,
+    29
+   ],
+   "product.power": [
+    3,
+    29
+   ],
+   "product.published_date": [
+    11,
+    29
+   ],
+   "product.size_chart": [
+    9,
+    29
+   ],
+   "product.specs": [
+    24,
+    29
+   ],
+   "product.title": [
+    23,
+    29
+   ],
+   "product.warnings": [
+    6,
+    29
+   ],
+   "product.weight": [
+    17,
+    29
+   ],
+   "product.whats_included": [
+    14,
+    29
+   ],
+   "returns.fee": [
+    7,
+    29
+   ],
+   "returns.policy": [
+    19,
+    29
+   ],
+   "returns.window": [
+    17,
+    29
+   ],
+   "reviews.count": [
+    15,
+    29
+   ],
+   "reviews.qa": [
+    12,
+    29
+   ],
+   "reviews.rating": [
+    15,
+    29
+   ],
+   "reviews.text": [
+    20,
+    29
+   ],
+   "stock.cart_sold_out": [
+    1,
+    29
+   ],
+   "stock.count": [
+    9,
+    29
+   ],
+   "stock.pickup": [
+    3,
+    29
+   ],
+   "stock.preorder": [
+    8,
+    29
+   ],
+   "stock.qty_limits": [
+    3,
+    29
+   ],
+   "stock.tracking": [
+    6,
+    29
+   ],
+   "store.about": [
+    23,
+    29
+   ],
+   "store.agents_md": [
+    12,
+    29
+   ],
+   "store.checkout_gates": [
+    2,
+    29
+   ],
+   "store.contact": [
+    22,
+    29
+   ],
+   "store.faq": [
+    14,
+    29
+   ],
+   "store.llms_txt": [
+    15,
+    29
+   ],
+   "store.loyalty": [
+    5,
+    29
+   ],
+   "store.market": [
+    12,
+    29
+   ],
+   "store.payment_methods": [
+    22,
+    29
+   ],
+   "store.robots": [
+    29,
+    29
+   ],
+   "store.site_search": [
+    12,
+    29
+   ],
+   "store.sitemap": [
+    26,
+    29
+   ],
+   "store.ucp_discovery": [
+    14,
+    29
+   ],
+   "variant.availability": [
+    23,
+    29
+   ],
+   "variant.colour": [
+    13,
+    29
+   ],
+   "variant.options": [
+    16,
+    29
+   ],
+   "variant.size": [
+    16,
+    29
+   ]
+  },
+  "general-merchandise": {
+   "badge.claims": [
+    9,
+    20
+   ],
+   "badge.merchandising": [
+    4,
+    20
+   ],
+   "delivery.cost": [
+    6,
+    20
+   ],
+   "delivery.estimate": [
+    9,
+    20
+   ],
+   "delivery.free_threshold": [
+    1,
+    20
+   ],
+   "delivery.pickup": [
+    8,
+    20
+   ],
+   "delivery.regions": [
+    11,
+    20
+   ],
+   "delivery.requires_shipping": [
+    2,
+    20
+   ],
+   "delivery.restrictions": [
+    7,
+    20
+   ],
+   "delivery.shipping_details": [
+    4,
+    20
+   ],
+   "identity.audience": [
+    3,
+    20
+   ],
+   "identity.brand": [
+    10,
+    20
+   ],
+   "identity.gtin": [
+    5,
+    20
+   ],
+   "identity.product_type": [
+    10,
+    20
+   ],
+   "identity.sku": [
+    12,
+    20
+   ],
+   "identity.tags": [
+    2,
+    20
+   ],
+   "media.alt_text": [
+    9,
+    20
+   ],
+   "media.images": [
+    12,
+    20
+   ],
+   "nav.collections": [
+    5,
+    20
+   ],
+   "nav.recommendations": [
+    10,
+    20
+   ],
+   "offer.gift_card": [
+    2,
+    20
+   ],
+   "offer.subscription": [
+    1,
+    20
+   ],
+   "policy.minimum_order": [
+    1,
+    20
+   ],
+   "policy.privacy": [
+    6,
+    20
+   ],
+   "policy.shipping": [
+    9,
+    20
+   ],
+   "policy.terms": [
+    6,
+    20
+   ],
+   "policy.warranty": [
+    14,
+    20
+   ],
+   "price.cart_total": [
+    1,
+    20
+   ],
+   "price.compare_at": [
+    3,
+    20
+   ],
+   "price.current": [
+    12,
+    20
+   ],
+   "price.promo_banner": [
+    15,
+    20
+   ],
+   "price.taxable": [
+    2,
+    20
+   ],
+   "product.allergens": [
+    1,
+    20
+   ],
+   "product.capacity": [
+    3,
+    20
+   ],
+   "product.care": [
+    7,
+    20
+   ],
+   "product.category_facts": [
+    10,
+    20
+   ],
+   "product.compatibility": [
+    7,
+    20
+   ],
+   "product.description": [
+    11,
+    20
+   ],
+   "product.directions": [
+    6,
+    20
+   ],
+   "product.documents": [
+    3,
+    20
+   ],
+   "product.features": [
+    8,
+    20
+   ],
+   "product.fit_notes": [
+    5,
+    20
+   ],
+   "product.ingredients": [
+    5,
+    20
+   ],
+   "product.materials": [
+    9,
+    20
+   ],
+   "product.measurements": [
+    10,
+    20
+   ],
+   "product.nutrition": [
+    1,
+    20
+   ],
+   "product.origin": [
+    4,
+    20
+   ],
+   "product.power": [
+    1,
+    20
+   ],
+   "product.published_date": [
+    2,
+    20
+   ],
+   "product.scent_notes": [
+    3,
+    20
+   ],
+   "product.size_chart": [
+    8,
+    20
+   ],
+   "product.specs": [
+    11,
+    20
+   ],
+   "product.title": [
+    12,
+    20
+   ],
+   "product.warnings": [
+    5,
+    20
+   ],
+   "product.weight": [
+    9,
+    20
+   ],
+   "product.whats_included": [
+    6,
+    20
+   ],
+   "returns.fee": [
+    4,
+    20
+   ],
+   "returns.final_sale": [
+    2,
+    20
+   ],
+   "returns.policy": [
+    10,
+    20
+   ],
+   "returns.window": [
+    6,
+    20
+   ],
+   "reviews.count": [
+    6,
+    20
+   ],
+   "reviews.qa": [
+    1,
+    20
+   ],
+   "reviews.rating": [
+    6,
+    20
+   ],
+   "reviews.text": [
+    10,
+    20
+   ],
+   "stock.cart_sold_out": [
+    1,
+    20
+   ],
+   "stock.count": [
+    5,
+    20
+   ],
+   "stock.pickup": [
+    6,
+    20
+   ],
+   "stock.preorder": [
+    2,
+    20
+   ],
+   "stock.tracking": [
+    1,
+    20
+   ],
+   "store.about": [
+    12,
+    20
+   ],
+   "store.agents_md": [
+    2,
+    20
+   ],
+   "store.checkout_gates": [
+    2,
+    20
+   ],
+   "store.contact": [
+    9,
+    20
+   ],
+   "store.faq": [
+    2,
+    20
+   ],
+   "store.llms_txt": [
+    5,
+    20
+   ],
+   "store.loyalty": [
+    10,
+    20
+   ],
+   "store.market": [
+    2,
+    20
+   ],
+   "store.payment_methods": [
+    16,
+    20
+   ],
+   "store.robots": [
+    20,
+    20
+   ],
+   "store.site_search": [
+    10,
+    20
+   ],
+   "store.sitemap": [
+    15,
+    20
+   ],
+   "store.ucp_discovery": [
+    3,
+    20
+   ],
+   "variant.availability": [
+    12,
+    20
+   ],
+   "variant.colour": [
+    11,
+    20
+   ],
+   "variant.options": [
+    5,
+    20
+   ],
+   "variant.size": [
+    10,
+    20
+   ]
+  },
+  "gifts-collectibles": {
+   "badge.claims": [
+    10,
+    31
+   ],
+   "badge.merchandising": [
+    3,
+    31
+   ],
+   "delivery.cost": [
+    8,
+    31
+   ],
+   "delivery.estimate": [
+    10,
+    31
+   ],
+   "delivery.free_threshold": [
+    2,
+    31
+   ],
+   "delivery.pickup": [
+    7,
+    31
+   ],
+   "delivery.regions": [
+    15,
+    31
+   ],
+   "delivery.requires_shipping": [
+    3,
+    31
+   ],
+   "delivery.restrictions": [
+    9,
+    31
+   ],
+   "delivery.shipping_details": [
+    1,
+    31
+   ],
+   "identity.audience": [
+    1,
+    31
+   ],
+   "identity.brand": [
+    13,
+    31
+   ],
+   "identity.gtin": [
+    6,
+    31
+   ],
+   "identity.product_type": [
+    10,
+    31
+   ],
+   "identity.sku": [
+    16,
+    31
+   ],
+   "identity.tags": [
+    7,
+    31
+   ],
+   "media.alt_text": [
+    14,
+    31
+   ],
+   "media.images": [
+    18,
+    31
+   ],
+   "media.video": [
+    1,
+    31
+   ],
+   "nav.collections": [
+    3,
+    31
+   ],
+   "nav.recommendations": [
+    10,
+    31
+   ],
+   "offer.bundle": [
+    2,
+    31
+   ],
+   "offer.gift_card": [
+    2,
+    31
+   ],
+   "offer.personalisation": [
+    2,
+    31
+   ],
+   "policy.minimum_order": [
+    1,
+    31
+   ],
+   "policy.privacy": [
+    9,
+    31
+   ],
+   "policy.shipping": [
+    11,
+    31
+   ],
+   "policy.subscription": [
+    1,
+    31
+   ],
+   "policy.terms": [
+    8,
+    31
+   ],
+   "policy.warranty": [
+    15,
+    31
+   ],
+   "price.cart_total": [
+    3,
+    31
+   ],
+   "price.compare_at": [
+    5,
+    31
+   ],
+   "price.current": [
+    17,
+    31
+   ],
+   "price.promo_banner": [
+    16,
+    31
+   ],
+   "price.taxable": [
+    3,
+    31
+   ],
+   "price.unit": [
+    1,
+    31
+   ],
+   "product.allergens": [
+    1,
+    31
+   ],
+   "product.care": [
+    5,
+    31
+   ],
+   "product.category_facts": [
+    6,
+    31
+   ],
+   "product.compatibility": [
+    8,
+    31
+   ],
+   "product.description": [
+    17,
+    31
+   ],
+   "product.directions": [
+    3,
+    31
+   ],
+   "product.documents": [
+    4,
+    31
+   ],
+   "product.features": [
+    5,
+    31
+   ],
+   "product.fit_notes": [
+    1,
+    31
+   ],
+   "product.ingredients": [
+    1,
+    31
+   ],
+   "product.materials": [
+    6,
+    31
+   ],
+   "product.measurements": [
+    7,
+    31
+   ],
+   "product.origin": [
+    1,
+    31
+   ],
+   "product.power": [
+    1,
+    31
+   ],
+   "product.published_date": [
+    3,
+    31
+   ],
+   "product.scent_notes": [
+    1,
+    31
+   ],
+   "product.size_chart": [
+    11,
+    31
+   ],
+   "product.specs": [
+    13,
+    31
+   ],
+   "product.title": [
+    17,
+    31
+   ],
+   "product.warnings": [
+    4,
+    31
+   ],
+   "product.weight": [
+    5,
+    31
+   ],
+   "product.whats_included": [
+    3,
+    31
+   ],
+   "returns.fee": [
+    2,
+    31
+   ],
+   "returns.final_sale": [
+    1,
+    31
+   ],
+   "returns.policy": [
+    14,
+    31
+   ],
+   "returns.window": [
+    6,
+    31
+   ],
+   "reviews.count": [
+    6,
+    31
+   ],
+   "reviews.qa": [
+    3,
+    31
+   ],
+   "reviews.rating": [
+    6,
+    31
+   ],
+   "reviews.text": [
+    11,
+    31
+   ],
+   "stock.count": [
+    5,
+    31
+   ],
+   "stock.pickup": [
+    5,
+    31
+   ],
+   "stock.preorder": [
+    6,
+    31
+   ],
+   "stock.tracking": [
+    2,
+    31
+   ],
+   "store.about": [
+    18,
+    31
+   ],
+   "store.agents_md": [
+    3,
+    31
+   ],
+   "store.contact": [
+    13,
+    31
+   ],
+   "store.faq": [
+    7,
+    31
+   ],
+   "store.llms_txt": [
+    5,
+    31
+   ],
+   "store.loyalty": [
+    8,
+    31
+   ],
+   "store.market": [
+    3,
+    31
+   ],
+   "store.payment_methods": [
+    19,
+    31
+   ],
+   "store.robots": [
+    28,
+    31
+   ],
+   "store.site_search": [
+    8,
+    31
+   ],
+   "store.sitemap": [
+    17,
+    31
+   ],
+   "store.size_guide": [
+    1,
+    31
+   ],
+   "store.ucp_discovery": [
+    9,
+    31
+   ],
+   "variant.availability": [
+    18,
+    31
+   ],
+   "variant.colour": [
+    8,
+    31
+   ],
+   "variant.options": [
+    12,
+    31
+   ],
+   "variant.size": [
+    13,
+    31
+   ]
+  },
+  "haircare-fragrance": {
+   "badge.claims": [
+    19,
+    37
+   ],
+   "badge.merchandising": [
+    9,
+    37
+   ],
+   "delivery.cost": [
+    18,
+    37
+   ],
+   "delivery.estimate": [
+    18,
+    37
+   ],
+   "delivery.free_threshold": [
+    5,
+    37
+   ],
+   "delivery.pickup": [
+    3,
+    37
+   ],
+   "delivery.regions": [
+    21,
+    37
+   ],
+   "delivery.requires_shipping": [
+    16,
+    37
+   ],
+   "delivery.restrictions": [
+    13,
+    37
+   ],
+   "delivery.shipping_details": [
+    3,
+    37
+   ],
+   "identity.audience": [
+    2,
+    37
+   ],
+   "identity.brand": [
+    21,
+    37
+   ],
+   "identity.gtin": [
+    20,
+    37
+   ],
+   "identity.product_type": [
+    27,
+    37
+   ],
+   "identity.sku": [
+    27,
+    37
+   ],
+   "identity.tags": [
+    25,
+    37
+   ],
+   "media.alt_text": [
+    25,
+    37
+   ],
+   "media.images": [
+    30,
+    37
+   ],
+   "media.video": [
+    2,
+    37
+   ],
+   "nav.collections": [
+    17,
+    37
+   ],
+   "nav.recommendations": [
+    11,
+    37
+   ],
+   "offer.bundle": [
+    9,
+    37
+   ],
+   "offer.gift_card": [
+    6,
+    37
+   ],
+   "offer.personalisation": [
+    1,
+    37
+   ],
+   "offer.subscription": [
+    14,
+    37
+   ],
+   "policy.minimum_order": [
+    1,
+    37
+   ],
+   "policy.privacy": [
+    27,
+    37
+   ],
+   "policy.shipping": [
+    25,
+    37
+   ],
+   "policy.subscription": [
+    9,
+    37
+   ],
+   "policy.terms": [
+    27,
+    37
+   ],
+   "policy.warranty": [
+    21,
+    37
+   ],
+   "price.cart_total": [
+    19,
+    37
+   ],
+   "price.compare_at": [
+    17,
+    37
+   ],
+   "price.current": [
+    28,
+    37
+   ],
+   "price.discount": [
+    1,
+    37
+   ],
+   "price.promo_banner": [
+    21,
+    37
+   ],
+   "price.taxable": [
+    17,
+    37
+   ],
+   "price.unit": [
+    1,
+    37
+   ],
+   "product.care": [
+    3,
+    37
+   ],
+   "product.category_facts": [
+    18,
+    37
+   ],
+   "product.compatibility": [
+    8,
+    37
+   ],
+   "product.description": [
+    29,
+    37
+   ],
+   "product.directions": [
+    13,
+    37
+   ],
+   "product.documents": [
+    2,
+    37
+   ],
+   "product.features": [
+    7,
+    37
+   ],
+   "product.fit_notes": [
+    1,
+    37
+   ],
+   "product.ingredients": [
+    18,
+    37
+   ],
+   "product.materials": [
+    4,
+    37
+   ],
+   "product.measurements": [
+    1,
+    37
+   ],
+   "product.published_date": [
+    17,
+    37
+   ],
+   "product.scent_notes": [
+    10,
+    37
+   ],
+   "product.size_chart": [
+    5,
+    37
+   ],
+   "product.specs": [
+    21,
+    37
+   ],
+   "product.title": [
+    28,
+    37
+   ],
+   "product.warnings": [
+    2,
+    37
+   ],
+   "product.weight": [
+    17,
+    37
+   ],
+   "product.whats_included": [
+    10,
+    37
+   ],
+   "returns.fee": [
+    9,
+    37
+   ],
+   "returns.final_sale": [
+    1,
+    37
+   ],
+   "returns.policy": [
+    27,
+    37
+   ],
+   "returns.window": [
+    19,
+    37
+   ],
+   "reviews.count": [
+    10,
+    37
+   ],
+   "reviews.qa": [
+    14,
+    37
+   ],
+   "reviews.rating": [
+    10,
+    37
+   ],
+   "reviews.text": [
+    19,
+    37
+   ],
+   "stock.cart_sold_out": [
+    5,
+    37
+   ],
+   "stock.count": [
+    4,
+    37
+   ],
+   "stock.pickup": [
+    1,
+    37
+   ],
+   "stock.preorder": [
+    6,
+    37
+   ],
+   "stock.qty_limits": [
+    1,
+    37
+   ],
+   "stock.tracking": [
+    11,
+    37
+   ],
+   "store.about": [
+    25,
+    37
+   ],
+   "store.agents_md": [
+    17,
+    37
+   ],
+   "store.checkout_gates": [
+    3,
+    37
+   ],
+   "store.contact": [
+    24,
+    37
+   ],
+   "store.faq": [
+    18,
+    37
+   ],
+   "store.llms_txt": [
+    18,
+    37
+   ],
+   "store.loyalty": [
+    11,
+    37
+   ],
+   "store.market": [
+    16,
+    37
+   ],
+   "store.payment_methods": [
+    32,
+    37
+   ],
+   "store.robots": [
+    29,
+    37
+   ],
+   "store.site_search": [
+    15,
+    37
+   ],
+   "store.sitemap": [
+    23,
+    37
+   ],
+   "store.ucp_discovery": [
+    20,
+    37
+   ],
+   "variant.availability": [
+    27,
+    37
+   ],
+   "variant.colour": [
+    11,
+    37
+   ],
+   "variant.options": [
+    27,
+    37
+   ],
+   "variant.size": [
+    24,
+    37
+   ]
+  },
+  "home-decor-textiles": {
+   "badge.claims": [
+    28,
+    34
+   ],
+   "badge.merchandising": [
+    10,
+    34
+   ],
+   "delivery.cost": [
+    26,
+    34
+   ],
+   "delivery.estimate": [
+    28,
+    34
+   ],
+   "delivery.free_threshold": [
+    12,
+    34
+   ],
+   "delivery.pickup": [
+    8,
+    34
+   ],
+   "delivery.regions": [
+    28,
+    34
+   ],
+   "delivery.requires_shipping": [
+    19,
+    34
+   ],
+   "delivery.restrictions": [
+    17,
+    34
+   ],
+   "delivery.shipping_details": [
+    6,
+    34
+   ],
+   "identity.audience": [
+    3,
+    34
+   ],
+   "identity.brand": [
+    27,
+    34
+   ],
+   "identity.gtin": [
+    23,
+    34
+   ],
+   "identity.product_type": [
+    25,
+    34
+   ],
+   "identity.sku": [
+    28,
+    34
+   ],
+   "identity.tags": [
+    22,
+    34
+   ],
+   "media.alt_text": [
+    22,
+    34
+   ],
+   "media.images": [
+    28,
+    34
+   ],
+   "nav.collections": [
+    21,
+    34
+   ],
+   "nav.recommendations": [
+    26,
+    34
+   ],
+   "offer.bundle": [
+    8,
+    34
+   ],
+   "offer.gift_card": [
+    3,
+    34
+   ],
+   "offer.personalisation": [
+    1,
+    34
+   ],
+   "offer.subscription": [
+    3,
+    34
+   ],
+   "policy.privacy": [
+    22,
+    34
+   ],
+   "policy.shipping": [
+    25,
+    34
+   ],
+   "policy.terms": [
+    24,
+    34
+   ],
+   "policy.warranty": [
+    28,
+    34
+   ],
+   "price.cart_total": [
+    6,
+    34
+   ],
+   "price.compare_at": [
+    15,
+    34
+   ],
+   "price.current": [
+    28,
+    34
+   ],
+   "price.discount": [
+    5,
+    34
+   ],
+   "price.promo_banner": [
+    30,
+    34
+   ],
+   "price.taxable": [
+    18,
+    34
+   ],
+   "price.unit": [
+    1,
+    34
+   ],
+   "product.capacity": [
+    1,
+    34
+   ],
+   "product.care": [
+    19,
+    34
+   ],
+   "product.category_facts": [
+    21,
+    34
+   ],
+   "product.compatibility": [
+    12,
+    34
+   ],
+   "product.description": [
+    28,
+    34
+   ],
+   "product.directions": [
+    3,
+    34
+   ],
+   "product.documents": [
+    7,
+    34
+   ],
+   "product.features": [
+    9,
+    34
+   ],
+   "product.fit_notes": [
+    1,
+    34
+   ],
+   "product.ingredients": [
+    3,
+    34
+   ],
+   "product.materials": [
+    21,
+    34
+   ],
+   "product.measurements": [
+    18,
+    34
+   ],
+   "product.origin": [
+    4,
+    34
+   ],
+   "product.power": [
+    1,
+    34
+   ],
+   "product.published_date": [
+    19,
+    34
+   ],
+   "product.scent_notes": [
+    2,
+    34
+   ],
+   "product.size_chart": [
+    22,
+    34
+   ],
+   "product.specs": [
+    28,
+    34
+   ],
+   "product.title": [
+    28,
+    34
+   ],
+   "product.warnings": [
+    1,
+    34
+   ],
+   "product.weight": [
+    21,
+    34
+   ],
+   "product.whats_included": [
+    8,
+    34
+   ],
+   "returns.fee": [
+    14,
+    34
+   ],
+   "returns.final_sale": [
+    6,
+    34
+   ],
+   "returns.policy": [
+    28,
+    34
+   ],
+   "returns.window": [
+    25,
+    34
+   ],
+   "reviews.count": [
+    11,
+    34
+   ],
+   "reviews.qa": [
+    13,
+    34
+   ],
+   "reviews.rating": [
+    12,
+    34
+   ],
+   "reviews.text": [
+    22,
+    34
+   ],
+   "stock.cart_sold_out": [
+    1,
+    34
+   ],
+   "stock.count": [
+    13,
+    34
+   ],
+   "stock.pickup": [
+    2,
+    34
+   ],
+   "stock.preorder": [
+    11,
+    34
+   ],
+   "stock.tracking": [
+    10,
+    34
+   ],
+   "store.about": [
+    31,
+    34
+   ],
+   "store.agents_md": [
+    19,
+    34
+   ],
+   "store.checkout_gates": [
+    3,
+    34
+   ],
+   "store.contact": [
+    30,
+    34
+   ],
+   "store.faq": [
+    19,
+    34
+   ],
+   "store.llms_txt": [
+    25,
+    34
+   ],
+   "store.loyalty": [
+    9,
+    34
+   ],
+   "store.market": [
+    19,
+    34
+   ],
+   "store.payment_methods": [
+    31,
+    34
+   ],
+   "store.robots": [
+    33,
+    34
+   ],
+   "store.site_search": [
+    15,
+    34
+   ],
+   "store.sitemap": [
+    30,
+    34
+   ],
+   "store.size_guide": [
+    2,
+    34
+   ],
+   "store.ucp_discovery": [
+    23,
+    34
+   ],
+   "variant.availability": [
+    28,
+    34
+   ],
+   "variant.colour": [
+    27,
+    34
+   ],
+   "variant.cut": [
+    3,
+    34
+   ],
+   "variant.options": [
+    28,
+    34
+   ],
+   "variant.size": [
+    28,
+    34
+   ]
+  },
+  "jewelry-watches": {
+   "badge.claims": [
+    8,
+    30
+   ],
+   "badge.merchandising": [
+    6,
+    30
+   ],
+   "delivery.cost": [
+    9,
+    30
+   ],
+   "delivery.estimate": [
+    15,
+    30
+   ],
+   "delivery.free_threshold": [
+    6,
+    30
+   ],
+   "delivery.pickup": [
+    8,
+    30
+   ],
+   "delivery.regions": [
+    18,
+    30
+   ],
+   "delivery.requires_shipping": [
+    10,
+    30
+   ],
+   "delivery.restrictions": [
+    8,
+    30
+   ],
+   "delivery.shipping_details": [
+    3,
+    30
+   ],
+   "identity.audience": [
+    1,
+    30
+   ],
+   "identity.brand": [
+    17,
+    30
+   ],
+   "identity.gtin": [
+    14,
+    30
+   ],
+   "identity.product_type": [
+    15,
+    30
+   ],
+   "identity.sku": [
+    17,
+    30
+   ],
+   "identity.tags": [
+    12,
+    30
+   ],
+   "media.alt_text": [
+    11,
+    30
+   ],
+   "media.images": [
+    17,
+    30
+   ],
+   "media.video": [
+    1,
+    30
+   ],
+   "nav.collections": [
+    11,
+    30
+   ],
+   "nav.recommendations": [
+    7,
+    30
+   ],
+   "offer.bundle": [
+    3,
+    30
+   ],
+   "offer.gift_card": [
+    1,
+    30
+   ],
+   "offer.personalisation": [
+    1,
+    30
+   ],
+   "offer.subscription": [
+    1,
+    30
+   ],
+   "policy.privacy": [
+    20,
+    30
+   ],
+   "policy.shipping": [
+    14,
+    30
+   ],
+   "policy.subscription": [
+    1,
+    30
+   ],
+   "policy.terms": [
+    19,
+    30
+   ],
+   "policy.warranty": [
+    20,
+    30
+   ],
+   "price.cart_total": [
+    11,
+    30
+   ],
+   "price.compare_at": [
+    9,
+    30
+   ],
+   "price.current": [
+    17,
+    30
+   ],
+   "price.promo_banner": [
+    17,
+    30
+   ],
+   "price.taxable": [
+    10,
+    30
+   ],
+   "price.unit": [
+    1,
+    30
+   ],
+   "product.care": [
+    3,
+    30
+   ],
+   "product.category_facts": [
+    7,
+    30
+   ],
+   "product.compatibility": [
+    6,
+    30
+   ],
+   "product.description": [
+    17,
+    30
+   ],
+   "product.directions": [
+    1,
+    30
+   ],
+   "product.documents": [
+    5,
+    30
+   ],
+   "product.features": [
+    5,
+    30
+   ],
+   "product.materials": [
+    10,
+    30
+   ],
+   "product.measurements": [
+    9,
+    30
+   ],
+   "product.origin": [
+    2,
+    30
+   ],
+   "product.published_date": [
+    10,
+    30
+   ],
+   "product.size_chart": [
+    13,
+    30
+   ],
+   "product.specs": [
+    15,
+    30
+   ],
+   "product.title": [
+    17,
+    30
+   ],
+   "product.warnings": [
+    1,
+    30
+   ],
+   "product.weight": [
+    7,
+    30
+   ],
+   "product.whats_included": [
+    1,
+    30
+   ],
+   "returns.fee": [
+    6,
+    30
+   ],
+   "returns.final_sale": [
+    1,
+    30
+   ],
+   "returns.policy": [
+    18,
+    30
+   ],
+   "returns.window": [
+    13,
+    30
+   ],
+   "reviews.count": [
+    7,
+    30
+   ],
+   "reviews.qa": [
+    1,
+    30
+   ],
+   "reviews.rating": [
+    7,
+    30
+   ],
+   "reviews.text": [
+    12,
+    30
+   ],
+   "stock.cart_sold_out": [
+    2,
+    30
+   ],
+   "stock.count": [
+    6,
+    30
+   ],
+   "stock.pickup": [
+    1,
+    30
+   ],
+   "stock.preorder": [
+    7,
+    30
+   ],
+   "stock.tracking": [
+    5,
+    30
+   ],
+   "store.about": [
+    20,
+    30
+   ],
+   "store.agents_md": [
+    10,
+    30
+   ],
+   "store.checkout_gates": [
+    3,
+    30
+   ],
+   "store.contact": [
+    21,
+    30
+   ],
+   "store.faq": [
+    13,
+    30
+   ],
+   "store.llms_txt": [
+    11,
+    30
+   ],
+   "store.loyalty": [
+    4,
+    30
+   ],
+   "store.market": [
+    10,
+    30
+   ],
+   "store.payment_methods": [
+    23,
+    30
+   ],
+   "store.robots": [
+    29,
+    30
+   ],
+   "store.site_search": [
+    13,
+    30
+   ],
+   "store.sitemap": [
+    20,
+    30
+   ],
+   "store.size_guide": [
+    8,
+    30
+   ],
+   "store.ucp_discovery": [
+    11,
+    30
+   ],
+   "variant.availability": [
+    17,
+    30
+   ],
+   "variant.colour": [
+    12,
+    30
+   ],
+   "variant.cut": [
+    4,
+    30
+   ],
+   "variant.options": [
+    14,
+    30
+   ],
+   "variant.size": [
+    14,
+    30
+   ]
+  },
+  "kitchen-dining": {
+   "badge.claims": [
+    18,
+    32
+   ],
+   "badge.merchandising": [
+    4,
+    32
+   ],
+   "delivery.cost": [
+    11,
+    32
+   ],
+   "delivery.estimate": [
+    17,
+    32
+   ],
+   "delivery.free_threshold": [
+    7,
+    32
+   ],
+   "delivery.pickup": [
+    4,
+    32
+   ],
+   "delivery.regions": [
+    21,
+    32
+   ],
+   "delivery.requires_shipping": [
+    12,
+    32
+   ],
+   "delivery.restrictions": [
+    7,
+    32
+   ],
+   "delivery.shipping_details": [
+    2,
+    32
+   ],
+   "identity.brand": [
+    22,
+    32
+   ],
+   "identity.gtin": [
+    20,
+    32
+   ],
+   "identity.product_type": [
+    17,
+    32
+   ],
+   "identity.sku": [
+    23,
+    32
+   ],
+   "identity.tags": [
+    11,
+    32
+   ],
+   "media.alt_text": [
+    22,
+    32
+   ],
+   "media.images": [
+    24,
+    32
+   ],
+   "media.video": [
+    4,
+    32
+   ],
+   "nav.collections": [
+    12,
+    32
+   ],
+   "nav.recommendations": [
+    18,
+    32
+   ],
+   "offer.bundle": [
+    4,
+    32
+   ],
+   "policy.privacy": [
+    18,
+    32
+   ],
+   "policy.shipping": [
+    10,
+    32
+   ],
+   "policy.terms": [
+    17,
+    32
+   ],
+   "policy.warranty": [
+    24,
+    32
+   ],
+   "price.cart_total": [
+    3,
+    32
+   ],
+   "price.compare_at": [
+    10,
+    32
+   ],
+   "price.current": [
+    23,
+    32
+   ],
+   "price.promo_banner": [
+    19,
+    32
+   ],
+   "price.taxable": [
+    12,
+    32
+   ],
+   "product.capacity": [
+    13,
+    32
+   ],
+   "product.care": [
+    12,
+    32
+   ],
+   "product.category_facts": [
+    19,
+    32
+   ],
+   "product.compatibility": [
+    19,
+    32
+   ],
+   "product.description": [
+    21,
+    32
+   ],
+   "product.directions": [
+    6,
+    32
+   ],
+   "product.documents": [
+    10,
+    32
+   ],
+   "product.features": [
+    10,
+    32
+   ],
+   "product.ingredients": [
+    1,
+    32
+   ],
+   "product.materials": [
+    12,
+    32
+   ],
+   "product.measurements": [
+    16,
+    32
+   ],
+   "product.origin": [
+    6,
+    32
+   ],
+   "product.power": [
+    4,
+    32
+   ],
+   "product.published_date": [
+    12,
+    32
+   ],
+   "product.size_chart": [
+    5,
+    32
+   ],
+   "product.specs": [
+    23,
+    32
+   ],
+   "product.title": [
+    23,
+    32
+   ],
+   "product.warnings": [
+    4,
+    32
+   ],
+   "product.weight": [
+    19,
+    32
+   ],
+   "product.whats_included": [
+    10,
+    32
+   ],
+   "returns.fee": [
+    5,
+    32
+   ],
+   "returns.final_sale": [
+    2,
+    32
+   ],
+   "returns.policy": [
+    16,
+    32
+   ],
+   "returns.window": [
+    15,
+    32
+   ],
+   "reviews.count": [
+    11,
+    32
+   ],
+   "reviews.qa": [
+    8,
+    32
+   ],
+   "reviews.rating": [
+    11,
+    32
+   ],
+   "reviews.text": [
+    19,
+    32
+   ],
+   "stock.count": [
+    6,
+    32
+   ],
+   "stock.pickup": [
+    4,
+    32
+   ],
+   "stock.preorder": [
+    6,
+    32
+   ],
+   "stock.tracking": [
+    5,
+    32
+   ],
+   "store.about": [
+    24,
+    32
+   ],
+   "store.agents_md": [
+    12,
+    32
+   ],
+   "store.checkout_gates": [
+    1,
+    32
+   ],
+   "store.contact": [
+    19,
+    32
+   ],
+   "store.faq": [
+    12,
+    32
+   ],
+   "store.llms_txt": [
+    13,
+    32
+   ],
+   "store.loyalty": [
+    4,
+    32
+   ],
+   "store.market": [
+    12,
+    32
+   ],
+   "store.payment_methods": [
+    20,
+    32
+   ],
+   "store.robots": [
+    32,
+    32
+   ],
+   "store.site_search": [
+    9,
+    32
+   ],
+   "store.sitemap": [
+    26,
+    32
+   ],
+   "store.size_guide": [
+    1,
+    32
+   ],
+   "store.ucp_discovery": [
+    15,
+    32
+   ],
+   "variant.availability": [
+    22,
+    32
+   ],
+   "variant.colour": [
+    16,
+    32
+   ],
+   "variant.options": [
+    16,
+    32
+   ],
+   "variant.size": [
+    10,
+    32
+   ]
+  },
+  "non-prescription-health": {
+   "badge.claims": [
+    22,
+    32
+   ],
+   "badge.merchandising": [
+    6,
+    32
+   ],
+   "delivery.cost": [
+    13,
+    32
+   ],
+   "delivery.estimate": [
+    19,
+    32
+   ],
+   "delivery.free_threshold": [
+    10,
+    32
+   ],
+   "delivery.pickup": [
+    1,
+    32
+   ],
+   "delivery.regions": [
+    24,
+    32
+   ],
+   "delivery.requires_shipping": [
+    17,
+    32
+   ],
+   "delivery.restrictions": [
+    9,
+    32
+   ],
+   "delivery.shipping_details": [
+    4,
+    32
+   ],
+   "identity.brand": [
+    22,
+    32
+   ],
+   "identity.gtin": [
+    19,
+    32
+   ],
+   "identity.product_type": [
+    20,
+    32
+   ],
+   "identity.sku": [
+    23,
+    32
+   ],
+   "identity.tags": [
+    18,
+    32
+   ],
+   "media.alt_text": [
+    24,
+    32
+   ],
+   "media.images": [
+    26,
+    32
+   ],
+   "media.video": [
+    1,
+    32
+   ],
+   "nav.collections": [
+    17,
+    32
+   ],
+   "nav.recommendations": [
+    20,
+    32
+   ],
+   "offer.bundle": [
+    4,
+    32
+   ],
+   "offer.gift_card": [
+    1,
+    32
+   ],
+   "offer.subscription": [
+    18,
+    32
+   ],
+   "policy.privacy": [
+    23,
+    32
+   ],
+   "policy.shipping": [
+    13,
+    32
+   ],
+   "policy.subscription": [
+    4,
+    32
+   ],
+   "policy.terms": [
+    22,
+    32
+   ],
+   "policy.warranty": [
+    26,
+    32
+   ],
+   "price.cart_total": [
+    8,
+    32
+   ],
+   "price.compare_at": [
+    8,
+    32
+   ],
+   "price.current": [
+    23,
+    32
+   ],
+   "price.discount": [
+    1,
+    32
+   ],
+   "price.promo_banner": [
+    23,
+    32
+   ],
+   "price.taxable": [
+    17,
+    32
+   ],
+   "price.unit": [
+    1,
+    32
+   ],
+   "product.allergens": [
+    1,
+    32
+   ],
+   "product.category_facts": [
+    23,
+    32
+   ],
+   "product.compatibility": [
+    12,
+    32
+   ],
+   "product.description": [
+    23,
+    32
+   ],
+   "product.directions": [
+    17,
+    32
+   ],
+   "product.documents": [
+    5,
+    32
+   ],
+   "product.features": [
+    13,
+    32
+   ],
+   "product.ingredients": [
+    17,
+    32
+   ],
+   "product.measurements": [
+    1,
+    32
+   ],
+   "product.nutrition": [
+    10,
+    32
+   ],
+   "product.published_date": [
+    17,
+    32
+   ],
+   "product.scent_notes": [
+    2,
+    32
+   ],
+   "product.size_chart": [
+    1,
+    32
+   ],
+   "product.specs": [
+    20,
+    32
+   ],
+   "product.title": [
+    23,
+    32
+   ],
+   "product.warnings": [
+    6,
+    32
+   ],
+   "product.weight": [
+    16,
+    32
+   ],
+   "product.whats_included": [
+    6,
+    32
+   ],
+   "returns.fee": [
+    6,
+    32
+   ],
+   "returns.policy": [
+    22,
+    32
+   ],
+   "returns.window": [
+    11,
+    32
+   ],
+   "reviews.count": [
+    13,
+    32
+   ],
+   "reviews.qa": [
+    13,
+    32
+   ],
+   "reviews.rating": [
+    13,
+    32
+   ],
+   "reviews.text": [
+    23,
+    32
+   ],
+   "stock.count": [
+    2,
+    32
+   ],
+   "stock.preorder": [
+    3,
+    32
+   ],
+   "stock.tracking": [
+    8,
+    32
+   ],
+   "store.about": [
+    27,
+    32
+   ],
+   "store.agents_md": [
+    17,
+    32
+   ],
+   "store.checkout_gates": [
+    1,
+    32
+   ],
+   "store.contact": [
+    24,
+    32
+   ],
+   "store.faq": [
+    16,
+    32
+   ],
+   "store.llms_txt": [
+    18,
+    32
+   ],
+   "store.loyalty": [
+    14,
+    32
+   ],
+   "store.market": [
+    17,
+    32
+   ],
+   "store.payment_methods": [
+    23,
+    32
+   ],
+   "store.robots": [
+    31,
+    32
+   ],
+   "store.site_search": [
+    17,
+    32
+   ],
+   "store.sitemap": [
+    26,
+    32
+   ],
+   "store.ucp_discovery": [
+    22,
+    32
+   ],
+   "variant.availability": [
+    23,
+    32
+   ],
+   "variant.colour": [
+    2,
+    32
+   ],
+   "variant.options": [
+    20,
+    32
+   ],
+   "variant.size": [
+    12,
+    32
+   ]
+  },
+  "personal-care": {
+   "badge.claims": [
+    19,
+    32
+   ],
+   "badge.merchandising": [
+    6,
+    32
+   ],
+   "delivery.cost": [
+    15,
+    32
+   ],
+   "delivery.estimate": [
+    20,
+    32
+   ],
+   "delivery.free_threshold": [
+    12,
+    32
+   ],
+   "delivery.pickup": [
+    3,
+    32
+   ],
+   "delivery.regions": [
+    20,
+    32
+   ],
+   "delivery.requires_shipping": [
+    16,
+    32
+   ],
+   "delivery.restrictions": [
+    15,
+    32
+   ],
+   "delivery.shipping_details": [
+    4,
+    32
+   ],
+   "identity.brand": [
+    21,
+    32
+   ],
+   "identity.gtin": [
+    20,
+    32
+   ],
+   "identity.product_type": [
+    22,
+    32
+   ],
+   "identity.sku": [
+    23,
+    32
+   ],
+   "identity.tags": [
+    17,
+    32
+   ],
+   "media.alt_text": [
+    25,
+    32
+   ],
+   "media.images": [
+    25,
+    32
+   ],
+   "media.video": [
+    1,
+    32
+   ],
+   "nav.collections": [
+    17,
+    32
+   ],
+   "nav.recommendations": [
+    17,
+    32
+   ],
+   "offer.bundle": [
+    7,
+    32
+   ],
+   "offer.gift_card": [
+    5,
+    32
+   ],
+   "offer.subscription": [
+    15,
+    32
+   ],
+   "policy.minimum_order": [
+    2,
+    32
+   ],
+   "policy.privacy": [
+    22,
+    32
+   ],
+   "policy.shipping": [
+    18,
+    32
+   ],
+   "policy.subscription": [
+    10,
+    32
+   ],
+   "policy.terms": [
+    23,
+    32
+   ],
+   "policy.warranty": [
+    24,
+    32
+   ],
+   "price.cart_total": [
+    16,
+    32
+   ],
+   "price.compare_at": [
+    14,
+    32
+   ],
+   "price.current": [
+    25,
+    32
+   ],
+   "price.discount": [
+    1,
+    32
+   ],
+   "price.promo_banner": [
+    24,
+    32
+   ],
+   "price.taxable": [
+    16,
+    32
+   ],
+   "product.allergens": [
+    1,
+    32
+   ],
+   "product.care": [
+    1,
+    32
+   ],
+   "product.category_facts": [
+    21,
+    32
+   ],
+   "product.compatibility": [
+    9,
+    32
+   ],
+   "product.description": [
+    25,
+    32
+   ],
+   "product.directions": [
+    16,
+    32
+   ],
+   "product.documents": [
+    4,
+    32
+   ],
+   "product.features": [
+    9,
+    32
+   ],
+   "product.ingredients": [
+    17,
+    32
+   ],
+   "product.materials": [
+    3,
+    32
+   ],
+   "product.measurements": [
+    2,
+    32
+   ],
+   "product.published_date": [
+    16,
+    32
+   ],
+   "product.scent_notes": [
+    12,
+    32
+   ],
+   "product.size_chart": [
+    1,
+    32
+   ],
+   "product.specs": [
+    21,
+    32
+   ],
+   "product.title": [
+    23,
+    32
+   ],
+   "product.warnings": [
+    4,
+    32
+   ],
+   "product.weight": [
+    18,
+    32
+   ],
+   "product.whats_included": [
+    8,
+    32
+   ],
+   "returns.fee": [
+    2,
+    32
+   ],
+   "returns.final_sale": [
+    1,
+    32
+   ],
+   "returns.policy": [
+    19,
+    32
+   ],
+   "returns.window": [
+    12,
+    32
+   ],
+   "reviews.count": [
+    16,
+    32
+   ],
+   "reviews.qa": [
+    10,
+    32
+   ],
+   "reviews.rating": [
+    17,
+    32
+   ],
+   "reviews.text": [
+    22,
+    32
+   ],
+   "stock.cart_sold_out": [
+    5,
+    32
+   ],
+   "stock.count": [
+    3,
+    32
+   ],
+   "stock.pickup": [
+    1,
+    32
+   ],
+   "stock.preorder": [
+    4,
+    32
+   ],
+   "stock.qty_limits": [
+    1,
+    32
+   ],
+   "stock.tracking": [
+    10,
+    32
+   ],
+   "store.about": [
+    25,
+    32
+   ],
+   "store.agents_md": [
+    16,
+    32
+   ],
+   "store.checkout_gates": [
+    1,
+    32
+   ],
+   "store.contact": [
+    20,
+    32
+   ],
+   "store.faq": [
+    14,
+    32
+   ],
+   "store.llms_txt": [
+    17,
+    32
+   ],
+   "store.loyalty": [
+    12,
+    32
+   ],
+   "store.market": [
+    16,
+    32
+   ],
+   "store.payment_methods": [
+    24,
+    32
+   ],
+   "store.robots": [
+    31,
+    32
+   ],
+   "store.site_search": [
+    13,
+    32
+   ],
+   "store.sitemap": [
+    26,
+    32
+   ],
+   "store.size_guide": [
+    1,
+    32
+   ],
+   "store.ucp_discovery": [
+    21,
+    32
+   ],
+   "variant.availability": [
+    25,
+    32
+   ],
+   "variant.colour": [
+    8,
+    32
+   ],
+   "variant.options": [
+    17,
+    32
+   ],
+   "variant.size": [
+    18,
+    32
+   ]
+  },
+  "pet-supplies": {
+   "badge.claims": [
+    16,
+    31
+   ],
+   "badge.merchandising": [
+    1,
+    31
+   ],
+   "delivery.cost": [
+    12,
+    31
+   ],
+   "delivery.estimate": [
+    15,
+    31
+   ],
+   "delivery.free_threshold": [
+    8,
+    31
+   ],
+   "delivery.pickup": [
+    9,
+    31
+   ],
+   "delivery.regions": [
+    19,
+    31
+   ],
+   "delivery.requires_shipping": [
+    4,
+    31
+   ],
+   "delivery.restrictions": [
+    9,
+    31
+   ],
+   "delivery.shipping_details": [
+    1,
+    31
+   ],
+   "identity.audience": [
+    2,
+    31
+   ],
+   "identity.brand": [
+    14,
+    31
+   ],
+   "identity.gtin": [
+    12,
+    31
+   ],
+   "identity.product_type": [
+    12,
+    31
+   ],
+   "identity.sku": [
+    19,
+    31
+   ],
+   "identity.tags": [
+    8,
+    31
+   ],
+   "media.alt_text": [
+    14,
+    31
+   ],
+   "media.images": [
+    20,
+    31
+   ],
+   "media.video": [
+    1,
+    31
+   ],
+   "nav.collections": [
+    4,
+    31
+   ],
+   "nav.recommendations": [
+    14,
+    31
+   ],
+   "offer.bundle": [
+    1,
+    31
+   ],
+   "offer.subscription": [
+    6,
+    31
+   ],
+   "policy.privacy": [
+    18,
+    31
+   ],
+   "policy.shipping": [
+    14,
+    31
+   ],
+   "policy.subscription": [
+    5,
+    31
+   ],
+   "policy.terms": [
+    16,
+    31
+   ],
+   "policy.warranty": [
+    20,
+    31
+   ],
+   "price.cart_total": [
+    7,
+    31
+   ],
+   "price.compare_at": [
+    6,
+    31
+   ],
+   "price.current": [
+    19,
+    31
+   ],
+   "price.discount": [
+    1,
+    31
+   ],
+   "price.promo_banner": [
+    14,
+    31
+   ],
+   "price.taxable": [
+    4,
+    31
+   ],
+   "product.allergens": [
+    1,
+    31
+   ],
+   "product.capacity": [
+    3,
+    31
+   ],
+   "product.care": [
+    3,
+    31
+   ],
+   "product.category_facts": [
+    17,
+    31
+   ],
+   "product.compatibility": [
+    11,
+    31
+   ],
+   "product.description": [
+    20,
+    31
+   ],
+   "product.directions": [
+    6,
+    31
+   ],
+   "product.documents": [
+    5,
+    31
+   ],
+   "product.features": [
+    9,
+    31
+   ],
+   "product.fit_notes": [
+    1,
+    31
+   ],
+   "product.ingredients": [
+    8,
+    31
+   ],
+   "product.materials": [
+    6,
+    31
+   ],
+   "product.measurements": [
+    7,
+    31
+   ],
+   "product.nutrition": [
+    3,
+    31
+   ],
+   "product.origin": [
+    2,
+    31
+   ],
+   "product.published_date": [
+    4,
+    31
+   ],
+   "product.scent_notes": [
+    1,
+    31
+   ],
+   "product.size_chart": [
+    7,
+    31
+   ],
+   "product.specs": [
+    17,
+    31
+   ],
+   "product.title": [
+    20,
+    31
+   ],
+   "product.warnings": [
+    4,
+    31
+   ],
+   "product.weight": [
+    11,
+    31
+   ],
+   "product.whats_included": [
+    3,
+    31
+   ],
+   "returns.fee": [
+    1,
+    31
+   ],
+   "returns.policy": [
+    17,
+    31
+   ],
+   "returns.window": [
+    12,
+    31
+   ],
+   "reviews.count": [
+    9,
+    31
+   ],
+   "reviews.qa": [
+    6,
+    31
+   ],
+   "reviews.rating": [
+    9,
+    31
+   ],
+   "reviews.text": [
+    13,
+    31
+   ],
+   "stock.cart_sold_out": [
+    3,
+    31
+   ],
+   "stock.count": [
+    4,
+    31
+   ],
+   "stock.pickup": [
+    6,
+    31
+   ],
+   "stock.preorder": [
+    3,
+    31
+   ],
+   "stock.qty_limits": [
+    1,
+    31
+   ],
+   "stock.tracking": [
+    4,
+    31
+   ],
+   "store.about": [
+    19,
+    31
+   ],
+   "store.agents_md": [
+    4,
+    31
+   ],
+   "store.checkout_gates": [
+    2,
+    31
+   ],
+   "store.contact": [
+    20,
+    31
+   ],
+   "store.faq": [
+    14,
+    31
+   ],
+   "store.llms_txt": [
+    7,
+    31
+   ],
+   "store.loyalty": [
+    12,
+    31
+   ],
+   "store.market": [
+    4,
+    31
+   ],
+   "store.payment_methods": [
+    16,
+    31
+   ],
+   "store.robots": [
+    28,
+    31
+   ],
+   "store.site_search": [
+    7,
+    31
+   ],
+   "store.sitemap": [
+    18,
+    31
+   ],
+   "store.size_guide": [
+    2,
+    31
+   ],
+   "store.ucp_discovery": [
+    13,
+    31
+   ],
+   "variant.availability": [
+    18,
+    31
+   ],
+   "variant.colour": [
+    9,
+    31
+   ],
+   "variant.options": [
+    10,
+    31
+   ],
+   "variant.size": [
+    13,
+    31
+   ]
+  },
+  "skincare-makeup": {
+   "badge.claims": [
+    25,
+    37
+   ],
+   "badge.merchandising": [
+    7,
+    37
+   ],
+   "delivery.cost": [
+    16,
+    37
+   ],
+   "delivery.estimate": [
+    23,
+    37
+   ],
+   "delivery.free_threshold": [
+    8,
+    37
+   ],
+   "delivery.pickup": [
+    6,
+    37
+   ],
+   "delivery.regions": [
+    27,
+    37
+   ],
+   "delivery.requires_shipping": [
+    16,
+    37
+   ],
+   "delivery.restrictions": [
+    13,
+    37
+   ],
+   "delivery.shipping_details": [
+    4,
+    37
+   ],
+   "identity.audience": [
+    4,
+    37
+   ],
+   "identity.brand": [
+    26,
+    37
+   ],
+   "identity.gtin": [
+    22,
+    37
+   ],
+   "identity.product_type": [
+    24,
+    37
+   ],
+   "identity.sku": [
+    30,
+    37
+   ],
+   "identity.tags": [
+    19,
+    37
+   ],
+   "media.alt_text": [
+    28,
+    37
+   ],
+   "media.images": [
+    29,
+    37
+   ],
+   "media.video": [
+    1,
+    37
+   ],
+   "nav.collections": [
+    18,
+    37
+   ],
+   "nav.recommendations": [
+    21,
+    37
+   ],
+   "offer.bundle": [
+    11,
+    37
+   ],
+   "offer.gift_card": [
+    4,
+    37
+   ],
+   "offer.subscription": [
+    12,
+    37
+   ],
+   "policy.privacy": [
+    25,
+    37
+   ],
+   "policy.shipping": [
+    21,
+    37
+   ],
+   "policy.subscription": [
+    8,
+    37
+   ],
+   "policy.terms": [
+    27,
+    37
+   ],
+   "policy.warranty": [
+    25,
+    37
+   ],
+   "price.cart_total": [
+    19,
+    37
+   ],
+   "price.compare_at": [
+    16,
+    37
+   ],
+   "price.current": [
+    30,
+    37
+   ],
+   "price.discount": [
+    3,
+    37
+   ],
+   "price.promo_banner": [
+    26,
+    37
+   ],
+   "price.taxable": [
+    16,
+    37
+   ],
+   "product.allergens": [
+    1,
+    37
+   ],
+   "product.capacity": [
+    2,
+    37
+   ],
+   "product.care": [
+    3,
+    37
+   ],
+   "product.category_facts": [
+    25,
+    37
+   ],
+   "product.compatibility": [
+    16,
+    37
+   ],
+   "product.description": [
+    30,
+    37
+   ],
+   "product.directions": [
+    23,
+    37
+   ],
+   "product.documents": [
+    4,
+    37
+   ],
+   "product.features": [
+    15,
+    37
+   ],
+   "product.fit_notes": [
+    1,
+    37
+   ],
+   "product.ingredients": [
+    23,
+    37
+   ],
+   "product.materials": [
+    6,
+    37
+   ],
+   "product.measurements": [
+    4,
+    37
+   ],
+   "product.published_date": [
+    16,
+    37
+   ],
+   "product.scent_notes": [
+    5,
+    37
+   ],
+   "product.size_chart": [
+    6,
+    37
+   ],
+   "product.specs": [
+    24,
+    37
+   ],
+   "product.title": [
+    30,
+    37
+   ],
+   "product.warnings": [
+    5,
+    37
+   ],
+   "product.weight": [
+    13,
+    37
+   ],
+   "product.whats_included": [
+    15,
+    37
+   ],
+   "returns.fee": [
+    6,
+    37
+   ],
+   "returns.final_sale": [
+    2,
+    37
+   ],
+   "returns.policy": [
+    27,
+    37
+   ],
+   "returns.window": [
+    17,
+    37
+   ],
+   "reviews.count": [
+    22,
+    37
+   ],
+   "reviews.qa": [
+    15,
+    37
+   ],
+   "reviews.rating": [
+    23,
+    37
+   ],
+   "reviews.text": [
+    27,
+    37
+   ],
+   "stock.cart_sold_out": [
+    6,
+    37
+   ],
+   "stock.count": [
+    7,
+    37
+   ],
+   "stock.pickup": [
+    3,
+    37
+   ],
+   "stock.preorder": [
+    5,
+    37
+   ],
+   "stock.tracking": [
+    5,
+    37
+   ],
+   "store.about": [
+    28,
+    37
+   ],
+   "store.agents_md": [
+    16,
+    37
+   ],
+   "store.checkout_gates": [
+    1,
+    37
+   ],
+   "store.contact": [
+    27,
+    37
+   ],
+   "store.faq": [
+    16,
+    37
+   ],
+   "store.llms_txt": [
+    19,
+    37
+   ],
+   "store.loyalty": [
+    14,
+    37
+   ],
+   "store.market": [
+    16,
+    37
+   ],
+   "store.payment_methods": [
+    30,
+    37
+   ],
+   "store.robots": [
+    34,
+    37
+   ],
+   "store.site_search": [
+    21,
+    37
+   ],
+   "store.sitemap": [
+    30,
+    37
+   ],
+   "store.ucp_discovery": [
+    18,
+    37
+   ],
+   "variant.availability": [
+    31,
+    37
+   ],
+   "variant.colour": [
+    22,
+    37
+   ],
+   "variant.options": [
+    23,
+    37
+   ],
+   "variant.size": [
+    25,
+    37
+   ]
+  },
+  "sports-fitness": {
+   "badge.claims": [
+    12,
+    33
+   ],
+   "badge.merchandising": [
+    5,
+    33
+   ],
+   "delivery.cost": [
+    20,
+    33
+   ],
+   "delivery.estimate": [
+    23,
+    33
+   ],
+   "delivery.free_threshold": [
+    8,
+    33
+   ],
+   "delivery.pickup": [
+    11,
+    33
+   ],
+   "delivery.regions": [
+    25,
+    33
+   ],
+   "delivery.requires_shipping": [
+    14,
+    33
+   ],
+   "delivery.restrictions": [
+    11,
+    33
+   ],
+   "delivery.shipping_details": [
+    4,
+    33
+   ],
+   "identity.audience": [
+    2,
+    33
+   ],
+   "identity.brand": [
+    20,
+    33
+   ],
+   "identity.gtin": [
+    18,
+    33
+   ],
+   "identity.product_type": [
+    21,
+    33
+   ],
+   "identity.sku": [
+    21,
+    33
+   ],
+   "identity.tags": [
+    14,
+    33
+   ],
+   "media.alt_text": [
+    19,
+    33
+   ],
+   "media.images": [
+    22,
+    33
+   ],
+   "media.video": [
+    2,
+    33
+   ],
+   "nav.collections": [
+    14,
+    33
+   ],
+   "nav.recommendations": [
+    19,
+    33
+   ],
+   "offer.bundle": [
+    4,
+    33
+   ],
+   "offer.gift_card": [
+    3,
+    33
+   ],
+   "offer.subscription": [
+    5,
+    33
+   ],
+   "policy.privacy": [
+    18,
+    33
+   ],
+   "policy.shipping": [
+    18,
+    33
+   ],
+   "policy.terms": [
+    18,
+    33
+   ],
+   "policy.warranty": [
+    28,
+    33
+   ],
+   "price.cart_total": [
+    4,
+    33
+   ],
+   "price.compare_at": [
+    12,
+    33
+   ],
+   "price.current": [
+    21,
+    33
+   ],
+   "price.discount": [
+    1,
+    33
+   ],
+   "price.promo_banner": [
+    23,
+    33
+   ],
+   "price.taxable": [
+    14,
+    33
+   ],
+   "product.capacity": [
+    2,
+    33
+   ],
+   "product.care": [
+    2,
+    33
+   ],
+   "product.category_facts": [
+    7,
+    33
+   ],
+   "product.compatibility": [
+    17,
+    33
+   ],
+   "product.description": [
+    22,
+    33
+   ],
+   "product.directions": [
+    4,
+    33
+   ],
+   "product.documents": [
+    9,
+    33
+   ],
+   "product.features": [
+    12,
+    33
+   ],
+   "product.fit_notes": [
+    4,
+    33
+   ],
+   "product.ingredients": [
+    1,
+    33
+   ],
+   "product.materials": [
+    14,
+    33
+   ],
+   "product.measurements": [
+    16,
+    33
+   ],
+   "product.origin": [
+    2,
+    33
+   ],
+   "product.power": [
+    3,
+    33
+   ],
+   "product.published_date": [
+    14,
+    33
+   ],
+   "product.size_chart": [
+    18,
+    33
+   ],
+   "product.specs": [
+    24,
+    33
+   ],
+   "product.title": [
+    24,
+    33
+   ],
+   "product.warnings": [
+    4,
+    33
+   ],
+   "product.weight": [
+    16,
+    33
+   ],
+   "product.whats_included": [
+    7,
+    33
+   ],
+   "returns.fee": [
+    9,
+    33
+   ],
+   "returns.final_sale": [
+    1,
+    33
+   ],
+   "returns.policy": [
+    23,
+    33
+   ],
+   "returns.window": [
+    14,
+    33
+   ],
+   "reviews.count": [
+    10,
+    33
+   ],
+   "reviews.qa": [
+    4,
+    33
+   ],
+   "reviews.rating": [
+    10,
+    33
+   ],
+   "reviews.text": [
+    22,
+    33
+   ],
+   "stock.cart_sold_out": [
+    2,
+    33
+   ],
+   "stock.count": [
+    2,
+    33
+   ],
+   "stock.pickup": [
+    5,
+    33
+   ],
+   "stock.preorder": [
+    5,
+    33
+   ],
+   "stock.qty_limits": [
+    1,
+    33
+   ],
+   "stock.tracking": [
+    7,
+    33
+   ],
+   "store.about": [
+    26,
+    33
+   ],
+   "store.agents_md": [
+    14,
+    33
+   ],
+   "store.checkout_gates": [
+    2,
+    33
+   ],
+   "store.contact": [
+    18,
+    33
+   ],
+   "store.faq": [
+    14,
+    33
+   ],
+   "store.llms_txt": [
+    18,
+    33
+   ],
+   "store.loyalty": [
+    8,
+    33
+   ],
+   "store.market": [
+    14,
+    33
+   ],
+   "store.payment_methods": [
+    27,
+    33
+   ],
+   "store.robots": [
+    33,
+    33
+   ],
+   "store.site_search": [
+    13,
+    33
+   ],
+   "store.sitemap": [
+    27,
+    33
+   ],
+   "store.size_guide": [
+    4,
+    33
+   ],
+   "store.ucp_discovery": [
+    17,
+    33
+   ],
+   "variant.availability": [
+    19,
+    33
+   ],
+   "variant.colour": [
+    16,
+    33
+   ],
+   "variant.cut": [
+    3,
+    33
+   ],
+   "variant.options": [
+    17,
+    33
+   ],
+   "variant.size": [
+    14,
+    33
+   ]
+  },
+  "tools-hardware": {
+   "badge.claims": [
+    9,
+    26
+   ],
+   "badge.merchandising": [
+    3,
+    26
+   ],
+   "delivery.cost": [
+    12,
+    26
+   ],
+   "delivery.estimate": [
+    11,
+    26
+   ],
+   "delivery.free_threshold": [
+    4,
+    26
+   ],
+   "delivery.pickup": [
+    9,
+    26
+   ],
+   "delivery.regions": [
+    15,
+    26
+   ],
+   "delivery.requires_shipping": [
+    2,
+    26
+   ],
+   "delivery.restrictions": [
+    8,
+    26
+   ],
+   "identity.audience": [
+    3,
+    26
+   ],
+   "identity.brand": [
+    12,
+    26
+   ],
+   "identity.gtin": [
+    11,
+    26
+   ],
+   "identity.product_type": [
+    8,
+    26
+   ],
+   "identity.sku": [
+    13,
+    26
+   ],
+   "identity.tags": [
+    3,
+    26
+   ],
+   "media.alt_text": [
+    14,
+    26
+   ],
+   "media.images": [
+    14,
+    26
+   ],
+   "media.video": [
+    2,
+    26
+   ],
+   "nav.collections": [
+    3,
+    26
+   ],
+   "nav.recommendations": [
+    11,
+    26
+   ],
+   "policy.privacy": [
+    10,
+    26
+   ],
+   "policy.shipping": [
+    9,
+    26
+   ],
+   "policy.terms": [
+    8,
+    26
+   ],
+   "policy.warranty": [
+    18,
+    26
+   ],
+   "price.cart_total": [
+    1,
+    26
+   ],
+   "price.compare_at": [
+    3,
+    26
+   ],
+   "price.current": [
+    13,
+    26
+   ],
+   "price.promo_banner": [
+    17,
+    26
+   ],
+   "price.taxable": [
+    2,
+    26
+   ],
+   "product.capacity": [
+    7,
+    26
+   ],
+   "product.care": [
+    1,
+    26
+   ],
+   "product.category_facts": [
+    8,
+    26
+   ],
+   "product.compatibility": [
+    12,
+    26
+   ],
+   "product.description": [
+    13,
+    26
+   ],
+   "product.directions": [
+    6,
+    26
+   ],
+   "product.documents": [
+    7,
+    26
+   ],
+   "product.features": [
+    8,
+    26
+   ],
+   "product.ingredients": [
+    1,
+    26
+   ],
+   "product.materials": [
+    7,
+    26
+   ],
+   "product.measurements": [
+    10,
+    26
+   ],
+   "product.origin": [
+    5,
+    26
+   ],
+   "product.power": [
+    7,
+    26
+   ],
+   "product.published_date": [
+    2,
+    26
+   ],
+   "product.size_chart": [
+    6,
+    26
+   ],
+   "product.specs": [
+    15,
+    26
+   ],
+   "product.title": [
+    13,
+    26
+   ],
+   "product.warnings": [
+    5,
+    26
+   ],
+   "product.weight": [
+    10,
+    26
+   ],
+   "product.whats_included": [
+    10,
+    26
+   ],
+   "returns.fee": [
+    4,
+    26
+   ],
+   "returns.policy": [
+    11,
+    26
+   ],
+   "returns.window": [
+    11,
+    26
+   ],
+   "reviews.count": [
+    2,
+    26
+   ],
+   "reviews.qa": [
+    3,
+    26
+   ],
+   "reviews.rating": [
+    3,
+    26
+   ],
+   "reviews.text": [
+    11,
+    26
+   ],
+   "stock.count": [
+    1,
+    26
+   ],
+   "stock.pickup": [
+    5,
+    26
+   ],
+   "stock.preorder": [
+    7,
+    26
+   ],
+   "stock.qty_limits": [
+    1,
+    26
+   ],
+   "store.about": [
+    16,
+    26
+   ],
+   "store.agents_md": [
+    2,
+    26
+   ],
+   "store.checkout_gates": [
+    2,
+    26
+   ],
+   "store.contact": [
+    15,
+    26
+   ],
+   "store.faq": [
+    7,
+    26
+   ],
+   "store.llms_txt": [
+    5,
+    26
+   ],
+   "store.loyalty": [
+    8,
+    26
+   ],
+   "store.market": [
+    2,
+    26
+   ],
+   "store.payment_methods": [
+    14,
+    26
+   ],
+   "store.robots": [
+    26,
+    26
+   ],
+   "store.site_search": [
+    11,
+    26
+   ],
+   "store.sitemap": [
+    16,
+    26
+   ],
+   "store.ucp_discovery": [
+    11,
+    26
+   ],
+   "variant.availability": [
+    13,
+    26
+   ],
+   "variant.colour": [
+    8,
+    26
+   ],
+   "variant.cut": [
+    2,
+    26
+   ],
+   "variant.options": [
+    4,
+    26
+   ],
+   "variant.size": [
+    9,
+    26
+   ]
+  },
+  "toys-games": {
+   "badge.claims": [
+    10,
+    33
+   ],
+   "badge.merchandising": [
+    6,
+    33
+   ],
+   "delivery.cost": [
+    9,
+    33
+   ],
+   "delivery.estimate": [
+    15,
+    33
+   ],
+   "delivery.free_threshold": [
+    6,
+    33
+   ],
+   "delivery.pickup": [
+    6,
+    33
+   ],
+   "delivery.regions": [
+    18,
+    33
+   ],
+   "delivery.requires_shipping": [
+    11,
+    33
+   ],
+   "delivery.restrictions": [
+    10,
+    33
+   ],
+   "delivery.shipping_details": [
+    1,
+    33
+   ],
+   "identity.audience": [
+    9,
+    33
+   ],
+   "identity.brand": [
+    14,
+    33
+   ],
+   "identity.gtin": [
+    16,
+    33
+   ],
+   "identity.product_type": [
+    17,
+    33
+   ],
+   "identity.sku": [
+    18,
+    33
+   ],
+   "identity.tags": [
+    14,
+    33
+   ],
+   "media.alt_text": [
+    14,
+    33
+   ],
+   "media.images": [
+    22,
+    33
+   ],
+   "media.video": [
+    1,
+    33
+   ],
+   "nav.collections": [
+    12,
+    33
+   ],
+   "nav.recommendations": [
+    13,
+    33
+   ],
+   "offer.bundle": [
+    3,
+    33
+   ],
+   "offer.gift_card": [
+    4,
+    33
+   ],
+   "offer.subscription": [
+    2,
+    33
+   ],
+   "policy.minimum_order": [
+    1,
+    33
+   ],
+   "policy.privacy": [
+    18,
+    33
+   ],
+   "policy.shipping": [
+    8,
+    33
+   ],
+   "policy.terms": [
+    15,
+    33
+   ],
+   "policy.warranty": [
+    17,
+    33
+   ],
+   "price.cart_total": [
+    6,
+    33
+   ],
+   "price.compare_at": [
+    10,
+    33
+   ],
+   "price.current": [
+    19,
+    33
+   ],
+   "price.promo_banner": [
+    17,
+    33
+   ],
+   "price.taxable": [
+    12,
+    33
+   ],
+   "product.capacity": [
+    1,
+    33
+   ],
+   "product.care": [
+    3,
+    33
+   ],
+   "product.category_facts": [
+    13,
+    33
+   ],
+   "product.compatibility": [
+    12,
+    33
+   ],
+   "product.description": [
+    19,
+    33
+   ],
+   "product.directions": [
+    1,
+    33
+   ],
+   "product.documents": [
+    9,
+    33
+   ],
+   "product.features": [
+    5,
+    33
+   ],
+   "product.materials": [
+    4,
+    33
+   ],
+   "product.measurements": [
+    9,
+    33
+   ],
+   "product.origin": [
+    4,
+    33
+   ],
+   "product.published_date": [
+    11,
+    33
+   ],
+   "product.size_chart": [
+    9,
+    33
+   ],
+   "product.specs": [
+    20,
+    33
+   ],
+   "product.title": [
+    19,
+    33
+   ],
+   "product.warnings": [
+    4,
+    33
+   ],
+   "product.weight": [
+    14,
+    33
+   ],
+   "product.whats_included": [
+    7,
+    33
+   ],
+   "returns.fee": [
+    2,
+    33
+   ],
+   "returns.policy": [
+    15,
+    33
+   ],
+   "returns.window": [
+    10,
+    33
+   ],
+   "reviews.count": [
+    6,
+    33
+   ],
+   "reviews.qa": [
+    2,
+    33
+   ],
+   "reviews.rating": [
+    7,
+    33
+   ],
+   "reviews.text": [
+    15,
+    33
+   ],
+   "stock.cart_sold_out": [
+    1,
+    33
+   ],
+   "stock.count": [
+    5,
+    33
+   ],
+   "stock.pickup": [
+    3,
+    33
+   ],
+   "stock.preorder": [
+    4,
+    33
+   ],
+   "stock.tracking": [
+    3,
+    33
+   ],
+   "store.about": [
+    21,
+    33
+   ],
+   "store.agents_md": [
+    11,
+    33
+   ],
+   "store.checkout_gates": [
+    6,
+    33
+   ],
+   "store.contact": [
+    13,
+    33
+   ],
+   "store.faq": [
+    11,
+    33
+   ],
+   "store.llms_txt": [
+    11,
+    33
+   ],
+   "store.loyalty": [
+    8,
+    33
+   ],
+   "store.market": [
+    11,
+    33
+   ],
+   "store.payment_methods": [
+    19,
+    33
+   ],
+   "store.robots": [
+    32,
+    33
+   ],
+   "store.site_search": [
+    11,
+    33
+   ],
+   "store.sitemap": [
+    24,
+    33
+   ],
+   "store.ucp_discovery": [
+    12,
+    33
+   ],
+   "variant.availability": [
+    20,
+    33
+   ],
+   "variant.colour": [
+    8,
+    33
+   ],
+   "variant.options": [
+    14,
+    33
+   ],
+   "variant.size": [
+    6,
+    33
+   ]
+  }
+ },
+ "schema": "mc.union-core.v1",
+ "source": {
+  "file": "var/bench/union/union.json",
+  "inputs": {
+   "asl_bundles": 1476,
+   "captures": 869,
+   "captures_read": 720,
+   "labels": 0,
+   "live_bundles": 4474,
+   "newest_capture": "2026-10-14T19:36:52.777Z"
+  },
+  "sha256": "5804c821dead04a84b2935c50c87175feed0fd06da16362ec85daa66b3167209",
+  "types_file": "union-types-2026-10-13"
+ }
+}

@@ -1,0 +1,24 @@
+CartTrace-100k replay kit
+Copyright 2026 the CartTrace maintainers
+
+This product is licensed under the Apache License, Version 2.0 (LICENSE).
+
+It includes protocol specifications vendored byte for byte under vendor/, each under its own licence, kept beside
+it in its folder:
+
+- Universal Commerce Protocol (UCP), vendor/ucp: Apache License 2.0.
+- Agentic Commerce Protocol (ACP), vendor/acp: Apache License 2.0, with this NOTICE from its authors:
+    Copyright 2025 OpenAI
+    Copyright 2025 Stripe
+- Agent Payments Protocol (AP2), vendor/ap2: Apache License 2.0.
+
+The Google Pay and Shopify-hosted payment handler specifications are not redistributed; tools/fetch_specs.py
+downloads them from their publishers, pinned by sha256 in protocols.lock.toml.
+
+The worlds a replay runs in are not in this repository; they ship with the CartTrace-100k dataset (worlds/). Their
+products come from open catalogs, each under its own licence, named on every product and in the dataset's
+LICENSES/ folder:
+- Amazon Berkeley Objects (ABO), CC BY 4.0, by Amazon.com.
+- Wayfair ANnotation DataSet (WANDS), MIT License, Copyright (c) 2021 Wayfair.
+- Lazada product listings as released with ShoppingBench (Apache License 2.0).
+Prices of ABO and WANDS products and all stock levels are synthetic.

@@ -1,0 +1,154 @@
+# The saleor platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: saleor
+title: Saleor 3.20.119, from its playground's storefront recordings
+basis: recorded
+summary: 'Saleor serves GraphQL and no UCP, so the pack keeps the sandbox''s UCP shapes and takes Saleor''s behaviour behind
+  them, every rule seen on Saleor''s own wire (ops/playgrounds/saleor, 64 storefront probes, D68): search by whole words
+  over names, descriptions, variant names and option values; a line over the stock refused whole in Saleor''s words; one
+  voucher that the next replaces; a quiet repeat; case-sensitive codes; tax before an address; rates only after one; UNFULFILLED
+  orders.'
+sources:
+  storefront:
+    wire: ops/playgrounds/saleor/captures/storefront
+    note: 64 storefront GraphQL probes (probe.py)
+  saleor:
+    docs: https://github.com/saleor/saleor/blob/3.20.119/saleor/
+    note: Saleor 3.20.119 at its tag, the playground's image
+serves:
+  ucp:
+    releases:
+    - '2026-01-11'
+    - '2026-01-23'
+    - '2026-04-08'
+    - '2026-08-25'
+  mcp:
+    default: '2025-06-18'
+search:
+  mode: whole_words
+  cite:
+    source: storefront
+    at: 03 to 14
+    note: '''ballet flat'' 2, ''slipper'' 4, ''slippers'' 0, ''balet'' 0'
+checkout:
+  line_items:
+    rule: a line over the stock is refused whole, the checkout kept, in Saleor's words
+    cite:
+      source: storefront
+      at: 27, 31
+  fulfillment:
+    rule: tax from the first line; rates only once an address is known
+    cite:
+      source: storefront
+      at: 22, 43 to 46
+  policy_links:
+  - - privacy_policy
+    - Privacy policy
+  - - terms_of_service
+    - Terms of service
+  - - refund_policy
+    - Refund policy
+  - - shipping_policy
+    - Shipping policy
+  links_cite:
+    assumed: the sandbox's four policy pages; Saleor's storefront pages were not recorded
+  discounts:
+    rule: one voucher per checkout and a new code replaces the old (core rule code_replaces); a repeat is quiet; codes match
+      as written
+    cite:
+      source: storefront
+      at: 35 to 42
+  order_states:
+    confirmed: UNFULFILLED
+    on_hold: UNCONFIRMED
+    fulfilled: FULFILLED
+    canceled: CANCELED
+wording:
+  stock.out_of_stock: Could not add items {name}. Only {available} remaining in stock.
+  stock.not_enough: Could not add items {name}. Only {available} remaining in stock.
+  stock.sold_out: Could not add items {name}. Only 0 remaining in stock.
+  discount.invalid: Promo code is invalid
+  discount.minimum_not_met: Voucher is not applicable to this checkout.
+wording_cite:
+  source: storefront
+  at: 23, 27, 37, 41
+behaviours:
+  search.whole_words:
+    source: storefront
+    note: 'storefront 03 to 14: ''ballet flat'' 2, ''slipper'' 4, ''slippers'' 0, ''balet'' 0, ''trainers'' 0, ''boot''
+      1, ''leather'' 14; S product/search.py#L220-L222: websearch, config simple'
+  search.variants:
+    source: storefront
+    note: 'storefront 08, 13: ''black sandal'' and ''sandal black'' 3, Black only in variant names; S product/search.py#L100-L110,
+      #L179: variant names and attribute values indexed'
+  search.page_cap:
+    source: storefront
+    note: 'storefront 20: first 101 refused, ''exceeds the `first` limit of 100 records'''
+  stock.refused:
+    source: storefront
+    note: 'storefront 27, 31: INSUFFICIENT_STOCK ''Could not add items <variant>. Only 4 remaining in stock.'', the checkout
+      unchanged (28, 30)'
+  stock.sold_out:
+    source: storefront
+    note: 'storefront 23, 29: the same words with ''Only 0 remaining in stock.'''
+  lines.zero:
+    source: storefront
+    note: 'storefront 25: ZERO_QUANTITY ''The quantity should be higher than zero.'''
+  codes.one:
+    source: storefront
+    note: 'storefront 36: FIVEOFF after WELCOME10 leaves FIVEOFF alone; 42: SOLO15 then replaces it'
+  codes.repeat:
+    source: storefront
+    note: 'storefront 35: WELCOME10 again, the checkout as it was'
+  codes.case_sensitive:
+    source: storefront
+    note: 'storefront 37: ''welcome10'' INVALID ''Promo code is invalid'''
+  codes.unknown:
+    source: storefront
+    note: 'storefront 38: ''Promo code is invalid'''
+  codes.minimum:
+    source: storefront
+    note: 'storefront 41: BIG20 under 100.00, VOUCHER_NOT_APPLICABLE ''Voucher is not applicable to this checkout.'''
+  tax.upfront:
+    source: storefront
+    note: 'storefront 22: 79.99 taxed 6.40 before any address'
+  shipping.after_address:
+    source: storefront
+    note: 'storefront 22, 43: no shipping methods before an address; 45, 46: listed after'
+  shipping.outside_zone:
+    source: storefront
+    note: 'storefront 44: a Canadian address is refused as INSUFFICIENT_STOCK, ''Only 0 remaining'': stock is per shipping
+      zone'
+  checkout.email:
+    source: storefront
+    note: 'storefront 54: ''Checkout email must be set.'' EMAIL_NOT_SET'
+  payment.full:
+    source: storefront
+    note: 'storefront 57, 59: CHECKOUT_NOT_FULLY_PAID; PARTIAL_PAYMENT_NOT_ALLOWED'
+  orders.unfulfilled:
+    source: storefront
+    note: 'storefront 61: status UNFULFILLED, paymentStatus FULLY_CHARGED; 62: completing again returns the same order'
+  errors.wire:
+    source: storefront
+    note: 'storefront 23 to 64: mutation errors as {field, message, code}, query errors as GraphQL errors; the pack keeps
+      UCP''s error shapes, with Saleor''s words'
+not_ported:
+  graphql:
+    what: 'Saleor''s GraphQL wire: the sandbox serves UCP; an agent meets Saleor''s rules, not its schema'
+  free_shipping:
+    what: free shipping as a method priced by order value (the seed's Standard free from 50.00) is the store's data, not
+      a platform rule; the threshold's basis was not separable on these 20 products
+  outside_zone_words:
+    what: a destination outside the shipping zones is refused as stock (storefront 44); the sandbox refuses it as an undeliverable
+      destination
+  default_method:
+    what: a 'Default' 0.00 method listed beside the seed's three, made by nothing the seed ran; its origin was not traced
+      (storefront 45)
+code:
+- name: carttrace.sandbox.surfaces.ucp.catalog (search_whole_words)
+  why: the whole-word match over Saleor's indexed fields is an algorithm
+- name: carttrace.sandbox.core.config.CORE_RULES
+  why: the core's arithmetic and states (one replacing voucher, tax up front) are the core's table

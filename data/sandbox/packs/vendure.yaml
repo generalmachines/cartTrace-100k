@@ -1,0 +1,118 @@
+# The vendure platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: vendure
+title: Vendure-like, from reading Vendure 3.4.0's core at its tag
+basis: code
+summary: 'Vendure''s Shop API is GraphQL and serves no UCP, and no Vendure store was scouted, so the sandbox''s own UCP
+  shapes carry Vendure 3.4.0''s rules, each read at its tag (D68): a line over the stock is added at what is left with Vendure''s
+  InsufficientStockError words, codes stack and a repeat is a no-op, search needs every stemmed word as a prefix inside
+  one field, rates are quoted before an address, and a placed order is PaymentSettled.'
+sources:
+  vendure:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/
+    note: Vendure 3.4.0 core at its tag
+serves:
+  ucp:
+    releases:
+    - '2026-01-11'
+    - '2026-01-23'
+    - '2026-04-08'
+    - '2026-08-25'
+  mcp:
+    default: '2025-06-18'
+search:
+  mode: field_prefix
+  cite:
+    source: vendure
+    at: plugin/default-search-plugin/search-strategy/postgres-search-strategy.ts#L157-L189
+checkout:
+  line_items:
+    rule: a line over the stock is added at what is left, with a warning in Vendure's words (core rule clamp_stock)
+    cite:
+      source: vendure
+      at: service/services/order.service.ts#L646-L689
+  fulfillment:
+    rule: 'rates are quoted before an address: the default eligibility checker reads only the subtotal'
+    cite:
+      source: vendure
+      at: config/shipping-method/default-shipping-eligibility-checker.ts#L22-L23
+  policy_links:
+  - - privacy_policy
+    - Privacy policy
+  - - terms_of_service
+    - Terms of service
+  - - refund_policy
+    - Refund policy
+  - - shipping_policy
+    - Shipping policy
+  links_cite:
+    assumed: the sandbox's four policy pages; Vendure has no storefront policy pages of its own
+  discounts:
+    rule: codes stack, a code applied again is a no-op, codes match as written
+    cite:
+      source: vendure
+      at: service/services/order.service.ts#L995-L1018
+  order_states:
+    confirmed: PaymentSettled
+    on_hold: PaymentAuthorized
+    fulfilled: Delivered
+    canceled: Cancelled
+wording:
+  stock.clamped: Only {noun} added to the order due to insufficient stock
+  stock.out_of_stock: No items were added to the order due to insufficient stock
+  stock.sold_out: No items were added to the order due to insufficient stock
+  discount.invalid: Coupon code "{code}" is not valid
+wording_cite:
+  source: vendure
+  at: 'i18n/messages/en.json#L65, #L74'
+behaviours:
+  stock.clamped:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/service/services/order.service.ts
+    note: 'https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/service/services/order.service.ts#L646-L689:
+      constrainQuantityToSaleable, the line updated to the corrected quantity and an InsufficientStockError returned with
+      it'
+  stock.words:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/i18n/messages/en.json
+    note: 'https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/i18n/messages/en.json#L74: INSUFFICIENT_STOCK_ERROR'
+  codes.stack:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/service/services/order.service.ts
+    note: 'https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/service/services/order.service.ts#L995-L1018:
+      applyCouponCode pushes onto couponCodes'
+  codes.repeat:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/service/services/order.service.ts
+    note: 'https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/service/services/order.service.ts#L1001-L1003:
+      a code already applied returns the order'
+  codes.invalid:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/i18n/messages/en.json
+    note: 'https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/i18n/messages/en.json#L65: COUPON_CODE_INVALID_ERROR'
+  codes.case_sensitive:
+    assumed: 'unverified: promotion.service validateCouponCode looks the code up by equality, case-sensitive on Postgres;
+      not read'
+  search.field_prefix:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/plugin/default-search-plugin/search-strategy/postgres-search-strategy.ts
+    note: 'https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/plugin/default-search-plugin/search-strategy/postgres-search-strategy.ts#L157-L189:
+      words joined as ''word'':* with &, matched against to_tsvector of the sku, product name, variant name or description,
+      each field alone'
+  search.stemming:
+    assumed: 'unverified: to_tsvector with the database''s default text search configuration (english on a stock Postgres);
+      the pack''s stemmer approximates Snowball''s'
+  shipping.before_address:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/config/shipping-method/default-shipping-eligibility-checker.ts
+    note: 'https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/config/shipping-method/default-shipping-eligibility-checker.ts#L22-L23:
+      eligible when subTotalWithTax reaches orderMinimum, no address read'
+  orders.states:
+    docs: https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/service/helpers/order-state-machine/order-state.ts
+    note: 'https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/service/helpers/order-state-machine/order-state.ts#L42-L48
+      (Cancelled); https://github.com/vendure-ecommerce/vendure/blob/v3.4.0/packages/core/src/config/order/default-order-process.ts#L187-L212:
+      PaymentAuthorized, PaymentSettled, Delivered, Cancelled'
+  errors.wire:
+    assumed: 'unverified: Vendure answers errors as GraphQL union results (errorCode, message); the pack keeps UCP''s error
+      shapes, with Vendure''s words'
+code:
+- name: carttrace.sandbox.surfaces.ucp.catalog (search_field_prefix)
+  why: the prefix match over one field with a Snowball-like stemmer is an algorithm
+- name: carttrace.sandbox.core.config.CORE_RULES
+  why: the core's arithmetic and states (clamped stock, stacked codes) are the core's table

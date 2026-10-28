@@ -1,0 +1,113 @@
+# Category 25 of the store queue: General merchandise.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: General merchandise
+slug: general-merchandise
+index: 25
+summary: Department stores, marketplaces and big-box retailers that sell across categories.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+    General merchandise spans the taxonomy; these are the top-level categories the queue's department stores sell most.
+  paths:
+    - id: aa
+      path: Apparel & Accessories
+    - id: hg
+      path: Home & Garden
+    - id: el
+      path: Electronics
+    - id: hb
+      path: Health & Beauty
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - size
+  - color
+  - specs
+  - condition
+  - quantity
+  - budget
+  - delivery_by
+  - gift
+  - returnable
+intents:
+  replenish:
+    - id: general-merchandise.replenish.1
+      text: Please reorder the {product_name} I bought last month, {quantity} of them.
+      slots: [product_name, quantity]
+    - id: general-merchandise.replenish.2
+      text: Same {brand} {product_type} as before; mine broke.
+      slots: [brand, product_type]
+  specify:
+    - id: general-merchandise.specify.1
+      text: I need a {color} {product_type} in {size}, {condition}, under {budget}.
+      slots: [color, product_type, size, condition, budget]
+    - id: general-merchandise.specify.2
+      text: Looking for a {product_type} with {specs}, delivered by {delivery_by}.
+      slots: [product_type, specs, delivery_by]
+  compare:
+    - id: general-merchandise.compare.1
+      text: Compare the {product_type}s you sell yourselves with those from other sellers on your site, under {budget}.
+      slots: [product_type, budget]
+    - id: general-merchandise.compare.2
+      text: Which {product_type} has the better return policy?
+      slots: [product_type]
+  discover:
+    - id: general-merchandise.discover.1
+      text: I need to get organised at home. What would you suggest under {budget}?
+      slots: [budget]
+    - id: general-merchandise.discover.2
+      text: I'm looking for a present, something useful for around {budget}.
+      slots: [budget]
+  express:
+    - id: general-merchandise.express.1
+      text: Just send me a {product_type} by {delivery_by}, whatever is cheapest.
+      slots: [product_type, delivery_by]
+    - id: general-merchandise.express.2
+      text: Pick a {color} {product_type} I can return, under {budget}.
+      slots: [color, product_type, budget]
+hypotheses:
+  - id: general-merchandise.structured-attributes
+    statement: Products carry structured attributes suited to their category (size, material, dimensions), not only titles.
+    why: Department stores aggregate many brands' data, and we expect agent accuracy to depend on whether those attributes
+      survive.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.spec_matches_spec
+    evidence_grade: hypothesis
+  - id: general-merchandise.seller-identity
+    statement: Who sells and who ships each item (the store itself or a third-party seller) is stated.
+    why: Marketplace items carry another seller's returns, warranty and delivery, and shoppers ask who they are buying
+      from.
+    where: [get_product.attributes, get_product.description, policies]
+    judge_decision: judge.seller_disclosed
+    evidence_grade: hypothesis
+  - id: general-merchandise.variant-structure
+    statement: Size and colour are variant options rather than separate listings.
+    why: Separate listings for each variant make the right item harder to find and to compare.
+    where: [get_product.options]
+    judge_decision: judge.variant_matches_spec
+    evidence_grade: hypothesis
+  - id: general-merchandise.delivery-estimates
+    statement: Delivery estimates for the shopper's market are shown before checkout.
+    why: Big stores ship from many warehouses, and estimates vary by item.
+    where: [policies, get_product.description]
+    judge_decision: judge.delivery_by_respected
+    evidence_grade: hypothesis
+  - id: general-merchandise.per-seller-returns
+    statement: The returns policy for each seller is answerable through the policy tool.
+    why: On marketplaces the returns policy depends on the seller, not on the site.
+    where: [policies]
+    judge_decision: judge.policy_question_answered
+    evidence_grade: hypothesis
+  - id: general-merchandise.unit-prices
+    statement: Unit prices, or the price per pack, are shown where pack sizes differ.
+    why: Value comparisons across pack sizes need a unit price.
+    where: [get_product.attributes, get_product.options]
+    judge_decision: judge.price_within_budget
+    evidence_grade: hypothesis

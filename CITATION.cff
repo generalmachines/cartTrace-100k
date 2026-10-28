@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use CartTrace-100k or this replay kit, please cite it as below."
+title: "CartTrace-100k: How Shopping Agents Fare Across Stores, Categories and Commerce Protocols"
+type: software
+authors:
+  - given-names: "Pratham"
+    family-names: "Bhatnagar"
+  - given-names: "Deepanshu"
+    family-names: "Pal"
+license: Apache-2.0
+repository-code: "https://github.com/generalmachines/cartTrace-100k"
+version: 1.0.0
+keywords: [AI agents, agentic commerce, UCP, ACP, AP2, MCP, WebMCP, trajectories, reproducibility]
+preferred-citation:
+  type: dataset
+  title: "CartTrace-100k: How Shopping Agents Fare Across Stores, Categories and Commerce Protocols"
+  authors:
+    - given-names: "Pratham"
+      family-names: "Bhatnagar"
+    - given-names: "Deepanshu"
+      family-names: "Pal"
+  publisher:
+    name: "General Machines"
+  year: 2026
+  license: CC-BY-4.0
+  url: "https://huggingface.co/datasets/generalmachines/CartTrace-100k"

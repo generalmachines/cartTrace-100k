@@ -1,0 +1,89 @@
+# What each audience of a sandbox row may see (D106, carttrace.sandbox.presented). The identity a stand-in of the open
+# pools presents to agents is resolved from this file once per world, at manifest build, and every surface reads only
+# that object (carttrace.sandbox.presented.presented). The runtime guard (carttrace.sandbox.presented.Guard, in the sandbox server)
+# refuses to serve a response that carries a row's forbidden token, and ends the row as harness_error.
+schema: mc.visibility.v1
+version: visibility-2026-10-16
+
+audiences:
+  agent_prompt:
+    says: the system prompt and the agent's context line
+    allowed: [presented.domain, row.market, task.currency, store.clock_date]
+    forbidden: [roster_domain, roster_id, pool_key, category_host, sandbox, source_id]
+  agent_served:
+    says: every byte a surface serves the agent, bodies and headers (UCP REST and MCP, ACP, AP2, MPP, Shop Pay,
+      WebMCP pages and tools, wallet steps)
+    allowed: [presented.*, catalog products as the world holds them, prices, policies, the protocol's own names]
+    forbidden: [roster_domain, roster_id, pool_key, category_host, sandbox, source_id]
+    enforced: runtime guard, and tests/collect/test_visibility_canary.py over every cell
+  shopper:
+    says: the simulated shopper's prompts (carttrace.agents.shopper)
+    allowed: [task.opening, task.hidden_spec, presented.domain, catalog fixtures]
+    forbidden: [roster_domain, roster_id, pool_key]
+  judge:
+    says: the judge's inputs (the bundle)
+    allowed: [everything an internal bundle holds]
+    forbidden: []
+  internal_bundle:
+    says: episode.json, turns, wire, events, experiment.json, exposure.json
+    allowed: [roster_id (header store_id, to line rows up with stores), presented.*, source ids (provenance, exposure.json
+        agent_view.source_ids)]
+    forbidden: [roster_domain]
+    enforced: tests/collect/test_open_domain.py
+  public_release:
+    says: carttrace.release rows and bundles
+    allowed: [pseudonyms (twin-<catalog>-<category>-NN), presented.domain, source ids in fixture_source_ids]
+    forbidden: [roster_domain, roster_id, roster_name]
+
+# The tokens a row's guard refuses, by kind: `{...}` is filled from the row (its roster store, its world).
+forbidden:
+  roster_domain: ["{store.domain}", "{store.domain.bare}"]
+  roster_id: ["{store.id}"]
+  pool_key: ["pool-{world.category}-{world.seed}", "open:pool-"]
+  category_host: "a host (scheme://host) whose name holds {world.category}"
+  sandbox: ["sandbox.invalid", "mc-sandbox", ".sandbox.", '"sandbox"', "=sandbox", "sandbox-shop", "sandbox's own",
+    "(sandbox)", "sandbox replica", "sandbox store counter", "sandbox way", "sandbox post", "sandbox courier",
+    "sandbox city"]
+  source_id: ["gid://abo/", "gid://wands/", "gid://lazada/", "gid://off/", "gid://obf/"]
+
+# A stand-in's presented identity, per platform pack (`default` for a pack not listed).
+identity:
+  mcp_server:
+    shopify: {name: universal-commerce, version: 0.1.0}
+    default: {name: commerce-mcp, version: 1.0.0}
+  id_scheme:
+    shopify: shopify
+    medusa: prefixed
+    saleor: graphql
+    default: numeric
+  session_header: x-session-id
+  acp_psp: stripe
+  mpp_method: tokencard
+  card_handler: {namespace: com.example.payments.card, id: card}
+  shop_id: shop-1
+  # The sandbox core's own names that a response can echo (a payment's handler), served under these names and read
+  # back from them: the server rewrites them at its boundary, both ways. The rewrite is a bijection only while no
+  # served name is a string the core emits or a protocol carries on its own: a request's signed document (AP2 v0.1.0's
+  # cart mandate names `payment_processor` in its method data) is echoed byte for byte and must reach the merchant as
+  # it was signed (D109). A value a surface formats itself is presented through carttrace.sandbox.presented instead.
+  served_names:
+    dev.sandbox.psp.requested: com.example.payments.requested
+    dev.sandbox.psp.delegated: com.example.payments.delegated
+  # The store's address as its policy pages state it, per market code (a made-up street in a real city).
+  store_address:
+    US: 240 Harbor Street, Springfield, IL 62701, US
+    CA: 240 Harbour Street, Ottawa, ON K1P 1J1, CA
+    UK: 24 Harbour Lane, London EC1A 1BB, GB
+    EU: Hafenstrasse 24, 10115 Berlin, DE
+    IN: 24 Harbour Road, Mumbai, MH 400001, IN
+    AU: 24 Harbour Street, Sydney, NSW 2000, AU
+    NZ: 24 Harbour Street, Wellington 6011, NZ
+    SG: 24 Harbour Road, Singapore 018989, SG
+    MX: Calle Puerto 24, Ciudad de Mexico, CDMX 06000, MX
+    JP: 2-4 Minato, Chiyoda, Tokyo 100-0001, JP
+    PH: 24 Harbour Street, Makati, Metro Manila 1226, PH
+  # The market's own carrier and pickup names, renamed in the stand-in's world.
+  market_names:
+    Sandbox Post: Standard Post
+    Sandbox Courier: Express Courier
+    Sandbox store counter: Store counter

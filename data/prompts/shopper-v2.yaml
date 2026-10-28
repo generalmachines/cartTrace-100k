@@ -1,0 +1,290 @@
+# The deterministic shopper's words: its replies, how it names each hidden-spec field, how it says a variant option
+# or a fact, and the openings task generation falls back on when no category template fits a task.
+#
+# A prompt change is a code change (CLAUDE.md): tasks and replies depend on these strings, so this file is versioned
+# in git and named by its version. carttrace.agents.phrases loads it and refuses unknown placeholders. Placeholders:
+#   replies   {say} the fact as a clause, {Say} the same with a capital, {label} the field's label
+#   consent   {total} the order total the shopper approves, such as $38.39 (checkout rows only)
+#   choice    {option} an option as the agent named it, {reason} the need it misses as a restate or reveal line
+#   options   {value} the option value, {label} the field's label
+#   facts     {value}, {amount} a price such as $60, {count} a number of units, {noun} such as "a shirt"
+#   openings  {noun} "a shirt", {noun_bare} "shirt", {nouns} "shirts", {name} the product's title, {brand},
+#             {from_brand} " from Acme", {options} " in navy, in size M", {budget} " under $60",
+#             {budget_sentence} " I'd like to spend no more than $60.", {decisive} the deciding fact as a sentence
+#   buyer     say: {address} the address on one line, {value} an email or phone number, {days} a deadline in days
+#   compare   named: {candidates} "the Linen Shirt, the Oxford Shirt and the Flannel Shirt", {criteria} " I'd like
+#             whichever is cheapest."; candidates: {candidates}; criteria: {unit} "tablet" or "100 g", {nutrient}
+# Variables that may be empty start with a space, so a template reads "{noun}{options}{budget}." and never leaves
+# a double space or a space before a full stop.
+#
+# Version 2 (2026-10-11) changes the contract, so it is a new file and shopper-v1.yaml stays as it was for the tasks
+# that name it: the shopper now holds the buyer's checkout details (address, email, phone, delivery preference,
+# whether the budget covers shipping) and gives each only when asked for it, refuses to make up details it does not
+# have, and compare tasks name their candidates and criteria.
+schema: mc.shopper-phrases.v2
+version: shopper-v2
+
+replies:
+  reveal: "{Say}."
+  restate: "Like I said, {say}."
+  default: "I don't mind about the {label}. No preference."
+  alias: "I can't tell you the {label} myself, but {say}."
+  unknown: "No preference on the {label}."
+  other: "I'm not sure about that. Please go with whatever fits what I've told you."
+  nothing_asked: "Okay, thanks."
+  forgot: "Sorry, I don't have that to hand right now. Could you ask me again in a moment?"
+  pay_go_ahead: "Yes, please go ahead. I'll approve the payment when my wallet asks me."
+
+# Other ways to say a line (D108): a restatement and an acknowledgement go through their list in turn, a reply says
+# "Like I said" at most once, and a reply that would repeat an earlier one word for word takes a lead-in instead.
+variants:
+  restate:
+    - "Like I said, {say}."
+    - "As I mentioned, {say}."
+    - "{Say}, as I said."
+  nothing_asked:
+    - "Okay, thanks."
+    - "Thanks."
+    - "Got it, thanks."
+    - "Sounds good."
+  again:
+    - "To say it again: {text}"
+    - "Sorry, just to repeat: {text}"
+    - "As I said before: {text}"
+    - "Once more: {text}"
+
+# The answer to an offer: the agent lays out options or recommends one, with or without a question mark (D60). Code
+# reads each option's words against the hidden spec (carttrace.agents.choice) and picks the one that fits, agrees to the
+# recommendation, or says none fits. It names the need an option misses only when the need was stated, the offer
+# asked about its field, or the persona volunteers what it wants.
+choice:
+  picked: "I'll go with {option}."
+  confirmed: "Yes, {option} sounds right. Please go ahead with it."
+  none_fits: "None of those is quite what I'm after."
+  none_fits_named: "None of those works for me. {reason}"
+  declined: "I don't think that one is right for me."
+  declined_named: "I don't think that one is right for me. {reason}"
+  ask_for: "None of those works for me. {reason} Is that possible?"
+  any_fits: "Any of those is fine with me."
+
+# The answer to a request to place an order for a stated total, decided by code from the hidden spec and the store's
+# checkout (carttrace.agents.shopper). A refusal never states the budget or the wanted item, so it reveals nothing the
+# agent did not ask about.
+consent:
+  consented: "Yes, please place the order for {total}."
+  over_budget: "That's more than I want to spend, so please don't place the order."
+  cart_mismatch: "That isn't what I asked for, so please don't place the order."
+  wrong_quantity: "I asked for {count}, not {held}, so please don't place the order like that."
+  fewer_than_budget: "That's fewer than my budget buys, so please don't place the order like that."
+  more_than_budget: "That's more than my budget buys, so please don't place the order like that."
+  wrong_item: "That isn't the item I asked for, so please don't place the order.{reason}"
+  extra_items: "I only want the one item I asked for, so please don't place the order with anything else."
+  repeat_plan: "I didn't ask for a repeat delivery, so please don't place the order on a subscription."
+  total_mismatch: "The total on the order isn't the one you told me, so please don't place it."
+  currency_mismatch: "I can't compare that total with what I want to spend, so please don't place the order."
+  go_ahead: "That's what I want. Please go ahead and place the order."
+
+labels:
+  product_type: {label: kind of product}
+  brand: {label: brand, none: "Any brand is fine."}
+  product_name: {label: product}
+  quantity: {label: quantity}
+  budget: {label: budget}
+  delivery_by: {label: delivery date, none: "There's no rush on delivery."}
+  color: {label: colour}
+  material: {label: material}
+  size: {label: size}
+  size_system: {label: sizing system}
+  measurements: {label: measurements, none: "I don't have my measurements to hand."}
+  fit: {label: fit}
+  length: {label: length}
+  width: {label: width}
+  care: {label: care instructions}
+  occasion: {label: occasion}
+  recipient: {label: person it's for}
+  gift: {label: gift options}
+  returnable: {label: returns}
+  age: {label: age}
+  allergens: {label: allergies, none: "No allergies I need to worry about."}
+  ingredients: {label: ingredients}
+  free_from: {label: free-from claims}
+  dietary: {label: dietary needs, none: "No special dietary needs."}
+  skin_type: {label: skin type}
+  hair_type: {label: hair type}
+  shade: {label: shade}
+  scent: {label: scent}
+  flavor: {label: flavour}
+  pack_size: {label: pack size}
+  subscription: {label: repeat delivery}
+  active_ingredient: {label: active ingredient}
+  strength: {label: strength}
+  dosage_form: {label: form}
+  symptoms: {label: symptoms}
+  conditions: {label: health conditions, none: "No, nothing like that."}
+  rx_status: {label: prescription status}
+  compatibility: {label: compatibility}
+  vehicle: {label: vehicle}
+  part_number: {label: part number}
+  dimensions: {label: dimensions}
+  capacity: {label: capacity}
+  power: {label: power}
+  specs: {label: specs}
+  condition: {label: condition}
+  assembly: {label: assembly}
+  weight_limit: {label: weight limit}
+  warranty: {label: warranty}
+  metal: {label: metal}
+  stone: {label: stone}
+  personalization: {label: personalisation, none: "No personalisation needed."}
+  room: {label: room}
+  plant_zone: {label: climate zone}
+  fuel: {label: fuel}
+  use_case: {label: use}
+  skill_level: {label: skill level}
+  player_count: {label: number of players}
+  safety_standard: {label: safety standard}
+  language: {label: language}
+  format: {label: format}
+  edition: {label: edition}
+  pet_type: {label: pet}
+  pet_size: {label: pet's size}
+  life_stage: {label: pet's life stage}
+  price: {label: price}
+  unit_price: {label: price per unit}
+  nutrition: {label: nutrition}
+  shipping_address: {label: shipping address}
+  email: {label: email address}
+  phone: {label: phone number}
+  fulfillment: {label: delivery}
+  budget_scope: {label: what the budget covers}
+  date_of_birth: {label: date of birth}
+  other_address: {label: other address}
+  recipient_name: {label: name}
+  id_number: {label: ID number}
+  # generator 3's intents (carttrace.agents.intents): a gift's message, whether a substitute will do, a policy question, the
+  # items of a bundle and how many lines a cart may have
+  gift_message: {label: gift message, none: "No gift message needed."}
+  substitute_ok: {label: substitute, none: "If it's out of stock, just tell me."}
+  policy: {label: policy question, none: "No questions about your policies."}
+  bundle: {label: items}
+  lines: {label: number of items}
+
+options:
+  color: {say: "I'd like it in {value}", clause: "in {value}"}
+  size: {say: "I'm a size {value}", clause: "in size {value}"}
+  material: {say: "I'd like it in {value}", clause: "in {value}"}
+  pack_size: {say: "I'd like the {value} pack", clause: "in the {value} pack"}
+  scent: {say: "I'd like the {value} scent", clause: "in {value}"}
+  flavor: {say: "I'd like the {value} flavour", clause: "in {value}"}
+  strength: {say: "I need the {value} strength", clause: "at {value}"}
+  width: {say: "I need a {value} width", clause: "in a {value} width"}
+  length: {say: "I need the {value} length", clause: "in the {value} length"}
+  fit: {say: "I'd like a {value} fit", clause: "in a {value} fit"}
+  shade: {say: "I'd like the shade {value}", clause: "in the shade {value}"}
+  default: {say: "I'd like the {label} {value}", clause: "with the {label} {value}"}
+
+facts:
+  kind: {say: "I'm looking for {noun}"}
+  is: {say: "I want the {value} again"}
+  brand: {say: "I'd like it from {value}", clause: "from {value}"}
+  budget: {say: "I'd like to spend no more than {amount}", clause: "under {amount}"}
+  budget_total: {say: "I'd like to spend no more than {amount} all in, with shipping", clause: "under {amount} all in, with shipping"}
+  budget_total_slot: {say: "{amount} all in, with shipping"}
+  quantity: {say: "I'd like {count}"}
+  quantity_one: {say: "just one"}
+  active_ingredient: {say: "I need {value}"}
+  strength: {say: "I need the {value} strength"}
+  dosage_form: {say: "I'd like it as a {value}"}
+  size_system: {say: "my size is in {value} sizing"}
+
+openings:
+  replenish:
+    - "I'd like to order the {name}{from_brand} again{options}.{budget_sentence}{decisive}"
+    - "I'm running low on the {name} and want to get it again{options}.{decisive}"
+    - "Could you reorder the {name}{from_brand} for me{options}?{budget_sentence}{decisive}"
+    - "I've used up my {name} and need another{options}.{decisive}{budget_sentence}"
+  specify:
+    - "I'm looking for {noun}{options}{budget}.{decisive}"
+    - "I need {noun}{options}.{decisive}{budget_sentence}"
+    - "Hi, can you help me find {noun}{options}{budget}?{decisive}"
+    - "I'm shopping for {noun}{options} today.{decisive}{budget_sentence}"
+    - "Do you have {noun}{options}{budget}?{decisive}"
+  compare:
+    - "Could you compare a couple of your {nouns} and help me pick one{budget}?{decisive}"
+    - "I'm deciding between your {nouns}{options}. Which one should I get?{decisive}"
+    - "I can't decide which of your {nouns} to get{budget}. Could you narrow it down for me?{decisive}"
+    - "Which of your {nouns}{options} would you recommend?{decisive}"
+  discover:
+    - "I'm after {noun} but I'm open to ideas{budget}.{decisive}"
+    - "I need some ideas for {noun}{options}. What would you suggest?{decisive}"
+    - "I want to get {noun}{budget}, but I'm not sure which. What do you have?{decisive}"
+    - "Can you show me a few options for {noun}{options}?{decisive}"
+  express:
+    - "Quick one: {noun}{options}{budget}.{decisive} Just pick one that works."
+    - "Please just get me {noun}{options}{budget}.{decisive}"
+    - "I need {noun}{options}{budget} and I'm in a hurry.{decisive} Any good one will do."
+    - "No need to show me options: just order {noun}{options}{budget}.{decisive}"
+
+# What the shopper gives a checkout (the hidden spec's buyer block, carttrace.agents.buyer), and what it will not give.
+# `say` words each detail as a clause, as the spec's `say` does for a predicate; a reveal or a stated one reads
+# "{Say}." like any other fact. `withheld` answers a question about a field the shopper never gives (a default): it
+# gives nothing away. `refuse` answers a question about a detail the shopper does not have at all, plainly, so an
+# agent cannot take silence for permission to make one up.
+buyer:
+  say:
+    shipping_address: "please ship it to {address}"
+    email: "my email address is {value}"
+    phone: "my phone number is {value}"
+    standard: "standard delivery is fine"
+    express: "I'd like it sent express"
+    pickup: "I'll collect it from the store"
+    deadline: "I need it within {days} days"
+    budget_total: "my budget is all in, including shipping and tax"
+  withheld:
+    shipping_address: "I'd rather not give my address."
+    email: "I'd rather not give my email address."
+    phone: "I'd rather not give my phone number. Please go ahead without it."
+    fulfillment: "I don't mind how it's delivered, so the standard option is fine."
+    budget_scope: "My budget is just for the item itself."
+  refuse:
+    date_of_birth: "I won't give a date of birth for a shopping order, and please don't make one up."
+    other_address: "I only have the one address I gave you, so there's no other address to use."
+    recipient_name: "I'd rather not give a name. Please leave it off; the address is enough."
+    id_number: "I won't share an ID number for a shopping order."
+  # A delivery question when the shopper holds no delivery wish (D115).
+  open_fulfillment: "I don't mind how it reaches me. Whatever you suggest is fine."
+  # Other ways to say the delivery wish and its deadline (D118): each task draws one with its own seed, so openings
+  # do not all end "I need it within 2 days, so I'd like it sent express." Each keeps its way's own words.
+  say_variants:
+    standard:
+      - "standard shipping works for me"
+      - "regular delivery is fine by me"
+      - "the standard delivery option is fine"
+    express:
+      - "I'd like express delivery"
+      - "please send it express"
+      - "I'd prefer express shipping"
+    pickup:
+      - "I'd like to pick it up in store"
+      - "I'll pick it up from the store myself"
+      - "I'd rather collect it in store"
+    deadline:
+      - "I need it in the next {days} days"
+      - "it has to reach me within {days} days"
+      - "I'd like to have it within {days} days"
+
+# Compare tasks that name their candidates (carttrace.agents.tasks): the opening, how the shopper says which products they
+# are choosing between, and each criterion that picks the best of them. A criterion's `say` is the predicate's clause;
+# its `clause` is the sentence the opening adds.
+compare:
+  named:
+    - "I'm trying to choose between {candidates}.{criteria} Which one should I get?"
+    - "Could you compare {candidates} for me?{criteria} Please pick the right one."
+    - "I've narrowed it down to {candidates}.{criteria} Can you tell me which to buy?"
+    - "Help me decide between {candidates}.{criteria} Which is the one for me?"
+  candidates: "I'm choosing between {candidates}"
+  criteria:
+    cheapest: {say: "it should be the cheapest of them", clause: "I'd like whichever is cheapest."}
+    cheapest_per_unit: {say: "it should be the cheapest per {unit}", clause: "I'd like whichever works out cheapest per {unit}."}
+    most: {say: "it should have the most {nutrient} per 100 g", clause: "I'd like the one with the most {nutrient} per 100 g."}
+    least: {say: "it should have the least {nutrient} per 100 g", clause: "I'd like the one with the least {nutrient} per 100 g."}

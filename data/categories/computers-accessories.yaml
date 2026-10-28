@@ -1,0 +1,115 @@
+# Category 19 of the store queue: Computers / accessories.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Computers / accessories
+slug: computers-accessories
+index: 19
+summary: Computers, components, peripherals and accessories.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: el-6
+      path: Electronics > Computers
+    - id: el-7-8
+      path: Electronics > Electronics Accessories > Computer Accessories
+    - id: el-7-9
+      path: Electronics > Electronics Accessories > Computer Components
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - specs
+  - compatibility
+  - language
+  - condition
+  - power
+  - warranty
+  - budget
+  - quantity
+  - delivery_by
+intents:
+  replenish:
+    - id: computers-accessories.replenish.1
+      text: I need another {product_name} for a new desk, the same as before.
+      slots: [product_name]
+    - id: computers-accessories.replenish.2
+      text: Please reorder {quantity} of the {brand} {product_type} we use at the office.
+      slots: [quantity, brand, product_type]
+  specify:
+    - id: computers-accessories.specify.1
+      text: I need a {product_type} with {specs} that runs {compatibility}, under {budget}.
+      slots: [product_type, specs, compatibility, budget]
+    - id: computers-accessories.specify.2
+      text: Looking for a {product_type} with a {language} layout, {condition}, delivered by {delivery_by}.
+      slots: [product_type, language, condition, delivery_by]
+  compare:
+    - id: computers-accessories.compare.1
+      text: 'Compare two {product_type}s under {budget} for {specs}: which is faster, and which has the better warranty?'
+      slots: [product_type, budget, specs]
+    - id: computers-accessories.compare.2
+      text: Will this {product_type} work with {compatibility}, or do I need the other model?
+      slots: [product_type, compatibility]
+  discover:
+    - id: computers-accessories.discover.1
+      text: I'm setting up a home office. What do I need under {budget}?
+      slots: [budget]
+    - id: computers-accessories.discover.2
+      text: My laptop is slow. Would an upgrade such as a {product_type} help?
+      slots: [product_type]
+  express:
+    - id: computers-accessories.express.1
+      text: Send me a {product_type} that works with {compatibility} by {delivery_by}.
+      slots: [product_type, compatibility, delivery_by]
+    - id: computers-accessories.express.2
+      text: Pick a {condition} {product_type} with {specs} under {budget}.
+      slots: [condition, product_type, specs, budget]
+hypotheses:
+  - id: computers-accessories.full-specs
+    statement: Full specs are attributes (processor, memory, storage, ports, display).
+    why: Computers are bought on specs, and a spec sheet in an image is invisible to a text agent.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.spec_matches_spec
+    evidence_grade: hypothesis
+  - id: computers-accessories.compatibility
+    statement: Compatibility is explicit (socket, memory type and speed, laptop model fit, operating system).
+    why: Upgrades and accessories fail on compatibility more than on anything else.
+    where: [get_product.attributes, get_product.description, get_product.metafields]
+    details: [compatibility]
+    judge_decision: judge.compatibility_matches_spec
+    evidence_grade: hypothesis
+  - id: computers-accessories.keyboard-layout
+    statement: Keyboard layout and language are variant options.
+    why: A US layout sent to a German shopper is a wrong item that looks right in the cart.
+    where: [get_product.options]
+    judge_decision: judge.variant_matches_spec
+    evidence_grade: hypothesis
+  - id: computers-accessories.configure-to-order
+    statement: Configuration choices are variant options with their prices and lead times.
+    why: Configured machines have many options, and a choice the agent cannot see is a choice it cannot make.
+    where: [get_product.options, policies]
+    judge_decision: judge.variant_matches_spec
+    evidence_grade: hypothesis
+  - id: computers-accessories.refurbished-grade
+    statement: Refurbished grade and battery health are stated for each item.
+    why: Refurbished laptops vary widely, and the grade is what the price reflects.
+    where: [get_product.options, get_product.attributes]
+    judge_decision: judge.condition_matches_spec
+    evidence_grade: hypothesis
+  - id: computers-accessories.lead-times
+    statement: Lead times for configured or back-ordered items are shown before checkout.
+    why: Built-to-order machines can take weeks, which breaks a delivery date.
+    where: [get_product.description, policies]
+    judge_decision: judge.delivery_by_respected
+    evidence_grade: hypothesis
+  - id: computers-accessories.warranty-and-returns
+    statement: Warranty and returns are answerable through the policy tool.
+    why: Buyers of expensive hardware check both before committing.
+    where: [policies]
+    judge_decision: judge.policy_question_answered
+    evidence_grade: hypothesis

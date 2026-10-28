@@ -1,0 +1,714 @@
+# The data elements a shopping agent needs from a store, shared by every category (carttrace.bench.elements).
+#
+# The live data audit (decision D19, `carttrace live inventory`) measures, per store and day, which of these a store gives
+# an agent and where: on UCP over MCP and Shopify's Storefront MCP (what agents read), and on its product pages as
+# JSON-LD, microdata and visible HTML (what people and search engines read). Each category adds its own decisive
+# details in data/elements/<category>.yaml, derived from its checklist hypotheses in data/categories/.
+#
+# An element:
+#   name, group, statement      what it is, in plain words
+#   scope                       product (read per sampled product) or store (read once per surface)
+#   kind                        probes (default), comparison or search (computed by code, see carttrace.bench.element_detect)
+#   version                     bump it whenever its probes change; every cell names it
+#   parts                       what "present" needs; a product is present when every part is found, partial when
+#                               some part is found (or only weakly), absent when none is
+#   detect                      per probe family, per part, the probes tried in order (first hit decides the quote):
+#                                 agent   ucp_mcp and store_mcp product documents, in UCP's shape
+#                                 schema  schema.org nodes from JSON-LD and from microdata
+#                                 html    the page as served (no script runs): text, links, attributes, markers
+#                                 files   store-level files (llms.txt, agents.md, /.well-known/ucp, sitemap)
+#   applies                     when a product element applies: an option name, a list of categories
+#   states                      what present, partial and absent mean for this element
+#   expose                      where a store should expose it: ucp, shopify (metafields), schema_org, policy_page
+#   add                         how detail_added serves it on the replica: the UCP field, the views, what to extract
+#   links                       category hypotheses it serves: by catalog detail and by bench detector preset
+#
+# A probe has exactly one locator:
+#   field: a.b.c           a value at that path (lists are walked; schema.org names without prefixes)
+#   every: path + field    every item of the collection at `every` has `field` (some: a weak hit)
+#   key: regex             a metadata key (agent) or an additionalProperty name (schema) with a value
+#   text: [regex]          words in the element's text sources (description, metadata values; the page's main text)
+#   bench: item            the bench detector of that checklist item (data/bench/detectors.yaml)
+#   node: Type             a schema.org node of that type anywhere on the page
+#   attr: regex            an HTML attribute by name, with `match` on its value when given
+#   marker: regex          an HTML class or id token (a widget's markup)
+#   link: regex            an HTML link's text or address
+#   table: true            a size table (labels and measurements) in the text
+#   tool: regex            store: a tool the agent surface lists
+#   policy: [regex]        store: the store's policy and FAQ answers, or its policy pages
+#   file: name             store: a store file that answered (llms_txt, agents_md, ucp_discovery, sitemap)
+# and may carry `match: regex` (the value must match) and `weak: true` (a hit only counts as partial).
+#
+# Patterns are Python regular expressions, matched case-insensitively, in single quotes.
+schema: mc.elements.v1
+
+widgets:
+  # Apps whose markup shows in a product page's source, by the name a store knows them by; a marker matches a
+  # class or id token.
+  Judge.me: {marker: '^jdgm', kinds: [reviews, questions]}
+  Yotpo: {marker: '^yotpo', kinds: [reviews, questions]}
+  Okendo: {marker: '^oke|okereviews|okendo', kinds: [reviews, questions]}
+  Stamped: {marker: '^stamped', kinds: [reviews, questions]}
+  Loox: {marker: '^loox', kinds: [reviews]}
+  REVIEWS.io: {marker: '^ruk[_-]|reviewsio', kinds: [reviews]}
+  Junip: {marker: '^junip', kinds: [reviews]}
+  Shopify Product Reviews: {marker: '^spr-|shopify-product-reviews', kinds: [reviews]}
+  Trustpilot: {marker: 'trustpilot-widget', kinds: [reviews]}
+  Kiwi Size Chart: {marker: 'kiwi-?siz|^ks-chart|kiwisizechart', kinds: [size_chart]}
+  ESC Size Charts: {marker: '^esc-size|sizechart-app', kinds: [size_chart]}
+
+details:
+  # Catalog details (data/categories/_fields.yaml) and where a store exposes each one.
+  size: {schema: [size], ucp: 'variant options (a Size option)', shopify: 'variant options'}
+  size_system: {schema: [size.sizeSystem], ucp: 'option values or a metadata entry naming the system', shopify: 'option names such as "Size (US)"'}
+  size_chart: {schema: [size.hasMeasurement], ucp: 'metadata.size_chart as a text table', shopify: 'a size chart metafield as text, not an image'}
+  material: {schema: [material], ucp: 'metadata.material', shopify: 'metafield shopify.fabric or custom.material'}
+  care: {schema: [], ucp: 'metadata.care', shopify: 'metafield custom.care_instructions'}
+  ingredients: {schema: [], ucp: 'metadata.ingredients', shopify: 'metafield custom.ingredients'}
+  allergens: {schema: [], ucp: 'metadata.allergens', shopify: 'metafield shopify.allergen or custom.allergens'}
+  warnings: {schema: [], ucp: 'metadata.warnings', shopify: 'metafield custom.warnings'}
+  dosage: {schema: [], ucp: 'metadata.dosage', shopify: 'metafield custom.directions'}
+  compatibility: {schema: [isAccessoryOrSparePartFor, isRelatedTo], ucp: 'metadata.compatibility', shopify: 'metafield shopify.compatible_devices or custom.compatibility'}
+  dimensions: {schema: [depth, width, height], ucp: 'metadata.dimensions', shopify: 'metafields shopify.width, shopify.height, shopify.depth'}
+  weight: {schema: [weight], ucp: 'metadata.weight or variant weight', shopify: 'variant weight'}
+  pack_size: {schema: [size, weight], ucp: 'variant options or metadata.pack_size', shopify: 'variant options, or metafield shopify.pack_size'}
+
+locations:
+  # A hypothesis's `where` (data/categories) and the UCP place it names.
+  get_product.description: product.description
+  get_product.attributes: product.metadata, one entry per fact
+  get_product.metafields: product.metadata, from the product's metafields
+  get_product.options: product.options and each variant's options
+  policies: policies[] in catalog replies, applies_to the product
+
+elements:
+  reviews.rating:
+    name: Aggregate rating
+    group: reviews
+    scope: product
+    version: 1
+    statement: The product's average rating and how many ratings it rests on.
+    parts: [value, count]
+    detect:
+      agent:
+        value:
+          - {field: rating.value}
+          - {key: '(?:^|[._])(?:average_?)?rating(?:$|[._]value)|star_?rating'}
+        count:
+          - {field: rating.count}
+          - {key: 'rating_?count|review_?count|reviews?[._]count|number_of_reviews'}
+      schema:
+        value:
+          - {field: aggregateRating.ratingValue}
+        count:
+          - {field: aggregateRating.reviewCount}
+          - {field: aggregateRating.ratingCount}
+      html:
+        value:
+          - {attr: 'data-average-rating|data-rating|data-score|data-oke-rating|data-product-rating', match: '^\s*\d(?:[.,]\d+)?\s*$'}
+          - {attr: 'aria-label', match: '\d(?:[.,]\d+)?\s*(?:out of|/)\s*5'}
+          - {marker: 'rating|stars?$|star-rating|review', weak: true}
+        count:
+          - {attr: 'data-number-of-reviews|data-raters|data-reviews-count|data-review-count|data-count', match: '^\s*\d+\s*$'}
+    states:
+      present: the rating value and the number of ratings are both readable
+      partial: one of them, or only a review widget whose numbers load by script
+      absent: neither
+    expose:
+      ucp: product.rating {value, scale_max, count}
+      shopify: standard metafields reviews.rating and reviews.rating_count, which review apps can write
+      schema_org: Product.aggregateRating (ratingValue, reviewCount, bestRating)
+    add: {field: rating, views: [listing, detail], extract: rating, from: [jsonld, microdata, html]}
+
+  reviews.text:
+    name: Review text
+    group: reviews
+    scope: product
+    version: 1
+    statement: The words of individual reviews, without the reviewers' names.
+    parts: [body]
+    detect:
+      agent:
+        body:
+          - {key: '(?:^|[._])reviews?(?:[._]\d+)?[._](?:body|text|content|comment)'}
+      schema:
+        body:
+          - {field: review.reviewBody}
+          - {field: review.description}
+      html:
+        body:
+          - {attr: 'itemprop', match: '^reviewBody$'}
+          - {marker: '^jdgm-rev__body$|^stamped-review-content|^yotpo-review-content|^oke-reviewContent|^spr-review-content'}
+    states:
+      present: review texts are readable in the page or the product data
+      partial: never (text is there or not)
+      absent: no review text
+    expose:
+      ucp: product.metadata.reviews, a list of {rating, body} without names
+      shopify: review app content rendered server-side, or a reviews metaobject
+      schema_org: Product.review (Review with reviewBody and reviewRating; the author is personal data)
+
+  reviews.verified:
+    name: Verified-buyer flag
+    group: reviews
+    scope: product
+    version: 1
+    statement: Each review says whether its writer bought the product.
+    parts: [flag]
+    detect:
+      agent:
+        flag:
+          - {key: 'verified(?:_?(?:buyer|purchase|owner))?'}
+      schema: {}
+      html:
+        flag:
+          - {marker: 'buyer-badge|verified-buyer|verified_buyer|is-verified|verified-badge'}
+          - {attr: 'data-verified-buyer|data-verified|data-verified-purchase'}
+    states:
+      present: reviews carry a verified-buyer flag
+      partial: a flag on some reviews only
+      absent: no flag
+    expose:
+      ucp: product.metadata.reviews[].verified
+      shopify: the review app's verified badge, rendered server-side
+      schema_org: no standard property; state it in the review's text
+
+  questions.answers:
+    name: Questions and answers
+    group: questions
+    scope: product
+    version: 1
+    statement: Shoppers' questions about the product with the store's answers.
+    parts: [qa]
+    detect:
+      agent:
+        qa:
+          - {key: '(?:^|[._])(?:faqs?|questions?|q_?and_?a|qna)(?:$|[._])'}
+      schema:
+        qa:
+          - {node: Question}
+          - {node: FAQPage}
+          - {node: QAPage}
+      html:
+        qa:
+          - {attr: 'data-number-of-questions', match: '^\s*[1-9]\d*\s*$'}
+          - {marker: '^jdgm-qa|^yotpo-question|^stamped-questions|^oke-qna|product-faq|faq-item', weak: true}
+    states:
+      present: question and answer pairs are readable
+      partial: a Q&A widget whose content loads by script
+      absent: no questions and answers
+    expose:
+      ucp: product.metadata.faq, a list of {question, answer}
+      shopify: a product FAQ metafield, or answers the Storefront MCP policy and FAQ tool can find
+      schema_org: FAQPage or Question with acceptedAnswer on the product page
+
+  size.chart:
+    name: Size chart
+    group: sizing
+    scope: product
+    version: 1
+    statement: Measurements per size, as text, for a product sold in sizes.
+    parts: [chart]
+    applies:
+      option: ['\bsizes?\b', '\bwaist\b', '\blength\b', '\btaille\b']
+      categories: [clothing-adult, footwear, baby-kids, sports-fitness, pet-supplies, jewelry-watches, bags-accessories]
+    detect:
+      agent:
+        chart:
+          - {key: 'size[_ ]?(?:chart|guide|table)', match: '\d'}
+          - {table: true}
+          - {text: ['size[\s_-]?(?:chart|guide)|sizing[\s_-]?(?:chart|guide)'], weak: true}
+      schema:
+        chart:
+          - {field: size.hasMeasurement}
+          - {table: true}
+      html:
+        chart:
+          - {table: true}
+          - {link: 'size[\s_-]?(?:chart|guide)|sizing[\s_-]?(?:chart|guide)|find your size', weak: true}
+          - {marker: 'size-?chart|size-?guide|sizing|kiwi-?siz|^ks-chart', weak: true}
+    states:
+      present: a table of sizes with measurements is readable as text
+      partial: a link, a button or an app widget opens it, or a picture holds it
+      absent: no size chart
+    expose:
+      ucp: product.metadata.size_chart as a text table, or rows in the description
+      shopify: a size chart metafield or metaobject as text, rendered in the description
+      schema_org: Product.size (SizeSpecification with hasMeasurement)
+    add: {field: metadata.size_chart, extract: size_table, from: [html]}
+    links:
+      details: [size_chart]
+      presets: [size_chart, foot_length_chart, kids_size_chart, garment_measurements, body_sizing, pet_fit]
+
+  fit.guidance:
+    name: Fit guidance
+    group: sizing
+    scope: product
+    version: 1
+    statement: How the product fits (true to size, runs small, size up), in words.
+    parts: [fit]
+    applies:
+      option: ['\bsizes?\b']
+      categories: [clothing-adult, footwear, baby-kids, sports-fitness, pet-supplies]
+    detect:
+      agent:
+        fit:
+          - {key: '(?:^|[._])fit(?:$|[._])|fit_?(?:notes?|guide|advice)'}
+          - {bench: clothing-adult.fit-notes-text}
+      schema:
+        fit:
+          - {bench: clothing-adult.fit-notes-text}
+      html:
+        fit:
+          - {bench: clothing-adult.fit-notes-text}
+    states:
+      present: the fit is stated in words
+      partial: never
+      absent: nothing on fit
+    expose:
+      ucp: product.metadata.fit, or a line in the description
+      shopify: a fit metafield rendered in the description
+      schema_org: a line in Product.description
+    add: {field: metadata.fit, extract: passage, from: [html, jsonld, microdata]}
+    links:
+      presets: [fit_notes]
+
+  variants.options:
+    name: Variant options
+    group: variants
+    scope: product
+    version: 1
+    statement: The choices a product comes in (size, colour, flavour) as named options with their values.
+    parts: [options]
+    applies:
+      variants_min: 2
+    detect:
+      agent:
+        options:
+          - {field: options.values}
+          - {every: variants, field: options}
+      schema:
+        options:
+          - {field: variesBy}
+          - {field: hasVariant}
+          - {every: offers, field: name, weak: true}
+      html:
+        options:
+          - {attr: '^name$', match: '^options\['}
+          - {marker: 'variant-?(?:selects?|radios?|picker|options?)|product-form__input|swatch', weak: true}
+    states:
+      present: named options with their values
+      partial: choices only as a list of offers, or a picker without names
+      absent: no options although the product has variants
+    expose:
+      ucp: product.options and variants[].options
+      shopify: product options (Size, Color), not one product per variant
+      schema_org: ProductGroup with variesBy and hasVariant
+
+  variants.availability:
+    name: Availability per variant
+    group: variants
+    scope: product
+    version: 1
+    statement: Each variant says whether it is in stock.
+    parts: [availability]
+    detect:
+      agent:
+        availability:
+          - {every: variants, field: availability}
+          - {every: variants, field: available}
+      schema:
+        availability:
+          - {every: offers, field: availability}
+      html: {}
+    states:
+      present: every variant or offer says whether it is in stock
+      partial: some do
+      absent: none do
+    expose:
+      ucp: variants[].availability {available, status}
+      shopify: inventory tracked per variant
+      schema_org: Offer.availability on every offer
+
+  price:
+    name: Price
+    group: price
+    scope: product
+    version: 1
+    statement: The price of each variant, with its currency.
+    parts: [price]
+    detect:
+      agent:
+        price:
+          - {every: variants, field: price}
+      schema:
+        price:
+          - {every: offers, field: price}
+          - {every: offers, field: lowPrice}
+          - {every: offers, field: priceSpecification.price}
+      html: {}
+    states:
+      present: every variant or offer carries a price
+      partial: some do
+      absent: none do
+    expose:
+      ucp: variants[].price {amount, currency}
+      shopify: variant prices, in the market's currency
+      schema_org: Offer.price and Offer.priceCurrency
+
+  price.unit:
+    name: Unit price
+    group: price
+    scope: product
+    version: 1
+    statement: The price per unit of measure (per kg, per 100 ml), so products of different sizes compare.
+    parts: [unit]
+    applies:
+      categories: [food-non-alcohol, personal-care, haircare-fragrance, skincare-makeup, pet-supplies, non-prescription-health, baby-kids, general-merchandise, garden-outdoor-home]
+    detect:
+      agent:
+        unit:
+          - {field: variants.unit_price}
+          - {key: 'unit_?price|price_?per'}
+      schema:
+        unit:
+          - {field: offers.priceSpecification.referenceQuantity}
+          - {field: offers.priceSpecification.unitCode}
+      html:
+        unit:
+          - {text: ['\b(?:per|/)\s?(?:100\s?(?:g|ml)|kg|l|lb|oz|fl\.? ?oz|count|ct|unit|each|capsule|tablet)\b[^.\n]{0,40}\d|\d[.,]\d{2}\s?(?:/|per)\s?(?:100\s?(?:g|ml)|kg|l|lb|oz)\b']}
+    states:
+      present: a unit price is readable
+      partial: never
+      absent: no unit price
+    expose:
+      ucp: variants[].unit_price
+      shopify: unit price measurement on each variant
+      schema_org: Offer.priceSpecification (UnitPriceSpecification with referenceQuantity)
+
+  identifiers.gtin:
+    name: Barcode (GTIN)
+    group: identity
+    scope: product
+    version: 1
+    statement: A global trade item number (UPC, EAN, ISBN) per variant, so an agent can match the exact item.
+    parts: [gtin]
+    detect:
+      agent:
+        gtin:
+          - {field: variants.barcodes.value}
+          - {key: 'gtin|barcode|upc|ean|isbn'}
+      schema:
+        gtin:
+          - {field: gtin}
+          - {field: gtin8}
+          - {field: gtin12}
+          - {field: gtin13}
+          - {field: gtin14}
+          - {field: isbn}
+          - {field: offers.gtin}
+          - {field: offers.gtin13}
+          - {field: offers.gtin12}
+          - {field: mpn, weak: true}
+      html: {}
+    states:
+      present: a GTIN is readable
+      partial: only a manufacturer part number
+      absent: neither
+    expose:
+      ucp: variants[].barcodes [{type, value}]
+      shopify: the variant barcode field
+      schema_org: Product.gtin13 (or gtin12, gtin14, isbn)
+
+  identity.brand:
+    name: Brand
+    group: identity
+    scope: product
+    version: 1
+    statement: The brand or maker, as a field rather than a word in the title.
+    parts: [brand]
+    detect:
+      agent:
+        brand:
+          - {field: brand}
+          - {field: vendor}
+          - {key: '(?:^|[._])(?:brand|vendor|manufacturer|maker)(?:$|[._]name)'}
+      schema:
+        brand:
+          - {field: brand.name}
+          - {field: brand}
+          - {field: manufacturer}
+      html: {}
+    states:
+      present: the brand is a field
+      partial: never
+      absent: no brand field
+    expose:
+      ucp: product.metadata.brand
+      shopify: the product vendor
+      schema_org: Product.brand (Brand with name)
+
+  images.alt:
+    name: Images with alt text
+    group: media
+    scope: product
+    version: 1
+    statement: Every product image says what it shows, so a text-only agent knows what the pictures hold.
+    parts: [alt]
+    detect:
+      agent:
+        alt:
+          - {every: media, field: alt_text}
+      schema: {}
+      html:
+        alt:
+          - {every: images, field: alt}
+    states:
+      present: every product image has alt text
+      partial: some do
+      absent: none do
+    expose:
+      ucp: media[].alt_text
+      shopify: the image's alt text in the product's media
+      schema_org: ImageObject with caption, or the image's alt attribute
+
+  shipping.cost:
+    name: Shipping cost
+    group: policies
+    scope: store
+    version: 1
+    statement: What delivery costs (a rate, a free-shipping threshold), before the cart.
+    parts: [cost]
+    detect:
+      agent:
+        cost:
+          - {policy: ['\b(?:free|flat|standard|express)\s+(?:shipping|delivery)\b', '\b(?:shipping|delivery)\s+(?:costs?|rates?|fees?|is free|charges?)\b', '\b(?:shipping|delivery)\b[^.\n]{0,60}[$£€]\s?\d']}
+      schema:
+        cost:
+          - {field: shippingDetails.shippingRate}
+          - {field: offers.shippingDetails.shippingRate}
+      html:
+        cost:
+          - {policy: ['\bfree\s+(?:shipping|delivery)\b', '\b(?:shipping|delivery)\s+(?:costs?|rates?|fees?)\b', '\b(?:shipping|delivery)\b[^.\n]{0,60}[$£€]\s?\d']}
+          - {link: 'shipping|delivery', weak: true}
+    states:
+      present: a rate or a free-shipping rule is readable
+      partial: only a link to a shipping page
+      absent: nothing on delivery costs
+    expose:
+      ucp: policies[] of type shipping in catalog replies, or the policy tool's answers
+      shopify: the shipping policy, which the Storefront MCP policy tool answers from
+      schema_org: Offer.shippingDetails (OfferShippingDetails with shippingRate)
+      policy_page: /policies/shipping-policy
+
+  delivery.estimate:
+    name: Delivery estimate
+    group: policies
+    scope: store
+    version: 2
+    statement: How long delivery takes, in days or a date.
+    parts: [estimate]
+    detect:
+      agent:
+        estimate:
+          - {policy: ['\b(?:ships?|shipped|shipping|deliver(?:s|ed|y)?|dispatch(?:es|ed)?|arrives?)\b[^.\n]{0,40}?\b\d{1,2}\s?(?:-|to|–)\s?\d{1,2}\s+(?:business |working )?days?\b', '\b\d{1,2}\s?(?:-|to|–)\s?\d{1,2}\s+(?:business |working )?days?\b[^.\n]{0,30}\b(?:ship|deliver|dispatch|arriv)', '\b(?:ships?|dispatch(?:es)?|deliver(?:s|ed)?|arrives?)\s+(?:with)?in\s+\d{1,2}\s+(?:business |working )?days?\b', '\b(?:next|same)[- ]day\s+(?:delivery|shipping|dispatch)\b']}
+      schema:
+        estimate:
+          - {field: shippingDetails.deliveryTime}
+          - {field: offers.shippingDetails.deliveryTime}
+      html:
+        estimate:
+          - {policy: ['\b(?:ships?|shipped|shipping|deliver(?:s|ed|y)?|dispatch(?:es|ed)?|arrives?)\b[^.\n]{0,40}?\b\d{1,2}\s?(?:-|to|–)\s?\d{1,2}\s+(?:business |working )?days?\b', '\b\d{1,2}\s?(?:-|to|–)\s?\d{1,2}\s+(?:business |working )?days?\b[^.\n]{0,30}\b(?:ship|deliver|dispatch|arriv)', '\b(?:ships?|dispatch(?:es)?|deliver(?:s|ed)?|arrives?)\s+(?:with)?in\s+\d{1,2}\s+(?:business |working )?days?\b', '\b(?:next|same)[- ]day\s+(?:delivery|shipping|dispatch)\b']}
+    states:
+      present: a delivery time is readable
+      partial: never
+      absent: no delivery time
+    expose:
+      ucp: policies[] of type shipping, with the delivery time stated
+      shopify: the shipping policy and delivery profiles' transit times
+      schema_org: Offer.shippingDetails.deliveryTime (ShippingDeliveryTime)
+      policy_page: /policies/shipping-policy
+
+  returns.policy:
+    name: Return policy
+    group: policies
+    scope: store
+    version: 1
+    statement: Whether and for how long a product can be returned, with the window in days.
+    parts: [window]
+    detect:
+      agent:
+        window:
+          - {policy: ['\b\d{1,3}[- ]days?\b[^.\n]{0,80}\b(?:returns?|refunds?|exchanges?)\b', '\b(?:returns?|refunds?|exchanges?)\b[^.\n]{0,80}\b\d{1,3}[- ]days?\b']}
+          - {policy: ['\breturns?\b', '\brefunds?\b'], weak: true}
+      schema:
+        window:
+          - {field: hasMerchantReturnPolicy.merchantReturnDays}
+          - {field: offers.hasMerchantReturnPolicy.merchantReturnDays}
+          - {node: MerchantReturnPolicy, weak: true}
+      html:
+        window:
+          - {policy: ['\b\d{1,3}[- ]days?\b[^.\n]{0,80}\b(?:returns?|refunds?|exchanges?)\b', '\b(?:returns?|refunds?|exchanges?)\b[^.\n]{0,80}\b\d{1,3}[- ]days?\b']}
+          - {link: 'refund|returns?\b', weak: true}
+    states:
+      present: the return window is readable
+      partial: returns are mentioned, or only a link to the policy page
+      absent: nothing on returns
+    expose:
+      ucp: policies[] of type return in catalog replies (applies_to the products)
+      shopify: the refund policy, which the Storefront MCP policy tool answers from
+      schema_org: Offer.hasMerchantReturnPolicy (MerchantReturnPolicy with merchantReturnDays)
+      policy_page: /policies/refund-policy
+    add: {field: policies, extract: return_policy, from: [jsonld, microdata]}
+    links:
+      presets: [returns]
+
+  faq:
+    name: Store FAQ
+    group: questions
+    scope: store
+    version: 1
+    statement: Answers to the questions shoppers ask the store (orders, sizing, care), readable by an agent.
+    parts: [answers]
+    detect:
+      agent:
+        answers:
+          - {tool: 'faqs?|polic(?:y|ies)_and_faqs'}
+      schema:
+        answers:
+          - {node: FAQPage}
+      html:
+        answers:
+          - {link: '\bfaqs?\b|frequently asked|help cent(?:er|re)', weak: true}
+    states:
+      present: an agent can ask the store's FAQ
+      partial: only a link to an FAQ page
+      absent: no FAQ
+    expose:
+      ucp: a policy or FAQ tool beside the catalog
+      shopify: shop policies and FAQs, which the Storefront MCP answers through search_shop_policies_and_faqs
+      schema_org: FAQPage
+
+  comparison:
+    name: Comparable attributes
+    group: comparison
+    scope: store
+    kind: comparison
+    version: 1
+    statement: The same structured attributes across a category's products, so an agent can compare them, or a compare tool.
+    parts: [attributes]
+    states:
+      present: at least three attributes appear on 80% or more of the sampled products, or a compare tool or page exists
+      partial: one or two such attributes, or attributes that differ from product to product
+      absent: no structured attributes
+    expose:
+      ucp: product.metadata with the same keys on every product of a category
+      shopify: category metafields (Shopify's standard product taxonomy attributes) filled on every product
+      schema_org: Product.additionalProperty (PropertyValue name and value) with the same names
+
+  search:
+    name: Search
+    group: search
+    scope: store
+    kind: search
+    version: 1
+    statement: An agent can search the catalog and finds what it asks for.
+    parts: [search]
+    states:
+      present: known-item recall at 10 is 0.8 or more and at most 20% of the probe's queries return nothing
+      partial: search answers, with lower recall or many empty results
+      absent: the surface offers no search
+    expose:
+      ucp: search_catalog (dev.ucp.shopping.catalog.search), with filters and pagination
+      shopify: Storefront MCP search_shop_catalog, and UCP catalog search
+
+  agent_files.llms_txt:
+    name: llms.txt
+    group: agent_files
+    scope: store
+    version: 1
+    statement: A /llms.txt that tells language models what the store sells and where to find it.
+    parts: [file]
+    detect:
+      files:
+        file:
+          - {file: llms_txt}
+    states:
+      present: /llms.txt answers with text
+      partial: never
+      absent: no /llms.txt
+    expose:
+      policy_page: /llms.txt
+
+  agent_files.agents_md:
+    name: agents.md
+    group: agent_files
+    scope: store
+    version: 1
+    statement: An /agents.md that tells agents how to shop the store.
+    parts: [file]
+    detect:
+      files:
+        file:
+          - {file: agents_md}
+    states:
+      present: /agents.md answers with text
+      partial: never
+      absent: no /agents.md
+    expose:
+      policy_page: /agents.md
+
+  agent_files.ucp_discovery:
+    name: UCP discovery
+    group: agent_files
+    scope: store
+    version: 1
+    statement: A /.well-known/ucp document declaring the store's agent protocols.
+    parts: [file]
+    detect:
+      files:
+        file:
+          - {file: ucp_discovery}
+    states:
+      present: /.well-known/ucp declares UCP services
+      partial: never
+      absent: no discovery document
+    expose:
+      ucp: /.well-known/ucp
+      shopify: served by Shopify for stores with agentic commerce on
+
+  agent_files.robots:
+    name: robots.txt open to agents
+    group: agent_files
+    scope: store
+    version: 1
+    statement: robots.txt lets an agent's token reach the store's agent endpoint (UCP over MCP).
+    parts: [file]
+    detect:
+      files:
+        file:
+          - {file: robots_ucp}
+    states:
+      present: robots.txt allows /api/ucp/mcp for carttrace
+      partial: never
+      absent: robots.txt disallows it, or never answered
+    expose:
+      policy_page: /robots.txt, without a Disallow for the agent endpoints
+
+  agent_files.sitemap:
+    name: Product sitemap
+    group: agent_files
+    scope: store
+    version: 1
+    statement: A sitemap that lists the store's product pages.
+    parts: [file]
+    detect:
+      files:
+        file:
+          - {file: sitemap}
+    states:
+      present: the sitemap lists product pages
+      partial: never
+      absent: no sitemap, or none listing products
+    expose:
+      policy_page: /sitemap.xml

@@ -1,0 +1,121 @@
+# The prestashop platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: prestashop
+title: PrestaShop-like, from reading PrestaShop 8.2.1's front office at its tag
+basis: code
+summary: 'PrestaShop''s shopper surface is its front office and it serves no UCP, so the sandbox''s own UCP shapes carry
+  PrestaShop 8.2.1''s rules, each read at its tag (D68): a line over the stock is refused whole in its words, vouchers combine
+  unless both restrict it, free shipping is judged on products after discounts with tax, search needs every word as the
+  start of an indexed word and drops a word nothing begins, and bank wire and cheque orders wait on the merchant.'
+sources:
+  prestashop:
+    docs: https://github.com/PrestaShop/PrestaShop/blob/8.2.1/
+    note: PrestaShop 8.2.1 at its tag
+serves:
+  ucp:
+    releases:
+    - '2026-01-11'
+    - '2026-01-23'
+    - '2026-04-08'
+    - '2026-08-25'
+  mcp:
+    default: '2025-06-18'
+search:
+  mode: prefix_words
+  cite:
+    source: prestashop
+    at: classes/Search.php#L377-L413
+checkout:
+  line_items:
+    rule: a line over the stock is refused whole and the cart kept, in PrestaShop's words
+    cite:
+      source: prestashop
+      at: controllers/front/CartController.php#L432-L444
+  fulfillment:
+    rule: free shipping on products after discounts, with tax
+    cite:
+      source: prestashop
+      at: classes/Cart.php#L3813-L3819
+  policy_links:
+  - - privacy_policy
+    - Privacy policy
+  - - terms_of_service
+    - Terms of service
+  - - refund_policy
+    - Refund policy
+  - - shipping_policy
+    - Shipping policy
+  links_cite:
+    assumed: the sandbox's four policy pages; PrestaShop's CMS pages were not read
+  discounts:
+    rule: vouchers combine unless both restrict combination; one already in the cart is refused; a minimum spend is refused
+      with the amount
+    cite:
+      source: prestashop
+      at: classes/CartRule.php#L885-L929
+  payment_handlers:
+    rule: the store's declared handlers, and bank wire and cheque as offline methods (ps_wirepayment, ps_checkpayment)
+    cite:
+      assumed: 'unverified: the modules'' awaiting state names were not read'
+  accepts:
+  - bank_transfer
+  - cheque
+wording:
+  stock.not_enough: You can only buy {available} "{name}". Please adjust the quantity in your cart to continue.
+  stock.out_of_stock: You can only buy {available} "{name}". Please adjust the quantity in your cart to continue.
+  discount.invalid: This voucher does not exist.
+  discount.duplicate: This voucher is already in your cart
+  discount.minimum_not_met: The minimum amount to benefit from this promo code is {min_spend}.
+  discount.not_combinable: 'This voucher is not combinable with an other voucher already in your cart: {other}'
+wording_cite:
+  source: prestashop
+  at: controllers/front/CartController.php, classes/CartRule.php
+behaviours:
+  stock.refused:
+    docs: https://github.com/PrestaShop/PrestaShop/blob/8.2.1/controllers/front/CartController.php
+    note: 'https://github.com/PrestaShop/PrestaShop/blob/8.2.1/controllers/front/CartController.php#L432-L444, #L525-L539:
+      ''You can only buy %quantity% "%product%"'', the line not added'
+  codes.unknown:
+    docs: https://github.com/PrestaShop/PrestaShop/blob/8.2.1/controllers/front/CartController.php
+    note: 'https://github.com/PrestaShop/PrestaShop/blob/8.2.1/controllers/front/CartController.php#L247-L271: ''This voucher
+      does not exist.'''
+  codes.duplicate:
+    docs: https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/CartRule.php
+    note: 'https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/CartRule.php#L905-L911: ''This voucher is already
+      in your cart'''
+  codes.minimum:
+    docs: https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/CartRule.php
+    note: 'https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/CartRule.php#L885-L893: ''The minimum amount to benefit
+      from this promo code is %s.'''
+  codes.stack:
+    docs: https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/CartRule.php
+    note: 'https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/CartRule.php#L914-L929: refused only when both rules
+      restrict combination'
+  codes.case:
+    assumed: 'unverified: CartRule::getIdByCode compares with SQL equality, case-insensitive under MySQL''s default collation,
+      which is the sandbox''s plain rule'
+  shipping.free_basis:
+    docs: https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/Cart.php
+    note: 'https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/Cart.php#L3813-L3819: PS_SHIPPING_FREE_PRICE against
+      getOrderTotal(true, BOTH_WITHOUT_SHIPPING): products after discounts, with tax'
+  search.prefix_words:
+    docs: https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/Search.php
+    note: 'https://github.com/PrestaShop/PrestaShop/blob/8.2.1/classes/Search.php#L377-L413: each word LIKE ''word%'', products
+      intersected, a word with no match skipped; #L1160-L1169: the % placement follows PS_SEARCH_START and PS_SEARCH_END'
+  search.defaults:
+    assumed: 'unverified: PS_SEARCH_START and PS_SEARCH_END off (a prefix match) and fuzzy search off are the install defaults
+      as remembered, not read'
+  orders.offline:
+    assumed: 'unverified: the ps_wirepayment and ps_checkpayment modules place an order in an awaiting state; their state
+      names were not read'
+  errors.wire:
+    assumed: 'unverified: the front office answers JSON with `hasError` and `errors`; the pack keeps UCP''s error shapes,
+      with PrestaShop''s words'
+code:
+- name: carttrace.sandbox.surfaces.ucp.catalog (search_prefix_words)
+  why: the word index match by prefix, dropping a word nothing begins, is an algorithm
+- name: carttrace.sandbox.core.config.CORE_RULES
+  why: the core's arithmetic and states (combinable vouchers, free shipping basis) are the core's table

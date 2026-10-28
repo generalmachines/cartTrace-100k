@@ -1,0 +1,101 @@
+# The magento platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: magento
+title: Magento-like, from the Magento 2.4.8 code reading
+basis: code
+summary: 'The sandbox''s plain wire shapes with Magento''s behaviour behind them, read in the Magento 2.4.8 source at its
+  tag (docs/SANDBOX-GAPS.md, D42) and never seen on a wire: configurable products need their options, cart price rules by
+  priority with stop and one code per cart, free shipping after discounts, and layered navigation facets with automatic
+  price ranges beside a search''s products. What the reading does not settle is marked unverified.'
+sources:
+  magento:
+    docs: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/
+    note: Magento Open Source 2.4.8 at its tag
+serves:
+  ucp:
+    releases:
+    - '2026-01-11'
+    - '2026-01-23'
+    - '2026-04-08'
+    - '2026-08-25'
+  mcp:
+    default: '2025-06-18'
+search:
+  mode: sandbox
+  facets: true
+  cite:
+    source: magento
+    at: CatalogSearch/Model/Layer/Filter/Attribute.php#L94-L140; Catalog/Model/Layer/Filter/Dynamic/Auto.php#L106-L117
+checkout:
+  line_items:
+    rule: a configurable product's parent line is refused in Magento's words until its options are chosen (core rule options_required)
+    cite:
+      source: magento
+      at: ConfigurableProduct/Model/Product/Type/Configurable.php#L1022
+  fulfillment:
+    rule: free shipping is judged on the merchandise after discounts (core rule free_after_discount)
+    cite:
+      source: magento
+      at: OfflineShipping/Model/Carrier/Freeshipping.php#L73-L81
+  policy_links:
+  - - privacy_policy
+    - Privacy policy
+  - - terms_of_service
+    - Terms of service
+  - - refund_policy
+    - Refund policy
+  - - shipping_policy
+    - Shipping policy
+  links_cite:
+    assumed: the sandbox's four policy pages; the reading did not cover Magento's CMS pages
+  discounts:
+    rule: rules apply by priority and a rule that stops processing ends the run; one code per cart (core rules ordered_rules,
+      stack_codes false)
+    cite:
+      source: magento
+      at: 'SalesRule/Model/Quote/Discount.php#L188, #L220'
+wording:
+  line.options_required: You need to choose options for your item.
+wording_cite:
+  source: magento
+  at: ConfigurableProduct/Model/Product/Type/Configurable.php#L1022
+behaviours:
+  options.required:
+    docs: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/ConfigurableProduct/Model/Product/Type/Configurable.php
+    note: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/ConfigurableProduct/Model/Product/Type/Configurable.php#L1022
+  rules.priority:
+    docs: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/SalesRule/Model/Quote/Discount.php
+    note: 'https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/SalesRule/Model/Quote/Discount.php#L188, #L220;
+      https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/SalesRule/Model/Utility.php#L93-L125'
+  rules.one_code:
+    assumed: 'unverified: Magento Open Source keeps one coupon code per quote; the notes read the rule loop, not the coupon
+      controller'
+  shipping.after_discount:
+    docs: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/OfflineShipping/Model/Carrier/Freeshipping.php
+    note: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/OfflineShipping/Model/Carrier/Freeshipping.php#L73-L81
+  search.facets:
+    docs: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/CatalogSearch/Model/Layer/Filter/Attribute.php
+    note: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/CatalogSearch/Model/Layer/Filter/Attribute.php#L94-L140
+  search.price_ranges:
+    docs: https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/Catalog/Model/Layer/Filter/Dynamic/Auto.php
+    note: 'https://github.com/magento/magento2/blob/2.4.8/app/code/Magento/Catalog/Model/Layer/Filter/Dynamic/Auto.php#L21,
+      #L106-L117'
+  search.facets_wire:
+    assumed: 'unverified: Magento''s GraphQL names them aggregations; no UCP module the notes read serves facets, so `facets`
+      and `price_ranges` are the sandbox''s names'
+  stock.sold_out:
+    assumed: 'unverified: no Magento cart was seen refusing a variant its catalog lists; the pack keeps the sandbox''s words
+      (`<name> is sold out`, UCP''s out_of_stock error)'
+  search.ranking:
+    assumed: 'unverified: full-text relevance is the search engine''s (OpenSearch); the pack keeps the sandbox''s word count'
+code:
+- name: carttrace.sandbox.platforms.magento.facets
+  why: 'layered navigation counts per option value over the sellable variants: an algorithm, not a fact'
+- name: carttrace.sandbox.platforms.magento.price_ranges
+  why: 'Magento''s automatic price steps (a power of ten lowered to at least two ranges): an algorithm'
+- name: carttrace.sandbox.core.config.CORE_RULES
+  why: the core's arithmetic and states (rule order, one code, free shipping after discounts) are the core's table, shared
+    with replicas

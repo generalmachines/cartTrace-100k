@@ -1,0 +1,28 @@
+{
+  "kind": "pool",
+  "licence": {
+    "attribution": "Amazon Berkeley Objects (c) by Amazon.com, CC BY 4.0 (Matthieu Guillaumin, Thomas Dideriksen, Kenan Deng, Himanshu Arora, Jasmine Collins, Jitendra Malik). WANDS, Copyright (c) 2021 ecir2022, MIT License (Yan Chen, Shujian Liu, Zheng Liu, Weiyi Sun, Linas Baltrunas, Benjamin Schroeder, ECIR 2022). Product content collected from Lazada Philippines by the ShoppingBench authors (arXiv:2508.04266, github.com/yjwjy/ShoppingBench, Apache-2.0). Changed by CartTrace: synthetic prices (abo, wands) and stock, listings grouped into variants, products drawn per category into pooled stores; each product's provenance names its own source.",
+    "basis": "a pooled store holds products of the members only, and each member allows commercial use, training and publication with attribution, so its bundles allow what all of them allow; no member is share-alike or restricted",
+    "commercial_use": true,
+    "legal_review": "",
+    "name": "The licences of the pool's members: CC BY 4.0 (abo), MIT (wands), Apache-2.0 (lazada, decision D90)",
+    "publication_allowed": true,
+    "restricted": false,
+    "share_alike": false,
+    "spdx": "CC-BY-4.0 AND MIT AND Apache-2.0",
+    "training_allowed": true,
+    "verified": "2026-10-16, decision D91: the members' licence records (abo.json, wands.json, lazada.json after D90)"
+  },
+  "members": [
+    "abo",
+    "lazada",
+    "wands"
+  ],
+  "name": "open",
+  "notes": [
+    "No files and no index of its own: carttrace.sandbox.catalogs.pools draws each category's pool from the members' indexes, at most 5,000 products a member, into var/catalogs/open-pools/.",
+    "A pooled store mixes every member's products in one US store in synthetic dollars: a Lazada product's price is drawn from the same per-category band as ABO's and WANDS', its own peso price kept in provenance.derived.source_price (sandbox.open_pool_markets mixed, the default); home puts Lazada's products only in PH stores, priced in pesos."
+  ],
+  "schema": "mc.catalog-source.v1",
+  "title": "The open product pools: every publishable catalog, per category"
+}

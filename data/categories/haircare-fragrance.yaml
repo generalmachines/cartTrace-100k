@@ -1,0 +1,118 @@
+# Category 6 of the store queue: Haircare / fragrance.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Haircare / fragrance
+slug: haircare-fragrance
+index: 6
+summary: Own-brand haircare and fragrance.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: hb-3-10
+      path: Health & Beauty > Personal Care > Hair Care
+    - id: hb-3-2-8
+      path: Health & Beauty > Personal Care > Cosmetics > Perfumes & Colognes
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - hair_type
+  - scent
+  - ingredients
+  - free_from
+  - allergens
+  - pack_size
+  - budget
+  - quantity
+  - subscription
+  - gift
+  - delivery_by
+intents:
+  replenish:
+    - id: haircare-fragrance.replenish.1
+      text: I need another bottle of {product_name}, the {pack_size} size.
+      slots: [product_name, pack_size]
+    - id: haircare-fragrance.replenish.2
+      text: Same {brand} {product_type} as last time, {quantity} of them please.
+      slots: [brand, product_type, quantity]
+  specify:
+    - id: haircare-fragrance.specify.1
+      text: I need a {free_from} {product_type} for {hair_type} hair, under {budget}.
+      slots: [free_from, product_type, hair_type, budget]
+    - id: haircare-fragrance.specify.2
+      text: Looking for a fragrance that smells {scent}, in a {pack_size} bottle, by {delivery_by}.
+      slots: [scent, pack_size, delivery_by]
+  compare:
+    - id: haircare-fragrance.compare.1
+      text: 'Compare your {product_type}s for {hair_type} hair: which has {ingredients}, and which is lighter?'
+      slots: [product_type, hair_type, ingredients]
+    - id: haircare-fragrance.compare.2
+      text: What's the difference between the eau de parfum and the eau de toilette of {product_name}?
+      slots: [product_name]
+  discover:
+    - id: haircare-fragrance.discover.1
+      text: I want a new everyday scent, something {scent}. What would you suggest under {budget}?
+      slots: [scent, budget]
+    - id: haircare-fragrance.discover.2
+      text: My {hair_type} hair has been dry lately. What should I try?
+      slots: [hair_type]
+  express:
+    - id: haircare-fragrance.express.1
+      text: Send me a {product_type} for {hair_type} hair without {allergens}, whatever you think is best.
+      slots: [product_type, hair_type, allergens]
+    - id: haircare-fragrance.express.2
+      text: Need a fragrance gift that smells {scent}, delivered by {delivery_by}, under {budget}.
+      slots: [scent, delivery_by, budget]
+hypotheses:
+  - id: haircare-fragrance.hair-type-suitability
+    statement: The hair types and concerns a product is for are attributes (curly, colour-treated, fine).
+    why: Hair type is the first filter shoppers apply, and marketing prose makes it hard to apply reliably.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.hair_type_matches_spec
+    evidence_grade: hypothesis
+  - id: haircare-fragrance.ingredient-list
+    statement: The full ingredient list is text, with free-from claims (sulfate-free, silicone-free) stated plainly.
+    why: Shoppers screen for and against ingredients, and a list printed only on a packshot is invisible to a text agent.
+    where: [get_product.description, get_product.metafields, get_product.attributes]
+    details: [ingredients]
+    judge_decision: judge.ingredient_constraint_met
+    evidence_grade: hypothesis
+  - id: haircare-fragrance.fragrance-notes
+    statement: Fragrance notes (top, heart, base), the fragrance family and the concentration (parfum, EDP, EDT) are text.
+    why: Shoppers describe scents in words, and the notes are the only text an agent can match those words against.
+    where: [get_product.description, get_product.attributes, get_product.metafields]
+    judge_decision: judge.scent_matches_spec
+    evidence_grade: hypothesis
+  - id: haircare-fragrance.size-per-variant
+    statement: Bottle size in ml, with its price, is a variant option.
+    why: Fragrances come in several sizes under one title, and the price per ml differs widely between them.
+    where: [get_product.options]
+    details: [pack_size]
+    judge_decision: judge.pack_size_matches_spec
+    evidence_grade: hypothesis
+  - id: haircare-fragrance.fragrance-allergens
+    statement: Declared fragrance allergens (such as limonene or linalool) are listed.
+    why: Shoppers with fragrance allergies need the declared list; a word like natural tells them nothing.
+    where: [get_product.description, get_product.metafields]
+    details: [allergens]
+    judge_decision: judge.allergen_avoided
+    evidence_grade: hypothesis
+  - id: haircare-fragrance.shipping-restrictions
+    statement: Shipping limits for alcohol-based fragrance and aerosols (no air freight, excluded regions) are stated
+      before checkout.
+    why: Restrictions cause failed or late orders that look like the agent's fault.
+    where: [policies, get_product.description]
+    judge_decision: judge.delivery_constraint_disclosed
+    evidence_grade: hypothesis
+  - id: haircare-fragrance.samples-returns
+    statement: The policy on samples and on returning opened fragrance is answerable through the policy tool.
+    why: Buying a scent without smelling it is a risk shoppers ask about first.
+    where: [policies]
+    judge_decision: judge.policy_question_answered
+    evidence_grade: hypothesis

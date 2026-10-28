@@ -1,0 +1,75 @@
+# The bigcommerce platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: bigcommerce
+title: BigCommerce-like, at the UCP release its scouted stores serve
+basis: scouted
+summary: 'BigCommerce is hosted and its cart code is not public, so this pack carries only what its stores published (D68):
+  31 of 33 picked BigCommerce stores serve UCP 2026-04-08 with signing keys. Every cart and checkout rule is the sandbox''s
+  plain one, marked unverified, since no BigCommerce cart was ever written by this lab.'
+serves:
+  ucp:
+    releases:
+    - '2026-04-08'
+    pinned: '2026-04-08'
+    cite:
+      wire: var/store/captures/2026-W42/store-527/wire.jsonl.gz
+      at: GET /.well-known/ucp
+      note: version 2026-04-08; 31 of 33 picked stores the same (var/stores/scout-2026-10-13/report.md)
+  mcp:
+    default: '2025-06-18'
+search:
+  mode: sandbox
+checkout:
+  line_items:
+    rule: the sandbox's plain refusal
+    cite:
+      assumed: no BigCommerce cart was written
+  fulfillment:
+    rule: rates once an address is given
+    cite:
+      assumed: rates were not quoted on any store
+  policy_links:
+  - - privacy_policy
+    - Privacy policy
+  - - terms_of_service
+    - Terms of service
+  - - refund_policy
+    - Refund policy
+  - - shipping_policy
+    - Shipping policy
+  links_cite:
+    assumed: the sandbox's four policy pages
+  discounts:
+    rule: the sandbox's plain one-code rule
+    cite:
+      assumed: whether codes combine was not observed
+behaviours:
+  ucp.version:
+    wire: var/store/captures/2026-W42/store-527/wire.jsonl.gz
+    at: the GET of /.well-known/ucp
+    note: 'var/stores/scout-2026-10-13/report.md: BigCommerce 31 of 33 picked stores serve UCP, all 2026-04-08 with signing
+      keys; 52 of 55 probed'
+  ucp.signing_keys:
+    assumed: 'unverified on our side: the documents were checked for `signing_keys` by the scout but not kept; the pack
+      serves no signing keys'
+  platform.headers:
+    wire: var/store/captures/2026-W42/store-527/wire.jsonl.gz
+    note: 'var/store/captures/2026-W42/store-527, store-471 wire.jsonl.gz: x-bc-store-id on every reply'
+  sitemaps:
+    wire: var/store/captures/2026-W42/store-527/wire.jsonl.gz
+    note: 'var/store/captures/2026-W42/store-527 wire.jsonl.gz: xmlsitemap.php?type=products&page=N'
+  cart.stock:
+    assumed: 'unverified: no BigCommerce cart was written; the sandbox''s plain refusal is kept'
+  cart.coupons:
+    assumed: 'unverified: whether codes combine was not observed; the sandbox''s plain one-code rule is kept'
+  shipping.quotes:
+    assumed: 'unverified: rates were not quoted on any store; the sandbox''s plain rule (rates once an address is given)
+      is kept'
+  search:
+    assumed: 'unverified: no storefront search was asked; the sandbox''s ranking is kept'
+code:
+- name: carttrace.sandbox.platforms.bigcommerce
+  why: 'nothing but the module docstring and the pinned release: the spec holds every fact'

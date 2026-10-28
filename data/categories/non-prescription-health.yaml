@@ -1,0 +1,158 @@
+# Category 8 of the store queue: Non-prescription health.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Non-prescription health
+slug: non-prescription-health
+index: 8
+summary: Over-the-counter medicines, vitamins and supplements, and first aid. Prescription-only products never belong
+  in an agent's cart.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: hb-1-16
+      path: Health & Beauty > Health Care > Medicine & Drugs
+    - id: hb-1-9-6
+      path: Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements
+    - id: hb-1-8
+      path: Health & Beauty > Health Care > First Aid
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - active_ingredient
+  - strength
+  - dosage_form
+  - symptoms
+  - age
+  - conditions
+  - allergens
+  - dietary
+  - rx_status
+  - pack_size
+  - quantity
+  - subscription
+  - budget
+  - delivery_by
+intents:
+  replenish:
+    - id: non-prescription-health.replenish.1
+      text: I need more of my {product_name}, the {pack_size} pack, {quantity} please.
+      slots: [product_name, pack_size, quantity]
+    - id: non-prescription-health.replenish.2
+      text: Please reorder my usual {brand} {product_type}, same {strength} strength.
+      slots: [brand, product_type, strength]
+    - id: non-prescription-health.replenish.3
+      text: Can I get my {product_type} on a repeat delivery? Same {pack_size} as before.
+      slots: [product_type, pack_size]
+  specify:
+    - id: non-prescription-health.specify.1
+      text: I need {active_ingredient} {strength} as a {dosage_form}, {pack_size}, with nothing containing {allergens}.
+      slots: [active_ingredient, strength, dosage_form, pack_size, allergens]
+    - id: non-prescription-health.specify.2
+      text: Looking for something for {symptoms} that is safe for a child aged {age}, as a {dosage_form}.
+      slots: [symptoms, age, dosage_form]
+    - id: non-prescription-health.specify.3
+      text: I need a {dietary} {product_type} with no {allergens}, under {budget}.
+      slots: [dietary, product_type, allergens, budget]
+  compare:
+    - id: non-prescription-health.compare.1
+      text: 'Compare your {product_type}s for {symptoms}: which ones don''t cause drowsiness?'
+      slots: [product_type, symptoms]
+    - id: non-prescription-health.compare.2
+      text: Is the {pack_size} pack of {active_ingredient} better value than the branded one?
+      slots: [pack_size, active_ingredient]
+  discover:
+    - id: non-prescription-health.discover.1
+      text: I've had {symptoms} for a few days. What could I take? I'm {conditions}.
+      slots: [symptoms, conditions]
+    - id: non-prescription-health.discover.2
+      text: I'm looking for a supplement routine for someone aged {age} who is {dietary}.
+      slots: [age, dietary]
+  express:
+    - id: non-prescription-health.express.1
+      text: Just send me something for {symptoms} by {delivery_by}. I'm {conditions}.
+      slots: [symptoms, delivery_by, conditions]
+    - id: non-prescription-health.express.2
+      text: Pick the cheapest {active_ingredient} {strength} {dosage_form} you have, {quantity} packs.
+      slots: [active_ingredient, strength, dosage_form, quantity]
+hypotheses:
+  - id: non-prescription-health.active-ingredients-text
+    statement: Active ingredients and their strength per dose are text (ibuprofen 200 mg per tablet), as attributes where
+      the platform allows.
+    why: Shoppers ask by ingredient and strength, while product names are often brand names that state neither.
+    where: [get_product.attributes, get_product.description, get_product.metafields]
+    details: [ingredients]
+    judge_decision: judge.active_ingredient_matches_spec
+    evidence_grade: hypothesis
+  - id: non-prescription-health.excipients-and-allergens
+    statement: 'Inactive ingredients (excipients) and allergens are listed in full: lactose, gluten, gelatin, soy, colourings
+      and sweeteners.'
+    why: Allergen avoidance is a hard constraint, and we expect fewer unsafe carts when the full list reaches the agent.
+    where: [get_product.description, get_product.metafields, get_product.attributes]
+    details: [ingredients, allergens]
+    judge_decision: judge.allergen_avoided
+    evidence_grade: hypothesis
+  - id: non-prescription-health.dosage-by-age
+    statement: Directions give the dose and the maximum daily dose by age band, including statements such as not for children
+      under 12.
+    why: The same product can be wrong for a child, and the agent needs the age bands to answer whether it suits a six-year-old.
+    where: [get_product.description, get_product.metafields]
+    details: [dosage]
+    judge_decision: judge.age_suitability_correct
+    evidence_grade: hypothesis
+  - id: non-prescription-health.side-effects
+    statement: Common side effects and stop-use warnings (stop use and ask a doctor if ...) are text.
+    why: Shoppers ask whether a product will make them drowsy; without the label text an agent either guesses or refuses.
+    where: [get_product.description, get_product.metafields]
+    details: [warnings]
+    judge_decision: judge.side_effect_question_answered
+    evidence_grade: hypothesis
+  - id: non-prescription-health.contraindications
+    statement: 'Contraindications and interaction warnings are text: pregnancy and breastfeeding, conditions such as asthma
+      or liver disease, other medicines, and other products with the same active ingredient.'
+    why: A shopper who mentions a condition or a medicine should be warned or steered away, and the agent can only do
+      that from the label text.
+    where: [get_product.description, get_product.metafields]
+    details: [warnings]
+    judge_decision: judge.contraindication_flagged
+    evidence_grade: hypothesis
+  - id: non-prescription-health.rx-otc-status
+    statement: Each product declares its regulatory status (general sale, pharmacy only, prescription only) in a structured
+      field.
+    why: An agent must never put a prescription-only product in a cart. A structured flag lets a rule check that, instead
+      of a model reading prose.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.otc_status_respected
+    evidence_grade: hypothesis
+  - id: non-prescription-health.per-order-limits
+    statement: Per-order quantity limits are stated before the cart (for example pack limits on paracetamol in the UK).
+    why: Limits make carts fail or change quantities silently, and we expect agents to plan within a limit they can see.
+    where: [get_product.description, get_product.attributes, policies]
+    judge_decision: judge.quantity_limit_respected
+    evidence_grade: hypothesis
+  - id: non-prescription-health.form-and-strength-variants
+    statement: Dosage form (tablet, liquid, chewable, gummy) and strength are variant options, not only words in a title.
+    why: A liquid for a child who cannot swallow tablets is a common constraint, and title-only variants are easy to confuse.
+    where: [get_product.options, get_product.attributes]
+    judge_decision: judge.form_matches_spec
+    evidence_grade: hypothesis
+  - id: non-prescription-health.pack-count
+    statement: Pack size (tablets, capsules, ml) is a structured value per variant.
+    why: A price per dose needs the count, so we expect better value choices when the count is structured.
+    where: [get_product.options, get_product.attributes]
+    details: [pack_size]
+    judge_decision: judge.pack_size_matches_spec
+    evidence_grade: hypothesis
+  - id: non-prescription-health.consultation-gates
+    statement: Products that need a pharmacist consultation, an age check or a questionnaire say so before the cart.
+    why: A gate discovered at checkout ends the journey; disclosed early, the agent can tell the shopper or choose a product
+      without one.
+    where: [get_product.description, policies]
+    judge_decision: judge.gate_disclosed
+    evidence_grade: hypothesis

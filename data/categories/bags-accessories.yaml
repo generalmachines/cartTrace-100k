@@ -1,0 +1,119 @@
+# Category 3 of the store queue: Bags / accessories.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Bags / accessories
+slug: bags-accessories
+index: 3
+summary: Own-brand bags, backpacks, luggage, wallets and carry accessories.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: aa-5
+      path: Apparel & Accessories > Handbags, Wallets & Cases
+    - id: lb
+      path: Luggage & Bags
+    - id: aa-2
+      path: Apparel & Accessories > Clothing Accessories
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - dimensions
+  - capacity
+  - compatibility
+  - material
+  - color
+  - personalization
+  - budget
+  - quantity
+  - delivery_by
+  - gift
+intents:
+  replenish:
+    - id: bags-accessories.replenish.1
+      text: I'd like to buy the {product_name} again in {color}; mine was lost on a trip.
+      slots: [product_name, color]
+    - id: bags-accessories.replenish.2
+      text: Same {product_type} from {brand} as last time, please, {quantity} of them.
+      slots: [product_type, brand, quantity]
+  specify:
+    - id: bags-accessories.specify.1
+      text: I need a {product_type} that fits {compatibility}, at most {dimensions}, in {material}, under {budget}.
+      slots: [product_type, compatibility, dimensions, material, budget]
+    - id: bags-accessories.specify.2
+      text: Looking for a {color} {product_type} with about {capacity} of space, delivered by {delivery_by}.
+      slots: [color, product_type, capacity, delivery_by]
+  compare:
+    - id: bags-accessories.compare.1
+      text: 'Compare your carry-on {product_type}s under {budget}: which fit {dimensions}, and which is lighter?'
+      slots: [product_type, budget, dimensions]
+    - id: bags-accessories.compare.2
+      text: Which of your {product_type}s holds more, and which one fits {compatibility}?
+      slots: [product_type, compatibility]
+  discover:
+    - id: bags-accessories.discover.1
+      text: I want a {product_type} for daily use that looks good with work clothes. Ideas under {budget}?
+      slots: [product_type, budget]
+    - id: bags-accessories.discover.2
+      text: I'm looking for a gift for someone who travels a lot, maybe something in {material}?
+      slots: [material]
+  express:
+    - id: bags-accessories.express.1
+      text: Need a {product_type} with {personalization} on it by {delivery_by}. Pick one under {budget}.
+      slots: [product_type, personalization, delivery_by, budget]
+    - id: bags-accessories.express.2
+      text: Just send me a {color} {product_type} that fits {compatibility}.
+      slots: [color, product_type, compatibility]
+hypotheses:
+  - id: bags-accessories.dimensions-text
+    statement: External dimensions (height, width, depth) and weight are text in cm or inches.
+    why: Carry-on limits and laptop sleeves are checked against numbers, and an agent cannot measure a photo.
+    where: [get_product.attributes, get_product.description, get_product.metafields]
+    details: [dimensions, weight]
+    judge_decision: judge.dimensions_within_spec
+    evidence_grade: hypothesis
+  - id: bags-accessories.capacity-and-fit
+    statement: Capacity in litres and what the bag fits (a 16-inch laptop, A4 folders) are stated.
+    why: Fit claims answer the question shoppers actually ask; dimensions alone leave the agent doing geometry it may
+      get wrong.
+    where: [get_product.description, get_product.attributes]
+    judge_decision: judge.compatibility_matches_spec
+    evidence_grade: hypothesis
+  - id: bags-accessories.cabin-size-claims
+    statement: Luggage says which airline cabin size limits it meets, with the limit it was checked against.
+    why: 'Carry-on is not a size: airline limits differ by several centimetres, so the claim is only useful with its numbers.'
+    where: [get_product.description, get_product.metafields]
+    judge_decision: judge.dimensions_within_spec
+    evidence_grade: hypothesis
+  - id: bags-accessories.materials
+    statement: Materials are stated (full-grain leather, recycled nylon, vegan leather), including the lining.
+    why: Leather and vegan requirements exclude each other, and only text can tell the two apart.
+    where: [get_product.attributes, get_product.description]
+    details: [material]
+    judge_decision: judge.material_matches_spec
+    evidence_grade: hypothesis
+  - id: bags-accessories.colour-plain-names
+    statement: Colours are variant options with plain names, not only swatches.
+    why: A swatch or a marketing name gives a text agent nothing to match a colour request against.
+    where: [get_product.options]
+    judge_decision: judge.color_matches_spec
+    evidence_grade: hypothesis
+  - id: bags-accessories.personalisation-options
+    statement: Monogramming or engraving is an option with its character limit, cost and extra production time.
+    why: Personalised items change the price, the delivery date and whether they can be returned, and the agent must see
+      all three to commit.
+    where: [get_product.options, get_product.description, policies]
+    judge_decision: judge.personalization_handled
+    evidence_grade: hypothesis
+  - id: bags-accessories.warranty-repairs
+    statement: Warranty and repair terms (length, what is covered) are answerable through the policy tool.
+    why: Luggage buyers compare warranties, and without an answer the agent can only guess.
+    where: [policies]
+    judge_decision: judge.policy_question_answered
+    evidence_grade: hypothesis

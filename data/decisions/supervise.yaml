@@ -1,0 +1,58 @@
+# Supervision. The collection runner asks these every collect.supervise_every_steps agent steps, and ends an episode
+# early (end reason supervisor_stop) only on a live, error-free yes. A false yes throws away an episode that might
+# have finished, so the thresholds are high and every abstain value is no.
+#
+# Evidence the runner passes, built from the episode's turns:
+#   goal   the shopper's opening message
+#   steps  the agent's recent steps, oldest first (the last 12 are plenty). A tool call is
+#          {"tool": name, "arguments": {...}, "is_error": bool, "error_code": str or null, "result": short text};
+#          a message to the shopper is {"text": "..."}.
+#   cart   the latest cart snapshot, {"lines": [...], "total": minor units, "currency": "USD"}, or null when no cart
+#          exists yet
+
+- id: supervise.looping
+  kind: bool
+  description: >-
+    Is the agent repeating itself instead of making progress? The rule answers yes when one tool ran with the same
+    arguments three or more times in the last six steps, and no when there are fewer than three steps. Clef reads
+    the cases in between, such as the same search with one word changed.
+  question: >-
+    Is the agent repeating the same action, or cycling through the same few actions, without getting any closer to
+    the shopper's goal?
+  evidence: [goal, steps]
+  rule: same_call_repeated
+  threshold: 0.9
+  abstain: no
+  status: shadow
+  version: 1
+
+- id: supervise.stuck
+  kind: bool
+  description: >-
+    Has the agent stopped making progress? The rule answers yes after five failed tool calls in a row, none of them
+    throttled or timed out, and no while the episode has fewer than five steps.
+  question: >-
+    Is the agent stuck, meaning its recent steps keep failing or turn up nothing new, and it has no workable next
+    step toward the shopper's goal?
+  evidence: [goal, steps]
+  rule: calls_failing_in_a_row
+  threshold: 0.9
+  abstain: no
+  status: shadow
+  version: 1
+
+- id: supervise.boundary_reached
+  kind: bool
+  description: >-
+    Has the agent reached the live boundary, a cart that is ready for the shopper? Live journeys end there, because
+    we never check out on a live store. The rule answers no while the cart is empty, and yes when the harness refused
+    a checkout or payment call.
+  question: >-
+    Has the agent finished building the cart for the shopper's goal, so that the only steps left would be checkout
+    or payment?
+  evidence: [goal, steps, cart]
+  rule: cart_boundary
+  threshold: 0.85
+  abstain: no
+  status: shadow
+  version: 1

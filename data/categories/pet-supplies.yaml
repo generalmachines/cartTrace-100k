@@ -1,0 +1,121 @@
+# Category 17 of the store queue: Pet supplies.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Pet supplies
+slug: pet-supplies
+index: 17
+summary: Pet food, treats, toys, beds, collars and health products.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: ap-2
+      path: Animals & Pet Supplies > Pet Supplies
+    - id: ap-2-3
+      path: Animals & Pet Supplies > Pet Supplies > Dog Supplies
+    - id: ap-2-2
+      path: Animals & Pet Supplies > Pet Supplies > Cat Supplies
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - pet_type
+  - pet_size
+  - life_stage
+  - age
+  - ingredients
+  - allergens
+  - pack_size
+  - quantity
+  - subscription
+  - budget
+  - delivery_by
+  - rx_status
+intents:
+  replenish:
+    - id: pet-supplies.replenish.1
+      text: Please reorder my dog's {product_name}, the {pack_size} bag, {quantity} of them.
+      slots: [product_name, pack_size, quantity]
+    - id: pet-supplies.replenish.2
+      text: Can I put our usual {brand} {product_type} on autoship?
+      slots: [brand, product_type]
+  specify:
+    - id: pet-supplies.specify.1
+      text: I need {life_stage} {product_type} for a {pet_size} {pet_type} with no {allergens}, under {budget}.
+      slots: [life_stage, product_type, pet_size, pet_type, allergens, budget]
+    - id: pet-supplies.specify.2
+      text: Looking for a {product_type} that fits a {pet_size} {pet_type}, delivered by {delivery_by}.
+      slots: [product_type, pet_size, pet_type, delivery_by]
+  compare:
+    - id: pet-supplies.compare.1
+      text: 'Compare your {product_type}s for a {life_stage} {pet_type}: protein source and price per kilo.'
+      slots: [product_type, life_stage, pet_type]
+    - id: pet-supplies.compare.2
+      text: Which {product_type} is better for a {pet_type} with a sensitive stomach?
+      slots: [product_type, pet_type]
+  discover:
+    - id: pet-supplies.discover.1
+      text: We just adopted a {age} {pet_type}. What do we need?
+      slots: [age, pet_type]
+    - id: pet-supplies.discover.2
+      text: My {pet_type} is bored at home. Ideas under {budget}?
+      slots: [pet_type, budget]
+  express:
+    - id: pet-supplies.express.1
+      text: Send {quantity} bags of {product_type} with {ingredients} for my {pet_type} by {delivery_by}.
+      slots: [quantity, product_type, ingredients, pet_type, delivery_by]
+    - id: pet-supplies.express.2
+      text: Just pick a {product_type} for a {pet_size} {pet_type}.
+      slots: [product_type, pet_size, pet_type]
+hypotheses:
+  - id: pet-supplies.species-and-life-stage
+    statement: Species, life stage and breed size are attributes.
+    why: Puppy, adult and senior foods differ in formulation, and the label is the agent's only signal.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.pet_suitability_correct
+    evidence_grade: hypothesis
+  - id: pet-supplies.ingredients-and-analysis
+    statement: Ingredients and the guaranteed analysis (protein, fat, fibre) are text.
+    why: Owners compare foods on these numbers, which are usually printed on the bag.
+    where: [get_product.description, get_product.metafields]
+    details: [ingredients]
+    judge_decision: judge.ingredient_constraint_met
+    evidence_grade: hypothesis
+  - id: pet-supplies.protein-and-allergens
+    statement: Protein sources and common allergens (chicken, beef, grain) are stated plainly.
+    why: Food allergies in pets are managed by avoiding one protein, which needs the full list.
+    where: [get_product.attributes, get_product.description]
+    details: [ingredients, allergens]
+    judge_decision: judge.allergen_avoided
+    evidence_grade: hypothesis
+  - id: pet-supplies.feeding-guide
+    statement: Feeding guides by weight are text.
+    why: How long a bag lasts decides what to reorder and how often.
+    where: [get_product.description, get_product.metafields]
+    details: [dosage]
+    judge_decision: judge.feeding_question_answered
+    evidence_grade: hypothesis
+  - id: pet-supplies.fit-measurements
+    statement: Collar, harness and bed sizes give neck, chest or length measurements.
+    why: S, M and L mean different things for different brands of harness.
+    where: [get_product.options, get_product.description]
+    details: [size_chart]
+    judge_decision: judge.size_matches_spec
+    evidence_grade: hypothesis
+  - id: pet-supplies.autoship
+    statement: Autoship is a selling plan with its interval and discount.
+    why: Pet food is the archetypal repeat purchase, and the agent needs the plan to set it up.
+    where: [get_product.options, policies]
+    judge_decision: judge.subscription_handled
+    evidence_grade: hypothesis
+  - id: pet-supplies.vet-authorisation
+    statement: Prescription diets and medicines say they need a vet's authorisation before the cart.
+    why: A vet-only product discovered at checkout ends the journey, and an agent must never work around it.
+    where: [get_product.description, get_product.attributes, policies]
+    judge_decision: judge.gate_disclosed
+    evidence_grade: hypothesis

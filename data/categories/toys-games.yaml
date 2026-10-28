@@ -1,0 +1,116 @@
+# Category 15 of the store queue: Toys / games.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Toys / games
+slug: toys-games
+index: 15
+summary: Toys, games, puzzles and building sets.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: tg-5
+      path: Toys & Games > Toys
+    - id: tg-2
+      path: Toys & Games > Games
+    - id: tg-4
+      path: Toys & Games > Puzzles
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - age
+  - recipient
+  - player_count
+  - language
+  - safety_standard
+  - budget
+  - quantity
+  - gift
+  - delivery_by
+intents:
+  replenish:
+    - id: toys-games.replenish.1
+      text: My kid lost pieces of {product_name}. Can I buy it again?
+      slots: [product_name]
+    - id: toys-games.replenish.2
+      text: Same {brand} {product_type} as last time, {quantity} for party bags.
+      slots: [brand, product_type, quantity]
+  specify:
+    - id: toys-games.specify.1
+      text: I need a {product_type} for a child aged {age} that meets {safety_standard}, under {budget}.
+      slots: [product_type, age, safety_standard, budget]
+    - id: toys-games.specify.2
+      text: Looking for a game for {player_count} players in {language}, delivered by {delivery_by}.
+      slots: [player_count, language, delivery_by]
+  compare:
+    - id: toys-games.compare.1
+      text: 'Compare your {product_type}s for age {age}: which lasts longer, and which needs batteries?'
+      slots: [product_type, age]
+    - id: toys-games.compare.2
+      text: Which of your games works best for {player_count} players and is quick to learn?
+      slots: [player_count]
+  discover:
+    - id: toys-games.discover.1
+      text: I need a birthday present for {recipient}. Ideas under {budget}?
+      slots: [recipient, budget]
+    - id: toys-games.discover.2
+      text: I'm looking for something screen-free for a child aged {age} on rainy days.
+      slots: [age]
+  express:
+    - id: toys-games.express.1
+      text: Just send a gift-wrapped {product_type} for {recipient} by {delivery_by}.
+      slots: [product_type, recipient, delivery_by]
+    - id: toys-games.express.2
+      text: Pick the best {product_type} for age {age} under {budget}.
+      slots: [product_type, age, budget]
+hypotheses:
+  - id: toys-games.age-grading-and-warnings
+    statement: Age grading and small-parts or choking warnings are text.
+    why: An agent buying for a toddler must not choose a toy with small parts, and the warning is often printed only on
+      the box.
+    where: [get_product.attributes, get_product.description, get_product.metafields]
+    details: [warnings]
+    judge_decision: judge.age_suitability_correct
+    evidence_grade: hypothesis
+  - id: toys-games.players-and-play-time
+    statement: Player count and play time are attributes.
+    why: Game choice turns on these two numbers, which are often only on the box.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.spec_matches_spec
+    evidence_grade: hypothesis
+  - id: toys-games.batteries
+    statement: Whether batteries are required and included, and which type, is stated.
+    why: A toy without batteries on the morning it is opened is a failure the shopper remembers.
+    where: [get_product.description, get_product.attributes]
+    judge_decision: judge.contents_match_spec
+    evidence_grade: hypothesis
+  - id: toys-games.safety-standards
+    statement: Safety standards the toy meets (ASTM F963, EN 71, UKCA) are stated.
+    why: Some shoppers require certified toys, and only a stated standard can be checked.
+    where: [get_product.attributes, get_product.description]
+    judge_decision: judge.safety_claim_supported
+    evidence_grade: hypothesis
+  - id: toys-games.contents-and-piece-count
+    statement: Contents and piece counts are listed.
+    why: Sets with the same name differ in what is included.
+    where: [get_product.description, get_product.attributes]
+    judge_decision: judge.contents_match_spec
+    evidence_grade: hypothesis
+  - id: toys-games.language-edition
+    statement: The language and edition of games are variant options or attributes.
+    why: Board games ship in language editions that look identical in photos.
+    where: [get_product.options, get_product.attributes]
+    judge_decision: judge.variant_matches_spec
+    evidence_grade: hypothesis
+  - id: toys-games.gift-options
+    statement: Gift wrap, a message and a receipt without prices are options before checkout.
+    why: Toys are mostly gifts, and shoppers expect the agent to arrange these.
+    where: [get_product.options, policies]
+    judge_decision: judge.gift_options_handled
+    evidence_grade: hypothesis

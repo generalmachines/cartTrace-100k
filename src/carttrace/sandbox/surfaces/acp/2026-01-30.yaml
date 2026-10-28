@@ -1,0 +1,89 @@
+# ACP API-Version 2026-01-30, as the sandbox serves it (vendor/acp/2026-01-30).
+#
+# What changed from 2026-01-16, the largest step: line_items replace items, and an item carries no quantity (each
+# entry is one unit; the sandbox counts a repeated id as one more unit); a line item carries quantity and totals[];
+# selected fulfillment options flatten to {type, option_id, item_ids}; payment data names a handler and an instrument
+# whose credential holds the token, and the session lists its payment handlers under capabilities (required) beside
+# protocol.version; the buyer needs only an email; the status enum gains incomplete, requires_escalation,
+# complete_in_progress, pending_approval and expired; messages gain warnings and a severity; orders gain an order
+# number; discount codes arrive (the discount extension). See 2025-09-29.yaml for what each field means.
+version: "2026-01-30"
+items:
+  field: line_items
+  quantity: false
+fulfillment:
+  address: fulfillment_details
+  selection: flat
+  option_amounts: totals
+line_items:
+  shape: totals
+  details: true
+buyer: email
+payment:
+  data: handler
+  methods: none
+  merchant_id: false
+  display_name: false
+session:
+  capabilities: true
+  authentication: true
+  authentication_channel: true
+  continue_url: true
+  created_at: true
+  discounts: true
+  order_number: true
+  order_type: false
+messages:
+  severity: true
+  resolution: false
+  warnings: true
+  error_codes: [missing, invalid, out_of_stock, payment_declined, requires_sign_in, requires_3ds, low_stock,
+                quantity_exceeded, coupon_invalid, coupon_expired, minimum_not_met, maximum_exceeded,
+                region_restricted, age_verification_required, approval_required, unsupported, not_found, conflict,
+                rate_limited, expired, intervention_required]
+links: [terms_of_use, privacy_policy, return_policy, shipping_policy, contact_us, about_us, faq, support]
+link_titles: true
+totals: [items_base_amount, items_discount, subtotal, discount, fulfillment, tax, fee, gift_wrap, tip, store_credit,
+         total]
+errors:
+  types: [invalid_request, request_not_idempotent, processing_error, service_unavailable]
+  supported_versions: false
+idempotency:
+  required: false
+  replayed_header: false
+  conflict_status: 409
+  conflict_type: request_not_idempotent
+  psp_conflict_type: invalid_request
+cancel_body: true
+discovery: false
+signature_required: false
+statuses:
+  incomplete:
+    checkout: [incomplete]
+    payments: [none, declined, authentication_failed, voided]
+  not_ready_for_payment:
+    unused: the earlier name of a session that still lacks facts; from 2026-01-30 the sandbox says incomplete
+  requires_escalation:
+    checkout: [requires_escalation/payment_handler_unavailable]
+    payments: [none, declined, authentication_failed, voided]
+  authentication_required:
+    checkout: [requires_escalation/payment_action_required]
+    payments: [requires_action]
+  ready_for_payment:
+    checkout: [ready_for_complete]
+    payments: [none, declined, authentication_failed, voided]
+  pending_approval:
+    unused: purchase approvals (a buyer's company approving a purchase order) are not modeled; the sandbox takes no purchase orders
+  complete_in_progress:
+    checkout: [complete_in_progress]
+    payments: [pending, authenticated, authorized]
+  completed:
+    checkout: [completed]
+    payments: [captured, partially_refunded, refunded]
+  canceled:
+    checkout: [canceled]
+    payments: [none, declined, authentication_failed, voided]
+  in_progress:
+    unused: the earlier name of a completing session; from 2026-01-30 the sandbox says complete_in_progress
+  expired:
+    unused: sandbox sessions do not expire; a lapsed stock hold is renewed, or refused, at completion

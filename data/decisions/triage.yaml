@@ -1,0 +1,58 @@
+# Triage. A tool call or a model call failed: where did the failure come from, and what should the runner do next?
+# Rules answer the clear signals (our harness refusing a call, HTTP 429, timeouts, connection errors, 5xx by who sent
+# them); Clef reads the error text for the rest.
+#
+# Evidence for triage.error_source:
+#   service     who we were talking to: store (a live store), sandbox, model (a model server) or internal
+#   tool        the tool or endpoint that failed, or null
+#   status      the HTTP status, or null when no response arrived
+#   error_code  ToolResult.error_code (harness_blocked, throttled, protocol_error, store_error, timeout, or the
+#               protocol's own code), or null
+#   message     the error text, already redacted
+#
+# Evidence for triage.next_action:
+#   error_source  the answer of triage.error_source
+#   error_code    as above
+#   status        as above
+#   attempts      how many times this call has now failed, counting this one
+#   message       as above
+
+- id: triage.error_source
+  kind: enum
+  description: >-
+    Attributes a failed call, so a store or the agent is never blamed for our own failures: harness and infra
+    failures are left out of store and agent scores.
+  question: A call made during a shopping episode failed as shown above. Where did the failure come from?
+  evidence: [service, tool, status, error_code, message]
+  options: [infra, rate_limit, store, harness, agent]
+  option_notes:
+    infra: the network or a service between us and the store, such as DNS, TLS, a timeout or one of our model servers
+    rate_limit: the store is throttling us, for example HTTP 429, a Retry-After or "too many requests"
+    store: the store's own server or data, for example HTTP 5xx, a bot wall, a login wall or a malformed reply
+    harness: our own code refused the call or built it wrongly
+    agent: the agent called a tool wrongly, for example a bad argument or a product or variant that does not exist
+  rule: error_source_signals
+  threshold: 0.7
+  abstain: infra
+  status: shadow
+  version: 1
+
+- id: triage.next_action
+  kind: enum
+  description: >-
+    What the runner does after a failed call. The rule holds the fixed retry policy, and Clef reads the cases it
+    does not cover. Abstaining skips the store for the run, which keeps traffic polite without anyone having to lift
+    a pause.
+  question: Given the failed call above and where it came from, what should the collection runner do next?
+  evidence: [error_source, error_code, status, attempts, message]
+  options: [retry, skip_store, pause_store, continue]
+  option_notes:
+    retry: try the same call again after a short wait, honouring any Retry-After
+    skip_store: stop using this store for the rest of this run
+    pause_store: pause the store until a person looks at it
+    continue: hand the error back to the agent and let it carry on
+  rule: next_action_policy
+  threshold: 0.75
+  abstain: skip_store
+  status: shadow
+  version: 1

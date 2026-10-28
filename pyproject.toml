@@ -1,0 +1,55 @@
+[project]
+name = "carttrace"
+version = "1.0.0"
+description = "Replay any CartTrace-100k trace in the sandbox it was recorded in, or run your own agent on the same store and task."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "CartTrace maintainers" }]
+keywords = ["agents", "commerce", "ucp", "acp", "ap2", "mcp", "webmcp", "benchmark", "traces", "reproducibility"]
+classifiers = [
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: Apache Software License",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "pydantic>=2.13,<3",
+  "httpx>=0.28,<0.29",
+  "mcp==2.3.0",
+  "pympp==0.11.0",
+  "starlette>=1.7,<2",
+  "python-multipart>=0.0.20",
+  "jsonschema>=4.26,<5",
+  "referencing>=0.37,<1",
+  "pyyaml>=6.0,<7",
+  "cryptography>=50,<51",
+  "rfc8785>=0.1.4,<0.2",
+  "protego>=0.7,<1",
+  "zstandard>=0.25,<1",
+]
+
+[project.optional-dependencies]
+# WebMCP traces run the storefront in a browser: then `playwright install chromium`.
+browser = ["playwright==1.63.0"]
+# Reading episodes straight from the dataset's parquet tables (`--dataset`).
+dataset = ["pyarrow>=26,<27"]
+
+[project.scripts]
+carttrace = "carttrace.repro.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=9.1,<10", "pytest-asyncio>=1.4,<2", "carttrace[browser,dataset]"]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/carttrace"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-q --strict-markers"
+markers = ["dataset: needs the CartTrace-100k dataset and worlds (CARTTRACE_DATASET, CARTTRACE_WORLDS)"]

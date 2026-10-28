@@ -1,0 +1,961 @@
+# protocols.lock.toml: every vendored protocol file, where it came from, and what it hashes to.
+#
+# Written by `carttrace protocols vendor --relock`; checked offline by `carttrace protocols vendor --check` and by CI.
+# To add or bump a protocol, edit a pin (tag, commit, url, include, version, dest) by hand, then run
+# `carttrace protocols vendor --relock --only <id>`; it refetches at the pin, records the full commit sha and rehashes.
+# A url source whose fetch fails records `error` and keeps the files it last had; the check warns and carries on.
+
+lock_version = 1
+
+[[source]]
+id = "acp-2025-09-29"
+protocol = "acp"
+version = "2025-09-29"
+kind = "git"
+repo = "https://github.com/agentic-commerce-protocol/agentic-commerce-protocol"
+commit = "7fdd78df677a94dce04c770644b0fbbb1401272b"
+include = ["LICENSE", "NOTICE", "spec/2025-09-29/**/*", "examples/2025-09-29/**/*"]
+dest = "vendor/acp/2025-09-29"
+note = "ACP publishes every dated version side by side on main; this commit is the newest on 2026-10-11"
+files = [
+  { path = "LICENSE", sha256 = "4458503dd48e88c4e0b945fb252a08b93c40ec757309b8ffa7c594dfa1e35104" },
+  { path = "NOTICE", sha256 = "eef2479db11ee280bbade20296fe6c2ecdc8ce64a8cd086d57b80571d675a290" },
+  { path = "examples/2025-09-29/examples.agentic_checkout.json", sha256 = "2c9142a528f7552381a90a2c11c26ef36453289134605fdf1f8b35d43431a214" },
+  { path = "examples/2025-09-29/examples.delegate_payment.json", sha256 = "bc2ca7a71d8399d22d616d56d44a0ad0389a72a4ed8ace5e5befbca53dfbaa57" },
+  { path = "spec/2025-09-29/json-schema/schema.agentic_checkout.json", sha256 = "d8d16c9b25b07e61f8366fce01255f0a2dfee76ab7996bd5819fe7afaea4f838" },
+  { path = "spec/2025-09-29/json-schema/schema.delegate_payment.json", sha256 = "abf7d63af1204236933184c51cd1213343e3e6b94ecfc467b2c8f0a3c7b7d45d" },
+  { path = "spec/2025-09-29/openapi/openapi.agentic_checkout.yaml", sha256 = "efb08a9253690600f491b78df986c61cdce516c7ae321e7f25f8ac4c6daccc5e" },
+  { path = "spec/2025-09-29/openapi/openapi.agentic_checkout_webhook.yaml", sha256 = "ff843ae73f42a32afe721567a8467247a14833c0851acb56d399b51b186752ee" },
+  { path = "spec/2025-09-29/openapi/openapi.delegate_payment.yaml", sha256 = "c689f34e15c11a4aa1b5cf70e709b6e00f50f886cd33d630424f5b6ee04a6ed0" },
+]
+
+[[source]]
+id = "acp-2025-12-12"
+protocol = "acp"
+version = "2025-12-12"
+kind = "git"
+repo = "https://github.com/agentic-commerce-protocol/agentic-commerce-protocol"
+commit = "7fdd78df677a94dce04c770644b0fbbb1401272b"
+include = ["LICENSE", "NOTICE", "spec/2025-12-12/**/*", "examples/2025-12-12/**/*"]
+dest = "vendor/acp/2025-12-12"
+note = "ACP publishes every dated version side by side on main; this commit is the newest on 2026-10-11"
+files = [
+  { path = "LICENSE", sha256 = "4458503dd48e88c4e0b945fb252a08b93c40ec757309b8ffa7c594dfa1e35104" },
+  { path = "NOTICE", sha256 = "eef2479db11ee280bbade20296fe6c2ecdc8ce64a8cd086d57b80571d675a290" },
+  { path = "examples/2025-12-12/examples.agentic_checkout.json", sha256 = "62a809e53c42392d31341ea898412273905d3ba66f6808392d536b184b2c49ae" },
+  { path = "examples/2025-12-12/examples.delegate_payment.json", sha256 = "bc2ca7a71d8399d22d616d56d44a0ad0389a72a4ed8ace5e5befbca53dfbaa57" },
+  { path = "spec/2025-12-12/json-schema/schema.agentic_checkout.json", sha256 = "7de8a1d0e7237a541cee51946e82b10dc3d3935d7ff39a0e5f1c58f09e68b47e" },
+  { path = "spec/2025-12-12/json-schema/schema.delegate_payment.json", sha256 = "abf7d63af1204236933184c51cd1213343e3e6b94ecfc467b2c8f0a3c7b7d45d" },
+  { path = "spec/2025-12-12/openapi/openapi.agentic_checkout.yaml", sha256 = "2e988128433b9132ab956b137b72beb0b37b5a2113f15b8bb8775fe3a9c8a54c" },
+  { path = "spec/2025-12-12/openapi/openapi.agentic_checkout_webhook.yaml", sha256 = "1da58e5fdad04cccf4066261c836a82a0ddd5ed9041134bb9f920719f6db669c" },
+  { path = "spec/2025-12-12/openapi/openapi.delegate_payment.yaml", sha256 = "5c767e0664d24d2795fab47d12495a9939d7fa9c37d70064d2d2968c8bc878a1" },
+]
+
+[[source]]
+id = "acp-2026-01-16"
+protocol = "acp"
+version = "2026-01-16"
+kind = "git"
+repo = "https://github.com/agentic-commerce-protocol/agentic-commerce-protocol"
+commit = "7fdd78df677a94dce04c770644b0fbbb1401272b"
+include = ["LICENSE", "NOTICE", "spec/2026-01-16/**/*", "examples/2026-01-16/**/*"]
+dest = "vendor/acp/2026-01-16"
+note = "ACP publishes every dated version side by side on main; this commit is the newest on 2026-10-11"
+files = [
+  { path = "LICENSE", sha256 = "4458503dd48e88c4e0b945fb252a08b93c40ec757309b8ffa7c594dfa1e35104" },
+  { path = "NOTICE", sha256 = "eef2479db11ee280bbade20296fe6c2ecdc8ce64a8cd086d57b80571d675a290" },
+  { path = "examples/2026-01-16/examples.agentic_checkout.json", sha256 = "2194eb4857b419634d6b158be9c66a37b8f7e00a072c39b9cb1e540409c73612" },
+  { path = "examples/2026-01-16/examples.capability_negotiation.json", sha256 = "f9544b68e9ff3ad5c93a6c9d5e0f453916ea886624f66d9696f7689aa8508e44" },
+  { path = "examples/2026-01-16/examples.delegate_payment.json", sha256 = "bc2ca7a71d8399d22d616d56d44a0ad0389a72a4ed8ace5e5befbca53dfbaa57" },
+  { path = "spec/2026-01-16/json-schema/schema.agentic_checkout.json", sha256 = "82b3c6877994ce2742a5fb55cfffc020a88c13e53ff425e7b308a682351aa73a" },
+  { path = "spec/2026-01-16/json-schema/schema.delegate_payment.json", sha256 = "15344ba5906e74619dc416eb8a094f840924a54a3c266c136261a1aa105cce3c" },
+  { path = "spec/2026-01-16/openapi/openapi.agentic_checkout.yaml", sha256 = "cea60d723dd9cd2ee9d66a79c3bc58196f77d91d2081600ea88c6a07c236feec" },
+  { path = "spec/2026-01-16/openapi/openapi.agentic_checkout_webhook.yaml", sha256 = "38e0f719f3a8b1fdd2a91f03eb1fceffb5b487eec1c5e0fee3b67b9f1c330081" },
+  { path = "spec/2026-01-16/openapi/openapi.delegate_payment.yaml", sha256 = "5445353cb72e1fc6362f0eebe81cb89ec2236bad97b89e486e0f0065c7ae5537" },
+]
+
+[[source]]
+id = "acp-2026-01-30"
+protocol = "acp"
+version = "2026-01-30"
+kind = "git"
+repo = "https://github.com/agentic-commerce-protocol/agentic-commerce-protocol"
+commit = "7fdd78df677a94dce04c770644b0fbbb1401272b"
+include = ["LICENSE", "NOTICE", "spec/2026-01-30/**/*", "examples/2026-01-30/**/*"]
+dest = "vendor/acp/2026-01-30"
+note = "ACP publishes every dated version side by side on main; this commit is the newest on 2026-10-11"
+files = [
+  { path = "LICENSE", sha256 = "4458503dd48e88c4e0b945fb252a08b93c40ec757309b8ffa7c594dfa1e35104" },
+  { path = "NOTICE", sha256 = "eef2479db11ee280bbade20296fe6c2ecdc8ce64a8cd086d57b80571d675a290" },
+  { path = "examples/2026-01-30/discount-extension/README.md", sha256 = "a89c9bb71a302ecb6189c4d9528927938351473a0d1193d8273ce04594209824" },
+  { path = "examples/2026-01-30/discount-extension/automatic-discount.json", sha256 = "9e1fb703bf7dbbf53d852938357f2c8edabd37bcea450c21ba1fb3a8bc1b09b6" },
+  { path = "examples/2026-01-30/discount-extension/order-level-discount.json", sha256 = "19b81558599cd5d658c28b574de10cb73207f5d5d47b52da7c81252928e56d21" },
+  { path = "examples/2026-01-30/discount-extension/percentage-discount-with-allocations.json", sha256 = "fa719e05e12d984e9c6bcad6708708b4fbc4dccc8b65e8ac5975ce187034e640" },
+  { path = "examples/2026-01-30/discount-extension/rejected-discount-code.json", sha256 = "cdf01f73212300e0ce894ccccece9deee1062aec5af759fc44fe917809071d17" },
+  { path = "examples/2026-01-30/discount-extension/stacked-discounts.json", sha256 = "ad5ebd9d49144ad6a38fe452b64f0650c63714a3f3b6fa91495428e78f3d62a8" },
+  { path = "examples/2026-01-30/examples.agentic_checkout.json", sha256 = "c59dada89a01ad86e02d0a7ff67ed29488a5ddc86b38774631031b63da3e97de" },
+  { path = "examples/2026-01-30/examples.delegate_payment.json", sha256 = "bc2ca7a71d8399d22d616d56d44a0ad0389a72a4ed8ace5e5befbca53dfbaa57" },
+  { path = "spec/2026-01-30/json-schema/schema.agentic_checkout.json", sha256 = "c038aedd2b39ab6ddc8275392021c60cc966b612d866498ce4d708421b49101b" },
+  { path = "spec/2026-01-30/json-schema/schema.delegate_payment.json", sha256 = "1142990fb788b7a620b748e78dd50f856df3c28fda5741c2ba8b23506c1d6891" },
+  { path = "spec/2026-01-30/json-schema/schema.discount.json", sha256 = "963adfd3fcee4ea37940e91191cfe74204802bd8fc753cb24905a1e5088778b4" },
+  { path = "spec/2026-01-30/json-schema/schema.extension.json", sha256 = "23ec9cfcceec6124e12ca48ac2107618bb226196380f770f61fbf050490b860e" },
+  { path = "spec/2026-01-30/openapi/openapi.agentic_checkout.yaml", sha256 = "68605a020b632f0257626a9404e56bce37695ea7f3435a21302627cff0ba5d8a" },
+  { path = "spec/2026-01-30/openapi/openapi.agentic_checkout_webhook.yaml", sha256 = "9b373be9124f77c21c0280280670e7c69a257148eb9622526b6bae4b05613376" },
+  { path = "spec/2026-01-30/openapi/openapi.delegate_payment.yaml", sha256 = "7471232f00d3797a32c82a5582532dc502831490f4c2ff865c10f64cd096698c" },
+]
+
+[[source]]
+id = "acp-2026-04-17"
+protocol = "acp"
+version = "2026-04-17"
+kind = "git"
+repo = "https://github.com/agentic-commerce-protocol/agentic-commerce-protocol"
+commit = "7fdd78df677a94dce04c770644b0fbbb1401272b"
+include = ["LICENSE", "NOTICE", "spec/2026-04-17/**/*", "examples/2026-04-17/**/*"]
+dest = "vendor/acp/2026-04-17"
+note = "ACP publishes every dated version side by side on main; this commit is the newest on 2026-10-11"
+files = [
+  { path = "LICENSE", sha256 = "4458503dd48e88c4e0b945fb252a08b93c40ec757309b8ffa7c594dfa1e35104" },
+  { path = "NOTICE", sha256 = "eef2479db11ee280bbade20296fe6c2ecdc8ce64a8cd086d57b80571d675a290" },
+  { path = "examples/2026-04-17/discount-extension/README.md", sha256 = "2665378a8d6298b2e2e1a9c79f5e8f4318904be5b4b2253370b2874114e63364" },
+  { path = "examples/2026-04-17/discount-extension/automatic-discount.json", sha256 = "1ab5d13d9eca40f20a366d918d05f7c0820704241717865885684585ae3fb9e5" },
+  { path = "examples/2026-04-17/discount-extension/order-level-discount.json", sha256 = "70061b1f2e7cb4db36dc7241be9c855aa66b9a40478a0cd4f7d77d34882ae559" },
+  { path = "examples/2026-04-17/discount-extension/percentage-discount-with-allocations.json", sha256 = "11b6116cc5e17ed1260e74706bb69ea5a177210bda0e5453d8b589b9a5288e43" },
+  { path = "examples/2026-04-17/discount-extension/rejected-discount-code.json", sha256 = "ca315cdd39b2a480d3f692e0181be8e00de5da9aaf7b868c0af2732f27ba07d9" },
+  { path = "examples/2026-04-17/discount-extension/stacked-discounts.json", sha256 = "646ccbaa87877431bdeb91001bbcffc97a76ce10066cacee8fdc2fda70314598" },
+  { path = "examples/2026-04-17/examples.agentic_checkout.json", sha256 = "989e4bc7ccbdb789ea362450963821a368da63d20a2000186455fa7fbcaac8e7" },
+  { path = "examples/2026-04-17/examples.delegate_authentication.json", sha256 = "120eeb64ddcc49a1168c0fce58c3a43dcd70d1324ab85707d2b08018a701532b" },
+  { path = "examples/2026-04-17/examples.delegate_payment.json", sha256 = "14247c6172f364511e1b52b8cab2bd72ead2277d852ae3b7acc8cd7939c25755" },
+  { path = "examples/2026-04-17/examples.feed.json", sha256 = "ecbd2cec0dc787ef88df367579d29e8c8955be4c8773bea51a93287ab254c485" },
+  { path = "examples/2026-04-17/examples.mcp.agentic_checkout.json", sha256 = "200717d378a0fada84a51e50f48a70a1fc4b528e586a72510f0d2253388da5ba" },
+  { path = "examples/2026-04-17/examples.multi_item_checkout.json", sha256 = "5a878cbd03691f6f382da01a32a7e886aa268e405bbbc5fb9e733adeae7aa5aa" },
+  { path = "examples/2026-04-17/orders/digital-fulfillment.json", sha256 = "c9684a92787e0b8c3c4298224013925f7cf789f6b9921ea1f18922c7ae99ada8" },
+  { path = "examples/2026-04-17/orders/partial-fulfillment.json", sha256 = "1f481d7a0c08380e9435e5dc520bad10c6b5943d1b0e40d09055b839a8c7802c" },
+  { path = "examples/2026-04-17/orders/refunded-order.json", sha256 = "08aa93aaaa9ba9506d870424ac1289ba7f54cece3b50b4c29c4405506d7e77ae" },
+  { path = "examples/2026-04-17/orders/shipped-order.json", sha256 = "969bea7e49a5ccc5b40c1898ac49db0ec9605ca0d055974e4f9ad6778039d1c4" },
+  { path = "examples/2026-04-17/orders/simple-order.json", sha256 = "28ba2a056ed538c5ffe96050fb4978706b43951bf738549dc24d3faebdf46e50" },
+  { path = "spec/2026-04-17/json-schema/schema.agentic_checkout.json", sha256 = "d0e4290617d66bf05d002b8ace388732be2b3eb9a92a1003db7a2daa1e0436f2" },
+  { path = "spec/2026-04-17/json-schema/schema.cart.json", sha256 = "4480260393132f24da09fb99554dd510822f22345755394c72c2444e24ddd0b3" },
+  { path = "spec/2026-04-17/json-schema/schema.delegate_authentication.json", sha256 = "e550e881594748cb9f69a68e1c5710efa326ed6d4ee5ec8a19330ef86eaa5b52" },
+  { path = "spec/2026-04-17/json-schema/schema.delegate_payment.json", sha256 = "307739ae400e7368eaa25c6024d30751348a4af8a516d071565fcd8aa328cf4d" },
+  { path = "spec/2026-04-17/json-schema/schema.discount.json", sha256 = "792ca48fca11bd1363ce0c5c74aa42b1f5fd5ba5eb3adb8582a4bef872c092ae" },
+  { path = "spec/2026-04-17/json-schema/schema.extension.json", sha256 = "08a4415d66413e712f5a9ceb9fbe651f9a8e4c5c795ce1f7019ffda7d238cfd4" },
+  { path = "spec/2026-04-17/json-schema/schema.feed.json", sha256 = "5ef3eea431f6a860bb810793843018c8ea5b8c17aa60420ad66ebec3575189c4" },
+  { path = "spec/2026-04-17/openapi/openapi.agentic_checkout.yaml", sha256 = "2a0aa239b4aed50732461d9b7e443ad98d5c2d3431277899433ead07cbd4fc55" },
+  { path = "spec/2026-04-17/openapi/openapi.agentic_checkout_webhook.yaml", sha256 = "10f84a9a20658d1990bd514017c8ad8494d8c65bd30568f476da1883b747c1c9" },
+  { path = "spec/2026-04-17/openapi/openapi.cart.yaml", sha256 = "a1125038ddb4fd19ca695f756433b6c605a7dbd84ca1299d04a0375faa97830c" },
+  { path = "spec/2026-04-17/openapi/openapi.delegate_authentication.yaml", sha256 = "ec3fc037c7e7f948a012f7e5278090206dc7a895950a46ac850a3a06e30dfe0d" },
+  { path = "spec/2026-04-17/openapi/openapi.delegate_payment.yaml", sha256 = "ffc98ff3b7a69dd2be5feffe3d91eaf0a687aab31b3fb55b4db63a4e06b4815a" },
+  { path = "spec/2026-04-17/openapi/openapi.feed.yaml", sha256 = "c1462ec8f0a795571b839291bb8f33b1ebf45aadbfee846b04ab443b7410e6c8" },
+  { path = "spec/2026-04-17/openrpc/openrpc.agentic_checkout.json", sha256 = "99692a36eb01dac949bf51837ac64ed4e14f83015de94a3060a83d01ab16ed67" },
+]
+
+[[source]]
+id = "ap2-v0.1.0"
+protocol = "ap2"
+version = "v0.1.0"
+kind = "git"
+repo = "https://github.com/google-agentic-commerce/AP2"
+tag = "v0.1.0"
+commit = "bb57b6bfdb9a1caafffe7d024ca04d99cefa40be"
+include = ["LICENSE", "src/ap2/types/*.py"]
+dest = "vendor/ap2/v0.1.0"
+note = "v0.1.0 published no JSON Schemas; its protocol types are the pydantic models in src/ap2/types"
+files = [
+  { path = "LICENSE", sha256 = "b1d2870f1a00e4d7f56576e5f0870cba109e041f8af66866cf5b499478e654e7" },
+  { path = "src/ap2/types/__init__.py", sha256 = "42cc9663d84271e50e5ecf55277f5aac962e96d82b23b57aaabe0dd8adc50eab" },
+  { path = "src/ap2/types/contact_picker.py", sha256 = "34d832e7075698a5f8783222af29d7086f956058be6f5d970f21709ca4a8ade7" },
+  { path = "src/ap2/types/mandate.py", sha256 = "147ffe418a344ea7867e347cc83ea847c0b91ac3415c56ab20ebd2bf956961d9" },
+  { path = "src/ap2/types/payment_request.py", sha256 = "ce0005e266dd16b41548c63575e106a6ea128eeb0d7a3644edc948fc9bb4ffb8" },
+]
+
+[[source]]
+id = "ap2-v0.2.0"
+protocol = "ap2"
+version = "v0.2.0"
+kind = "git"
+repo = "https://github.com/google-agentic-commerce/AP2"
+tag = "v0.2.0"
+commit = "b4587ac1d055888a73b4b21750973cffba961793"
+include = ["LICENSE", "code/sdk/schemas/ap2/*.json", "code/sdk/schemas/ap2/types/*.json"]
+dest = "vendor/ap2/v0.2.0"
+files = [
+  { path = "LICENSE", sha256 = "b1d2870f1a00e4d7f56576e5f0870cba109e041f8af66866cf5b499478e654e7" },
+  { path = "code/sdk/schemas/ap2/checkout_mandate.json", sha256 = "10c0341edfeaa9084d3704ef8e94869de20499c8e357068d65f8d622bf79483a" },
+  { path = "code/sdk/schemas/ap2/checkout_receipt.json", sha256 = "941198a1fc1916d04813a8b8ccba4b407471305a6eb1b5338b1f67b6299764ea" },
+  { path = "code/sdk/schemas/ap2/open_checkout_mandate.json", sha256 = "bd6eb1c95a5ccb967259fae49100287755251c9d1bdb48342d96dd99fcb30b41" },
+  { path = "code/sdk/schemas/ap2/open_payment_mandate.json", sha256 = "65394d52af4d3326ab6b4bdcc2aa38d65a918d11b90efd8518c583bf015ab568" },
+  { path = "code/sdk/schemas/ap2/payment_mandate.json", sha256 = "94c4af64ed29825cb956705ae763d42f3c04d22feb60b8d838dae2bb1eea1fb1" },
+  { path = "code/sdk/schemas/ap2/payment_receipt.json", sha256 = "e7d52266c407d32bcc49959f91e8ddb73024a1803bef75b7bd368fb93849ba88" },
+  { path = "code/sdk/schemas/ap2/types/amount.json", sha256 = "15271efa8064539b8ded7c69f213ed7a1e64f8d9634b405ce926c2dcbbc41c0f" },
+  { path = "code/sdk/schemas/ap2/types/item.json", sha256 = "48c24532f105fda096ab89a27e04e896a597fda7e308e96cc88e11ce6a6632f9" },
+  { path = "code/sdk/schemas/ap2/types/jwk.json", sha256 = "4040c2b2a105cc5d66241896189cb9c59956246c9fab7dc38f9c1da98f12cacb" },
+  { path = "code/sdk/schemas/ap2/types/merchant.json", sha256 = "13457334d8577230a1cce5265971cfc02f68f5d4e97f74bd2e78128105d3ab31" },
+  { path = "code/sdk/schemas/ap2/types/payment_instrument.json", sha256 = "b3bcea7a7b5bbf2b0aa781135ac3b6907280822aa84797161c2d3d104d0cbe8c" },
+  { path = "code/sdk/schemas/ap2/types/pisp.json", sha256 = "60a5c8c09236f5d1e84a25bff4fd4cff05fb3fa8e3648cbab483322f27388630" },
+  { path = "code/sdk/schemas/ap2/types/receipt_status.json", sha256 = "ad51c1c20be72e286f4ff6fe2819145dcec7e5e3e0f6dc7870fcf748c06c1da0" },
+]
+
+[[source]]
+id = "com.google.pay-2026-01-11"
+protocol = "com.google.pay"
+version = "2026-01-11"
+kind = "url"
+url = "https://pay.google.com/gp/p/ucp/2026-01-11/schemas/config.json"
+follow_refs = true
+dest = "vendor/com.google.pay/2026-01-11"
+note = "UCP payment-handler config declared by live Shopify stores"
+files = [
+  { path = "config.json", url = "https://pay.google.com/gp/p/ucp/2026-01-11/schemas/config.json", sha256 = "41effaa96532e25b8afeb19ab80575fadfeb3dc6e0fdb7a36441295defb355ec" },
+  { path = "merchant_info.json", url = "https://pay.google.com/gp/p/ucp/2026-01-11/schemas/merchant_info.json", sha256 = "631a33db074fdda3f24950221a9d70f8ce32b3d98013336be31bac0e71aa7301" },
+  { path = "payment_method.json", url = "https://pay.google.com/gp/p/ucp/2026-01-11/schemas/payment_method.json", sha256 = "fb2244a340857dba99c0383712c9c81a48dd7f529d70e109ef4cf4e6cd461a2f" },
+  { path = "tokenization_specification.json", url = "https://pay.google.com/gp/p/ucp/2026-01-11/schemas/tokenization_specification.json", sha256 = "c2631d46c21d817949fc78dc3059f97dda1bfd8b9a1f586134f20154254d751b" },
+]
+
+[[source]]
+id = "dev.shopify.card-2026-01-15"
+protocol = "dev.shopify.card"
+version = "2026-01-15"
+kind = "url"
+url = "https://shopify.dev/ucp/card-payment-handler/2026-01-15/config.json"
+follow_refs = true
+dest = "vendor/dev.shopify.card/2026-01-15"
+note = "UCP payment-handler config declared by live Shopify stores"
+files = [
+  { path = "config.json", url = "https://shopify.dev/ucp/card-payment-handler/2026-01-15/config.json", sha256 = "19d349ac3eb98257f98634bad59f6502102ac84cbbf65dd42cfcf3de708d9ea7" },
+]
+
+[[source]]
+id = "dev.shopify.shop-pay-2026-04-08"
+protocol = "dev.shopify.shop_pay"
+version = "2026-04-08"
+kind = "url"
+url = "https://shopify.dev/shop-pay-handler/2026-04-08/spec.md"
+follow_refs = true
+dest = "vendor/dev.shopify.shop_pay/2026-04-08"
+note = "UCP Shop Pay payment-handler spec declared by live Shopify stores; its schemas ref UCP's web-published 2026-04-08 schemas (versioned URLs), vendored under "
+files = [
+  { path = "available_payment_instrument.json", url = "https://ucp.dev/2026-04-08/schemas/shopping/types/available_payment_instrument.json", sha256 = "9cb9c663d2969cfaa512378a548a0b66c767dfbbe4a68800d847dcce56145d6e" },
+  { path = "business_config.json", url = "https://shopify.dev/ucp/shop-pay-handler/2026-04-08/business_config.json", sha256 = "ab8d2fd0b3c3d6d806879e971211ee670608d38ce6b0a4d05c58be806f43825d" },
+  { path = "capability.json", url = "https://ucp.dev/2026-04-08/schemas/capability.json", sha256 = "e04e7f72cd8eeefcef62da77d6cdde862923b1b694bb861d19750709ac213989" },
+  { path = "embedded_config.json", url = "https://ucp.dev/2026-04-08/schemas/transports/embedded_config.json", sha256 = "5ec479418249a8a5337a8ad425683e4fb95b682e4c09e8cd6e26efa8eec949a5" },
+  { path = "payment_credential.json", url = "https://ucp.dev/2026-04-08/schemas/shopping/types/payment_credential.json", sha256 = "473ec5271a9faa9dfba3e51f504111ffa7e954f7f15da7ca76c0952c33b39d3d" },
+  { path = "payment_handler.json", url = "https://ucp.dev/2026-04-08/schemas/payment_handler.json", sha256 = "58c5b84b07dea32bf03ff0f61fe4a1e2045159f703915b24dbf0af894f6aff3c" },
+  { path = "payment_instrument.json", url = "https://ucp.dev/2026-04-08/schemas/shopping/types/payment_instrument.json", sha256 = "9c93d9ab13500bdcab772e7ad28319e7f5cd40311889cbfb136669e82044eeed" },
+  { path = "postal_address.json", url = "https://ucp.dev/2026-04-08/schemas/shopping/types/postal_address.json", sha256 = "a1af8903356c7f0806d2725be79326383811d554904dadff96e24e2765398909" },
+  { path = "reverse_domain_name.json", url = "https://ucp.dev/2026-04-08/schemas/shopping/types/reverse_domain_name.json", sha256 = "0a29b4776d8b3f8e354fcfd0cb91faf393cfb73aeb30e3ab4dcef67afccdbd75" },
+  { path = "schema.json", url = "https://shopify.dev/ucp/shop-pay-handler/2026-04-08/schema.json", sha256 = "0ccd775cd63334b7a7fc6b5fd97ed68e4950ae0f07529ac0a556a4803f1142e3" },
+  { path = "service.json", url = "https://ucp.dev/2026-04-08/schemas/service.json", sha256 = "f6d458d5a175dea51e03123c4ad988f5ffef019d03cef63d279c3d771eaf6c7c" },
+  { path = "shop_pay.json", url = "https://shopify.dev/ucp/shop-pay-handler/2026-04-08/shop_pay.json", sha256 = "de93cfefd434fe257485c96308d318d80baa5b1fe2ee7dadbba7971538c95094" },
+  { path = "shop_token.json", url = "https://shopify.dev/ucp/shop-pay-handler/2026-04-08/shop_token.json", sha256 = "461c3b77dfb7b9012eef4e9e2259f01684eb604e826ec089973138e9a0d2ca11" },
+  { path = "spec.md", url = "https://shopify.dev/ucp/shop-pay-handler/2026-04-08/spec.md", sha256 = "f966009ef645e3ae2d407a2d3f2369b149519741b99a294b36e6e8264555f2c5" },
+  { path = "token_credential.json", url = "https://ucp.dev/2026-04-08/schemas/shopping/types/token_credential.json", sha256 = "dbda2bce1400286f888b76b0d3d9514b7e72ef526cf3f5d70362505be88fb138" },
+  { path = "ucp.json", url = "https://ucp.dev/2026-04-08/schemas/ucp.json", sha256 = "874bd5a94e768573d9844b4c59a037bd268771a0ee501ed69a7654089699c8cc" },
+]
+
+[[source]]
+id = "mcp-2024-11-05"
+protocol = "mcp"
+version = "2024-11-05"
+kind = "git"
+repo = "https://github.com/modelcontextprotocol/modelcontextprotocol"
+tag = "2024-11-05-final"
+commit = "48234828288ec5e5011398f17b8736f61645f130"
+include = ["LICENSE", "schema/2024-11-05/schema.json"]
+dest = "vendor/mcp/2024-11-05"
+note = "the 2024-11-05 release tag predates dated schema directories; the 2024-11-05-final tag carries schema/2024-11-05/, byte-identical to main"
+files = [
+  { path = "LICENSE", sha256 = "5e13dbbc1d120fc2a03cecde7c91424ae2d7de11b63d58ded2f4431e261ee50d" },
+  { path = "schema/2024-11-05/schema.json", sha256 = "61cea2392d4f284092d09bc84b9ac488c0d5618ac2b38a56942fc5b99fd960ce" },
+]
+
+[[source]]
+id = "mcp-2025-03-26"
+protocol = "mcp"
+version = "2025-03-26"
+kind = "git"
+repo = "https://github.com/modelcontextprotocol/modelcontextprotocol"
+tag = "2025-03-26"
+commit = "9236eb1cbfa02c17ab45c83a7bdbe55c450070be"
+include = ["LICENSE", "schema/2025-03-26/schema.json"]
+dest = "vendor/mcp/2025-03-26"
+files = [
+  { path = "LICENSE", sha256 = "5e13dbbc1d120fc2a03cecde7c91424ae2d7de11b63d58ded2f4431e261ee50d" },
+  { path = "schema/2025-03-26/schema.json", sha256 = "dd1619bf96fcd8c50fe46f0dd05b4b9bb9356010040ae985fa595fee226ff4ed" },
+]
+
+[[source]]
+id = "mcp-2025-06-18"
+protocol = "mcp"
+version = "2025-06-18"
+kind = "git"
+repo = "https://github.com/modelcontextprotocol/modelcontextprotocol"
+tag = "2025-06-18"
+commit = "f5ccad944fdf2b7d9cc70cf817f66ca5a8aa03a4"
+include = ["LICENSE", "schema/2025-06-18/schema.json"]
+dest = "vendor/mcp/2025-06-18"
+files = [
+  { path = "LICENSE", sha256 = "346e57dc40801e3d58165e97f64d45b42c4571a68a76ecb10c3c12858acecb3f" },
+  { path = "schema/2025-06-18/schema.json", sha256 = "05020a692319467847cdb1794b1306567f52860353b5ff2f2bc2b0140819305b" },
+]
+
+[[source]]
+id = "mcp-2025-11-25"
+protocol = "mcp"
+version = "2025-11-25"
+kind = "git"
+repo = "https://github.com/modelcontextprotocol/modelcontextprotocol"
+tag = "2025-11-25"
+commit = "38c84e9f93ad191d9eb26d92b945d17bd0efcaf3"
+include = ["LICENSE", "schema/2025-11-25/schema.json"]
+dest = "vendor/mcp/2025-11-25"
+files = [
+  { path = "LICENSE", sha256 = "346e57dc40801e3d58165e97f64d45b42c4571a68a76ecb10c3c12858acecb3f" },
+  { path = "schema/2025-11-25/schema.json", sha256 = "1ffe4c5577974012f5fa02af14ea88df4b7146679df1abaaad497c8d9230ca8a" },
+]
+
+[[source]]
+id = "mcp-2026-07-28"
+protocol = "mcp"
+version = "2026-07-28"
+kind = "git"
+repo = "https://github.com/modelcontextprotocol/modelcontextprotocol"
+tag = "2026-07-28"
+commit = "5f5440bb26a62e2cf3440b92da5a667efa03b267"
+include = ["LICENSE", "schema/2026-07-28/schema.json"]
+dest = "vendor/mcp/2026-07-28"
+files = [
+  { path = "LICENSE", sha256 = "0382b0057770ca05e9c350a50aa3b1c1fea84da0bc81d723bf00b9aa841be58a" },
+  { path = "schema/2026-07-28/schema.json", sha256 = "ef70b61f99b6d2e5e3b46863822eab08dff6a45bedc7a08914e0e5b133f40203" },
+]
+
+[[source]]
+id = "mpp-pympp-0.11.0-pympp"
+protocol = "mpp"
+version = "pympp-0.11.0"
+kind = "url"
+url = "https://files.pythonhosted.org/packages/72/50/756e7c2a5936125afa04a0b258637a50d5d5eeec8cbe5e93e39d5fc5e445/pympp-0.11.0-py3-none-any.whl.metadata"
+dest = "vendor/mpp/pympp-0.11.0/pympp"
+note = "version marker: the core metadata (PEP 658) of the pympp 0.11.0 wheel, as PyPI serves it"
+files = [
+  { path = "pympp-0.11.0-py3-none-any.whl.metadata", url = "https://files.pythonhosted.org/packages/72/50/756e7c2a5936125afa04a0b258637a50d5d5eeec8cbe5e93e39d5fc5e445/pympp-0.11.0-py3-none-any.whl.metadata", sha256 = "e14a1ca886e985897d80125aec8af84a0d9f5f3514d645b76d17eddba0458f47" },
+]
+
+[[source]]
+id = "mpp-pympp-0.11.0-specs"
+protocol = "mpp"
+version = "pympp-0.11.0"
+kind = "git"
+repo = "https://github.com/tempoxyz/mpp-specs"
+commit = "50309c8e67e6d64b5547f1cc354fb327bda1301e"
+include = ["specs/core/**/*", "specs/intents/**/*", "specs/extensions/**/*", "specs/methods/stripe/**/*", "specs/methods/card/**/*", "LICENSE.md", "LICENSE-APACHE", "LICENSE-MIT"]
+dest = "vendor/mpp/pympp-0.11.0/mpp-specs"
+note = "the MPP specs at the commit pympp 0.11.0 was built against"
+files = [
+  { path = "LICENSE-APACHE", sha256 = "91f2a605c2c04a97021a0507858d405dabbf41368423ed00c7e20e1b60d2b6c1" },
+  { path = "LICENSE-MIT", sha256 = "71aa0c58ec74e2093560781d5b6dbae19f490530089f93c9ae1eb8b16c48f273" },
+  { path = "LICENSE.md", sha256 = "443060d62a7f288d4eaa4f4ed5a672525bd3040a57df834dabc3fbfb9b29274e" },
+  { path = "specs/core/draft-httpauth-payment-01.md", sha256 = "66b451802e89edb8249db0511a124455d4f190c00b07d825c239e9c85bfe1e34" },
+  { path = "specs/extensions/draft-payment-discovery-01.md", sha256 = "6e6fad024671b4c1bff4528d643381d7c211ef171a69316e22b0fa1ad7c55b59" },
+  { path = "specs/extensions/transports/draft-payment-transport-mcp-00.md", sha256 = "9dbe30bcfd182053267c00752f6d2e7a7f893c2e74045d8b7424d481077852b0" },
+  { path = "specs/intents/draft-payment-intent-charge-00.md", sha256 = "54dba8e7dfd594b9616c53c56a9c319adee6d7adae454cb21a5b027d8c87ad7b" },
+  { path = "specs/intents/draft-payment-intent-subscription-00.md", sha256 = "a2eb95b49b74c9a024d60ba21de0238f293a47ebb010f7c1bd3944ccf52b7caa" },
+  { path = "specs/methods/card/draft-card-charge-00.md", sha256 = "65b089f78a82a8f9b05036d23b3bf69d8bbfe1d2380abaae3756f01cde9c05cf" },
+  { path = "specs/methods/stripe/draft-stripe-charge-00.md", sha256 = "e5cdf0e322111a18ee8e1dfbb61aaa78ad316213b8dbc271ca514ac9a1b62c0a" },
+  { path = "specs/methods/stripe/draft-stripe-subscription-00.md", sha256 = "40b2e01d8b81066c503e486394d2ea015548316e9440eac26b38f4afe878b097" },
+]
+
+[[source]]
+id = "mpp-pympp-0.11.0-tools"
+protocol = "mpp"
+version = "pympp-0.11.0"
+kind = "git"
+repo = "https://github.com/tempoxyz/mpp-tools"
+commit = "7ff233894e3c73eaeb81bf4ab8754795362ed8d6"
+include = ["conformance/schemas/*.json", "conformance/operations.json", "conformance/vectors/*.json", "LICENSE"]
+dest = "vendor/mpp/pympp-0.11.0/mpp-tools"
+note = "the MPP conformance schemas and vectors"
+files = [
+  { path = "LICENSE", sha256 = "c4306abc77ade5deef7c034245f21255a148a7556bbca92d74a236dec945e7f4" },
+  { path = "conformance/operations.json", sha256 = "119e258e8e11d451b8236366a5f11574ac80b2d2dd17f9f8b5c6f32cab2f7193" },
+  { path = "conformance/schemas/adapter-manifest.schema.json", sha256 = "6d75da408fea5122cc589da0f402caa5ad8f325307c9bd595064cec0d6227e7a" },
+  { path = "conformance/schemas/adapter-request-envelope.schema.json", sha256 = "afe5d78ed1a502ebad6f3abaa4cd676ba813f3b50311df1ff54251e525277efb" },
+  { path = "conformance/schemas/adapter-request.schema.json", sha256 = "660bbc4e77be8ca4d9ea82eb6909798a1dd9e25df7f91f7de0830ee41ddccb58" },
+  { path = "conformance/schemas/adapter-response.schema.json", sha256 = "6f073db24f5fc3e5dc7847a988db01224bc6b80ec12a2c082ac86ce18f9d6731" },
+  { path = "conformance/schemas/flow-cases.schema.json", sha256 = "be02f8fa54eb49eb2166f55f996e5d24e084e41baddef6bbb294e42bf8869cde" },
+  { path = "conformance/schemas/flow-results.schema.json", sha256 = "f9f3d5bc5540fd70bb90e31ee448711ef63dfe863bf4e360c273853fda46078c" },
+  { path = "conformance/schemas/operation-registry.schema.json", sha256 = "a1ba113edf9ba4f2c170a8c12d5ac2c6b8aa297039a6d0aad48a89e99b075446" },
+  { path = "conformance/schemas/protocol.schema.json", sha256 = "9dea83858ce64943b88f2fc77d970b13e293fab497980df2fda3c5c438cb15b8" },
+  { path = "conformance/schemas/vector.schema.json", sha256 = "d55e6bb4cf332754cd66d92ce78c74b9ff97dad6b396c707bbb969535332873d" },
+  { path = "conformance/vectors/authorization.json", sha256 = "eff072b13c6d3cb532d18d7bffb4df19cfa63b5e18c58acf673886bbb6f91ac3" },
+  { path = "conformance/vectors/base64url.json", sha256 = "896aed89f8ffff13e3f52fde20259e81cc48d28414c81534ec206c5ea4c52eed" },
+  { path = "conformance/vectors/challenge-id.json", sha256 = "603ea26bb6bc658ba550eaa042add2f3c101327ef87177692800b74db7d93649" },
+  { path = "conformance/vectors/package.json", sha256 = "0cb72dc1273f6f55868adcbd65913a3a71584cd06d85db8d0f4494caec93ced9" },
+  { path = "conformance/vectors/receipt.json", sha256 = "c78d358a99ca46d91ca21727b9a5e8a50bd2b1f2552fdfadc3087b5917438160" },
+  { path = "conformance/vectors/stripe-external-id-binding.json", sha256 = "1f4e56d663a861113e49cf4a1a886501afa78462660b600a6b3b7f51b3318c6f" },
+  { path = "conformance/vectors/tempo-fee-payer-cosign.json", sha256 = "8242ed74e4a5cb1cd692180f2c086f8fbd56872545ea75adbe37711681e0d52f" },
+  { path = "conformance/vectors/tempo-proof.json", sha256 = "a6598664845c7c2d4fd046c66024e8410421823a1fd7a4a23312c60c2246cfeb" },
+  { path = "conformance/vectors/tempo-receipt-verification.json", sha256 = "7f8c9eb3c06df5632ad4cdb8e51e6e246472baac4398062565ce02c83050e667" },
+  { path = "conformance/vectors/www-authenticate.json", sha256 = "98f83e3e7cd0c23b6ba4db6ed86cfa52ef1f1dc4198664cc784944e44bc3937d" },
+]
+
+[[source]]
+id = "ucp-2026-01-11"
+protocol = "ucp"
+version = "2026-01-11"
+kind = "git"
+repo = "https://github.com/Universal-Commerce-Protocol/ucp"
+tag = "v2026-01-11"
+commit = "806a5b74d3a5a918206844ea980450233b38664e"
+include = ["LICENSE", "source/**/*.json", "spec/**/*.json"]
+dest = "vendor/ucp/2026-01-11"
+note = "this release also committed spec/, the per-direction schemas generated from source/; both trees declare the same $id values, so the registry resolves refs inside each tree separately"
+files = [
+  { path = "LICENSE", sha256 = "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd" },
+  { path = "source/discovery/profile_schema.json", sha256 = "d115268a111cf2111628c0a9ca433938b67c76ff45428d5815b8902cbf18e036" },
+  { path = "source/handlers/tokenization/openapi.json", sha256 = "da9df76db61538df70123c57368be1b4b933ab83e057f8201f9240cd737c776b" },
+  { path = "source/schemas/capability.json", sha256 = "fbc33a03b3a742f7d051ff50deac16ba228e07bfbf9c8b47793f463133dff79b" },
+  { path = "source/schemas/shopping/ap2_mandate.json", sha256 = "7826776252e5441066909ec6fd3f099d5556333ba30860017e93f73a79806370" },
+  { path = "source/schemas/shopping/buyer_consent.json", sha256 = "44825a79ca8ac6affaf236946d988a6a15999b409256c7b7b190c55b24c28051" },
+  { path = "source/schemas/shopping/checkout.json", sha256 = "525b42ed469593b8ea5e2f186cbf49e65e949a71f064bbf851d96514d2a3753d" },
+  { path = "source/schemas/shopping/discount.json", sha256 = "62d34bd624a1916a6e06fe808e478e3e67f7deaa4afd0dbe24efffa21c3ba14c" },
+  { path = "source/schemas/shopping/fulfillment.json", sha256 = "babdb538bc06a3b01a8d6c5371297942606995cb418df27fe78903766f8d8817" },
+  { path = "source/schemas/shopping/order.json", sha256 = "c065a2f7ebaa51eeaf458765a8333d9bc00bf7109d8c7c0ab16440332277435a" },
+  { path = "source/schemas/shopping/payment.json", sha256 = "36a7d70475931bdb1320c2ccfe33f59ff87ce3092186a52062ceebac2875cda6" },
+  { path = "source/schemas/shopping/payment_data.json", sha256 = "dd4d31a57b6979285e11869be1e2e1566b6304de484008953cc4ae2f84a8d0ef" },
+  { path = "source/schemas/shopping/types/account_info.json", sha256 = "e9e4a4e126ba862fe57f04f9d0c93312d6ccd86356a75303218fb3e2b3958ea1" },
+  { path = "source/schemas/shopping/types/adjustment.json", sha256 = "568784c43278c87e85a7d484162b124baf83c7cdb87a695335cc4160a88258b4" },
+  { path = "source/schemas/shopping/types/binding.json", sha256 = "daf75d90597155c24831f0c6a3b78ae3c4cb6a458a6a5589ae689c1c50dd404b" },
+  { path = "source/schemas/shopping/types/buyer.json", sha256 = "ea55c9688197dd484c5100941f8b317ab51cf47fb6fe17595297bc99960ee80e" },
+  { path = "source/schemas/shopping/types/card_credential.json", sha256 = "a7a669673d0e51c53aabd636bdf524f3bdadc3ee0f2d6d4a1e0204ed429c1e20" },
+  { path = "source/schemas/shopping/types/card_payment_instrument.json", sha256 = "17095e23aa03127023b458a210f104d06253a8e2f9ba30dd6bfa6c375b51b1dd" },
+  { path = "source/schemas/shopping/types/expectation.json", sha256 = "632c4017901eb4bf251b65de3348b3087e417431807c6e4f8678e6e6dd8c7a93" },
+  { path = "source/schemas/shopping/types/fulfillment.json", sha256 = "2258f06cdb421fb30e8ae1336b9e62409c78d879a0e5fc3a4a0fcb01672880f8" },
+  { path = "source/schemas/shopping/types/fulfillment_available_method.json", sha256 = "48a6654716f005f7f47c84f92160d34b42f4fe414d004c2a9662577fb26411f9" },
+  { path = "source/schemas/shopping/types/fulfillment_destination.json", sha256 = "172a4a57976f8728691b010d7c57c3dbdc5d08c1c54ba6223106ebd60ce4484a" },
+  { path = "source/schemas/shopping/types/fulfillment_event.json", sha256 = "bda46c32b45dfc9f7a37bf00dc6d14e5dddf157b82d0a093f1a6c48ab253298f" },
+  { path = "source/schemas/shopping/types/fulfillment_group.json", sha256 = "33fca595dba904a5ca4f90012ed8e6001e633dfe15452cc872d27cc0350153b3" },
+  { path = "source/schemas/shopping/types/fulfillment_method.json", sha256 = "fb0d828c5eb0fa7b8cec02f2ed74318f4c0a98198c19e18daeebe67d4dc4c3f7" },
+  { path = "source/schemas/shopping/types/fulfillment_option.json", sha256 = "6c5dd1c0641dbe63254e4374fb42836b30d03997b759857f0d17e4fb3eb4593c" },
+  { path = "source/schemas/shopping/types/item.json", sha256 = "9a5adf41317f7d0aa5f1f0068dafa318bb3fa73654270e52359a9bdb1b16557e" },
+  { path = "source/schemas/shopping/types/line_item.json", sha256 = "0f4ad3b624d81c55350143ceaa74f37b76d4756d24fb1b1ba9ec3a4c79d3968f" },
+  { path = "source/schemas/shopping/types/link.json", sha256 = "812175c3b79feb40dae50324c5b9288244a5d65d8f83d96d5d1a26e5b493f569" },
+  { path = "source/schemas/shopping/types/merchant_fulfillment_config.json", sha256 = "ee6b83b820c8d6652b48eaa9b206b7345e50d74023264738001674341be485e5" },
+  { path = "source/schemas/shopping/types/message.json", sha256 = "09101ad431959f1146561be50d3544ed2d2b3ae14f93cc2535cdaea7f2d7518c" },
+  { path = "source/schemas/shopping/types/message_error.json", sha256 = "ed677233090e41bf2e0e65666fdf3ea213b0c64f4bb8fe466ddd2e4750edfccf" },
+  { path = "source/schemas/shopping/types/message_info.json", sha256 = "1dad94554921d5900a44d2032272380e1bb36f6962b3b3646c816b49a2e57661" },
+  { path = "source/schemas/shopping/types/message_warning.json", sha256 = "a0175002ffb982203a3932d084d9cab4e3e96922a805eea9ab8a6814c9f6d8a1" },
+  { path = "source/schemas/shopping/types/order_confirmation.json", sha256 = "b9dfb2487bf9bc42c52cd446f03e836afb56107f0a916fd6cf4f1dabf406fc49" },
+  { path = "source/schemas/shopping/types/order_line_item.json", sha256 = "8c89d509722c75d7d5a0f213608d33db27ed6ef4d756eb814e76b1c73f9724f6" },
+  { path = "source/schemas/shopping/types/payment_credential.json", sha256 = "dc0b7bf923b14dfd425c824f88c51f957e448d02db2a66e59a88e5c18b9a922f" },
+  { path = "source/schemas/shopping/types/payment_handler.json", sha256 = "c89cc8bcd3af1d3599556c295162e993639e644f514fa05bbce4d169f26139d3" },
+  { path = "source/schemas/shopping/types/payment_identity.json", sha256 = "39bf6ea1bae17f4299c49a9de436dcc331c5c616cefb3a73412c9641a2a411e0" },
+  { path = "source/schemas/shopping/types/payment_instrument.json", sha256 = "3ae2954d57a8eb114834f18df7e5cb45e9df127a734c2a8a36ee73db86c15652" },
+  { path = "source/schemas/shopping/types/payment_instrument_base.json", sha256 = "9a66a7d0ff249dffc9da528622df70c3b8d35df65107fdcbdbac4c773a9d58c1" },
+  { path = "source/schemas/shopping/types/platform_fulfillment_config.json", sha256 = "d5276726200e2fcebad60394cbd97314f59a335cd044fde3b1c981b52103edc3" },
+  { path = "source/schemas/shopping/types/postal_address.json", sha256 = "dda74690aaae30b8a26bcf4558d00b072c2b521020aec87876fbac13141276a1" },
+  { path = "source/schemas/shopping/types/retail_location.json", sha256 = "56db07b08b620612e144c5744c91f4afdb46b97edfcb5117564d4e52566b81f2" },
+  { path = "source/schemas/shopping/types/shipping_destination.json", sha256 = "1fdecc007b8c693b3a1042470b6adc5cbfb786e4a0b629056cca4babb911725e" },
+  { path = "source/schemas/shopping/types/token_credential.json", sha256 = "eb172e5527bdcd4405dff9c1fb329af9d479e832287a5ddfb500b5e343334546" },
+  { path = "source/schemas/shopping/types/total.json", sha256 = "53c5bcfca10cb1f69e31abb833bba6c4e1521ac7a4f47739d7b0023a1b277f2b" },
+  { path = "source/schemas/ucp.json", sha256 = "6649108a6b33dad5eed2671816d92f32ee97be684220d1fafb5247bee038686a" },
+  { path = "source/services/service_schema.json", sha256 = "c0db685f395c7346cc09f83274903497385eedc20e488b50acba42aa09a53693" },
+  { path = "source/services/shopping/embedded.json", sha256 = "571f4586212d80b0bfba6443185f0afa51af28409d1bdde4a584942651998c86" },
+  { path = "source/services/shopping/openapi.json", sha256 = "439c07a62f2565a4898fc73a30259887eaf5513da8904c87dd11a1a8ecd24444" },
+  { path = "source/services/shopping/openrpc.json", sha256 = "491f5d2f0bf194b429a87a48c55e5fbd3f8b058c94f85c6a1e8d14494887fdc5" },
+  { path = "spec/discovery/profile_schema.json", sha256 = "0893e14e71ae71911e67cf5ec3d9534df236ca90c7bc55903e9e73a132ccaf70" },
+  { path = "spec/handlers/tokenization/openapi.json", sha256 = "a135635e7b2d70c21c2be2a9660506ae9319fc32f9fdeed5a4461f50c9de176d" },
+  { path = "spec/schemas/capability.json", sha256 = "fa2bd0b1ba4ba41c4bb56cebfb906c59b237ffdd77f1a02894dc92a41096e1b7" },
+  { path = "spec/schemas/shopping/ap2_mandate.json", sha256 = "0947640e45e5ce8f24bbbb4233d779e0801427296911104a59c4bf9eb36989c5" },
+  { path = "spec/schemas/shopping/buyer_consent.create_req.json", sha256 = "5f19d25c5a0436c04e6dd89e8636b46a6bb3fd805087c8748c8b1c1c5fcb5b78" },
+  { path = "spec/schemas/shopping/buyer_consent.update_req.json", sha256 = "7b279c2317a2fd4df44869c46ab36778e65a84a17c293f17f9a65aac20051b51" },
+  { path = "spec/schemas/shopping/buyer_consent_resp.json", sha256 = "a76d4e08c46967ec68b3e80eaee70f3d1c901d5db8c05e51ca39cd1a0c4c12f6" },
+  { path = "spec/schemas/shopping/checkout.create_req.json", sha256 = "ef5d43504c7fe42f9cb3cbdae08157592b86c76edfc0349e6d5f3d56f50a6d50" },
+  { path = "spec/schemas/shopping/checkout.update_req.json", sha256 = "70489d71819d8c511261f037dc9fda3c0387cc9448346093d49773f57e17e78f" },
+  { path = "spec/schemas/shopping/checkout_resp.json", sha256 = "0b3cdcf16767b837df15b9f599b905c02550190dfe50244c1df13e9fb1585116" },
+  { path = "spec/schemas/shopping/discount.create_req.json", sha256 = "2dc1e4d31d7ef6c89d7e10f3a0a3b112f2cc8ae9a50533f1635ea80d4ce21a97" },
+  { path = "spec/schemas/shopping/discount.update_req.json", sha256 = "0a5cbfdf76f8ef2671eebf23c8648075437fa723ae03458c6684d83072d31adc" },
+  { path = "spec/schemas/shopping/discount_resp.json", sha256 = "2c7992d77e6248634ace9545cc97972a1e83f1c0286d622266291d1176b19ac6" },
+  { path = "spec/schemas/shopping/fulfillment.create_req.json", sha256 = "59f454ed8c5d303b6ae72efccfe156550badf1dcaa3bbea975fe5e64693cacec" },
+  { path = "spec/schemas/shopping/fulfillment.update_req.json", sha256 = "ae7369a5ec9a4b84071c3abd5fb4c9dd6aaeb13853fb14b27eeaa013d9d1dd47" },
+  { path = "spec/schemas/shopping/fulfillment_resp.json", sha256 = "ef1bc6c2785b1609222b0adf3b5a3de8777ea93660befec57db28e3e9df9229e" },
+  { path = "spec/schemas/shopping/order.json", sha256 = "38f65203a5bbc4c9d672541af912a1369b271daeae679f8e1f7e04282bf0ee95" },
+  { path = "spec/schemas/shopping/payment.create_req.json", sha256 = "4b342353da8e0cf364a85d0eefdc0a2f553c2bae42fba3c474e61ee3216623f3" },
+  { path = "spec/schemas/shopping/payment.update_req.json", sha256 = "23c3f4a8519cf7f6115e53bda4efbfd8d51f92745f9fb0c499a6e49b207f60d4" },
+  { path = "spec/schemas/shopping/payment_data.json", sha256 = "e6843d373f54cbc579ae0a462944900bbae68508d8c18900c29f88c48356cb54" },
+  { path = "spec/schemas/shopping/payment_resp.json", sha256 = "19c893f512abcc490284d2205e3a6f859f78784009477dc85800aff73a652ecc" },
+  { path = "spec/schemas/shopping/types/account_info.json", sha256 = "e9e4a4e126ba862fe57f04f9d0c93312d6ccd86356a75303218fb3e2b3958ea1" },
+  { path = "spec/schemas/shopping/types/adjustment.json", sha256 = "b50d4694f00db48b21d11278722cdc95a3cae58ee3c60db7c8ae2821ac68ef55" },
+  { path = "spec/schemas/shopping/types/binding.json", sha256 = "186e1fe8b7ea4421a375e0b9aed849c70a64bed66ee964d7230bc6531a0b6112" },
+  { path = "spec/schemas/shopping/types/buyer.json", sha256 = "ea55c9688197dd484c5100941f8b317ab51cf47fb6fe17595297bc99960ee80e" },
+  { path = "spec/schemas/shopping/types/card_credential.json", sha256 = "a7a669673d0e51c53aabd636bdf524f3bdadc3ee0f2d6d4a1e0204ed429c1e20" },
+  { path = "spec/schemas/shopping/types/card_payment_instrument.json", sha256 = "ec71d685ddf9d581550a26fcad3828b1511be652aecf426c511979284299d6a4" },
+  { path = "spec/schemas/shopping/types/expectation.json", sha256 = "aac89a9705cc49c2096259a4c6657fd1b031a133617abb141b6b4b47c6a49692" },
+  { path = "spec/schemas/shopping/types/fulfillment_available_method_req.json", sha256 = "371753f12621381d0d83a1bb094403750bffb7d2b208f69cc8ac1f05c17443e7" },
+  { path = "spec/schemas/shopping/types/fulfillment_available_method_resp.json", sha256 = "69df2e8eb9ca0369a0ee21fefb5d80ca9e778e78d4eba6fec020fc974c7870b1" },
+  { path = "spec/schemas/shopping/types/fulfillment_destination_req.json", sha256 = "0c62e841b638b4fc5332b96882c6091ea825c73657d79828bde8d4be3a0e99ea" },
+  { path = "spec/schemas/shopping/types/fulfillment_destination_resp.json", sha256 = "6fcf952103369eba8e0f8a9abbe3b9a15b67a0ae8ae89509dfec385d5e9af949" },
+  { path = "spec/schemas/shopping/types/fulfillment_event.json", sha256 = "e4ac32651a936eaec4f7c526a2236f56b135383a4e30532e643168594aded2f6" },
+  { path = "spec/schemas/shopping/types/fulfillment_group.create_req.json", sha256 = "77d023d0b8fd1e95d27518c95793bda73dea5f012421c0a00c4da5721f228e62" },
+  { path = "spec/schemas/shopping/types/fulfillment_group.update_req.json", sha256 = "e80eeaca046ca342b7ddba8e491dae1a8163d68c63d3a783c33e588ace089734" },
+  { path = "spec/schemas/shopping/types/fulfillment_group_resp.json", sha256 = "c8c264c101bad9a58caf4482d933083c04633039a6b5dd9a5eda0a8da79a83f6" },
+  { path = "spec/schemas/shopping/types/fulfillment_method.create_req.json", sha256 = "2b9dec5761ed174061e6555c220c8a16dfc2c1df0b008a7f8f7bdfbf58be4a76" },
+  { path = "spec/schemas/shopping/types/fulfillment_method.update_req.json", sha256 = "580918a2189121d5819f0c0f7c1cf45acc25d5f612c4fd1cadbd9a98e09d8a8a" },
+  { path = "spec/schemas/shopping/types/fulfillment_method_resp.json", sha256 = "0551f14314fe141b901c8cc4d7f0d63e036e3c67f9fc6a9c4b614f43517ff7bb" },
+  { path = "spec/schemas/shopping/types/fulfillment_option_req.json", sha256 = "046520e5692f46831837cf2d3311f33ad6d3a5144d1db42c1c0dd1b927d0bbba" },
+  { path = "spec/schemas/shopping/types/fulfillment_option_resp.json", sha256 = "ff8e1971ed3c5994d0b74e0c126794ea6fa2953f76750fb291e468d5fca63478" },
+  { path = "spec/schemas/shopping/types/fulfillment_req.json", sha256 = "f7987625c515e9b8c9fe8898cda3c2850c0ee105f293bb69e5c949484c186f61" },
+  { path = "spec/schemas/shopping/types/fulfillment_resp.json", sha256 = "91d33876d9a7e4452055ba042c7df7e31c0e80390fb28905ca792a8f54698a42" },
+  { path = "spec/schemas/shopping/types/item.create_req.json", sha256 = "83b981a50fbf62ad82373d085fb7dec50200189c02bdb7d5114431e37400e61f" },
+  { path = "spec/schemas/shopping/types/item.update_req.json", sha256 = "28fd6f8981b12a67671141416bca0f6616916a22c37261fbe679636ccc97ff70" },
+  { path = "spec/schemas/shopping/types/item_resp.json", sha256 = "212c2da55e2a845e00729d758fb62ec80f4b5be88ca1d5d59eec37cec5522c7c" },
+  { path = "spec/schemas/shopping/types/line_item.create_req.json", sha256 = "aadc4def2a2a34e37ded08eb4886ceb33d2fe4a7a4094e46a647dada1b6cfea3" },
+  { path = "spec/schemas/shopping/types/line_item.update_req.json", sha256 = "4bdc1e409444334f6d6aab751c5d888edf445affeeb9a9a42f35db19f087cae5" },
+  { path = "spec/schemas/shopping/types/line_item_resp.json", sha256 = "213e7f6c253fda964f6e1398e6f52c02ff5f276c6dd881350dc63be9c12fb403" },
+  { path = "spec/schemas/shopping/types/link.json", sha256 = "812175c3b79feb40dae50324c5b9288244a5d65d8f83d96d5d1a26e5b493f569" },
+  { path = "spec/schemas/shopping/types/merchant_fulfillment_config.json", sha256 = "d9bddda9909425a125e0ff934a63e347f6795d5435d96217c3fe50f9ec6d55c8" },
+  { path = "spec/schemas/shopping/types/message.json", sha256 = "09101ad431959f1146561be50d3544ed2d2b3ae14f93cc2535cdaea7f2d7518c" },
+  { path = "spec/schemas/shopping/types/message_error.json", sha256 = "ed677233090e41bf2e0e65666fdf3ea213b0c64f4bb8fe466ddd2e4750edfccf" },
+  { path = "spec/schemas/shopping/types/message_info.json", sha256 = "1dad94554921d5900a44d2032272380e1bb36f6962b3b3646c816b49a2e57661" },
+  { path = "spec/schemas/shopping/types/message_warning.json", sha256 = "a0175002ffb982203a3932d084d9cab4e3e96922a805eea9ab8a6814c9f6d8a1" },
+  { path = "spec/schemas/shopping/types/order_confirmation.json", sha256 = "b9dfb2487bf9bc42c52cd446f03e836afb56107f0a916fd6cf4f1dabf406fc49" },
+  { path = "spec/schemas/shopping/types/order_line_item.json", sha256 = "0b71163b55a3bcef5d3ebd2fd0869ffd255dde09740c32793eed06e794af9a3d" },
+  { path = "spec/schemas/shopping/types/payment_credential.json", sha256 = "a31a69ebe7759b2c3731ac4396e92d2b1e4dd8408b8768c8310efd43e37e41af" },
+  { path = "spec/schemas/shopping/types/payment_handler.create_req.json", sha256 = "7f9c76baab4d1164eb53620f12ff7f261e3ccd2d9a9169d0b2e207bbbb4fc627" },
+  { path = "spec/schemas/shopping/types/payment_handler.update_req.json", sha256 = "d88cc91e304ec94e4899104993d4e2be91a82806211828b04e2ffcff60dd3bb5" },
+  { path = "spec/schemas/shopping/types/payment_handler_resp.json", sha256 = "6e15a24b04a13add4499a2823b428208201df0259e3b8e12883ceb150edeacda" },
+  { path = "spec/schemas/shopping/types/payment_identity.json", sha256 = "38d9af540761c98bb50f29c739b250ffa7c60564fb2b13d1061b0754fdae6882" },
+  { path = "spec/schemas/shopping/types/payment_instrument.json", sha256 = "3ae2954d57a8eb114834f18df7e5cb45e9df127a734c2a8a36ee73db86c15652" },
+  { path = "spec/schemas/shopping/types/payment_instrument_base.json", sha256 = "ac09802fcf5cd77bedb816d238ff6f58bff1f7d2a27aea6f71d66b9f81d6cdac" },
+  { path = "spec/schemas/shopping/types/platform_fulfillment_config.json", sha256 = "d5276726200e2fcebad60394cbd97314f59a335cd044fde3b1c981b52103edc3" },
+  { path = "spec/schemas/shopping/types/postal_address.json", sha256 = "dda74690aaae30b8a26bcf4558d00b072c2b521020aec87876fbac13141276a1" },
+  { path = "spec/schemas/shopping/types/retail_location_req.json", sha256 = "f31880a79a035024355718592d152389763298dbe2a2cc00b47c5207ec166278" },
+  { path = "spec/schemas/shopping/types/retail_location_resp.json", sha256 = "c40484cd58a246f3f3d35643b4a13b8567078bd30af48588f390a68de975b7ca" },
+  { path = "spec/schemas/shopping/types/shipping_destination_req.json", sha256 = "c8c2dc500dc5e95fbef4c98783b23c29aefed9a158e0443ea0d3545fa9ccf040" },
+  { path = "spec/schemas/shopping/types/shipping_destination_resp.json", sha256 = "6c2c2d9035554f9d12fb4835715b8f4113185c5303f2198ce60dace9326da1ab" },
+  { path = "spec/schemas/shopping/types/token_credential.create_req.json", sha256 = "335bcb04572c8b6ab072459b585b901792e119358abf105660e8ee30b071db86" },
+  { path = "spec/schemas/shopping/types/token_credential.update_req.json", sha256 = "ec2c2720f60a5a622d35a7e5693eb65fc91d9604bd8969c3237a380f26c37e7f" },
+  { path = "spec/schemas/shopping/types/token_credential_resp.json", sha256 = "040d91809e2b62a00c103226b30b973bb6882c3cedc04e8e9140103731ead77e" },
+  { path = "spec/schemas/shopping/types/total.create_req.json", sha256 = "75d1a8793aa726568add9c9fbf9bd6197339df1ac70231c7942e9a7f14bea5ad" },
+  { path = "spec/schemas/shopping/types/total.update_req.json", sha256 = "a2cebce434f4ae1f2cc7b692193cfb78f5f998a3cf4a1a5daa01ccc24dfbe7d9" },
+  { path = "spec/schemas/shopping/types/total_resp.json", sha256 = "b399c460cbbb1f14a8f229568a1bd481a22848115368eef6428b1b87db9bcc12" },
+  { path = "spec/schemas/ucp.json", sha256 = "bfeca8dfb05cbd7643dcab0c51d44d3b0b6de1bb0b8d7bb94f6cdf6511185f74" },
+  { path = "spec/services/service_schema.json", sha256 = "76237c68d8b026d465fb5ad7b97966445b5bc37aa752e79d1f9943a9409a7fdd" },
+  { path = "spec/services/shopping/embedded.openrpc.json", sha256 = "0a4e267cc1836504e82089b4b2dd5729231359eb0162b826901dde7d7ce7fa27" },
+  { path = "spec/services/shopping/mcp.openrpc.json", sha256 = "491f5d2f0bf194b429a87a48c55e5fbd3f8b058c94f85c6a1e8d14494887fdc5" },
+  { path = "spec/services/shopping/rest.openapi.json", sha256 = "bb3309f653c05e4d45e7ee5d015dc7e8b0cdc0664dfc479606e4c83c9318dd4d" },
+]
+
+[[source]]
+id = "ucp-2026-01-23"
+protocol = "ucp"
+version = "2026-01-23"
+kind = "git"
+repo = "https://github.com/Universal-Commerce-Protocol/ucp"
+tag = "v2026-01-23"
+commit = "dcf7eac71fc370dcc8768fcdbc5aa737037cca05"
+include = ["LICENSE", "source/**/*.json", "spec/**/*.json"]
+dest = "vendor/ucp/2026-01-23"
+note = "this release also committed spec/, the per-direction schemas generated from source/; both trees declare the same $id values, so the registry resolves refs inside each tree separately"
+files = [
+  { path = "LICENSE", sha256 = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30" },
+  { path = "source/discovery/profile_schema.json", sha256 = "0396e5d54cf8bbbb0349e31c7157ffc84252192169e2bc122d0b77c13fbb3f00" },
+  { path = "source/handlers/tokenization/openapi.json", sha256 = "da9df76db61538df70123c57368be1b4b933ab83e057f8201f9240cd737c776b" },
+  { path = "source/schemas/capability.json", sha256 = "0fa8967d622dbb5aa8ae2c3d2180c5c3889d242de8e323d29e1dbd7201eec8c6" },
+  { path = "source/schemas/payment_handler.json", sha256 = "9b9b4db7cec89f74ea4852380072bc441d783d924367439a6f0f17dceab387f8" },
+  { path = "source/schemas/service.json", sha256 = "1f5ccbf42ce96018e66db30a1685727854c7e0a8a4376f41107fa78fdfdc28b1" },
+  { path = "source/schemas/shopping/ap2_mandate.json", sha256 = "5f7d9567bf365af99f086210249dd7f4cf83fb4c0b41120bfc904344df73a919" },
+  { path = "source/schemas/shopping/buyer_consent.json", sha256 = "619bdeff0c87659499338a04eb30810af5f333107dcc9b8a6cf3aba38f952fd5" },
+  { path = "source/schemas/shopping/checkout.json", sha256 = "e7f0bf47ef71e544a3f1f07b3791aba32db535dd408fbdc53cb702ad0fe1befe" },
+  { path = "source/schemas/shopping/discount.json", sha256 = "a1ee446450acfaf1eb1584ebadf125bb3ebc6f60d2c5b9d0dc780b053f6ba684" },
+  { path = "source/schemas/shopping/fulfillment.json", sha256 = "f7480fc87b7aa2e408de99e8481eb5cb9e80ae2fe23f34203a243f308736062f" },
+  { path = "source/schemas/shopping/order.json", sha256 = "825932ca1a049d64350d9c7502adf5cc8835fb665f188a884510ebafa628cb1d" },
+  { path = "source/schemas/shopping/payment.json", sha256 = "633eb8a45a228d3c341b997a64a4551533c5656083963285b238334786059819" },
+  { path = "source/schemas/shopping/types/account_info.json", sha256 = "e9e4a4e126ba862fe57f04f9d0c93312d6ccd86356a75303218fb3e2b3958ea1" },
+  { path = "source/schemas/shopping/types/adjustment.json", sha256 = "568784c43278c87e85a7d484162b124baf83c7cdb87a695335cc4160a88258b4" },
+  { path = "source/schemas/shopping/types/binding.json", sha256 = "daf75d90597155c24831f0c6a3b78ae3c4cb6a458a6a5589ae689c1c50dd404b" },
+  { path = "source/schemas/shopping/types/business_fulfillment_config.json", sha256 = "3b8c660303cb7da151baa72274da71c8f70a6267bc598248298000a08a0ae28d" },
+  { path = "source/schemas/shopping/types/buyer.json", sha256 = "24075ff053a9bc87f1b8b27fd2125df2035a7a22a35a784a58fe9b95a66d8cdb" },
+  { path = "source/schemas/shopping/types/card_credential.json", sha256 = "34106487f77e5e1fcd30404a3d91598399821126048725ec14c3e7f6a4665471" },
+  { path = "source/schemas/shopping/types/card_payment_instrument.json", sha256 = "408946ecc587261afcd9233ef3c9275bdbad86f7d7a3596e75f285458d8a0737" },
+  { path = "source/schemas/shopping/types/context.json", sha256 = "aec0d97229e4d00d93f97718284b9da574fe740cbd636883c4547c57aa3c4a9d" },
+  { path = "source/schemas/shopping/types/expectation.json", sha256 = "632c4017901eb4bf251b65de3348b3087e417431807c6e4f8678e6e6dd8c7a93" },
+  { path = "source/schemas/shopping/types/fulfillment.json", sha256 = "bceb5423d856ff8a2fe929ca610b0eb1cbf8f6dd62726b097b6a4cd679c5018c" },
+  { path = "source/schemas/shopping/types/fulfillment_available_method.json", sha256 = "9ee249191b38f73333c98edc9fe4aaa203b18122ab43770137687c287a07f871" },
+  { path = "source/schemas/shopping/types/fulfillment_destination.json", sha256 = "172a4a57976f8728691b010d7c57c3dbdc5d08c1c54ba6223106ebd60ce4484a" },
+  { path = "source/schemas/shopping/types/fulfillment_event.json", sha256 = "bda46c32b45dfc9f7a37bf00dc6d14e5dddf157b82d0a093f1a6c48ab253298f" },
+  { path = "source/schemas/shopping/types/fulfillment_group.json", sha256 = "23f74d66b15f7f43312c7c3bb09c5fbbaa7b6cd62d173bbbb1a27cc6c001a4fc" },
+  { path = "source/schemas/shopping/types/fulfillment_method.json", sha256 = "3141c3fcdb98655372e45a36ffd8ff2c52883283faaabf71a7e3625c384f9df5" },
+  { path = "source/schemas/shopping/types/fulfillment_option.json", sha256 = "edd53da5e54e454ae04eadcfc51771c6f64f0e97e9cb3b3fab6345f833c9f5a2" },
+  { path = "source/schemas/shopping/types/item.json", sha256 = "9a5adf41317f7d0aa5f1f0068dafa318bb3fa73654270e52359a9bdb1b16557e" },
+  { path = "source/schemas/shopping/types/line_item.json", sha256 = "fc9d7d8518bc146cef12275b6361a1236a2b5ee5b3335f142c36f327471b9165" },
+  { path = "source/schemas/shopping/types/link.json", sha256 = "812175c3b79feb40dae50324c5b9288244a5d65d8f83d96d5d1a26e5b493f569" },
+  { path = "source/schemas/shopping/types/merchant_fulfillment_config.json", sha256 = "ee6b83b820c8d6652b48eaa9b206b7345e50d74023264738001674341be485e5" },
+  { path = "source/schemas/shopping/types/message.json", sha256 = "09101ad431959f1146561be50d3544ed2d2b3ae14f93cc2535cdaea7f2d7518c" },
+  { path = "source/schemas/shopping/types/message_error.json", sha256 = "ed677233090e41bf2e0e65666fdf3ea213b0c64f4bb8fe466ddd2e4750edfccf" },
+  { path = "source/schemas/shopping/types/message_info.json", sha256 = "1dad94554921d5900a44d2032272380e1bb36f6962b3b3646c816b49a2e57661" },
+  { path = "source/schemas/shopping/types/message_warning.json", sha256 = "a0175002ffb982203a3932d084d9cab4e3e96922a805eea9ab8a6814c9f6d8a1" },
+  { path = "source/schemas/shopping/types/order_confirmation.json", sha256 = "b9dfb2487bf9bc42c52cd446f03e836afb56107f0a916fd6cf4f1dabf406fc49" },
+  { path = "source/schemas/shopping/types/order_line_item.json", sha256 = "8c89d509722c75d7d5a0f213608d33db27ed6ef4d756eb814e76b1c73f9724f6" },
+  { path = "source/schemas/shopping/types/payment_credential.json", sha256 = "cb299f582a16a1d77895afcadded69ad8ed560abd8f87af5861e02d9392a92bb" },
+  { path = "source/schemas/shopping/types/payment_identity.json", sha256 = "39bf6ea1bae17f4299c49a9de436dcc331c5c616cefb3a73412c9641a2a411e0" },
+  { path = "source/schemas/shopping/types/payment_instrument.json", sha256 = "48a852798b04c1826f938bc8ba81eb9084ba5eaee634b7ac2df380a61c66ae76" },
+  { path = "source/schemas/shopping/types/platform_fulfillment_config.json", sha256 = "d5276726200e2fcebad60394cbd97314f59a335cd044fde3b1c981b52103edc3" },
+  { path = "source/schemas/shopping/types/postal_address.json", sha256 = "9baf79be72827e05635e46aa5f4aa3026506a0c86a1dbbd0e679a75e1d156c2e" },
+  { path = "source/schemas/shopping/types/retail_location.json", sha256 = "56db07b08b620612e144c5744c91f4afdb46b97edfcb5117564d4e52566b81f2" },
+  { path = "source/schemas/shopping/types/shipping_destination.json", sha256 = "1fdecc007b8c693b3a1042470b6adc5cbfb786e4a0b629056cca4babb911725e" },
+  { path = "source/schemas/shopping/types/token_credential.json", sha256 = "0576015eaadb2fe4b58053a522eded9791e11757dd5da016f7ce5a12440eabe5" },
+  { path = "source/schemas/shopping/types/total.json", sha256 = "53c5bcfca10cb1f69e31abb833bba6c4e1521ac7a4f47739d7b0023a1b277f2b" },
+  { path = "source/schemas/transports/embedded_config.json", sha256 = "1f480de4decd7fa97bba959529e31f989aaef06d5cde9848309e00fd82d3ec36" },
+  { path = "source/schemas/ucp.json", sha256 = "9d70bbe5ff5325387ce101eb657c1f2f09af4e610de39c1225314a43ee9a27a4" },
+  { path = "source/services/shopping/embedded.json", sha256 = "a12a770be4614254ea7cd426e4502b7a954b9ea0948a02ec3071bd4504a409d1" },
+  { path = "source/services/shopping/openapi.json", sha256 = "d36578ec6290ad63167882495db6ad8bd85f9aa75d47c6ca646b0210c0a54555" },
+  { path = "source/services/shopping/openrpc.json", sha256 = "ee50a94898d2bdb26cc3a88446b183679917b33d72fd3b3b6e26850ecda94f84" },
+  { path = "spec/discovery/profile_schema.json", sha256 = "cc4a182746881094724c2de9336778ee9ba863cb26104c5d10d4d4fab99c1535" },
+  { path = "spec/handlers/tokenization/openapi.json", sha256 = "a135635e7b2d70c21c2be2a9660506ae9319fc32f9fdeed5a4461f50c9de176d" },
+  { path = "spec/schemas/capability.json", sha256 = "eaba30a347a45f021cc22e03c6c5c2ce34ddcf2883531100574038f4a2784bad" },
+  { path = "spec/schemas/payment_handler.json", sha256 = "a5f6ac9cbdaee396e0e02f5d35fc6f39c693691e4fe4267e02891e0fa50d4545" },
+  { path = "spec/schemas/service.json", sha256 = "12a6ae725a982ed8d399d3e11659fc28753c3d9703e61be3dfdbbda3f2be44ae" },
+  { path = "spec/schemas/shopping/ap2_mandate.complete_req.json", sha256 = "cb3645263ecc497d9cb9838e2706415082ec628c3650b8d657c30e2fab7d1e2b" },
+  { path = "spec/schemas/shopping/ap2_mandate.create_req.json", sha256 = "da1d087dc1248961d6e11e1aaaaae028ce034a0a750cfc5efab11bcaa4db0bd5" },
+  { path = "spec/schemas/shopping/ap2_mandate.update_req.json", sha256 = "ad42651320996aa7eb92127f068778edf7a67415deec94d0c8980bfdd2b1493c" },
+  { path = "spec/schemas/shopping/ap2_mandate_resp.json", sha256 = "dd8dc3be8bfc350808884b1a4043c9898558c690011c88fc06e104035914c271" },
+  { path = "spec/schemas/shopping/buyer_consent.complete_req.json", sha256 = "ccf404e7acf8d003363eba115ba1d0b106c1569d5c1c181e163af03aafcfd43a" },
+  { path = "spec/schemas/shopping/buyer_consent.create_req.json", sha256 = "5f19d25c5a0436c04e6dd89e8636b46a6bb3fd805087c8748c8b1c1c5fcb5b78" },
+  { path = "spec/schemas/shopping/buyer_consent.update_req.json", sha256 = "7b279c2317a2fd4df44869c46ab36778e65a84a17c293f17f9a65aac20051b51" },
+  { path = "spec/schemas/shopping/buyer_consent_resp.json", sha256 = "a76d4e08c46967ec68b3e80eaee70f3d1c901d5db8c05e51ca39cd1a0c4c12f6" },
+  { path = "spec/schemas/shopping/checkout.complete_req.json", sha256 = "2c21646e3da19d0afeba5da9d16e2ec1f6484535857720064e801712af670ef8" },
+  { path = "spec/schemas/shopping/checkout.create_req.json", sha256 = "3215fc8a34aff2d7e0f4b74109b2449e17b72a76486504e8184ca68f6c1917e2" },
+  { path = "spec/schemas/shopping/checkout.update_req.json", sha256 = "e3e2f258a3401195be0c33afc7c492c29fc5913750fa792fe98f56b4a62404e2" },
+  { path = "spec/schemas/shopping/checkout_resp.json", sha256 = "39aba93c4456798720689ceeea5ff75e0f210664c60eb798f99d58bb62627cc0" },
+  { path = "spec/schemas/shopping/discount.complete_req.json", sha256 = "d0805856e8222edcddbfc8927961743e362223d952c2b936b0c8900e3affe8a5" },
+  { path = "spec/schemas/shopping/discount.create_req.json", sha256 = "2dc1e4d31d7ef6c89d7e10f3a0a3b112f2cc8ae9a50533f1635ea80d4ce21a97" },
+  { path = "spec/schemas/shopping/discount.update_req.json", sha256 = "0a5cbfdf76f8ef2671eebf23c8648075437fa723ae03458c6684d83072d31adc" },
+  { path = "spec/schemas/shopping/discount_resp.json", sha256 = "2c7992d77e6248634ace9545cc97972a1e83f1c0286d622266291d1176b19ac6" },
+  { path = "spec/schemas/shopping/fulfillment.complete_req.json", sha256 = "58620b425f833adc18d8c83e7ede04a1c6f2114cb0fa3ebc17cf005c4491c644" },
+  { path = "spec/schemas/shopping/fulfillment.create_req.json", sha256 = "ba9b5baa3f57e1039864d59a850b3813cd0bb00c880371104651397e6b61c918" },
+  { path = "spec/schemas/shopping/fulfillment.update_req.json", sha256 = "b478ba86e3b48b17583d3e3da54a616b78b0c6c8fed34945d6ff64a6a345fe92" },
+  { path = "spec/schemas/shopping/fulfillment_resp.json", sha256 = "b5e7e414fdf348d0cf0af434e7e02e6a6205119425c4c3276f4a037e73737942" },
+  { path = "spec/schemas/shopping/order.json", sha256 = "a86d928f335307162d1a7feea1b37795634364da2d29e0eee5d9ae19d8d54438" },
+  { path = "spec/schemas/shopping/payment.json", sha256 = "633eb8a45a228d3c341b997a64a4551533c5656083963285b238334786059819" },
+  { path = "spec/schemas/shopping/types/account_info.json", sha256 = "e9e4a4e126ba862fe57f04f9d0c93312d6ccd86356a75303218fb3e2b3958ea1" },
+  { path = "spec/schemas/shopping/types/adjustment.json", sha256 = "b50d4694f00db48b21d11278722cdc95a3cae58ee3c60db7c8ae2821ac68ef55" },
+  { path = "spec/schemas/shopping/types/binding.json", sha256 = "186e1fe8b7ea4421a375e0b9aed849c70a64bed66ee964d7230bc6531a0b6112" },
+  { path = "spec/schemas/shopping/types/business_fulfillment_config.json", sha256 = "db35873af2bd14e98469652a34cdd5511ad8de12692c7b0d75250250b9788dc4" },
+  { path = "spec/schemas/shopping/types/buyer.json", sha256 = "24075ff053a9bc87f1b8b27fd2125df2035a7a22a35a784a58fe9b95a66d8cdb" },
+  { path = "spec/schemas/shopping/types/card_credential.json", sha256 = "34106487f77e5e1fcd30404a3d91598399821126048725ec14c3e7f6a4665471" },
+  { path = "spec/schemas/shopping/types/card_payment_instrument.json", sha256 = "73c2b31872ce72b041712a2ed518c97d244da265a7752e406980132235f32e76" },
+  { path = "spec/schemas/shopping/types/context.json", sha256 = "aec0d97229e4d00d93f97718284b9da574fe740cbd636883c4547c57aa3c4a9d" },
+  { path = "spec/schemas/shopping/types/expectation.json", sha256 = "aac89a9705cc49c2096259a4c6657fd1b031a133617abb141b6b4b47c6a49692" },
+  { path = "spec/schemas/shopping/types/fulfillment_available_method_req.json", sha256 = "371753f12621381d0d83a1bb094403750bffb7d2b208f69cc8ac1f05c17443e7" },
+  { path = "spec/schemas/shopping/types/fulfillment_available_method_resp.json", sha256 = "69df2e8eb9ca0369a0ee21fefb5d80ca9e778e78d4eba6fec020fc974c7870b1" },
+  { path = "spec/schemas/shopping/types/fulfillment_destination_req.json", sha256 = "0c62e841b638b4fc5332b96882c6091ea825c73657d79828bde8d4be3a0e99ea" },
+  { path = "spec/schemas/shopping/types/fulfillment_destination_resp.json", sha256 = "6fcf952103369eba8e0f8a9abbe3b9a15b67a0ae8ae89509dfec385d5e9af949" },
+  { path = "spec/schemas/shopping/types/fulfillment_event.json", sha256 = "e4ac32651a936eaec4f7c526a2236f56b135383a4e30532e643168594aded2f6" },
+  { path = "spec/schemas/shopping/types/fulfillment_group.complete_req.json", sha256 = "e19757988f4d764b378cce18e29b745e6c6f31e3a7c0f54e6ab80a672ad4df5b" },
+  { path = "spec/schemas/shopping/types/fulfillment_group.create_req.json", sha256 = "77d023d0b8fd1e95d27518c95793bda73dea5f012421c0a00c4da5721f228e62" },
+  { path = "spec/schemas/shopping/types/fulfillment_group.update_req.json", sha256 = "e80eeaca046ca342b7ddba8e491dae1a8163d68c63d3a783c33e588ace089734" },
+  { path = "spec/schemas/shopping/types/fulfillment_group_resp.json", sha256 = "c8c264c101bad9a58caf4482d933083c04633039a6b5dd9a5eda0a8da79a83f6" },
+  { path = "spec/schemas/shopping/types/fulfillment_method.complete_req.json", sha256 = "29bfe3c81968dfd32eb4597ad317dda9be7779d72d44b13059169ba71c2dbbe4" },
+  { path = "spec/schemas/shopping/types/fulfillment_method.create_req.json", sha256 = "2b9dec5761ed174061e6555c220c8a16dfc2c1df0b008a7f8f7bdfbf58be4a76" },
+  { path = "spec/schemas/shopping/types/fulfillment_method.update_req.json", sha256 = "580918a2189121d5819f0c0f7c1cf45acc25d5f612c4fd1cadbd9a98e09d8a8a" },
+  { path = "spec/schemas/shopping/types/fulfillment_method_resp.json", sha256 = "0551f14314fe141b901c8cc4d7f0d63e036e3c67f9fc6a9c4b614f43517ff7bb" },
+  { path = "spec/schemas/shopping/types/fulfillment_option_req.json", sha256 = "046520e5692f46831837cf2d3311f33ad6d3a5144d1db42c1c0dd1b927d0bbba" },
+  { path = "spec/schemas/shopping/types/fulfillment_option_resp.json", sha256 = "ff8e1971ed3c5994d0b74e0c126794ea6fa2953f76750fb291e468d5fca63478" },
+  { path = "spec/schemas/shopping/types/fulfillment_req.json", sha256 = "f7987625c515e9b8c9fe8898cda3c2850c0ee105f293bb69e5c949484c186f61" },
+  { path = "spec/schemas/shopping/types/fulfillment_resp.json", sha256 = "91d33876d9a7e4452055ba042c7df7e31c0e80390fb28905ca792a8f54698a42" },
+  { path = "spec/schemas/shopping/types/item.complete_req.json", sha256 = "99412e81ba4fecbc65a1d0fdc25e936c5cd72c173ff7e0535d8903341915fd18" },
+  { path = "spec/schemas/shopping/types/item.create_req.json", sha256 = "83b981a50fbf62ad82373d085fb7dec50200189c02bdb7d5114431e37400e61f" },
+  { path = "spec/schemas/shopping/types/item.update_req.json", sha256 = "28fd6f8981b12a67671141416bca0f6616916a22c37261fbe679636ccc97ff70" },
+  { path = "spec/schemas/shopping/types/item_resp.json", sha256 = "212c2da55e2a845e00729d758fb62ec80f4b5be88ca1d5d59eec37cec5522c7c" },
+  { path = "spec/schemas/shopping/types/line_item.complete_req.json", sha256 = "f758c0815f599cb72fc62afd1ed3ac2ff2425409e9fbf4e33275343d1ae359f1" },
+  { path = "spec/schemas/shopping/types/line_item.create_req.json", sha256 = "aadc4def2a2a34e37ded08eb4886ceb33d2fe4a7a4094e46a647dada1b6cfea3" },
+  { path = "spec/schemas/shopping/types/line_item.update_req.json", sha256 = "4bdc1e409444334f6d6aab751c5d888edf445affeeb9a9a42f35db19f087cae5" },
+  { path = "spec/schemas/shopping/types/line_item_resp.json", sha256 = "213e7f6c253fda964f6e1398e6f52c02ff5f276c6dd881350dc63be9c12fb403" },
+  { path = "spec/schemas/shopping/types/link.json", sha256 = "812175c3b79feb40dae50324c5b9288244a5d65d8f83d96d5d1a26e5b493f569" },
+  { path = "spec/schemas/shopping/types/merchant_fulfillment_config.json", sha256 = "d9bddda9909425a125e0ff934a63e347f6795d5435d96217c3fe50f9ec6d55c8" },
+  { path = "spec/schemas/shopping/types/message.json", sha256 = "09101ad431959f1146561be50d3544ed2d2b3ae14f93cc2535cdaea7f2d7518c" },
+  { path = "spec/schemas/shopping/types/message_error.json", sha256 = "ed677233090e41bf2e0e65666fdf3ea213b0c64f4bb8fe466ddd2e4750edfccf" },
+  { path = "spec/schemas/shopping/types/message_info.json", sha256 = "1dad94554921d5900a44d2032272380e1bb36f6962b3b3646c816b49a2e57661" },
+  { path = "spec/schemas/shopping/types/message_warning.json", sha256 = "a0175002ffb982203a3932d084d9cab4e3e96922a805eea9ab8a6814c9f6d8a1" },
+  { path = "spec/schemas/shopping/types/order_confirmation.json", sha256 = "b9dfb2487bf9bc42c52cd446f03e836afb56107f0a916fd6cf4f1dabf406fc49" },
+  { path = "spec/schemas/shopping/types/order_line_item.json", sha256 = "0b71163b55a3bcef5d3ebd2fd0869ffd255dde09740c32793eed06e794af9a3d" },
+  { path = "spec/schemas/shopping/types/payment_credential.json", sha256 = "b192931fa0d1599595c118566bd1ad52cee00802751f83a3e05ed24d92c4313d" },
+  { path = "spec/schemas/shopping/types/payment_identity.json", sha256 = "38d9af540761c98bb50f29c739b250ffa7c60564fb2b13d1061b0754fdae6882" },
+  { path = "spec/schemas/shopping/types/payment_instrument.json", sha256 = "0ab5027680dac894ff15b75a065ef84206351ee9c3333df45f59317f4fe24914" },
+  { path = "spec/schemas/shopping/types/platform_fulfillment_config.json", sha256 = "d5276726200e2fcebad60394cbd97314f59a335cd044fde3b1c981b52103edc3" },
+  { path = "spec/schemas/shopping/types/postal_address.json", sha256 = "9baf79be72827e05635e46aa5f4aa3026506a0c86a1dbbd0e679a75e1d156c2e" },
+  { path = "spec/schemas/shopping/types/retail_location_req.json", sha256 = "f31880a79a035024355718592d152389763298dbe2a2cc00b47c5207ec166278" },
+  { path = "spec/schemas/shopping/types/retail_location_resp.json", sha256 = "c40484cd58a246f3f3d35643b4a13b8567078bd30af48588f390a68de975b7ca" },
+  { path = "spec/schemas/shopping/types/shipping_destination_req.json", sha256 = "c8c2dc500dc5e95fbef4c98783b23c29aefed9a158e0443ea0d3545fa9ccf040" },
+  { path = "spec/schemas/shopping/types/shipping_destination_resp.json", sha256 = "6c2c2d9035554f9d12fb4835715b8f4113185c5303f2198ce60dace9326da1ab" },
+  { path = "spec/schemas/shopping/types/token_credential.complete_req.json", sha256 = "078deac879504ff9c99fa7336c0f8cf0bcd639219462f5d1c33497af4bef486a" },
+  { path = "spec/schemas/shopping/types/token_credential.create_req.json", sha256 = "5f14184aba7379c9bf98883cd587d4449d751df2939c0c659565ba32d68cbec5" },
+  { path = "spec/schemas/shopping/types/token_credential.update_req.json", sha256 = "7a6c3b4fe8b90565929b5090965206fe38a32313c75d9fbdff003969ba70eb20" },
+  { path = "spec/schemas/shopping/types/token_credential_resp.json", sha256 = "e9e223f84436136b36c92b34170cb50683d4a34804e5d60b1a7ffeadb6dbe3b3" },
+  { path = "spec/schemas/shopping/types/total.complete_req.json", sha256 = "0a9c9aab1392902147c5614f65002825dc26b0edf071cbb63644d5fb58c30551" },
+  { path = "spec/schemas/shopping/types/total.create_req.json", sha256 = "75d1a8793aa726568add9c9fbf9bd6197339df1ac70231c7942e9a7f14bea5ad" },
+  { path = "spec/schemas/shopping/types/total.update_req.json", sha256 = "a2cebce434f4ae1f2cc7b692193cfb78f5f998a3cf4a1a5daa01ccc24dfbe7d9" },
+  { path = "spec/schemas/shopping/types/total_resp.json", sha256 = "b399c460cbbb1f14a8f229568a1bd481a22848115368eef6428b1b87db9bcc12" },
+  { path = "spec/schemas/transports/embedded_config.json", sha256 = "46027cd14be0d0daf01c73384d59b7b8a734a5895adf1fef59f8094eed0c4207" },
+  { path = "spec/schemas/ucp.json", sha256 = "0270290abd8ca60a97c0716c1303d9a77a1f8b712d9b99211d27b5d2baea4687" },
+  { path = "spec/services/shopping/embedded.openrpc.json", sha256 = "e00addaedf6e5750e920e9dbd933a7d49354f04ea3cfded18efc9cb56c9e2fc5" },
+  { path = "spec/services/shopping/mcp.openrpc.json", sha256 = "dffa817eb53bb2a538a8104d250148c82c0bdcc3886c0d28d62b6e84b489dc28" },
+  { path = "spec/services/shopping/rest.openapi.json", sha256 = "f4c93679183a4d77490a7f61f96b2ecbd41d9540848f61d72bec14dcb1b9cdcf" },
+]
+
+[[source]]
+id = "ucp-2026-04-08"
+protocol = "ucp"
+version = "2026-04-08"
+kind = "git"
+repo = "https://github.com/Universal-Commerce-Protocol/ucp"
+tag = "v2026-04-08"
+commit = "a25a4a24e738b74c8fa83254448d0666e478f595"
+include = ["LICENSE", "source/**/*.json"]
+dest = "vendor/ucp/2026-04-08"
+files = [
+  { path = "LICENSE", sha256 = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30" },
+  { path = "source/discovery/profile_schema.json", sha256 = "3c78a96c2906cabed491fe4b22365362ea16a002bfca0cdcd1eb909fedceb0db" },
+  { path = "source/handlers/tokenization/openapi.json", sha256 = "af5810a68befc0b2672f916c7ce15fcb661cce85d06f0910beb95fbfc5bf4da1" },
+  { path = "source/schemas/capability.json", sha256 = "bf568de2c051f2971066ae3dd743257e749533feb0988d23486b4e723ac36b61" },
+  { path = "source/schemas/common/identity_linking.json", sha256 = "afeb3b79d507537b989f20a211a13ea5db132e1d2431403ba8743d64e673d856" },
+  { path = "source/schemas/common/loyalty.json", sha256 = "12730fd44e5d652115d0b840c151d988efa5ad38c25f298820a7953783123311" },
+  { path = "source/schemas/payment_handler.json", sha256 = "9398ee8e88d8e9f1125fd415eef9a83a4f60f4eb32af1a4057ce9e2991025c26" },
+  { path = "source/schemas/service.json", sha256 = "c5918a464dff8b83d0a1b7d743951af9f3d97528f15113572e3fa1b34646aee8" },
+  { path = "source/schemas/shopping/ap2_mandate.json", sha256 = "743fca0acb072b0809785d8c97165f575214a50a7d43d029287006dc171456da" },
+  { path = "source/schemas/shopping/buyer_consent.json", sha256 = "36a837f058780c618a7dfd22622e8e33b4d5d7e340b36313822b53ebf445dc26" },
+  { path = "source/schemas/shopping/cart.json", sha256 = "62f54231b86ac0c2126bf9c1249325a9fa65cbc0afab435e5408267e3774e4c3" },
+  { path = "source/schemas/shopping/catalog_lookup.json", sha256 = "52bb6f290019066d3e3b92de3fda2f5515e72df6fa46af85564aa77ad9389a53" },
+  { path = "source/schemas/shopping/catalog_search.json", sha256 = "60a2b7cf0b05e32ead23ccfcc23ffce06c529295d8b31143d420bb8e9b127dcf" },
+  { path = "source/schemas/shopping/checkout.json", sha256 = "ca6b1e99fac14b04a8ef759cb4917ea96b9f00d50ec7a164977c64295ba21e0e" },
+  { path = "source/schemas/shopping/discount.json", sha256 = "48d366aac6fe7bc81895988264ba1cd6b5b8caf7d8e999ac0e8dc4b4eac7bb15" },
+  { path = "source/schemas/shopping/fulfillment.json", sha256 = "a5b910126988b19162904cfb37d70ac9ce5394437a7f5677e2f373cfce439c22" },
+  { path = "source/schemas/shopping/order.json", sha256 = "19588a4656ebe0b3c7e029949307e11126c1f5f0bb33b4695c56610d69d5fdda" },
+  { path = "source/schemas/shopping/payment.json", sha256 = "633eb8a45a228d3c341b997a64a4551533c5656083963285b238334786059819" },
+  { path = "source/schemas/shopping/types/account_info.json", sha256 = "e9e4a4e126ba862fe57f04f9d0c93312d6ccd86356a75303218fb3e2b3958ea1" },
+  { path = "source/schemas/shopping/types/adjustment.json", sha256 = "bbf354c9aa2dc625dc9b55044bdbbba788840e7f61f03e4f9009399e3d24dfe5" },
+  { path = "source/schemas/shopping/types/amount.json", sha256 = "6ee9ee79c63069799f281853a504ad1c2f391d8d2f1e8167c9c7f0cd36470d46" },
+  { path = "source/schemas/shopping/types/attribution.json", sha256 = "c65756a97aef7b9c61b1ed4364c347f278a765242777bbf42515f83ac14db0ea" },
+  { path = "source/schemas/shopping/types/available_payment_instrument.json", sha256 = "bc2d57ce3291056bd4b69a4ddba5559d7923eb9ea451423564be6d35c32b262d" },
+  { path = "source/schemas/shopping/types/binding.json", sha256 = "daf75d90597155c24831f0c6a3b78ae3c4cb6a458a6a5589ae689c1c50dd404b" },
+  { path = "source/schemas/shopping/types/business_fulfillment_config.json", sha256 = "3b8c660303cb7da151baa72274da71c8f70a6267bc598248298000a08a0ae28d" },
+  { path = "source/schemas/shopping/types/buyer.json", sha256 = "24075ff053a9bc87f1b8b27fd2125df2035a7a22a35a784a58fe9b95a66d8cdb" },
+  { path = "source/schemas/shopping/types/card_credential.json", sha256 = "34106487f77e5e1fcd30404a3d91598399821126048725ec14c3e7f6a4665471" },
+  { path = "source/schemas/shopping/types/card_payment_instrument.json", sha256 = "f15a719fd838cf5538a5f176a1ed729759e1f089f566e63f8810e5dab674f585" },
+  { path = "source/schemas/shopping/types/category.json", sha256 = "13e7629270c910c77bfe328f158adc0899ad0636289ea9429805d7422112cdf8" },
+  { path = "source/schemas/shopping/types/context.json", sha256 = "fe0a2f7714819233eaf1aaaafe0238a9eb6556597fb1920ae6e74f3177f3ef54" },
+  { path = "source/schemas/shopping/types/description.json", sha256 = "ba1f968614293075dc79835fc8384b1ab88709bca49278a6358b28d54da4020b" },
+  { path = "source/schemas/shopping/types/detail_option_value.json", sha256 = "cc2deac3ec8c8c18249241e1a37cb0791221759fdee582c68069a0424979e403" },
+  { path = "source/schemas/shopping/types/error_code.json", sha256 = "7b86ba24e5a40d0719f60f5b36dab839665e7e31d6aec60a92cbdcd9853d9ae5" },
+  { path = "source/schemas/shopping/types/error_response.json", sha256 = "b48969a330ec460c977f4ede9d03e9881bcc8317e992e53c48abdf7e72c8e190" },
+  { path = "source/schemas/shopping/types/expectation.json", sha256 = "632c4017901eb4bf251b65de3348b3087e417431807c6e4f8678e6e6dd8c7a93" },
+  { path = "source/schemas/shopping/types/fulfillment.json", sha256 = "bceb5423d856ff8a2fe929ca610b0eb1cbf8f6dd62726b097b6a4cd679c5018c" },
+  { path = "source/schemas/shopping/types/fulfillment_available_method.json", sha256 = "9ee249191b38f73333c98edc9fe4aaa203b18122ab43770137687c287a07f871" },
+  { path = "source/schemas/shopping/types/fulfillment_destination.json", sha256 = "172a4a57976f8728691b010d7c57c3dbdc5d08c1c54ba6223106ebd60ce4484a" },
+  { path = "source/schemas/shopping/types/fulfillment_event.json", sha256 = "bda46c32b45dfc9f7a37bf00dc6d14e5dddf157b82d0a093f1a6c48ab253298f" },
+  { path = "source/schemas/shopping/types/fulfillment_group.json", sha256 = "23f74d66b15f7f43312c7c3bb09c5fbbaa7b6cd62d173bbbb1a27cc6c001a4fc" },
+  { path = "source/schemas/shopping/types/fulfillment_method.json", sha256 = "e9ecb13ae1f229dcc3443f23ca169a2bb49c2beae5c8fc0fd6fb90bb4fc2ce22" },
+  { path = "source/schemas/shopping/types/fulfillment_option.json", sha256 = "edd53da5e54e454ae04eadcfc51771c6f64f0e97e9cb3b3fab6345f833c9f5a2" },
+  { path = "source/schemas/shopping/types/info_code.json", sha256 = "685338b99fa043a8a483ea5f8875e245fc414a057456e72f73076f1d68a24fbe" },
+  { path = "source/schemas/shopping/types/input_correlation.json", sha256 = "27a7da5dd86ce92b778591379bc8c9fc4376f123ea0b139cc55883221fb31b22" },
+  { path = "source/schemas/shopping/types/item.json", sha256 = "535b8ccfdee09894e8e85c763168455b9fb905c581b4489028e9db61f2f22428" },
+  { path = "source/schemas/shopping/types/line_item.json", sha256 = "fc9d7d8518bc146cef12275b6361a1236a2b5ee5b3335f142c36f327471b9165" },
+  { path = "source/schemas/shopping/types/link.json", sha256 = "812175c3b79feb40dae50324c5b9288244a5d65d8f83d96d5d1a26e5b493f569" },
+  { path = "source/schemas/shopping/types/media.json", sha256 = "37516f6a1511c90addc3f388a0109f668ea1613203f35d9bc1e16f1cababdd2e" },
+  { path = "source/schemas/shopping/types/merchant_fulfillment_config.json", sha256 = "ee6b83b820c8d6652b48eaa9b206b7345e50d74023264738001674341be485e5" },
+  { path = "source/schemas/shopping/types/message.json", sha256 = "09101ad431959f1146561be50d3544ed2d2b3ae14f93cc2535cdaea7f2d7518c" },
+  { path = "source/schemas/shopping/types/message_error.json", sha256 = "c9c21064826fe4677033c68ad292df492b4737d717eda412571b1f90141356fb" },
+  { path = "source/schemas/shopping/types/message_info.json", sha256 = "40345bfea4e84ec630f2cd9c27eae09f3fd942ae5c30da8958b3b0cc2d6ec949" },
+  { path = "source/schemas/shopping/types/message_warning.json", sha256 = "936a1722c0a32a9f36dcd54797bde1476497319419f3c19e7c7a3c137a9a866e" },
+  { path = "source/schemas/shopping/types/option_value.json", sha256 = "8c128790c5604c1d38b10290e5fe29571018ce891476b9644c680dfff96634e0" },
+  { path = "source/schemas/shopping/types/order_confirmation.json", sha256 = "6f030ce24e438760ae8db0decbfe7ddd9ce6c9b0254c6b81956151a5042f4027" },
+  { path = "source/schemas/shopping/types/order_line_item.json", sha256 = "7e107ee314f5b0b55c0d83550b726f3422320dc423b65dcaded3af12c388d8fd" },
+  { path = "source/schemas/shopping/types/pagination.json", sha256 = "cfbf7dd73ca02b82fa8f5113c60dcc01a0d46262410951b0339acabfaad41b7c" },
+  { path = "source/schemas/shopping/types/payment_credential.json", sha256 = "cb299f582a16a1d77895afcadded69ad8ed560abd8f87af5861e02d9392a92bb" },
+  { path = "source/schemas/shopping/types/payment_identity.json", sha256 = "39bf6ea1bae17f4299c49a9de436dcc331c5c616cefb3a73412c9641a2a411e0" },
+  { path = "source/schemas/shopping/types/payment_instrument.json", sha256 = "48a852798b04c1826f938bc8ba81eb9084ba5eaee634b7ac2df380a61c66ae76" },
+  { path = "source/schemas/shopping/types/platform_fulfillment_config.json", sha256 = "d5276726200e2fcebad60394cbd97314f59a335cd044fde3b1c981b52103edc3" },
+  { path = "source/schemas/shopping/types/postal_address.json", sha256 = "9baf79be72827e05635e46aa5f4aa3026506a0c86a1dbbd0e679a75e1d156c2e" },
+  { path = "source/schemas/shopping/types/price.json", sha256 = "5201f464a980f4e1c4e593c24fe6d3735651b642ac58442c349959811de4dd00" },
+  { path = "source/schemas/shopping/types/price_filter.json", sha256 = "9c43458984faad81b8e54357ddded3644c601d1b36640571bdbf8afb7c25f55f" },
+  { path = "source/schemas/shopping/types/price_range.json", sha256 = "e60e69f5ea2fd360e9df04083ba0d6a0b24a217b4fc494f48f6b829881db6cc5" },
+  { path = "source/schemas/shopping/types/product.json", sha256 = "9b6e04c5e47ac1d5d2e31b64ae56dda71d343875bc9c7b897b462312ec40f0ca" },
+  { path = "source/schemas/shopping/types/product_option.json", sha256 = "30c7ebe59f9d49e8a259e2aecc4f6b814fdfbd755a8abdcc5524f4940aa85180" },
+  { path = "source/schemas/shopping/types/rating.json", sha256 = "3d9ea28f3b90edefe7b3aa042ccf559643e88e0efe1843b78fa30dea174214af" },
+  { path = "source/schemas/shopping/types/retail_location.json", sha256 = "56db07b08b620612e144c5744c91f4afdb46b97edfcb5117564d4e52566b81f2" },
+  { path = "source/schemas/shopping/types/reverse_domain_name.json", sha256 = "ebf57c2350a9d5a8b3f88971148e7d3820ba66b27da67daeef72380f81730f05" },
+  { path = "source/schemas/shopping/types/search_filters.json", sha256 = "496a33afb2fb237ea8959c127db459c31807c5044e912d5593c97b60c26ccd31" },
+  { path = "source/schemas/shopping/types/selected_option.json", sha256 = "6b677befedce83b4203800166536d842744267500b3425379267aad8111d298b" },
+  { path = "source/schemas/shopping/types/shipping_destination.json", sha256 = "1fdecc007b8c693b3a1042470b6adc5cbfb786e4a0b629056cca4babb911725e" },
+  { path = "source/schemas/shopping/types/signals.json", sha256 = "db902bec5257d58dfaa6ac5cf24dfa29a7dbc1d2afe80b4f5c81378d7d15d4b1" },
+  { path = "source/schemas/shopping/types/signed_amount.json", sha256 = "b771f38950eaf2cb5185668279afc205768cecd26cb43dde0492c834c2219986" },
+  { path = "source/schemas/shopping/types/token_credential.json", sha256 = "0576015eaadb2fe4b58053a522eded9791e11757dd5da016f7ce5a12440eabe5" },
+  { path = "source/schemas/shopping/types/total.json", sha256 = "dd5732ad6851ccbda64a05c73cc62e75f8d573a875b431b565a1dbdff85616b2" },
+  { path = "source/schemas/shopping/types/totals.json", sha256 = "925f6f410f11501a1bd0e6154ae91caf6e74109edb439363f163c775fde1d627" },
+  { path = "source/schemas/shopping/types/variant.json", sha256 = "645978e9d3b1e5ea1c28d287e15d9ca748b9fbbe14b407723a45a1662e174abd" },
+  { path = "source/schemas/shopping/types/warning_code.json", sha256 = "45ab0a116d618a7a923fcad80811141e47713eb9d7ed03762e6e0dbe7785f037" },
+  { path = "source/schemas/transports/embedded_config.json", sha256 = "00381600d1d5b6ce832499c00712f6192b12674b3c2c833420c0e9d3f8f196a2" },
+  { path = "source/schemas/ucp.json", sha256 = "bd2e9aaf442b4727ea864b62c953ecefcad29ed364b72014ea475e86be909396" },
+  { path = "source/services/shopping/embedded.openrpc.json", sha256 = "af3634c657ec47fdea289c5fd1760e98a0d08945e950a2db38d085c43d54f500" },
+  { path = "source/services/shopping/mcp.openrpc.json", sha256 = "ce21e2a402780f2e38d8d5b409b046e877381a97fe042e28abee4aa93cd93c67" },
+  { path = "source/services/shopping/rest.openapi.json", sha256 = "b86d1af0394832ddce97a35bdb8b5ff51c62d1617579e193a2c9aae8b2c36bd5" },
+]
+
+[[source]]
+id = "ucp-2026-08-25"
+protocol = "ucp"
+version = "2026-08-25"
+kind = "git"
+repo = "https://github.com/Universal-Commerce-Protocol/ucp"
+tag = "v2026-08-25"
+commit = "cd78fb38e819de77d9b527d110476eccb876f1bd"
+include = ["LICENSE", "source/**/*.json"]
+dest = "vendor/ucp/2026-08-25"
+files = [
+  { path = "LICENSE", sha256 = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30" },
+  { path = "source/handlers/tokenization/openapi.json", sha256 = "f6e93ed5b4bb29c6f168e0062485c9c2fc35cdfe1c7a688fbb29bb09ce4dbda2" },
+  { path = "source/schemas/capability.json", sha256 = "2bbed66b5adbc3d77d3b5e0c9e87687da3d8bf159755ba95d89e88cd3420ef39" },
+  { path = "source/schemas/common/identity_linking.json", sha256 = "b5f5c94ab9643e316b70c9fa5667a479d2175a380d043e34186df650eb9edaf0" },
+  { path = "source/schemas/common/location_lookup.json", sha256 = "3f2e9a0b0a8a30177313be9010c9b363afecc53c91c9a98ccd49345f74da15cb" },
+  { path = "source/schemas/common/location_search.json", sha256 = "9c6f3719c7e4f8e4653b8a843aac810bf1aaac06a8e1142326f79adc8aac215b" },
+  { path = "source/schemas/common/loyalty.json", sha256 = "cdb57bc7ef34ca24915ee5da695cf517e0adaf4a72b8614eede35d688f073c8a" },
+  { path = "source/schemas/common/payment_ap2_mandate.json", sha256 = "538db950d4220033ae7af654654aa6f7f45af17718119ddb10af551b2461fccd" },
+  { path = "source/schemas/common/payment_authentication.json", sha256 = "8fc89641bb98be5d6fdbb25840f5240422937d6def66c6bf1b2ef6b9383599bd" },
+  { path = "source/schemas/common/payment_split_payments.json", sha256 = "2b03fae6d4659dddd0b8235ac3b423d36dd078d28b1c05eff592eeb28bced77b" },
+  { path = "source/schemas/common/payment_terms.json", sha256 = "50cc696e2f57274863138948d72ecbcd231f999e275085f2e3fc697ec1f9507a" },
+  { path = "source/schemas/common/types/actions.json", sha256 = "7cf21d6c8652893b5d2865062a487f1818e81733fc030f6628479a257e3f8a82" },
+  { path = "source/schemas/common/types/amenity_type.json", sha256 = "98c9408f7a2ac7f9642e8ffb0021f5f5114a11130a537651e6b87b3d016d5251" },
+  { path = "source/schemas/common/types/amount.json", sha256 = "787b78fad4d3c7456b834b4d5d068676ab3c3110ea857b02b6ad5c8ef8a9f179" },
+  { path = "source/schemas/common/types/available_payment_instrument.json", sha256 = "d32ca30a463a647a53c806d8ee236be739741f015db9ba0ab13f4b67003f6507" },
+  { path = "source/schemas/common/types/binding.json", sha256 = "3fdbd27215b630ca62b9681cb51a790a5bfaeea101c4b77440198adbf410cd43" },
+  { path = "source/schemas/common/types/business_split_payments_config.json", sha256 = "6c5a765a06f39bb0d23637084deba0198db13a02804ef7da2cf8193325a2bf7f" },
+  { path = "source/schemas/common/types/card_credential.json", sha256 = "82813fd87b3f5f35dc9dcf3db613ab56c4c2dcb95b9c26ddadaf5db6926baaff" },
+  { path = "source/schemas/common/types/card_payment_instrument.json", sha256 = "2105d8e7b1affeae909dc5c4a827d19b772e6c31be0c667c812f26d88865317e" },
+  { path = "source/schemas/common/types/constraint_expression.json", sha256 = "8c0fcbfabc3f8038c89a86b7f6b9fa32c2754eba727328c6d90062584855ade2" },
+  { path = "source/schemas/common/types/context.json", sha256 = "ebb18d8833e1a1e9c24bd578999d5c8cd730c277f9f0b29495cc3ee34535d0b3" },
+  { path = "source/schemas/common/types/daily_hour.json", sha256 = "a093fa938ac0662c84c8975573f2a83fbabee8a5a612d99a72fa43cf2a0ee3df" },
+  { path = "source/schemas/common/types/description.json", sha256 = "9c509e8ecc47ad408ee36b940cf836cd16525f773b3eb2b4a37d0ddcbaeb6380" },
+  { path = "source/schemas/common/types/error_code.json", sha256 = "9368a4ad6d9a2a448c05b97baf7aa4a73a04efcf40d624a5d373ecc3f67a530c" },
+  { path = "source/schemas/common/types/error_response.json", sha256 = "76a5b9a643132c33dc4bca947a7b0c26a8523ab6c8fd1a43141d5aeac0be2b94" },
+  { path = "source/schemas/common/types/exception_hour.json", sha256 = "6c127e81823917833f4d9b853c03bb90be7bb52390cd61a574e9449d7930c933" },
+  { path = "source/schemas/common/types/geo.json", sha256 = "75bf6c526e71da3d08ac8d4b53becf5be8312fa0f6b399922e6662690276d893" },
+  { path = "source/schemas/common/types/info_code.json", sha256 = "6ed9aec01e8fc597dc676e38dbd240684d120c831a2398648c6bd5d6e73fe38c" },
+  { path = "source/schemas/common/types/instrument_group.json", sha256 = "2f8f7913399c5e40a850c68d6cb256cc0148732466f086e83d4bf2ba423765d3" },
+  { path = "source/schemas/common/types/link.json", sha256 = "a2bf68aa18f036c1b03b31ee77ddd2448f5ac2a4251b62a2e6db42daba62eaa8" },
+  { path = "source/schemas/common/types/locality.json", sha256 = "f2062b6c3ca6991682000f4f4c5f40457c36056a19d5aafcd2de1d9a5daa74eb" },
+  { path = "source/schemas/common/types/location.json", sha256 = "40787cbaea7020a14a4bfa4493c1850d86f01eb7d27c98d265ca89da442e0a17" },
+  { path = "source/schemas/common/types/location_distance.json", sha256 = "8a80f4a39e4486f21ba9cfb9075243ab613c2968b47c656452331a379983cc67" },
+  { path = "source/schemas/common/types/location_filter.json", sha256 = "1251b25e6493dbe4e2d854e3f6bdbf0e79cae629c1495e55c1d0cef1c72ec336" },
+  { path = "source/schemas/common/types/location_serves.json", sha256 = "0166f92abaf979f6cda8dd3c1f76280a35672de295ca2534cf3150cd507d8d28" },
+  { path = "source/schemas/common/types/location_summary.json", sha256 = "03fe88751f500d242fe50ecb80b1486b6bf466f39eead60ea22d04552aeb6425" },
+  { path = "source/schemas/common/types/measure.json", sha256 = "dfcbe1ada0d058ea95459e59a08056a1f613550023c15d5182beaba685f82a47" },
+  { path = "source/schemas/common/types/media.json", sha256 = "d277e2c4f26a6d8f86d57066397b14cb9d78c9ff098b308ab2140f90c027c3fc" },
+  { path = "source/schemas/common/types/message.json", sha256 = "a66251758e5646743b0a3986434b277da6f52e181d21671bd3ad7fd75ab34339" },
+  { path = "source/schemas/common/types/message_error.json", sha256 = "de0a584b67405c3b608ec4426c0badfda7be97e0419a60b9100abf67d04c74eb" },
+  { path = "source/schemas/common/types/message_info.json", sha256 = "56894c75128861b2fc696757fb0193ee9cd4d9bfcdcdb18902c4cdb41e04796b" },
+  { path = "source/schemas/common/types/message_warning.json", sha256 = "0a479161db91d35bc6c20b9db389188c3d7b298a643cb4f8e3079dc67c5aefbf" },
+  { path = "source/schemas/common/types/network_token_credential.json", sha256 = "9e31dfaa27aa3a05080b40960effd975d104b905b836bcb91ca89d1b392ee499" },
+  { path = "source/schemas/common/types/pagination.json", sha256 = "8e86e9d65cce61b049ba5d32e674706e64eabc9e3658dd8ef101efadaba8a9a8" },
+  { path = "source/schemas/common/types/pan_credential.json", sha256 = "091ae8ee0221162466fea5ef90d009c7fb6538290755b35c9266f23e6cbf5ae1" },
+  { path = "source/schemas/common/types/payment.json", sha256 = "b6543bbdd4ecce91e1a5192fce4af1910570811901b755eebdcbf227dbdd0579" },
+  { path = "source/schemas/common/types/payment_credential.json", sha256 = "47af578c9af0d585b2225c03037c116c880a1539826e77e6c9cdf741494392d3" },
+  { path = "source/schemas/common/types/payment_identity.json", sha256 = "ddc7ee23ddfa054a218fed706abf2a516a40a6394d4ed77f5ccf2531e402da0b" },
+  { path = "source/schemas/common/types/payment_instrument.json", sha256 = "d005c3ccb38afa7fab7e0d72e125fcf7f78b7b6b196d4096d6c558f6f3174222" },
+  { path = "source/schemas/common/types/payment_schedule.json", sha256 = "b144fc47b3f0a07391482427544e120d8efb0dd3f121f60b5820aa6a46f34bee" },
+  { path = "source/schemas/common/types/payment_term.json", sha256 = "7840ac5e206bbd5077b0c3e7e74219dba8a5a09512b504a4f20739d60a2335a9" },
+  { path = "source/schemas/common/types/policy.json", sha256 = "bd2ace0b58b81b25f3d98f527237e2de72412db65fb218a5f41c9fae748e8c71" },
+  { path = "source/schemas/common/types/postal_address.json", sha256 = "6ee3504a2a53a16df406e80c62d80b7353dff088dd3de5b770292c89bc5137ca" },
+  { path = "source/schemas/common/types/price.json", sha256 = "a625ac12ece594ceb36009bb5bbdef4a57f7620c21a8df3f50fc1930f84906a1" },
+  { path = "source/schemas/common/types/price_filter.json", sha256 = "f3add5694735f5845759767de30ea0f5a3876d5975f8e6f7f382f29c2eec5e81" },
+  { path = "source/schemas/common/types/price_range.json", sha256 = "1b225321ebd52b9c206c03a80d256ce9dccffee727e542eb0c3da00b0d5a0db1" },
+  { path = "source/schemas/common/types/quantity_unit.json", sha256 = "a314c84ebcf8b12b10cf3f15c067fe164a3eeb13a57b5769b5c50e69f20494da" },
+  { path = "source/schemas/common/types/request_constraints.json", sha256 = "987eaa192930a0ea8d1c7b6a7cc947153e1d9da32b46d61aa49eaf782c166edf" },
+  { path = "source/schemas/common/types/reverse_domain_name.json", sha256 = "a5d616402d47c602196e6e455053ee3683bc9a6e90192330297bb13abd3326eb" },
+  { path = "source/schemas/common/types/signals.json", sha256 = "47c8bbee51fcfbb9f029656881126dda036830206eb8d41f37be0c257e7a87d2" },
+  { path = "source/schemas/common/types/signed_amount.json", sha256 = "b892a84dbefd07204d251c2546c638d5a376a8ca673f3e422b913ba22b3d64c9" },
+  { path = "source/schemas/common/types/time_interval.json", sha256 = "4d196d96cfbca6dc29f9268aeb5f55399ad151b8f4a578239e466505312fd557" },
+  { path = "source/schemas/common/types/token_credential.json", sha256 = "d46f57502f02075dc3beef25834babff9b80b7ada4cff6fbf5f5ae070baaa92c" },
+  { path = "source/schemas/common/types/total.json", sha256 = "2d8618d61f31ca03a9a59362bae9c56744906d9db447b73a6222909b0e1850e4" },
+  { path = "source/schemas/common/types/totals.json", sha256 = "488a51268c0cf02de1b02e53219b542a695c7c1e239ca66db77c3916dfa0b449" },
+  { path = "source/schemas/common/types/unit.json", sha256 = "dc516d36c80edfb44347f4d5d6f39c40b1a14ebbba40ee5dc73ec3394397db82" },
+  { path = "source/schemas/common/types/warning_code.json", sha256 = "4246be713f15be3e8adfb0ffd9ebb984a216f1db2c1c9c059466e5b49ecb97d9" },
+  { path = "source/schemas/payment_handler.json", sha256 = "5ea09bb44a6dd5a7696150e220eae2b3b4a8eacda176793fb816a9f8240a50a6" },
+  { path = "source/schemas/profile.json", sha256 = "720a4e676bd4aaa5cbdcef2f89a4d0b776c4f0e141f1911da7514227ecb5c239" },
+  { path = "source/schemas/service.json", sha256 = "4f8453ee67d82d53f05b06fb7ea03dec0e0600faea1098b3184b71cdf0fc2423" },
+  { path = "source/schemas/shopping/buyer_consent.json", sha256 = "eb8bd57886305d1a48d53c8757f613550050cbc0f9f1cad632905b8821dc41b0" },
+  { path = "source/schemas/shopping/cart.json", sha256 = "327170d810076424a925b400cb6c14f2fbc52088d76185badff5dc046e658aec" },
+  { path = "source/schemas/shopping/catalog_lookup.json", sha256 = "79c685132dcbf09b66e60535e372bb36acc75fede9a32c49aa0e1cc263a7f8df" },
+  { path = "source/schemas/shopping/catalog_search.json", sha256 = "3cf62e8d2330480400ea99d139bd4986f65743bc618247ab8e9d14da00a30e9d" },
+  { path = "source/schemas/shopping/checkout.json", sha256 = "1a856fabbe86e031baab0c35745cb0b44481da29a2075ee1e73f720e6337204d" },
+  { path = "source/schemas/shopping/discount.json", sha256 = "e0bb3853781e04f4874b3dc2e8ca4c49215c54e487769c1450898150909b52fc" },
+  { path = "source/schemas/shopping/fulfillment.json", sha256 = "d0306c8d47d4bee95889d2fc043de0d6086e34303a52ae00b9d42546a6d99a6f" },
+  { path = "source/schemas/shopping/order.json", sha256 = "1bd0951273ba69ab40e91f12c3e2d74652e190d339282292efab3593cca123ed" },
+  { path = "source/schemas/shopping/permalink.json", sha256 = "ff7cd079d018b0eb409e8a0138f4c5b343518e9d7d1d612d26e7589405d7def7" },
+  { path = "source/schemas/shopping/types/adjustment.json", sha256 = "06bb707c736fd20643a35e1df4200bd5069d4ceeca731302c288f8bcd64a338a" },
+  { path = "source/schemas/shopping/types/attribution.json", sha256 = "c65756a97aef7b9c61b1ed4364c347f278a765242777bbf42515f83ac14db0ea" },
+  { path = "source/schemas/shopping/types/availability.json", sha256 = "268f1e083ea2f933f61472985ced4cfa91265c9548f69fafc3a76d914906c4a6" },
+  { path = "source/schemas/shopping/types/business_fulfillment_config.json", sha256 = "815d92809de00c90551a9d56bf755e6532aa04b6ca1698522272cbe015615fa0" },
+  { path = "source/schemas/shopping/types/buyer.json", sha256 = "24075ff053a9bc87f1b8b27fd2125df2035a7a22a35a784a58fe9b95a66d8cdb" },
+  { path = "source/schemas/shopping/types/category.json", sha256 = "13e7629270c910c77bfe328f158adc0899ad0636289ea9429805d7422112cdf8" },
+  { path = "source/schemas/shopping/types/detail_option_value.json", sha256 = "cc2deac3ec8c8c18249241e1a37cb0791221759fdee582c68069a0424979e403" },
+  { path = "source/schemas/shopping/types/expectation.json", sha256 = "2da205e383d582c345513d082ef9cd82799f95bce5416674dc7231a068349709" },
+  { path = "source/schemas/shopping/types/fulfillment.json", sha256 = "bc27ac093d47902f2b884e59f1fd01ccf64e8bc4b0c4e48b4afebe7999325d49" },
+  { path = "source/schemas/shopping/types/fulfillment_available_method.json", sha256 = "1fd7eb09ea6a04a67fcd9cff091bf9c6cf5b3869f76a45c9c057314fd20003ce" },
+  { path = "source/schemas/shopping/types/fulfillment_destination.json", sha256 = "f39d0b5269b52dda5ee04b3bda4b23f1ccb2259d6208df9c8b2ba543551e5df9" },
+  { path = "source/schemas/shopping/types/fulfillment_destination_filter.json", sha256 = "3c217586884f9ff1aab26d1f0ccf33a662e4908ab257c7000d92dc02fb4185ce" },
+  { path = "source/schemas/shopping/types/fulfillment_event.json", sha256 = "ea135343c71569bf18468a4dcede5f4f50b0055e5bd062bb36326b34fdc0faeb" },
+  { path = "source/schemas/shopping/types/fulfillment_group.json", sha256 = "23f74d66b15f7f43312c7c3bb09c5fbbaa7b6cd62d173bbbb1a27cc6c001a4fc" },
+  { path = "source/schemas/shopping/types/fulfillment_method.json", sha256 = "5cf7b01b56ab3ed584c54d9bcf995b7ae01e85de6b11ba9d4526a57a8f536927" },
+  { path = "source/schemas/shopping/types/fulfillment_option.json", sha256 = "e075730334e41549af1c7cd3846943ad1bd3f94cb4c40bba5bc5ad5aaff014df" },
+  { path = "source/schemas/shopping/types/fulfillment_option_base.json", sha256 = "6f9d8ae9d79cd3d5dc0ae20a1d75761f53054c3fab265527bedaececaded7cca" },
+  { path = "source/schemas/shopping/types/input_correlation.json", sha256 = "27a7da5dd86ce92b778591379bc8c9fc4376f123ea0b139cc55883221fb31b22" },
+  { path = "source/schemas/shopping/types/item.json", sha256 = "0c5ef0d419484ade4a07d4e4193754ee7ab46ffebe4cb6ccfb70ca4afc8c7dab" },
+  { path = "source/schemas/shopping/types/line_item.json", sha256 = "0c968bf0360f1c6b753e4ae45f4ae18bb6fd29aa24e50cfbb117151f18d0adbf" },
+  { path = "source/schemas/shopping/types/location_destination.json", sha256 = "6ca78514d2258a7b4a62ba6403526177277467ccbe5625124f7d8e160eefd9cc" },
+  { path = "source/schemas/shopping/types/option_value.json", sha256 = "8c128790c5604c1d38b10290e5fe29571018ce891476b9644c680dfff96634e0" },
+  { path = "source/schemas/shopping/types/order_confirmation.json", sha256 = "6f030ce24e438760ae8db0decbfe7ddd9ce6c9b0254c6b81956151a5042f4027" },
+  { path = "source/schemas/shopping/types/order_line_item.json", sha256 = "ad9dd2f4fea9f04077c990aa3548b8aed77179ee990538be9adc707ffb04f0c3" },
+  { path = "source/schemas/shopping/types/platform_fulfillment_config.json", sha256 = "d5276726200e2fcebad60394cbd97314f59a335cd044fde3b1c981b52103edc3" },
+  { path = "source/schemas/shopping/types/product.json", sha256 = "a3a4174515e050ed1ddf273c2fb4b1c72e36336c1bbcff05976f9245408c488c" },
+  { path = "source/schemas/shopping/types/product_option.json", sha256 = "30c7ebe59f9d49e8a259e2aecc4f6b814fdfbd755a8abdcc5524f4940aa85180" },
+  { path = "source/schemas/shopping/types/rating.json", sha256 = "3d9ea28f3b90edefe7b3aa042ccf559643e88e0efe1843b78fa30dea174214af" },
+  { path = "source/schemas/shopping/types/search_filters.json", sha256 = "18d73e8c3ca57306ded19d425aae45cd38eff150e2abe5cd2ccaada32a5abba3" },
+  { path = "source/schemas/shopping/types/selected_option.json", sha256 = "6b677befedce83b4203800166536d842744267500b3425379267aad8111d298b" },
+  { path = "source/schemas/shopping/types/shipping_destination.json", sha256 = "c7907026ef03a1dca9ebbbb3d6161cb5048a6930c9e09988d1d980ed245d8a9a" },
+  { path = "source/schemas/shopping/types/unit_price.json", sha256 = "85a40131603889a5aa3807c67a252e556845a274283cd684e09e89dd5604a3b0" },
+  { path = "source/schemas/shopping/types/variant.json", sha256 = "7f742fcacae92a5ccbfb6c04e1ca22815d1864f7c32599f76d12bcd2ed26544c" },
+  { path = "source/schemas/transports/a2a_message.json", sha256 = "be476c5b247a5c37daf8da83184ffbaf83e255631a99f3d2870edb278f43e438" },
+  { path = "source/schemas/transports/embedded_config.json", sha256 = "00381600d1d5b6ce832499c00712f6192b12674b3c2c833420c0e9d3f8f196a2" },
+  { path = "source/schemas/transports/embedded_message.json", sha256 = "dc23be38b0c7bb791bd3a59cafc9b69e207ae53942e0144bf4a0773990e92a6c" },
+  { path = "source/schemas/transports/jsonrpc.json", sha256 = "70ede824a7550d31ee417481b4e0a1c221d9bfaa4464f6b909d3a3919d4d68da" },
+  { path = "source/schemas/transports/mcp_tool_call.json", sha256 = "7a4501a723b231df8ad1cb3b26a739d0a3d48985a22caeca4f7dedb6da2f50d1" },
+  { path = "source/schemas/ucp.json", sha256 = "05329a3ae4546f97efcf381c3b0cb279d21063e351bcf4edd00950dc14d67c9c" },
+  { path = "source/services/common/mcp.openrpc.json", sha256 = "7e65dd3af47259b50cffd85d117d4a6b688c19f843868234f005e16463d388ae" },
+  { path = "source/services/common/rest.openapi.json", sha256 = "dd92fc6bc8c844c0f3c7b509f8522309d6a690dc2ac88e0d73922494f29d5070" },
+  { path = "source/services/payment-actions/embedded.openrpc.json", sha256 = "dde65518e2705aa9fbac8bd23d300ee9c92f4241bf97652c6f4150a22fc541a1" },
+  { path = "source/services/shopping/embedded.openrpc.json", sha256 = "50d4b9666b851a8e7dd0c94a877a47f16e186e757e968ed71352ff5c469d752d" },
+  { path = "source/services/shopping/mcp.openrpc.json", sha256 = "4add2ea31bf10ace02e243089a87fa63b6bb7d677768b0cbfcfdb9d27b456b54" },
+  { path = "source/services/shopping/permalink.openapi.json", sha256 = "09d3f3ea5596f695381dcde1c7525a7cf2f1c40f139282949b74f4cec31df646" },
+  { path = "source/services/shopping/rest.openapi.json", sha256 = "75b73d5081f88c2e58dcfb4a87f5bf8b4eaafa130f27036fc020074d2b4b0252" },
+]
+
+[[source]]
+id = "webmcp-2026-10-09"
+protocol = "webmcp"
+version = "2026-10-09"
+kind = "git"
+repo = "https://github.com/webmachinelearning/webmcp"
+commit = "d0e4e0e0f039358cc9d93f90074116622bfebd53"
+include = ["LICENSE.md", "README.md", "index.bs", "*-explainer.md", "docs/*.md"]
+version_from = "commit_date"
+dest = "vendor/webmcp/2026-10-09"
+note = "the W3C Community Group draft has no releases; the version is the pinned commit's UTC date"
+files = [
+  { path = "LICENSE.md", sha256 = "ad6c4259239fc10a64f07fec660da5017dcd606ac7c42b5756270fe580e5e18d" },
+  { path = "README.md", sha256 = "184c519af9ed728e77249423ff376c7d99367cd340e80a2d7f3a4a789e3fc7d6" },
+  { path = "continuations-explainer.md", sha256 = "009b04ae31ffdb0c3ca211572d49f3a6d68cf85f66e0be541bfb8a3ac9fe9de8" },
+  { path = "declarative-api-explainer.md", sha256 = "ca88aff9a8fe7d152fc8c712a352d35ef8628a8f736fe37bf7a957d748402249" },
+  { path = "docs/service-workers.md", sha256 = "5a811973bee7c0c96e66a35990a0fe42d2547395698bd50b501da65e646b622a" },
+  { path = "index.bs", sha256 = "feb4483db64bb32d6d5af998477fb6d318fa3eb7263e604d9d71069eb8299d9f" },
+]

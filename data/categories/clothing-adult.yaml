@@ -1,0 +1,159 @@
+# Category 1 of the store queue: Clothing (adult).
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Clothing (adult)
+slug: clothing-adult
+index: 1
+summary: Adult apparel such as shirts, denim, dresses and activewear. Children's ranges belong to Baby / kids.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: aa-1
+      path: Apparel & Accessories > Clothing
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - size
+  - size_system
+  - measurements
+  - fit
+  - length
+  - color
+  - material
+  - care
+  - occasion
+  - budget
+  - quantity
+  - delivery_by
+  - returnable
+intents:
+  replenish:
+    - id: clothing-adult.replenish.1
+      text: I'd like to reorder the {product_name} from {brand} I bought before, same size {size}, in {color}. {quantity}
+        please.
+      slots: [product_name, brand, size, color, quantity]
+    - id: clothing-adult.replenish.2
+      text: My {product_type} from you finally wore out. Can you find the same one again in size {size} ({size_system})?
+      slots: [product_type, size, size_system]
+    - id: clothing-adult.replenish.3
+      text: 'Restocking basics: {quantity} of your {product_type} in {color}, size {size}, nothing over {budget}.'
+      slots: [quantity, product_type, color, size, budget]
+  specify:
+    - id: clothing-adult.specify.1
+      text: I need a {material} {product_type} in {color}, {fit} fit, size {size} in {size_system} sizing, under {budget}.
+      slots: [material, product_type, color, fit, size, size_system, budget]
+    - id: clothing-adult.specify.2
+      text: Looking for {product_type} with a {length} length. My measurements are {measurements}, and it must be {care}.
+      slots: [product_type, length, measurements, care]
+    - id: clothing-adult.specify.3
+      text: I want a {product_type} for {occasion} in {color}, size {size}, delivered by {delivery_by}.
+      slots: [product_type, occasion, color, size, delivery_by]
+  compare:
+    - id: clothing-adult.compare.1
+      text: Can you compare two of your {product_type}s under {budget}? I care most about fit and fabric, and I'm a {size}
+        in {size_system}.
+      slots: [product_type, budget, size, size_system]
+    - id: clothing-adult.compare.2
+      text: 'Which {product_type} runs truer to size for someone with {measurements}: your {fit} fit or your regular fit?'
+      slots: [product_type, measurements, fit]
+  discover:
+    - id: clothing-adult.discover.1
+      text: I've got a {occasion} coming up and nothing to wear. My budget is {budget} and I'm usually a {size}.
+      slots: [occasion, budget, size]
+    - id: clothing-adult.discover.2
+      text: I want to refresh my {product_type}s with something in {material}. What would you suggest?
+      slots: [product_type, material]
+  express:
+    - id: clothing-adult.express.1
+      text: Need a {color} {product_type} in size {size} by {delivery_by}. Just pick a good one under {budget}.
+      slots: [color, product_type, size, delivery_by, budget]
+    - id: clothing-adult.express.2
+      text: 'Quick one: {product_type}, size {size}, {fit} fit. Whatever is in stock, as long as I can return it.'
+      slots: [product_type, size, fit]
+hypotheses:
+  - id: clothing-adult.size-chart-text
+    statement: 'The size chart is available as text: a table of body or garment measurements per size, not only an image.'
+    why: A text-only agent cannot read a size chart image. With the measurements as text it can map the shopper's measurements
+      to a size instead of guessing.
+    where: [get_product.description, get_product.metafields, policies]
+    details: [size_chart]
+    judge_decision: judge.size_matches_spec
+    evidence_grade: hypothesis
+  - id: clothing-adult.size-system-labelled
+    statement: Every size option names its size system (US, UK, EU, IT or alpha), and conversions are stated where the
+      store sells across markets.
+    why: UK 10 and US 10 are different garments. When an option does not say which system it uses, the agent has to assume,
+      and a wrong assumption still produces a valid-looking cart.
+    where: [get_product.options, get_product.attributes]
+    details: [size_system]
+    judge_decision: judge.size_system_converted
+    evidence_grade: hypothesis
+  - id: clothing-adult.fit-notes-text
+    statement: 'Fit guidance is text: whether the item runs small or large, the cut (slim, regular, relaxed), and the
+      size the model wears with their height.'
+    why: Fit notes change the right size for the same measurements, so we expect fewer wrong-size carts when they reach
+      the agent.
+    where: [get_product.description, get_product.metafields]
+    judge_decision: judge.fit_matches_spec
+    evidence_grade: hypothesis
+  - id: clothing-adult.garment-measurements
+    statement: Garment measurements per size are listed (chest, length, inseam, sleeve), not only body measurements.
+    why: Trousers and dresses fail on length more than on width. A body-only chart leaves the agent unable to check an
+      inseam or a dress length the shopper asked for.
+    where: [get_product.description, get_product.metafields]
+    details: [size_chart]
+    judge_decision: judge.length_matches_spec
+    evidence_grade: hypothesis
+  - id: clothing-adult.fabric-composition
+    statement: Fabric composition is given with percentages (for example 95% cotton, 5% elastane) as an attribute or in
+      the description.
+    why: Shoppers filter on fibre (no wool, 100% cotton, no polyester), and an agent can only check that against text
+      it can read.
+    where: [get_product.attributes, get_product.description, get_product.metafields]
+    details: [material]
+    judge_decision: judge.material_matches_spec
+    evidence_grade: hypothesis
+  - id: clothing-adult.care-instructions
+    statement: Care instructions are text (machine wash cold, dry clean only).
+    why: Machine washable is a common hard requirement. We expect agents to avoid dry-clean-only items only when the instruction
+      is visible.
+    where: [get_product.description, get_product.metafields]
+    details: [care]
+    judge_decision: judge.care_matches_spec
+    evidence_grade: hypothesis
+  - id: clothing-adult.colour-plain-names
+    statement: Each colour is a variant option with a plain colour name, not only a swatch image or a marketing name such
+      as Bone.
+    why: A marketing name or a swatch does not tell a text agent that the item is off-white, so colour requests are matched
+      by luck.
+    where: [get_product.options, get_product.attributes]
+    judge_decision: judge.color_matches_spec
+    evidence_grade: hypothesis
+  - id: clothing-adult.stock-per-variant
+    statement: Availability is reported per size and colour variant.
+    why: Without per-variant stock the agent can choose a size that cannot be bought, and the failure only shows at the
+      cart.
+    where: [get_product.options]
+    judge_decision: judge.variant_available
+    evidence_grade: hypothesis
+  - id: clothing-adult.exchange-policy
+    statement: The policy for returning or exchanging the wrong size (window, cost, free exchanges) is answerable through
+      the store's policy tool.
+    why: When a size is uncertain, shoppers ask about exchanges before they commit, and the answer can decide whether
+      they buy at all.
+    where: [policies]
+    judge_decision: judge.policy_question_answered
+    evidence_grade: hypothesis
+  - id: clothing-adult.delivery-estimate
+    statement: A delivery estimate for the shopper's market is available before checkout.
+    why: A delivery date is a common constraint in apparel, and the agent cannot respect a date it cannot see.
+    where: [policies, get_product.description]
+    judge_decision: judge.delivery_by_respected
+    evidence_grade: hypothesis

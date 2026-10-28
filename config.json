@@ -1,0 +1,283 @@
+{
+  "paths": {
+    "data": "data",
+    "vendor": "vendor",
+    "var": "var"
+  },
+  "components": {
+    "storage.blobstore": "local",
+    "inference.chat": "openai_compat",
+    "inference.scorer": "recorded",
+    "ops.notifier": "slack_webhook",
+    "stores.sheet": "csv",
+    "media.renderer": "excalidraw",
+    "media.imagery": "h3",
+    "media.explainer": "template",
+    "media.planner": "claude_cli",
+    "media.video": "infographic",
+    "decide.sink": "jsonl"
+  },
+  "collect": {
+    "target_concurrency": 24,
+    "concurrency_follows": "agent",
+    "concurrency_per_slot": 1.5,
+    "step_cap": 30,
+    "time_cap_s": 900,
+    "status_every_s": 15,
+    "supervise_every_steps": 4,
+    "repeats": 1,
+    "live_concurrency": 4,
+    "results_db": "var/stores/results.sqlite",
+    "results_path": "var/stores/results.jsonl",
+    "results_file_fallback": false
+  },
+  "decide": {
+    "order": [
+      "rule"
+    ],
+    "breaker_failures": 5,
+    "breaker_cooldown_s": 60
+  },
+  "trace": {
+    "staging_dir": "var/staging/traces",
+    "redaction_salt_env": "CARTTRACE_REDACTION_SALT"
+  },
+  "sandbox": {
+    "host": "127.0.0.1",
+    "port": 8787,
+    "catalogs_dir": "var/catalogs",
+    "default_catalog": "replica",
+    "allow_restricted_catalogs": false,
+    "agent_views": "data/sandbox/views",
+    "browser": {
+      "max_browsers": 4,
+      "call_timeout_s": 20,
+      "episode_timeout_s": 900
+    },
+    "checkout_faults": {
+      "three_ds": {
+        "rate_bp": 300,
+        "assumed": true,
+        "source": "Netcetera, PSD2 in the UK (2022): UK issuers challenge 5-15% of 3-D Secure authentications (https://www.netcetera.com/stories/expertise/2022-PSD2-UK.html). Set lower, at 3% of order rows, because not every payment is sent through 3-D Secure."
+      },
+      "payment_decline": {
+        "rate_bp": 300,
+        "assumed": true,
+        "source": "Aite-Novarica for Experian, 2021 data: card-not-present authorisations approve at 81% on average, and false declines run at 1.16% of sales (https://datos-insights.com/?p=5732); ClearSale on soft declines that a retry can clear (https://knowledge-base.clear.sale/what-is-a-false-decline). Set far below the measured decline share, at 3%, so most journeys can complete; the buyer-fixable and retryable split is assumed even."
+      },
+      "reprice": {
+        "rate_bp": 100,
+        "assumed": true,
+        "source": "No public source gives how often a price changes between cart and payment; assumed at 1%."
+      },
+      "stockout": {
+        "rate_bp": 100,
+        "assumed": true,
+        "source": "No public source gives how often stock goes between cart and payment, and live never reaches payment (D52 measures sold-out answers at cart writes only); assumed at 1%."
+      },
+      "unshippable": {
+        "rate_bp": 100,
+        "assumed": true,
+        "source": "No public source gives how often a store cannot ship to the address given at checkout; assumed at 1%."
+      },
+      "buyer_fixable_bp": 5000,
+      "reprice_bp": 1000
+    },
+    "payment_fault_bp": 1000,
+    "v1": {
+      "enabled": true,
+      "target": "data/sandbox/v1-target.yaml",
+      "personas": 5,
+      "tasks_per_persona": 5,
+      "cells_per_task": 4,
+      "baseline_bp": 9600,
+      "mask_bp": 0,
+      "designed_failure_bp": 400,
+      "failures": {
+        "payment": 4,
+        "checkout": 3,
+        "impossible": 3,
+        "checkout_kinds": {
+          "three_ds": 3,
+          "payment_decline": 3,
+          "reprice": 1,
+          "stockout": 1,
+          "unshippable": 1
+        }
+      },
+      "order_share_bp": 5000,
+      "mask_types": {},
+      "cross_border_bp": 0,
+      "candidate_tasks": 48,
+      "candidate_fault_bp": 2000,
+      "partial_min_products": 20,
+      "reference": true
+    }
+  },
+  "agents": {
+    "prompt": "data/prompts/agent-v6.md",
+    "temperature": 0.7,
+    "max_tokens": 12288,
+    "under_test": [
+      "qwen3.8-27b"
+    ],
+    "shopper": {
+      "wording": "model",
+      "max_tokens": 120,
+      "temperature": 0.8,
+      "retries": 1,
+      "history": 6
+    }
+  },
+  "stores": {
+    "sheet_id": "unset",
+    "queue_tab": "Store queue",
+    "evidence_tab": "Evidence",
+    "credentials_env": "GOOGLE_APPLICATION_CREDENTIALS"
+  },
+  "live": {
+    "enabled": false,
+    "control_file": "var/control.json",
+    "user_agent": "carttrace/0.1 (+https://generalmachines.ai/agents)",
+    "agent_profile_url": null,
+    "per_store_daily_sessions": 20,
+    "platform_rps": {
+      "shopify": 1.5,
+      "shop_mcp": 0.5,
+      "default": 0.5
+    },
+    "allow_tools": {
+      "ucp_mcp": [
+        "search_catalog",
+        "lookup_catalog",
+        "get_product",
+        "create_cart",
+        "get_cart",
+        "update_cart",
+        "cancel_cart"
+      ],
+      "store_mcp": [
+        "search_shop_catalog",
+        "get_product_details",
+        "search_shop_policies_and_faqs"
+      ],
+      "shop_mcp": [
+        "search_catalog",
+        "get_product"
+      ],
+      "website": [
+        "open_page",
+        "site_search",
+        "browse_index",
+        "read_product",
+        "list_links",
+        "choose_variant",
+        "verify_selection"
+      ],
+      "webmcp": [
+        "search_catalog",
+        "get_product",
+        "browse_store",
+        "search_shop_policies_and_faqs",
+        "get_ucp_profile",
+        "add_to_cart",
+        "update_cart_lines",
+        "get_cart",
+        "cancel_cart"
+      ]
+    },
+    "request_timeout_s": 30,
+    "retention_days_raw": 30,
+    "signing_key_env": "CARTTRACE_UCP_SIGNING_KEY",
+    "agent_profile_path": "data/agent/ucp-profile.json",
+    "scan_products_per_category": 20,
+    "per_store_rps": 0.5,
+    "per_store_daily_requests": 2500,
+    "independent_platforms": [
+      "custom",
+      "woocommerce",
+      "magento",
+      "shopware",
+      "sap_commerce"
+    ]
+  },
+  "storage": {
+    "url": "file://var/store"
+  },
+  "endpoints": {
+    "agent": {
+      "kind": "chat",
+      "base_url": "http://127.0.0.1:8000/v1",
+      "model": "your-model",
+      "max_inflight": 4,
+      "timeout_s": 900
+    }
+  },
+  "roles": {
+    "agent": "agent",
+    "shopper": "agent"
+  },
+  "ops": {
+    "slack_webhook_env": "SLACK_WEBHOOK_URL",
+    "secrets_files": [],
+    "stall_minutes": 10,
+    "idle_fraction": 0.5,
+    "idle_minutes": 10,
+    "repeat_critical_hours": 3,
+    "error_rate": 0.1,
+    "error_min_count": 5,
+    "error_window_minutes": 30,
+    "down_after_failures": 2,
+    "probe_cache_s": 120,
+    "pulse": {
+      "style": "image",
+      "every_hours": 2,
+      "target_good_traces": 100000,
+      "model": "haiku"
+    },
+    "slack": {
+      "streams": {
+        "digest": "file",
+        "carttrace": "slack_webhook",
+        "breakage": "slack_webhook",
+        "watch": "file",
+        "unit_failed": "file",
+        "haiku_watch": "file",
+        "manager": "file",
+        "audit": "file",
+        "daily": "file",
+        "autopilot": "file",
+        "notify": "slack_webhook"
+      }
+    },
+    "audit": {
+      "model": "opus",
+      "hours": 6,
+      "timeout_s": 600,
+      "unjudged_after_minutes": 30,
+      "repeat_hours": 6,
+      "all_clear_hours": 6
+    },
+    "watch": {
+      "open_after_minutes": 9,
+      "close_after_minutes": 14
+    },
+    "carttrace": {
+      "every_hours": 3,
+      "daily_hour_utc": 8,
+      "screenshot": true
+    }
+  },
+  "media": {
+    "daily_update_hour_utc": 3,
+    "palette": "open-field",
+    "art": "general-machines",
+    "claude_cli": {
+      "binary": "claude",
+      "model": "sonnet",
+      "timeout_s": 300,
+      "max_budget_usd": 1.0
+    },
+    "video_art": false
+  }
+}

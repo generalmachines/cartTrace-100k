@@ -1,0 +1,27 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: uv sync --extra dataset --locked
+      - name: Offline tests
+        # The full replay test needs the dataset and its worlds (CARTTRACE_DATASET, CARTTRACE_WORLDS) and is skipped here.
+        run: uv run pytest
+      - name: Command line
+        run: |
+          uv run carttrace --help
+          uv run python tools/headline.py --help

@@ -1,0 +1,256 @@
+# The woocommerce platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: woocommerce
+title: WooCommerce 11.2.1 with its MCP adapter and UCP and ACP plugins
+basis: recorded
+summary: 'WooCommerce from the reference store''s 225 recorded probes (ops/playgrounds/woocommerce, D42): search needs every
+  word as written, codes stack with individual use and a minimum spend, free shipping is a rate of its own after discounts,
+  the first rate is selected, a refused line keeps the cart, offline orders are on hold. Its surfaces as recorded: the MCP
+  adapter''s 2025-06-18 handshake, the Finance District plugin''s UCP 2026-08-25 discovery extras and checkout messages,
+  the UCP/ACP Agent plugin''s ACP 2026-04-17 discovery. The quirks of those plugins, ported or not, are the recorded data
+  file woocommerce_surfaces_2026-10-12.json.'
+sources:
+  diff-woo:
+    wire: ops/playgrounds/woocommerce/captures/diff-woo
+    note: the Store API and the Finance District UCP plugin, probe by probe
+  plugins-mcp:
+    wire: ops/playgrounds/woocommerce/captures/plugins-mcp
+    note: the MCP adapter
+  plugins-ucp-acp-agent:
+    wire: ops/playgrounds/woocommerce/captures/plugins-ucp-acp-agent
+    note: the UCP/ACP Agent plugin
+  wc-free-shipping:
+    docs: https://github.com/woocommerce/woocommerce/blob/11.2.1/plugins/woocommerce/includes/shipping/free-shipping/class-wc-shipping-free-shipping.php
+    note: free shipping's minimum against the total after discounts unless ignore_discounts
+serves:
+  ucp:
+    releases:
+    - '2026-01-11'
+    - '2026-01-23'
+    - '2026-04-08'
+    - '2026-08-25'
+    supported_versions: true
+    cite:
+      source: diff-woo
+      at: '140'
+      note: the 2026-08-25 profile with supported_versions and name
+  acp:
+    pinned: '2026-04-17'
+    discovery: plugin
+    cite:
+      source: plugins-ucp-acp-agent
+      at: '02'
+      note: ACP 2026-04-17, capabilities as a list
+  mcp:
+    default: '2025-06-18'
+    capabilities:
+      tools: {}
+      resources: {}
+      prompts: {}
+      logging: {}
+      completions: {}
+    notification_status: 200
+    server_info:
+      name: WooCommerce MCP Server
+      version: 1.0.0
+    instructions: AI-accessible WooCommerce operations via MCP
+    pinned: '2025-06-18'
+    cite:
+      source: plugins-mcp
+      at: 02, 03
+      note: 2025-06-18, five capabilities, a session id; notification 200, no body
+search:
+  mode: all_words
+  total_count: true
+  cite:
+    source: diff-woo
+    at: 21 to 27
+    note: every word as a substring, no stemming, no typo or synonym tolerance
+documents:
+  block_extends: true
+  messages_always: true
+  divergences:
+  - id: acp.discovery
+    what: 'the UCP/ACP Agent plugin''s own discovery document: capabilities as a list of names, and a protocol block without
+      name or supported_versions'
+    spec: ACP 2026-04-17, DiscoveryResponse
+    cite:
+      wire: ops/playgrounds/woocommerce/captures/plugins-ucp-acp-agent/02-acp-discovery.json
+    protocol: acp
+    operations:
+    - discovery
+errors:
+  codes:
+  - code: missing_email
+    spec: missing
+    path: $.buyer.email
+    what: the Finance District plugin's own code for UCP's `missing` at the buyer's email, recoverable
+    cite:
+      wire: ops/playgrounds/woocommerce/captures/diff-woo/142-fd-ucp-create-checkout.json
+  - code: missing_shipping_address
+    spec: missing
+    path: $.fulfillment.methods[0].destinations
+    what: the plugin's own code for UCP's `missing` at the destination
+    cite:
+      wire: ops/playgrounds/woocommerce/captures/diff-woo/142-fd-ucp-create-checkout.json
+  cite:
+    source: diff-woo
+    at: 41, 42, 57, 63 to 68
+    note: UCP error shapes with WooCommerce's words
+checkout:
+  line_items:
+    rule: a line over the stock is refused in WooCommerce's words and the cart kept (core rule refuse_bad_line)
+    cite:
+      source: diff-woo
+      at: 41 to 44, 57
+  fulfillment:
+    rule: rates for the store's country before any address, the first selected; free shipping a rate of its own once the
+      merchandise after discounts reaches the threshold; a country outside the zone has no rates
+    cite:
+      source: diff-woo
+      at: 74 to 84
+  links_cite:
+    source: diff-woo
+    at: 141, 142
+    note: links empty
+  discounts:
+    rule: codes stack; an individual-use code replaces the others; a minimum spend is refused; no discounts block without
+      a code
+    cite:
+      source: diff-woo
+      at: 62 to 70, 142
+  discounts_block: false
+  checkout_discounts: false
+  payment_handlers:
+    rule: the store's declared handlers, and bank transfer and cheque as offline methods whose orders are on hold
+    cite:
+      source: diff-woo
+      at: 104, 112, 117
+  accepts:
+  - bank_transfer
+  - cheque
+  readiness:
+    email:
+      code: missing_email
+      text: Buyer email is required
+      path: $.buyer.email
+    fulfillment:
+      code: missing_shipping_address
+      text: Shipping address is required
+      path: $.fulfillment.methods[0].destinations[0]
+    address:
+      code: missing_shipping_address
+      text: Shipping address is required
+      path: '{at}.destinations[0]'
+  order_states:
+    confirmed: processing
+    on_hold: on-hold
+    fulfilled: completed
+    canceled: cancelled
+wording:
+  discount.duplicate: Coupon code "{code}" has already been applied.
+  discount.not_combinable: '"{other}" has already been applied and cannot be used in conjunction with other coupons.'
+  discount.minimum_not_met: The minimum spend for coupon "{code}" is {min_spend}.
+  discount.invalid: Coupon "{code}" cannot be applied because it does not exist.
+  stock.out_of_stock: You cannot add "{name}" to the cart because the product is out of stock.
+  stock.not_enough: You cannot add that amount of "{name}" to the cart because there is not enough stock ({available} remaining).
+  order.status: 'Order status: {status}'
+wording_cite:
+  source: diff-woo
+  at: 41, 42, 63, 66, 67, 68
+behaviours:
+  search.all_words:
+    source: diff-woo
+    note: 'diff-woo 26: ''black sandal'' finds 0 (any-word search finds 11); 21: ''ballet flat'' finds 2'
+  search.no_stemming:
+    source: diff-woo
+    note: 'diff-woo 23: ''slippers'' finds 0; 24: ''slipper'' finds 4'
+  search.no_typo_or_synonym:
+    source: diff-woo
+    note: 'diff-woo 22: ''balet'' finds 0; 25: ''trainers'' finds 0'
+  search.brand:
+    source: diff-woo
+    note: 'diff-woo 27: ''206 collective'' finds all 20'
+  coupons.stack:
+    source: diff-woo
+    note: 'diff-woo 62, 64: WELCOME10 then FIVEOFF, 800 + 500 off 7999'
+  coupons.duplicate:
+    source: diff-woo
+    note: 'diff-woo 63: welcome10 again, ''has already been applied'''
+  coupons.individual_use:
+    source: diff-woo
+    note: 'diff-woo 65: SOLO15 replaces both; 66: FIVEOFF after it refused'
+  coupons.minimum_spend:
+    source: diff-woo
+    note: 'diff-woo 67: BIG20 under 100.00, ''The minimum spend for coupon'''
+  coupons.unknown:
+    source: diff-woo
+    note: 'diff-woo 68: NOPE99, ''does not exist'''
+  coupons.free_shipping:
+    source: diff-woo
+    note: 'diff-woo 70, 72: FREESHIP takes nothing off the items, the free rate unselected'
+  shipping.first_selected:
+    source: diff-woo
+    note: 'diff-woo 74, 82, 83: Standard 5.99 selected, the free rate listed beside it'
+  shipping.free_rate:
+    source: diff-woo
+    note: 'diff-woo 74, 75: ''Standard (free from 50.00)'' at 0 over 50; 78, 79: absent under 50'
+  shipping.before_address:
+    source: diff-woo
+    note: 'diff-woo 82, 83: rates for the store''s country before any address'
+  shipping.unshippable:
+    source: diff-woo
+    note: 'diff-woo 84: Canada, 200 with an empty rate list'
+  shipping.after_discount:
+    source: wc-free-shipping
+    note: seed.py free_shipping min_amount 50.00 without ignore_discounts (WooCommerce's default compares after discounts;
+      read in class-wc-shipping-free-shipping.php, named in diff-woo 143)
+  stock.out_of_stock:
+    source: diff-woo
+    note: 'diff-woo 41: 400 woocommerce_rest_product_out_of_stock, cart unchanged'
+  stock.sold_out:
+    source: diff-woo
+    note: 'diff-woo 41: a sold-out variant is the product out of stock, in the same words and 400'
+  stock.not_enough:
+    source: diff-woo
+    note: 'diff-woo 42, 44: 400 ''(3 remaining)'', cart unchanged; 43: exactly 3 added'
+  stock.maximum:
+    source: diff-woo
+    note: 'diff-woo 57: 10000 refused, ''maximum ... is 9'' (the stock), cart unchanged'
+  orders.processing:
+    source: diff-woo
+    note: 'diff-woo 104: cash on delivery, order processing'
+  orders.on_hold:
+    source: diff-woo
+    note: 'diff-woo 112 (bank transfer), 117 (cheque): order on-hold'
+  orders.statuses:
+    source: diff-woo
+    note: 'diff-woo 120: pending, processing, on-hold, completed, cancelled, refunded, failed, draft'
+  mcp.handshake:
+    source: plugins-mcp
+    note: 'plugins-mcp 02: 2025-06-18, five capabilities, a session id; 03: notification 200, no body'
+  ucp.discovery:
+    source: diff-woo
+    note: 'diff-woo 140: supported_versions and name beside the 2026-08-25 profile'
+  ucp.envelope:
+    source: diff-woo
+    note: 'diff-woo 141, 142: messages always, total_count, links empty, fulfillment extends checkout'
+  ucp.readiness:
+    source: diff-woo
+    note: 'diff-woo 142: missing_email, missing_shipping_address; no discounts block without a code'
+  acp.discovery:
+    source: plugins-ucp-acp-agent
+    note: 'plugins-ucp-acp-agent 02: ACP 2026-04-17, capabilities as a list'
+code:
+- name: carttrace.sandbox.platforms.woocommerce.money_text
+  why: 'WooCommerce writes an amount in a message as $100.00 in dollars and 100.00 EUR otherwise: a format, not a fact'
+- name: mc.sandbox.platforms.woocommerce_surfaces_2026-10-12.json
+  why: 'the recorded surfaces (the ACP discovery document, the supported releases) and every quirk with its probe: recorded
+    data, kept whole so a newer recording is one file'
+- name: carttrace.sandbox.core.config.CORE_RULES
+  why: the core's arithmetic and states (stacking, individual use, minimum spend, on-hold orders) are the core's table
+extra:
+  surfaces_file: woocommerce_surfaces_2026-10-12.json

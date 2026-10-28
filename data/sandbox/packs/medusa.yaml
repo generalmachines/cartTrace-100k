@@ -1,0 +1,600 @@
+# The medusa platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: medusa
+title: Medusa 2.21.2 with the Finance District agentic commerce plugin 1.1.3
+basis: recorded
+summary: 'Medusa from its playground (ops/playgrounds/medusa, D68): 114 probes of Medusa''s own Store API and the plugin''s
+  UCP search, and the plugin''s UCP surfaces end to end at 2026-01-23, 2026-04-08 and 2026-08-25 and its ACP at 2026-01-30.
+  The pack answers in the plugin''s own documents (`documents.dialect: medusa`): its envelope, product, cart, checkout,
+  order and error shapes, offset pagination and phrase search. It serves no discount capability. Where the plugin''s validator
+  is stricter than the served release, the release wins (D81): `context` and `cart_id` are taken, and a create with no currency
+  is priced in the store''s own.'
+sources:
+  store-api:
+    wire: ops/playgrounds/medusa/captures/store-api
+    note: Medusa's Store API and the plugin's UCP search, 114 probes (storeapi.py)
+  ucp-2026-08-25:
+    wire: ops/playgrounds/medusa/captures/ucp-2026-08-25
+    note: the plugin's UCP 2026-08-25 end to end (smoke.py)
+  ucp-2026-04-08:
+    wire: ops/playgrounds/medusa/captures/ucp-2026-04-08
+  ucp-2026-01-23:
+    wire: ops/playgrounds/medusa/captures/ucp-2026-01-23
+  acp-2026-01-30:
+    wire: ops/playgrounds/medusa/captures/acp-2026-01-30
+    note: the plugin's ACP 2026-01-30
+  plugin:
+    docs: https://www.npmjs.com/package/@financedistrict/medusa-plugin-agentic-commerce/v/1.1.3
+    note: the plugin's source at 1.1.3, read in the playground's app image (mc-pg-medusa-app:2.21.2-fd1.1.3) under .medusa/server/src/
+serves:
+  ucp:
+    releases:
+    - '2026-01-11'
+    - '2026-01-23'
+    - '2026-04-08'
+    - '2026-08-25'
+    unserved:
+    - dev.ucp.shopping.discount
+    supported_versions: true
+    cite:
+      source: ucp-2026-08-25
+      at: '01'
+      note: 'discovery: catalog, cart, checkout, order and fulfillment, no discount; older releases listed'
+  acp:
+    pinned: '2026-01-30'
+    discovery: plugin
+    cite:
+      source: acp-2026-01-30
+      at: '01'
+      note: ACP 2026-01-30, services checkout and orders, no handlers
+  mcp:
+    default: '2025-06-18'
+search:
+  mode: phrase
+  page_default: 20
+  page_max: 100
+  total_count: true
+  cite:
+    source: store-api
+    at: 94 to 110
+    note: the plugin's search needs the whole query in one field; 20 a page, at most 100
+operations:
+  search_catalog:
+    fields:
+      context:
+        rule: accept
+        spec: 'UCP catalog search, Search Inputs: context'
+        what: the plugin's validator refuses it (fields.strict); the pack takes it because the served release defines it
+          (D81)
+      pagination.cursor:
+        rule: rename
+        spec: 'UCP catalog search, Pagination: an opaque cursor'
+        to: pagination.offset
+        what: the plugin pages by offset and ignores a cursor
+        cite:
+          wire: ops/playgrounds/medusa/captures/store-api/110-ucp-search-cursor.json
+      filters.price:
+        rule: ignore
+        spec: 'UCP catalog search, Filters: price in minor units'
+        what: the plugin compares EUR prices only, so a spec price filter changes nothing
+        cite:
+          wire: ops/playgrounds/medusa/captures/store-api/108-ucp-search-spec-price-filter.json
+      filters.categories:
+        rule: rename
+        spec: 'UCP catalog search, Filters: categories'
+        to: filters.category
+        what: the plugin reads one category by name in `filters.category`
+        cite:
+          wire: ops/playgrounds/medusa/captures/store-api/109-ucp-search-category-filter.json
+  lookup_catalog:
+    fields:
+      context:
+        rule: accept
+        spec: 'UCP catalog lookup: context'
+        what: taken although the plugin's validator refuses it (D81)
+  create_cart:
+    fields:
+      context:
+        rule: accept
+        spec: 'UCP cart, Create Cart: context; the merchant falls back to geo-IP when it is omitted'
+        what: a create with no context.currency is priced in the store's currency, where the plugin answers 500 'do not
+          have a price' (D81, not_ported currency_required)
+      discounts:
+        rule: refuse
+        spec: 'UCP discount extension: discounts.codes on cart create and update'
+        capability: dev.ucp.shopping.discount
+        what: the plugin serves no discount capability and its validator refuses the field
+        cite:
+          wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/18-checkout-update-discount-code-spec-discounts-codes-probe.json
+  update_cart:
+    fields:
+      context:
+        rule: accept
+        spec: 'UCP cart, Update Cart: context'
+        what: taken although the plugin's validator refuses it (D81)
+      discounts:
+        rule: refuse
+        spec: UCP discount extension
+        capability: dev.ucp.shopping.discount
+        cite:
+          wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/18-checkout-update-discount-code-spec-discounts-codes-probe.json
+  create_checkout:
+    fields:
+      cart_id:
+        rule: accept
+        spec: UCP cart, Cart-to-Checkout Conversion (cart.json adds cart_id to create_checkout)
+        what: taken because the cart capability the plugin serves defines it, although its validator refuses it (D81)
+      fulfillment:
+        rule: accept
+        spec: UCP fulfillment extension on checkout create
+        what: taken although the plugin's validator refuses it on a create
+      discounts:
+        rule: refuse
+        spec: UCP discount extension
+        capability: dev.ucp.shopping.discount
+        cite:
+          wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/18-checkout-update-discount-code-spec-discounts-codes-probe.json
+  update_checkout:
+    fields:
+      context:
+        rule: accept
+        spec: 'UCP checkout, Update Checkout: context'
+        what: taken although the plugin's validator refuses it (D81)
+      discounts:
+        rule: refuse
+        spec: UCP discount extension
+        capability: dev.ucp.shopping.discount
+        cite:
+          wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/18-checkout-update-discount-code-spec-discounts-codes-probe.json
+documents:
+  dialect: medusa
+  nesting: a top-level shipping_address on carts, checkouts and orders beside the fulfillment destinations
+  description: text
+  money: minor units, Medusa's lower-case currency code in catalog prices; carts and checkouts in upper case
+  currency_case: lower
+  options: no options; each variant its id, title, sku, price and availability
+  serves_options: false
+  media: url and type only
+  pagination: '{total, limit, offset, has_more}'
+  messages_always: true
+  divergences:
+  - id: search.pagination
+    what: pagination is {total, limit, offset, has_more}, not UCP's cursor pagination
+    spec: UCP catalog search, Pagination
+    cite:
+      wire: ops/playgrounds/medusa/captures/store-api/106-ucp-search-default-page.json
+    operations:
+    - search_catalog
+    where: /pagination*
+  - id: product.description
+    what: a product's description is a plain string, not a description object
+    spec: 'UCP catalog, Product: description'
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/06-catalog-search.json
+    operations:
+    - search_catalog
+    - lookup_catalog
+    - get_product
+    where: '/product*/description: * is not of type ''object'''
+  - id: product.currency
+    what: catalog prices carry Medusa's lower-case currency code
+    spec: 'UCP types, Price: currency is ISO 4217 upper case'
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/06-catalog-search.json
+    operations:
+    - search_catalog
+    - lookup_catalog
+    - get_product
+    where: '/product*/currency: * does not match *'
+  - id: product.variant_fields
+    what: 'a variant carries id, title, sku, price and availability only: no description, and no inputs on a lookup'
+    spec: UCP catalog, Variant
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/08-catalog-lookup.json
+    operations:
+    - search_catalog
+    - lookup_catalog
+    - get_product
+    where: '/product*/variants/*: ''*'' is a required property'
+  - id: product.sku_null
+    what: 'a variant with no SKU says sku null: the plugin copies Medusa''s nullable variant.sku'
+    spec: 'UCP catalog, Variant: sku is a string'
+    cite:
+      source: plugin
+      at: lib/formatters/ucp.js formatUcpProduct
+      note: 'sku: variant.sku; every recorded variant has one'
+    operations:
+    - search_catalog
+    - lookup_catalog
+    - get_product
+    where: '/product*/sku: None is not of type ''string'''
+  - id: resource.shipping_address
+    what: carts, checkouts and orders carry a top-level shipping_address (Medusa's lower-case country) beside the destinations
+    spec: 'UCP checkout and cart: no shipping_address member'
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/16-checkout-update-buyer-and-shipping-address.json
+    operations:
+    - create_cart
+    - get_cart
+    - update_cart
+    - cancel_cart
+    - create_checkout
+    - get_checkout
+    - update_checkout
+    - complete_checkout
+    - cancel_checkout
+    - get_order
+    where: '/shipping_address: not defined at UCP *'
+  - id: checkout.untyped_destinations
+    what: fulfillment destinations carry no `type` at 2026-08-25
+    spec: 'UCP 2026-08-25 fulfillment extension: a destination''s type'
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/16-checkout-update-buyer-and-shipping-address.json
+    operations:
+    - create_checkout
+    - get_checkout
+    - update_checkout
+    - complete_checkout
+    - cancel_checkout
+    releases:
+    - '2026-08-25'
+    where: '/fulfillment/methods/*/destinations/*: ''type'' is a required property'
+  - id: order.shape
+    what: 'an order as the plugin formats it: display_id, checkout_id null, status, fulfillment_status, fulfillment_events,
+      created_at, updated_at, a self link, the buyer and the address; lines as on a cart (a quantity number, no status)
+      and no fulfillment'
+    spec: UCP order
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/21-order-get.json
+    operations:
+    - get_order
+errors:
+  shape: platform
+  shapes:
+  - id: invalid_data
+    shape: '{message,type}'
+    status: 400
+    what: 'a body Medusa''s request validator refuses is its own {type: invalid_data, message} document, not a UCP error'
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/18-checkout-update-discount-code-spec-discounts-codes-probe.json
+      note: store-api 22 and 36 the same shape
+  codes:
+  - code: missing_email
+    spec: missing
+    path: $.buyer.email
+    what: the plugin's own code for UCP's `missing` at the buyer's email
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/14-checkout-create.json
+  - code: missing_shipping_address
+    spec: missing
+    path: $.shipping_address
+    what: the plugin's own code for UCP's `missing` at the address
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/14-checkout-create.json
+  - code: internal_error
+    spec: out_of_stock
+    what: a sold-out or over-stock line is the plugin's catch-all 500 'Some variant does not have the required inventory'
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-08-25/10-cart-create-with-an-out-of-stock-variant-probe.json
+  cite:
+    source: plugin
+    at: lib/formatters/error-formatters.js ucpErrorFor
+checkout:
+  line_items:
+    rule: one line_total per line (subtotal at the checkout-only releases); a line over the stock is refused whole with
+      the plugin's 500
+    cite:
+      wire: ops/playgrounds/medusa/captures/ucp-2026-01-23/09-checkout-create.json
+      note: the plugin types a line's total subtotal at 2026-01-23 and line_total at 2026-04-08 and 2026-08-25
+  fulfillment:
+    rule: one shipping method 'shipping' and group 'default' from the start, both rates listed before an address, the cheapest
+      selected once one is known
+    cite:
+      source: ucp-2026-08-25
+      at: 14 to 16
+  pickup:
+    rule: 'not served: the plugin lists shipping options only'
+    cite:
+      source: ucp-2026-08-25
+      at: '14'
+  links_cite:
+    source: ucp-2026-08-25
+    at: '12'
+    note: two untitled links, terms and privacy
+  discounts:
+    rule: not served over UCP (the capability is unserved); codes stack and compound on Medusa's own Store API
+    cite:
+      source: store-api
+      at: 42 to 48
+  discounts_block: false
+  checkout_discounts: false
+  payment_handlers:
+    rule: the plugin advertises none; the pack keeps the sandbox's handlers, since an agent must name one to pay (not_ported
+      payment_handlers)
+    cite:
+      source: ucp-2026-08-25
+      at: 01, 14
+  readiness:
+    email:
+      code: missing_email
+      text: Buyer email is required. Provide it via PUT /checkout-sessions/{id} with buyer.email.
+      path: $.buyer.email
+    fulfillment:
+      code: missing_shipping_address
+      text: Shipping address is required. Provide it via PUT /checkout-sessions/{id} with shipping_address.
+      path: $.shipping_address
+    address:
+      code: missing_shipping_address
+      text: Shipping address is required. Provide it via PUT /checkout-sessions/{id} with shipping_address.
+      path: $.shipping_address
+  order_states:
+    confirmed: pending
+    on_hold: pending
+    fulfilled: completed
+    canceled: canceled
+wording:
+  stock.out_of_stock: Some variant does not have the required inventory
+  stock.not_enough: Some variant does not have the required inventory
+  stock.sold_out: Some variant does not have the required inventory
+  discount.invalid: The promotion code {code} is invalid
+  order.status: 'Order status: {status}'
+wording_cite:
+  source: store-api
+  at: 30, 31, 37, 44, 46
+behaviours:
+  search.phrase:
+    source: store-api
+    note: 'store-api 94 to 105: the plugin''s UCP search needs the whole query, case-folded, inside the title, description
+      or handle: ''black sandal'' 0 and ''sandal black'' 0 (99, 104), ''Chelsea boot'' 5 (101); P api/ucp/catalog/search/route.js'
+  search.no_stemming:
+    source: store-api
+    note: 'store-api 96, 97: ''slippers'' 0, ''slipper'' 5; 95: ''balet'' 0; 98: ''trainers'' 0'
+  search.store_api_differs:
+    source: store-api
+    note: 'store-api 06 to 17: Medusa''s own Store API search needs every word somewhere in the product or a variant (''black
+      sandal'' 4, 11), which a Medusa storefront shows; agents meet the plugin''s'
+  search.offset_pagination:
+    source: store-api
+    note: 'store-api 106, 107: pagination {total, limit, offset, has_more}, 20 by default, offset paging; 110: a cursor
+      is ignored'
+  search.price_filter_ignored:
+    source: store-api
+    note: 'store-api 108: a spec price filter changes nothing; ucp-2026-08-25 07: min_price 100000 lists all 100 (P route.js
+      compares EUR prices only)'
+  search.category_by_name:
+    source: store-api
+    note: 'store-api 109: filters.category ''Boots'' lists 13'
+  products.shape:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 06, 08: description and categories as strings, handle, sku, lower-case currency in prices, availability,
+      media; no options, tags or metadata'
+  envelope.capabilities:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 12, 14: every reply lists the six capabilities by version only'
+  discounts.unrecognized:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 18: discounts.codes refused 400 invalid_data, ''Unrecognized fields: ''discounts''''; 01: no discount
+      capability'
+  fields.strict:
+    source: plugin
+    note: 'P api/validation-schemas.js: each UCP body takes only its schema''s top-level fields (no `cart_id` or `fulfillment`
+      on create, no `id` on update); @medusajs/framework 2.21.2 dist/zod/zod-helpers.js zodValidator makes the top level
+      strict, nested objects not (store-api 108). Ported for fields the served UCP release does not define either (NOT_PORTED
+      spec_fields)'
+  cart.shape:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 12, 13: line totals one line_total, totals with tax, messages always, two untitled links, shipping_address
+      echoed, no continue_url'
+  checkout.shape:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 14 to 20: expires_at six hours on, fulfillment method ''shipping'' and group ''default'' with
+      options before an address, readiness and status messages in the plugin''s words'
+  totals.tax_inclusive_display:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 17: Shipping 16.19 for Express 14.99, the shipping line carries its tax as Medusa''s shipping_total
+      does, while the total adds the tax once'
+  order.shape:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 21: display_id, checkout_id null, status pending, fulfillment_status, fulfillment_events, created_at,
+      updated_at, a self link'
+  errors.envelope:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 05, 22, 23: an error is a UCP document with status error and one unrecoverable message; P lib/formatters/error-formatters.js'
+  errors.missing_agent:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 05: no UCP-Agent, 400 missing_ucp_agent'
+  errors.not_found:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 22: 404 not_found ''Order not found'''
+  stock.refused:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 10: a sold-out line on create is 500 internal_error ''Some variant does not have the required
+      inventory''; store-api 30, 31, 37: the same words for sold out and over the stock, 400, the cart unchanged'
+  currency.unpriced:
+    source: store-api
+    note: 'store-api 64: a variant with no price in the asked currency''s region is 500 ''Variants with IDs ... do not have
+      a price'' (ucp-2026-08-25 11 words it); a create with no currency is NOT_PORTED currency_required'
+  region.country:
+    source: store-api
+    note: 'store-api 53, 54, 67: an address outside the cart''s region is refused; P api/ucp/checkout-sessions/[id]/route.js:
+      400 country_not_supported naming the supported countries'
+  codes.stack:
+    source: store-api
+    note: 'store-api 45, 48: FIVEOFF and BIG20 join WELCOME10'
+  codes.compound:
+    source: store-api
+    note: 'store-api 48: WELCOME10 then BIG20 take 48.38 of 172.78 with tax, 28%'
+  codes.case_sensitive:
+    source: store-api
+    note: 'store-api 44: ''welcome10'' invalid, ''The promotion code welcome10 is invalid'''
+  codes.repeat:
+    source: store-api
+    note: 'store-api 43: WELCOME10 again, 200 with one promotion'
+  codes.unknown:
+    source: store-api
+    note: 'store-api 46: ''The promotion code NOPE99 is invalid'''
+  shipping.free_basis:
+    source: store-api
+    note: 'store-api 87, 88: 49.99 ships free from 50.00 (53.99 with tax); 89, 90: 54.99 less both codes (42.76 with tax)
+      pays 5.99'
+  shipping.before_address:
+    source: store-api
+    note: 'store-api 50: both rates listed before an address; ucp-2026-08-25 14'
+  shipping.cheapest:
+    source: ucp-2026-08-25
+    note: 'ucp-2026-08-25 16: Standard (0.00) selected once the address is set'
+  shipping.by_region:
+    source: store-api
+    note: 'store-api 66: the Europe region lists only its own EU Standard 9.50'
+  tax.upfront:
+    source: store-api
+    note: 'store-api 26: a new cart of 79.99 is taxed 6.40 before any address'
+  tax.shipping:
+    source: store-api
+    note: 'store-api 73: Express 14.99 adds 1.20 to the tax'
+  payment.session:
+    source: store-api
+    note: 'store-api 77 to 84, 111, 112: a payment collection, a session per provider, a session dropped by a cart change
+      and renewed before complete'
+  orders.pending:
+    source: store-api
+    note: 'store-api 112, 113; ucp-2026-08-25 21: a placed order is pending'
+  acp.discovery:
+    source: acp-2026-01-30
+    note: 'acp-2026-01-30 01: ACP 2026-01-30, services checkout and orders, no handlers'
+not_ported:
+  payment_handlers:
+    what: the plugin advertises no payment handlers (ucp-2026-08-25 01, 14); the pack keeps the sandbox's handler, since
+      an agent must name one to pay
+  session_secret:
+    what: 'UCP-Session-Secret ownership (ucp-2026-08-25 22): the sandbox scopes resources by session'
+  shipping_address_field:
+    what: the plugin takes a top-level shipping_address on update (smoke.py 16); agents read the sandbox's schema, which
+      states the address as a destination
+  partial_update:
+    what: the plugin merges a partial update; the sandbox's 2026-08-25 update restates the lines
+  ready_without_street:
+    what: the plugin is ready for completion once it has an email and any address, the region's country included (P lib/status-maps.js);
+      the sandbox needs a full destination
+  ids:
+    what: 'Medusa''s ids (cart_, cali_, so_, caaddr_) and the plugin''s fixed ''shipping'' and ''default'' ids: the sandbox''s
+      ids stay, so a replayed request names what it was answered with'
+  line_titles:
+    what: a line names the product's title alone; the sandbox's title adds the variant's
+  spec_fields:
+    what: 'the plugin''s validator refuses fields the served UCP release defines: `context` on a search, a lookup and an
+      update, `cart_id` and `fulfillment` on a create (P api/validation-schemas.js). The sandbox lists the release''s schema
+      to the agent, so it takes what that schema and the plugin''s served extensions define (`accepted`); on 2026-10-15
+      the refusal of listed fields cost 239 errors in 155 episodes and taught agents to drop `context` from their creates'
+  currency_required:
+    what: a create with no context.currency is 500 'do not have a price' on the plugin (ucp-2026-08-25 11); UCP's cart says
+      the merchant falls back to geo-IP when context is omitted, so the sandbox prices it in the store's currency. 144 such
+      refusals in 41 episodes on 2026-10-15, 40 of them after the plugin had refused `context` elsewhere
+  store_api:
+    what: Medusa's own Store API (`/store/...`) is not served; its rules reach the agent through UCP
+  free_shipping_code:
+    what: a shipping-targeted promotion applies only once a shipping method is chosen (store-api 62, 93); UCP cannot apply
+      codes on Medusa, so the rule never shows
+  currency_restricted_code:
+    what: a code priced in another currency is dropped silently (store-api 68)
+code:
+- name: carttrace.sandbox.platforms.medusa.reshape
+  why: 'every reply rebuilt in the plugin''s documents (product, cart, checkout, order, totals with the tax on shipping
+    and discounts, ISO times): a transformation the shapes above name but data cannot perform'
+- name: carttrace.sandbox.platforms.medusa.refusal
+  why: the validator's refusal reads `extra.validator_fields`, the release's own fields and the unserved capabilities from
+    this spec; the currency and region checks need the store's market
+- name: carttrace.sandbox.platforms.medusa.search_payload
+  why: offset paging and the category by name turn the plugin's reading (operations.search_catalog) into the sandbox catalog's
+    terms
+- name: carttrace.sandbox.platforms.medusa.phrase_matched
+  why: the plugin's phrase search over title, description and handle is an algorithm
+- name: carttrace.sandbox.core.config.CORE_RULES
+  why: the core's arithmetic and states (tax from the first line and on shipping, compounding codes, one shipping group)
+    are the core's table
+extra:
+  checkout_ttl_ms: 21600000
+  validator_fields:
+    create_checkout:
+    - buyer
+    - context
+    - line_items
+    - shipping_address
+    update_checkout:
+    - buyer
+    - fulfillment
+    - line_items
+    - shipping_address
+    complete_checkout:
+    - payment
+    create_cart:
+    - buyer
+    - context
+    - line_items
+    update_cart:
+    - buyer
+    - line_items
+    - shipping_address
+    search_catalog:
+    - filters
+    - pagination
+    - query
+    lookup_catalog:
+    - ids
+  ignored_arguments:
+  - id
+  - meta
+  extension_fields:
+    create_checkout:
+      cart_id: dev.ucp.shopping.cart
+      fulfillment: dev.ucp.shopping.fulfillment
+    update_checkout:
+      fulfillment: dev.ucp.shopping.fulfillment
+  envelope_capabilities:
+    '*':
+    - dev.ucp.shopping.catalog.search
+    - dev.ucp.shopping.catalog.lookup
+    - dev.ucp.shopping.checkout
+    - dev.ucp.shopping.cart
+    - dev.ucp.shopping.order
+    - dev.ucp.shopping.fulfillment
+    '2026-01-23':
+    - dev.ucp.shopping.checkout
+    - dev.ucp.shopping.order
+    - dev.ucp.shopping.fulfillment
+    '2026-01-11':
+    - dev.ucp.shopping.checkout
+    - dev.ucp.shopping.order
+    - dev.ucp.shopping.fulfillment
+  capability_list_releases:
+  - '2026-01-11'
+  line_total_type:
+    '*': line_total
+    '2026-01-23': subtotal
+    '2026-01-11': subtotal
+  not_found_text:
+    cart: Cart not found
+    checkout: Checkout session not found
+    order: Order not found
+  acp_discovery:
+    protocol:
+      name: acp
+      version: '{version}'
+      supported_versions:
+      - '{version}'
+    api_base_url: '{api_base_url}'
+    transports:
+    - rest
+    capabilities:
+      services:
+      - checkout
+      - orders
+      payment:
+        handlers: []
+      supported_currencies:
+      - '{currency}'
+      supported_locales:
+      - en

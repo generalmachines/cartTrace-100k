@@ -1,0 +1,419 @@
+# The shopify platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: shopify
+title: Live Shopify, October 2026
+basis: live
+summary: 'Live Shopify as the stores of the 2026-10-12 pilot answered it (var/live/delta-01/report.md, D29, D46, D52, D55):
+  MCP 2025-11-25 with no session, the recorded tools/list with Shopify''s descriptions and output schemas, keyed cart gids,
+  `expires_at`, `messages` always, seven policy links, an opaque cursor, the full `ucp` block, a sold-out line as a warning,
+  the product shape its catalog tools answer with, and schema refusals as plain text over MCP. Each behaviour cites the
+  live bundle and seq that showed it; what no recording shows is marked unobserved.'
+sources:
+  pilot:
+    wire: var/store/episodes/2026-10-12/run-c2bbaece7e53
+    note: the pilot's live bundles, summarised in var/live/delta-01/report.md; the tools/list of run-c2bbaece7e53 and run-d36514321ccb,
+      byte-identical across ten stores
+serves:
+  ucp:
+    releases:
+    - '2026-01-11'
+    - '2026-01-23'
+    - '2026-04-08'
+    - '2026-08-25'
+    cite:
+      source: pilot
+      note: every live store served UCP 2026-08-25 over MCP
+  mcp:
+    default: '2025-11-25'
+    capabilities:
+      logging: {}
+      prompts:
+        listChanged: true
+      resources:
+        listChanged: true
+      tools:
+        listChanged: true
+    sessions: false
+    notification_status: 200
+    notification_body: '{}'
+    tools_file: shopify_tools_2026-08-25.json
+    text_refusals: true
+    cite:
+      source: pilot
+      at: report section 1.1
+      note: 'all 140 initialize replies: logging, prompts, resources and tools capabilities, no Mcp-Session-Id, notifications
+        answered 200 {}'
+search:
+  mode: storefront
+  available_filter: true
+  price_filter_note: true
+  opaque_cursors: true
+  cite:
+    source: pilot
+    at: report section 3
+    note: opaque base64 cursors; the shop-currency note on a price filter without context.currency; filters.available listed
+      and honoured
+operations:
+  update_checkout:
+    fields:
+      fulfillment.methods[].line_item_ids:
+        rule: accept
+        spec: 'UCP fulfillment extension (fulfillment.json): a method names the lines it covers; required on update at 2026-08-25'
+        what: the spec's own requirement, which Shopify's recorded schema states too; the WebMCP page sent none and every
+          Shopify-pack address step was refused (D81)
+documents:
+  product_views:
+    listing:
+      fields:
+      - categories
+      - description
+      - handle
+      - id
+      - list_price_range
+      - media
+      - options
+      - price_range
+      - tags
+      - title
+      - url
+      - variants
+      variant_fields:
+      - availability
+      - description
+      - id
+      - list_price
+      - media
+      - options
+      - price
+      - sku
+      - title
+      media_fields:
+      - alt_text
+      - type
+      - url
+      max_media: 1
+      variant_media_fields:
+      - type
+      - url
+      option_value_fields:
+      - label
+      max_variants: 10
+      category_values: ^gid://shopify/TaxonomyCategory/
+    detail:
+      fields:
+      - categories
+      - description
+      - handle
+      - id
+      - list_price_range
+      - media
+      - options
+      - price_range
+      - selected
+      - title
+      - url
+      - variants
+      variant_fields:
+      - availability
+      - description
+      - id
+      - list_price
+      - media
+      - options
+      - price
+      - sku
+      - title
+      media_fields:
+      - type
+      - url
+      max_media: 1
+      unselected_option_value_fields:
+      - label
+      category_values: ^gid://shopify/TaxonomyCategory/
+    lookup:
+      fields:
+      - categories
+      - description
+      - handle
+      - id
+      - list_price_range
+      - media
+      - options
+      - price_range
+      - title
+      - url
+      - variants
+      variant_fields:
+      - availability
+      - description
+      - id
+      - list_price
+      - media
+      - options
+      - price
+      - sku
+      - title
+      - inputs
+      media_fields:
+      - type
+      - url
+      max_media: 1
+      option_value_fields:
+      - label
+      category_values: ^gid://shopify/TaxonomyCategory/
+  full_ucp_block: true
+  messages_always: true
+  line_display_text: true
+  plain_content_type: true
+  cite:
+    wire: var/store/episodes/2026-10-13/run-56434ed65a61/ep-06e032317eac
+    at: seq 9 and 24
+    note: 'the product keys of 36,107 live products (D55): `product_views`'
+errors:
+  shapes:
+  - id: text_refusal
+    shape: mcp:text
+    what: 'a call whose arguments fail the tool''s schema is answered as one text content block with isError true and no
+      structuredContent (''Missing required arguments: catalog''); REST answers the release''s error document'
+    cite:
+      wire: var/store/episodes/2026-10-13/run-56434ed65a61/ep-6b497a8e637a
+      at: seq 65
+      note: '''Missing required arguments: id'' on cancel_cart; the same text on get_cart, update_cart, create_cart, search,
+        lookup and get_product in the pilot'
+  codes:
+  - code: invalid_cart_id
+    spec: not_found
+    what: 'a cart gid without its ?key=, or an empty id: UCP''s unknown resource, in Shopify''s code'
+    cite:
+      wire: var/store/episodes/2026-10-12/run-c2bbaece7e53/ep-475bdc4b5b0f
+      at: seq 21
+  - code: cart_not_found
+    spec: not_found
+    what: a keyed gid naming no cart
+    cite:
+      wire: var/store/episodes/2026-10-12/run-d36514321ccb/ep-0db33a31762e
+      at: seq 52
+  - code: merchandise_out_of_stock
+    spec: out_of_stock
+    what: a sold-out line, as a warning with the line left out (D52)
+    cite:
+      wire: var/store/episodes/2026-10-13/run-d25533687ebc/ep-0a0fee9c6f90
+      at: seq 21
+  - code: invalid_input
+    spec: invalid_input
+    what: a delivery group named by anything but a CartDeliveryGroup gid
+    cite:
+      wire: var/store/episodes/2026-10-12/run-a8674a940cf0/ep-da1cd727b196
+      at: seq 23
+  keyed_ids: true
+  delivery_group_gids: true
+  cite:
+    source: pilot
+    at: report section 4
+checkout:
+  line_items:
+    rule: a line over the stock is added at the stock with a merchandise_not_enough_stock warning (core rule clamp_stock);
+      a sold-out line is a warning and left out
+    cite:
+      wire: var/store/episodes/2026-10-13/run-d25533687ebc/ep-0a0fee9c6f90
+      at: seq 21
+  fulfillment:
+    rule: delivery groups are CartDeliveryGroup gids; a malformed one is refused with the cart kept
+    cite:
+      wire: var/store/episodes/2026-10-12/run-a8674a940cf0/ep-da1cd727b196
+      at: seq 23
+  policy_links:
+  - - refund_policy
+    - Refund Policy
+  - - privacy_policy
+    - Privacy Policy
+  - - terms_of_service
+    - Terms of Service
+  - - subscription_policy
+    - Subscription Policy
+  - - contact_information
+    - Contact Information
+  - - shipping_policy
+    - Shipping Policy
+  - - legal_notice
+    - Legal Notice
+  links_cite:
+    source: pilot
+    at: report section 4
+    note: the seven link types of 315 live cart replies, in the order the stores listed them
+  discounts:
+    rule: no discounts block when no code was applied
+    cite:
+      source: pilot
+      at: report section 4
+      note: 315 live cart replies, none with a discounts block
+  discounts_block: false
+  payment_handlers:
+    rule: the store's declared handlers in full in every block (dev.shopify.card, dev.shopify.shop_pay, com.google.pay)
+    cite:
+      source: pilot
+      at: report section 1.3
+  cart_expires_days: 30
+  buyer_location_warning: true
+  sold_out_warning: true
+wording:
+  stock.sold_out: The product '{name}' is already sold out.
+wording_cite:
+  wire: var/store/episodes/2026-10-13/run-d25533687ebc/ep-0a0fee9c6f90
+  at: seq 21
+  note: The product '<title>' is already sold out.
+behaviours:
+  cart_id.keyless:
+    wire: var/store/episodes/2026-10-12/run-c2bbaece7e53/ep-475bdc4b5b0f
+    at: seq 21
+    note: 'invalid_cart_id for a cart gid without its ?key=: store-178 run-c2bbaece7e53 ep-475bdc4b5b0f seq 21 (update_cart),
+      30 and 41 (get_cart); store-062 run-3bdc048213fa ep-6e17291a1377 seq 34 (update_cart), 44 (cancel_cart), 64 (get_cart).
+      isError true; structuredContent is ucp (status error), one message (error, content_type plain, severity unrecoverable,
+      no path) and continue_url at the store root'
+  cart_id.empty:
+    wire: var/store/episodes/2026-10-13/run-d25533687ebc/ep-edb94e11d0e0
+    at: seq 40
+    note: 'invalid_cart_id, the same shape, for get_cart with id '''': store-064 run-d25533687ebc ep-edb94e11d0e0 seq 40'
+  cart_id.unknown:
+    wire: var/store/episodes/2026-10-12/run-d36514321ccb/ep-0db33a31762e
+    at: seq 52
+    note: 'cart_not_found, ''The requested cart does not exist'', for a keyed gid naming no cart: 34 get_cart calls, store-181
+      ep-0db33a31762e seq 52 among them; cancel_cart ep-bb4e0f1cfd9f seq 43'
+  cart_id.not_a_gid:
+    assumed: 'unobserved: no live call sent a cart id outside the gid shape but '''' (a bare token, a core id); the sandbox
+      answers invalid_cart_id as for the keyless gid'
+  schema.missing_argument:
+    wire: var/store/episodes/2026-10-13/run-56434ed65a61/ep-6b497a8e637a
+    at: seq 65
+    note: 'text only, isError true, no structuredContent: ''Missing required arguments: id'' (get_cart 4, update_cart 5,
+      cancel_cart store-103 ep-6b497a8e637a seq 65), ''cart, id'' (update_cart 6, store-179 ep-82a1421aa4ff seq 18), ''cart''
+      (create_cart 33), ''catalog'' (search, lookup, get_product 111)'
+  schema.missing_line_items:
+    wire: var/store/episodes/2026-10-12/run-c2bbaece7e53/ep-fae69c1ddff8
+    at: seq 19
+    note: 'text only: ''Invalid arguments: object at `/cart` is missing required properties: line_items'' on 10 update_cart
+      calls of 8 stores, store-302 ep-fae69c1ddff8 seq 19, store-182 ep-faa691c90bb3 seq 29, store-180 ep-da1cd727b196 seq 17 among
+      them'
+  schema.not_an_object:
+    wire: var/store/episodes/2026-10-13/run-0bf41c0d62df/ep-e4e9532bc58b
+    at: seq 21
+    note: 'text only: ''Invalid arguments: value at `/cart` is not an object'' for a cart sent as a JSON string (update_cart
+      store-305 ep-e4e9532bc58b seq 21 and 31, store-179 ep-ab4b792b0704 seq 28; create_cart store-302 ep-3fa1ab9aa893 seq 16), the
+      same for `/catalog` on 12 search_catalog calls'
+  schema.before_ids:
+    wire: var/store/episodes/2026-10-12/run-a8674a940cf0/ep-da1cd727b196
+    at: seq 17
+    note: 'the schema is checked before the ids inside the payload: store-180 ep-da1cd727b196 seq 17 had no line_items and
+      an invalid delivery group id and got the line_items refusal'
+  delivery_group.invalid:
+    wire: var/store/episodes/2026-10-12/run-a8674a940cf0/ep-da1cd727b196
+    at: seq 23
+    note: 'invalid_input, ''is not a valid CartDeliveryGroup GID (got: "delivery_speed")'', path $.fulfillment.methods[0].groups[0].id,
+      severity unrecoverable, as an error response with continue_url and isError true: store-180 run-a8674a940cf0 ep-da1cd727b196
+      seq 23. The cart was left as it was: the get_cart of seq 36 has the expires_at of the create, which a write moves
+      (store-305 ep-e4e9532bc58b seq 53)'
+  delivery_group.valid:
+    assumed: 'unobserved: what a well-formed CartDeliveryGroup gid does; the sandbox''s carts issue no delivery groups,
+      so such an update goes on as before'
+  line_id.keyless:
+    wire: var/store/episodes/2026-10-13/run-0bf41c0d62df/ep-e4e9532bc58b
+    at: seq 48
+    note: 'a cart line gid without its ?cart= part in line_items[].id: the cart is returned unchanged (expires_at as at
+      the create) with one message (error, code ''error'', ''Invalid id: <the id as sent>'', content_type plain, severity
+      requires_buyer_input, no path) and isError false: store-305 run-0bf41c0d62df ep-e4e9532bc58b seq 48; the same update
+      with ?cart= went through at seq 53'
+  line_id.keyless_fulfillment:
+    assumed: 'unobserved: seq 48 named the keyless line in fulfillment.methods[0].line_item_ids too, so whether that field
+      alone is refused is not shown; only line_items[].id triggers the refusal'
+  id_order:
+    assumed: 'unobserved: no call had a malformed cart id together with a malformed id inside the payload; the cart id is
+      checked first, then delivery groups, then line ids'
+  stock.sold_out:
+    wire: var/store/episodes/2026-10-13/run-d25533687ebc/ep-0a0fee9c6f90
+    at: seq 21
+    note: 'a warning merchandise_out_of_stock, ''The product ''<title>'' is already sold out.'', content_type plain, no
+      path, HTTP 200 and the line left out of line_items: 210 of 210 such messages in the live bundles of 2026-10-12 and
+      13, store-092 run-d25533687ebc ep-0a0fee9c6f90 seq 21 among them (D52)'
+  rest:
+    assumed: 'unobserved: no live Shopify store was reached over UCP REST (every live call was MCP); REST answers the same
+      documents with the binding''s statuses, and a schema refusal as the error document, since REST has no text result'
+  product_view.fields:
+    wire: var/store/episodes/2026-10-13/run-56434ed65a61/ep-06e032317eac
+    at: seq 9
+    note: 'the product keys of 34,630 search_catalog, 1,132 get_product and 345 lookup_catalog products in the 1,758 live
+      bundles of 52 stores (2026-10-12 and 13): categories, description, handle, id, list_price_range, media, options, price_range,
+      title, url, variants; tags on search only, selected on get_product only. Never vendor, product_type, rating or metadata
+      (store-009 run-56434ed65a61 ep-06e032317eac seq 9 search and seq 24 get_product; the capture''s feed names the vendor
+      of every store-009 product, and its replica served it at ep-03f738f4d8ce''s seq 9 request)'
+  product_view.variant_fields:
+    wire: var/store/episodes/2026-10-13/run-3bdc048213fa/ep-03fcf6e20fc9
+    at: seq 12
+    note: 'variant keys on all three tools: availability, description, id, list_price, media, options, price, sku, title
+      (inputs on lookup), on 134,193 search variants; never barcodes. A listing the store recorded keeps them all: store-004
+      ep-03fcf6e20fc9 seq 12 lists availability, options and sku on every variant'
+  product_view.media:
+    wire: var/store/episodes/2026-10-13/run-56434ed65a61/ep-7f9dd7b61780
+    at: seq 9
+    note: 'exactly one product media item on 1,109 of 1,132 get_product, 340 of 345 lookups and 33,860 of 34,630 search
+      products (none on the rest); alt_text on product media only in search listings (15,005 of 33,860: store-048 ep-7f9dd7b61780
+      seq 9), never in get_product or lookup; a capture''s feed lists every image (six for that product), and the replica
+      answered store-051 ep-fac58224b90e''s seq 22 get_product with several'
+  product_view.option_values:
+    wire: var/store/episodes/2026-10-13/run-3bdc048213fa/ep-201a6e37c1ee
+    at: seq 25
+    note: 'option values carry label only in search (213,301 values) and lookup (1,646). get_product adds available and
+      exists exactly when the request names `selected` options: 374 of 374 such replies (store-027 ep-201a6e37c1ee seq 25),
+      0 of 758 without (store-179 ep-ab4b792b0704 seq 56, store-056 ep-038fd522a58f seq 18 with two options)'
+  product_view.categories:
+    wire: var/store/episodes/2026-10-12/run-04c1c25d48c3/ep-1ae654e74593
+    at: seq 9
+    note: 'one category on every product that has any (31,599 search, 1,069 get_product, 330 lookup), always {taxonomy:
+      shopify, value: gid://shopify/TaxonomyCategory/...}, the same in listing and get_product (661 of 661 products read
+      both ways: store-179 ep-1ae654e74593 seq 9 lists hb-1-9-6-5). Never a collection: store-078 ep-b86f4f9a4a87 seq 14 lists
+      aa-6-3 where the capture''s collections are nine, ''all-product-excluding-advent-gift-card-etc'' among them'
+  product_view.listing_variants:
+    wire: var/store/episodes/2026-10-13/run-d25533687ebc/ep-7548f833d895
+    at: seq 34
+    note: 'a search listing lists at most ten variants per product: 7,669 of 34,630 search products list exactly ten, none
+      more (store-004 ep-7548f833d895 seq 34 lists ten of a product whose options name 13 values); get_product lists the selected
+      variant (1,077 of 1,132 one)'
+  product_view.rating:
+    wire: var/store/episodes/2026-10-13/run-3bdc048213fa/ep-0265d54127da
+    at: seq 9
+    note: 'no rating field on any of the 36,107 live products: store-058 ep-0265d54127da seq 9 lists gid://shopify/Product/9499159822559
+      without one, where the capture''s review summary rates it. The summary is read off the product page, so it is store
+      truth, not agent view'
+code:
+- name: mc.sandbox.platforms.shopify_tools_2026-08-25.json
+  why: the live tools/list, kept whole and byte for byte as recorded, so a diff against a newer list is one file
+- name: carttrace.sandbox.surfaces.ucp.ids
+  why: 'keyed cart and line gids (gid://shopify/Cart/<token>?key=<key>) are minted and parsed: an encoding, not a fact'
+- name: carttrace.sandbox.surfaces.ucp.catalog (storefront_search)
+  why: 'a search no live session asked ranks as Shopify''s catalog search approximately does (D39): an algorithm'
+- name: carttrace.sandbox.platforms.shopify.market_excludes
+  why: the NO_<market> tag rule reads a product's tags against the buyer's country; the tag prefix and country names are
+    `extra.market_tags`
+extra:
+  market_tags:
+    prefix: NO_
+    country_names:
+      AU: australia
+      CA: canada
+      DE: germany
+      ES: spain
+      FR: france
+      GB: unitedkingdom
+      IE: ireland
+      IN: india
+      IT: italy
+      JP: japan
+      MX: mexico
+      NL: netherlands
+      NZ: newzealand
+      PH: philippines
+      SG: singapore
+      UK: unitedkingdom
+      US: unitedstates

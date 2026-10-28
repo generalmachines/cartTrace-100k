@@ -1,0 +1,2596 @@
+# Synthetic shoppers (decisions D13 and D20): who pays, how their bank answers, where their orders ship, and how they
+# shop. Written by `carttrace.agents.personas.render_personas()` from word lists; `uv run carttrace agents personas` lists them and
+# tests/agents/test_personas.py holds this file to the generator. Do not edit by hand.
+#
+# Nothing here is a real person or a real card:
+# - names are a first name and an invented surname joined by position in two word lists;
+# - addresses are fictional, one per delivery market, shaped like that market's real addresses;
+# - emails are at example.com and phone numbers are in the 555-0100 to 555-0199 range reserved for fiction;
+# - every payment instrument is an opaque test token the sandbox's PSP keys its behaviour on
+#   (carttrace.sandbox.core.psp.TOKENS). No card number appears anywhere, test cards included.
+#
+# carttrace.agents.wallet loads this file and refuses an email outside example.com, a phone number outside the fictional range,
+# or any value that looks like a card number. `style` and `constraints` are what task generation turns into hidden-spec
+# variety (carttrace.agents.intents): budgets, what is stated or kept for asking, delivery, allergens, sizes and conditions.
+schema: mc.personas.v2
+version: personas-v2
+default: card-ok
+personas:
+  card-ok:
+    description: Pays by Visa card; the bank approves without a challenge.
+    name: Mara Thornvale
+    email: mara.thornvale@example.com
+    phone: +1 202-555-0101
+    instruments:
+    - kind: card
+      token: tok_visa_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 1 Maple Way
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62701'
+        address_country: US
+      CA:
+        street_address: 1 Maple Way
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1J1
+        address_country: CA
+      GB:
+        street_address: 1 Maple Lane
+        address_locality: London
+        postal_code: EC1A 1BB
+        address_country: GB
+      EU:
+        street_address: Ahornweg 1
+        address_locality: Berlin
+        postal_code: '10115'
+        address_country: DE
+      IN:
+        street_address: 1 Maple Marg
+        address_locality: Mumbai
+        address_region: MH
+        postal_code: '400001'
+        address_country: IN
+      AU:
+        street_address: 1 Maple Street
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2000'
+        address_country: AU
+      NZ:
+        street_address: 1 Maple Street
+        address_locality: Wellington
+        postal_code: '6011'
+        address_country: NZ
+      SG:
+        street_address: 1 Maple Road
+        address_locality: Singapore
+        postal_code: 018989
+        address_country: SG
+      MX:
+        street_address: Calle Arce 1
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06000'
+        address_country: MX
+      JP:
+        street_address: 1-1 Kaede
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0001
+        address_country: JP
+      PH:
+        street_address: 1 Maple Street
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1226'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: fast
+      disclosure: mixed
+      delivery: standard
+    constraints: {}
+  card-3ds:
+    description: Pays by Visa card; the bank asks for 3-D Secure, the shopper completes it and the bank approves.
+    name: Idris Ashbury
+    email: idris.ashbury@example.com
+    phone: +1 202-555-0102
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_challenge
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 121 Moss Street
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12275'
+        address_country: US
+      CA:
+        street_address: 88 Wren Crescent
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1G0
+        address_country: CA
+      GB:
+        street_address: 120 Harbour Close
+        address_locality: Manchester
+        postal_code: M1 1WS
+        address_country: GB
+      EU:
+        street_address: Mossweg 118
+        address_locality: München
+        postal_code: '80379'
+        address_country: DE
+      IN:
+        street_address: 179 Orchard Lane
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110089'
+        address_country: IN
+      AU:
+        street_address: 176 Lantern Street
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3032'
+        address_country: AU
+      NZ:
+        street_address: 134 Kestrel Terrace
+        address_locality: Wellington
+        postal_code: '6088'
+        address_country: NZ
+      SG:
+        street_address: 165 Juniper Road
+        address_locality: Singapore
+        postal_code: '238853'
+        address_country: SG
+      MX:
+        street_address: Calle Juniper 44
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06045'
+        address_country: MX
+      JP:
+        street_address: 7-78 Copperfield
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0011
+        address_country: JP
+      PH:
+        street_address: 30 Willowmere Street
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1234'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: fast
+      disclosure: asks
+      delivery: standard
+    constraints:
+      dietary:
+      - vegetarian
+      measurements:
+        chest: 102 cm
+        waist: 88 cm
+        foot: 28 cm
+  card-3ds-abandons:
+    description: Pays by Visa card; the bank asks for 3-D Secure and the shopper abandons the challenge.
+    name: Noor Quillfeather
+    email: noor.quillfeather@example.com
+    phone: +1 202-555-0103
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_challenge
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: abandon
+    addresses:
+      US:
+        street_address: 26 Bramble Drive
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12223'
+        address_country: US
+      CA:
+        street_address: 59 Juniper Street
+        address_locality: Vancouver
+        address_region: BC
+        postal_code: V6B 3M0
+        address_country: CA
+      GB:
+        street_address: 76 Willowmere Close
+        address_locality: Leeds
+        postal_code: LS1 2NX
+        address_country: GB
+      EU:
+        street_address: Lanternallee 150
+        address_locality: Berlin
+        postal_code: '10133'
+        address_country: DE
+      IN:
+        street_address: 60 Juniper Lane
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110091'
+        address_country: IN
+      AU:
+        street_address: 48 Fieldfare Street
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2063'
+        address_country: AU
+      NZ:
+        street_address: 108 Foxglove Terrace
+        address_locality: Auckland
+        postal_code: '1000'
+        address_country: NZ
+      SG:
+        street_address: 14 Tamarind Road
+        address_locality: Singapore
+        postal_code: '238808'
+        address_country: SG
+      MX:
+        street_address: Calle Juniper 30
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06047'
+        address_country: MX
+      JP:
+        street_address: 4-86 Moss
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0002
+        address_country: JP
+      PH:
+        street_address: 11 Juniper Avenue
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6070'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: fast
+      disclosure: forgets
+      delivery: express
+    constraints:
+      allergens:
+      - gluten
+      avoid_materials:
+      - nickel
+  card-3ds-fails:
+    description: Pays by Visa card; the shopper completes 3-D Secure and the bank fails the authentication.
+    name: Teodor Brightwater
+    email: teodor.brightwater@example.com
+    phone: +1 202-555-0104
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_fail
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 77 Quarry Drive
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12202'
+        address_country: US
+      CA:
+        street_address: 52 Fieldfare Crescent
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2N3
+        address_country: CA
+      GB:
+        street_address: 126 Orchard Road
+        address_locality: Leeds
+        postal_code: LS1 2XH
+        address_country: GB
+      EU:
+        street_address: Pennantstraße 111
+        address_locality: München
+        postal_code: '80324'
+        address_country: DE
+      IN:
+        street_address: 145 Moss Marg
+        address_locality: Bengaluru
+        address_region: KA
+        postal_code: '560063'
+        address_country: IN
+      AU:
+        street_address: 148 Lantern Road
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4040'
+        address_country: AU
+      NZ:
+        street_address: 77 Harbour Terrace
+        address_locality: Wellington
+        postal_code: '6077'
+        address_country: NZ
+      SG:
+        street_address: 134 Bramble Road
+        address_locality: Singapore
+        postal_code: 018958
+        address_country: SG
+      MX:
+        street_address: Calle Linden 74
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44184'
+        address_country: MX
+      JP:
+        street_address: 92-1 Sorrel
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0081
+        address_country: JP
+      PH:
+        street_address: 18 Willowmere Avenue
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1142'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: deliberate
+      disclosure: mixed
+      delivery: express
+    constraints:
+      measurements:
+        chest: 110 cm
+        waist: 96 cm
+        foot: 29 cm
+      conditions:
+      - breastfeeding
+  card-declined:
+    description: Pays by Visa card; the bank declines it for insufficient funds.
+    name: Saoirse Fennimore
+    email: saoirse.fennimore@example.com
+    phone: +1 202-555-0105
+    instruments:
+    - kind: card
+      token: tok_visa_decline_insufficient_funds
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 100 Pennant Street
+        address_locality: Austin
+        address_region: TX
+        postal_code: '78719'
+        address_country: US
+      CA:
+        street_address: 84 Linden Avenue
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2S0
+        address_country: CA
+      GB:
+        street_address: 89 Moss Lane
+        address_locality: Leeds
+        postal_code: LS1 2AW
+        address_country: GB
+      EU:
+        street_address: Marigoldallee 29
+        address_locality: Hamburg
+        postal_code: '20019'
+        address_country: DE
+      IN:
+        street_address: 138 Sorrel Marg
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110017'
+        address_country: IN
+      AU:
+        street_address: 154 Larkspur Road
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3029'
+        address_country: AU
+      NZ:
+        street_address: 11 Willowmere Terrace
+        address_locality: Auckland
+        postal_code: '1054'
+        address_country: NZ
+      SG:
+        street_address: 107 Alder Avenue
+        address_locality: Singapore
+        postal_code: 018913
+        address_country: SG
+      MX:
+        street_address: Calle Orchard 76
+        address_locality: Monterrey
+        address_region: NL
+        postal_code: '64045'
+        address_country: MX
+      JP:
+        street_address: 88-9 Quarry
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0067
+        address_country: JP
+      PH:
+        street_address: 85 Kestrel Street
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6021'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: deliberate
+      disclosure: volunteers
+      delivery: pickup
+    constraints:
+      allergens:
+      - soy
+      dietary:
+      - kosher
+  google-pay:
+    description: Pays with Google Pay only; the bank approves without a challenge.
+    name: Kwame Halloway
+    email: kwame.halloway@example.com
+    phone: +1 202-555-0106
+    instruments:
+    - kind: google_pay
+      token: tok_gpay_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 180 Tamarind Avenue
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62738'
+        address_country: US
+      CA:
+        street_address: 132 Quarry Street
+        address_locality: Vancouver
+        address_region: BC
+        postal_code: V6B 3U1
+        address_country: CA
+      GB:
+        street_address: 170 Willowmere Road
+        address_locality: Manchester
+        postal_code: M1 1XW
+        address_country: GB
+      EU:
+        street_address: Heronstraße 139
+        address_locality: Berlin
+        postal_code: '10155'
+        address_country: DE
+      IN:
+        street_address: 4 Quarry Lane
+        address_locality: Pune
+        address_region: MH
+        postal_code: '411088'
+        address_country: IN
+      AU:
+        street_address: 126 Willowmere Parade
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2085'
+        address_country: AU
+      NZ:
+        street_address: 78 Willowmere Street
+        address_locality: Auckland
+        postal_code: '1008'
+        address_country: NZ
+      SG:
+        street_address: 104 Heron Road
+        address_locality: Singapore
+        postal_code: '238810'
+        address_country: SG
+      MX:
+        street_address: Avenida Fieldfare 159
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06065'
+        address_country: MX
+      JP:
+        street_address: 42-3 Marigold
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0046
+        address_country: JP
+      PH:
+        street_address: 125 Copperfield Street
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1109'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: deliberate
+      disclosure: asks
+      delivery: pickup
+    constraints:
+      measurements:
+        bust: 86 cm
+        waist: 68 cm
+        hips: 92 cm
+  ingrid-kestrelbrook:
+    description: Pays by Visa card; the bank approves without a challenge.
+    name: Ingrid Kestrelbrook
+    email: ingrid.kestrelbrook@example.com
+    phone: +1 202-555-0107
+    instruments:
+    - kind: card
+      token: tok_visa_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 99 Juniper Street
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62797'
+        address_country: US
+      CA:
+        street_address: 113 Marigold Avenue
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2E2
+        address_country: CA
+      GB:
+        street_address: 126 Harbour Road
+        address_locality: Manchester
+        postal_code: M1 1UR
+        address_country: GB
+      EU:
+        street_address: Quarrystraße 8
+        address_locality: Köln
+        postal_code: '50688'
+        address_country: DE
+      IN:
+        street_address: 2 Linden Lane
+        address_locality: Mumbai
+        address_region: MH
+        postal_code: '400034'
+        address_country: IN
+      AU:
+        street_address: 154 Moss Road
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2025'
+        address_country: AU
+      NZ:
+        street_address: 74 Linden Street
+        address_locality: Auckland
+        postal_code: '1066'
+        address_country: NZ
+      SG:
+        street_address: 164 Lantern Road
+        address_locality: Singapore
+        postal_code: 018913
+        address_country: SG
+      MX:
+        street_address: Calle Pennant 95
+        address_locality: Monterrey
+        address_region: NL
+        postal_code: '64075'
+        address_country: MX
+      JP:
+        street_address: 5-75 Juniper
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0002
+        address_country: JP
+      PH:
+        street_address: 58 Moss Street
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6020'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: fast
+      disclosure: forgets
+      delivery: standard
+    constraints:
+      allergens:
+      - sesame
+  rafael-larkwood:
+    description: Pays by Mastercard; the bank approves without a challenge.
+    name: Rafael Larkwood
+    email: rafael.larkwood@example.com
+    phone: +1 202-555-0108
+    instruments:
+    - kind: card
+      token: tok_mc_ok
+      brand: mastercard
+    - kind: google_pay
+      token: tok_gpay_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 160 Linden Drive
+        address_locality: Austin
+        address_region: TX
+        postal_code: '78791'
+        address_country: US
+      CA:
+        street_address: 92 Moss Crescent
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1F9
+        address_country: CA
+      GB:
+        street_address: 81 Willowmere Road
+        address_locality: Leeds
+        postal_code: LS1 2AW
+        address_country: GB
+      EU:
+        street_address: Kestrelweg 130
+        address_locality: Hamburg
+        postal_code: '20015'
+        address_country: DE
+      IN:
+        street_address: 142 Bramble Marg
+        address_locality: Bengaluru
+        address_region: KA
+        postal_code: '560070'
+        address_country: IN
+      AU:
+        street_address: 8 Copperfield Road
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4084'
+        address_country: AU
+      NZ:
+        street_address: 64 Saltmarsh Street
+        address_locality: Wellington
+        postal_code: '6026'
+        address_country: NZ
+      SG:
+        street_address: 27 Moss Avenue
+        address_locality: Singapore
+        postal_code: 018953
+        address_country: SG
+      MX:
+        street_address: Avenida Tamarind 84
+        address_locality: Monterrey
+        address_region: NL
+        postal_code: '64092'
+        address_country: MX
+      JP:
+        street_address: 9-132 Kestrel
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0017
+        address_country: JP
+      PH:
+        street_address: 87 Juniper Street
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1103'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: fast
+      disclosure: mixed
+      delivery: standard
+    constraints:
+      dietary:
+      - low sugar
+      measurements:
+        chest: 102 cm
+        waist: 88 cm
+        foot: 28 cm
+      conditions:
+      - takes warfarin
+      avoid_materials:
+      - nickel
+  ananya-moorcroft:
+    description: Pays by Amex; the bank approves without a challenge.
+    name: Ananya Moorcroft
+    email: ananya.moorcroft@example.com
+    phone: +1 202-555-0109
+    instruments:
+    - kind: card
+      token: tok_amex_ok
+      brand: amex
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 75 Orchard Lane
+        address_locality: Austin
+        address_region: TX
+        postal_code: '78722'
+        address_country: US
+      CA:
+        street_address: 59 Fieldfare Avenue
+        address_locality: Vancouver
+        address_region: BC
+        postal_code: V6B 3F2
+        address_country: CA
+      GB:
+        street_address: 174 Quarry Lane
+        address_locality: Bristol
+        postal_code: BS1 4PN
+        address_country: GB
+      EU:
+        street_address: Kestrelweg 137
+        address_locality: München
+        postal_code: '80345'
+        address_country: DE
+      IN:
+        street_address: 118 Heron Road
+        address_locality: Mumbai
+        address_region: MH
+        postal_code: '400049'
+        address_country: IN
+      AU:
+        street_address: 128 Kestrel Road
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2018'
+        address_country: AU
+      NZ:
+        street_address: 61 Birchwood Road
+        address_locality: Wellington
+        postal_code: '6056'
+        address_country: NZ
+      SG:
+        street_address: 106 Copperfield Road
+        address_locality: Singapore
+        postal_code: '238870'
+        address_country: SG
+      MX:
+        street_address: Calle Wren 2
+        address_locality: Monterrey
+        address_region: NL
+        postal_code: '64087'
+        address_country: MX
+      JP:
+        street_address: 75-2 Juniper
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0008
+        address_country: JP
+      PH:
+        street_address: 127 Juniper Avenue
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1285'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: fast
+      disclosure: volunteers
+      delivery: express
+    constraints:
+      allergens:
+      - nickel
+  haruto-vance-nightingale:
+    description: Pays by Visa card; completes the 3-D Secure challenge.
+    name: Haruto Vance-Nightingale
+    email: haruto.vance-nightingale@example.com
+    phone: +1 202-555-0110
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_challenge
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 3 Pennant Avenue
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12292'
+        address_country: US
+      CA:
+        street_address: 56 Bramble Avenue
+        address_locality: Vancouver
+        address_region: BC
+        postal_code: V6B 3G8
+        address_country: CA
+      GB:
+        street_address: 22 Lantern Close
+        address_locality: London
+        postal_code: EC1A 1DR
+        address_country: GB
+      EU:
+        street_address: Lanternallee 42
+        address_locality: Berlin
+        postal_code: '10160'
+        address_country: DE
+      IN:
+        street_address: 173 Moss Lane
+        address_locality: Bengaluru
+        address_region: KA
+        postal_code: '560054'
+        address_country: IN
+      AU:
+        street_address: 163 Copperfield Street
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4090'
+        address_country: AU
+      NZ:
+        street_address: 28 Birchwood Road
+        address_locality: Auckland
+        postal_code: '1071'
+        address_country: NZ
+      SG:
+        street_address: 24 Kestrel Road
+        address_locality: Singapore
+        postal_code: 018941
+        address_country: SG
+      MX:
+        street_address: Avenida Wren 174
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: 06028
+        address_country: MX
+      JP:
+        street_address: 55-9 Harbour
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0021
+        address_country: JP
+      PH:
+        street_address: 84 Juniper Avenue
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1238'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: deliberate
+      disclosure: asks
+      delivery: express
+    constraints:
+      measurements:
+        chest: 110 cm
+        waist: 96 cm
+        foot: 29 cm
+  leila-oakhurst:
+    description: Pays by Visa card; abandons the 3-D Secure challenge.
+    name: Leila Oakhurst
+    email: leila.oakhurst@example.com
+    phone: +1 202-555-0111
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_challenge
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: abandon
+    addresses:
+      US:
+        street_address: 18 Harbour Drive
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12218'
+        address_country: US
+      CA:
+        street_address: 49 Sorrel Avenue
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2M3
+        address_country: CA
+      GB:
+        street_address: 41 Heron Lane
+        address_locality: Leeds
+        postal_code: LS1 2DW
+        address_country: GB
+      EU:
+        street_address: Willowmereweg 92
+        address_locality: Berlin
+        postal_code: '10130'
+        address_country: DE
+      IN:
+        street_address: 49 Saltmarsh Lane
+        address_locality: Mumbai
+        address_region: MH
+        postal_code: '400083'
+        address_country: IN
+      AU:
+        street_address: 50 Kestrel Street
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2057'
+        address_country: AU
+      NZ:
+        street_address: 59 Alder Street
+        address_locality: Auckland
+        postal_code: '1035'
+        address_country: NZ
+      SG:
+        street_address: 92 Foxglove Road
+        address_locality: Singapore
+        postal_code: 018997
+        address_country: SG
+      MX:
+        street_address: Calle Pennant 157
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06041'
+        address_country: MX
+      JP:
+        street_address: 3-6 Meridian
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0086
+        address_country: JP
+      PH:
+        street_address: 175 Ashgrove Street
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6030'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: deliberate
+      disclosure: forgets
+      delivery: pickup
+    constraints:
+      allergens:
+      - milk
+      dietary:
+      - gluten-free
+      measurements:
+        chest: 95 cm
+        waist: 80 cm
+        height: 176 cm
+  bram-pennywhistle:
+    description: Pays by Visa card; the bank fails the 3-D Secure check.
+    name: Bram Pennywhistle
+    email: bram.pennywhistle@example.com
+    phone: +1 202-555-0112
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_fail
+      brand: visa
+    - kind: google_pay
+      token: tok_gpay_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 153 Tamarind Avenue
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62790'
+        address_country: US
+      CA:
+        street_address: 109 Linden Crescent
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2G1
+        address_country: CA
+      GB:
+        street_address: 20 Juniper Road
+        address_locality: Bristol
+        postal_code: BS1 4BY
+        address_country: GB
+      EU:
+        street_address: Pennantweg 36
+        address_locality: Berlin
+        postal_code: '10113'
+        address_country: DE
+      IN:
+        street_address: 25 Heron Lane
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110053'
+        address_country: IN
+      AU:
+        street_address: 80 Juniper Parade
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3012'
+        address_country: AU
+      NZ:
+        street_address: 109 Linden Terrace
+        address_locality: Wellington
+        postal_code: '6092'
+        address_country: NZ
+      SG:
+        street_address: 25 Harbour Road
+        address_locality: Singapore
+        postal_code: '238849'
+        address_country: SG
+      MX:
+        street_address: Avenida Alder 37
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44140'
+        address_country: MX
+      JP:
+        street_address: 4-125 Willowmere
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0052
+        address_country: JP
+      PH:
+        street_address: 119 Fieldfare Street
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1197'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: deliberate
+      disclosure: mixed
+      delivery: pickup
+    constraints:
+      measurements:
+        bust: 86 cm
+        waist: 68 cm
+        hips: 92 cm
+      conditions:
+      - asthma
+  seun-ravensworth:
+    description: Pays by Visa card; declined for funds.
+    name: Seun Ravensworth
+    email: seun.ravensworth@example.com
+    phone: +1 202-555-0113
+    instruments:
+    - kind: card
+      token: tok_visa_decline_insufficient_funds
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 145 Marigold Avenue
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12220'
+        address_country: US
+      CA:
+        street_address: 96 Meridian Street
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1A6
+        address_country: CA
+      GB:
+        street_address: 58 Larkspur Close
+        address_locality: Leeds
+        postal_code: LS1 2FE
+        address_country: GB
+      EU:
+        street_address: Willowmerestraße 4
+        address_locality: Köln
+        postal_code: '50665'
+        address_country: DE
+      IN:
+        street_address: 16 Ashgrove Lane
+        address_locality: Bengaluru
+        address_region: KA
+        postal_code: '560075'
+        address_country: IN
+      AU:
+        street_address: 22 Pennant Road
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3022'
+        address_country: AU
+      NZ:
+        street_address: 132 Larkspur Road
+        address_locality: Auckland
+        postal_code: '1097'
+        address_country: NZ
+      SG:
+        street_address: 2 Tamarind Road
+        address_locality: Singapore
+        postal_code: '238847'
+        address_country: SG
+      MX:
+        street_address: Calle Ashgrove 164
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44152'
+        address_country: MX
+      JP:
+        street_address: 1-55 Tamarind
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0056
+        address_country: JP
+      PH:
+        street_address: 178 Alder Avenue
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1242'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: fast
+      disclosure: volunteers
+      delivery: standard
+    constraints:
+      allergens:
+      - gluten
+      avoid_materials:
+      - nickel
+  priya-silverleaf:
+    description: Pays by Visa card; the bank does not honour it.
+    name: Priya Silverleaf
+    email: priya.silverleaf@example.com
+    phone: +1 202-555-0114
+    instruments:
+    - kind: card
+      token: tok_visa_decline_do_not_honor
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 82 Birchwood Drive
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12285'
+        address_country: US
+      CA:
+        street_address: 169 Meridian Crescent
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1W8
+        address_country: CA
+      GB:
+        street_address: 162 Meridian Road
+        address_locality: Manchester
+        postal_code: M1 1JL
+        address_country: GB
+      EU:
+        street_address: Juniperallee 56
+        address_locality: Köln
+        postal_code: '50667'
+        address_country: DE
+      IN:
+        street_address: 100 Sorrel Road
+        address_locality: Pune
+        address_region: MH
+        postal_code: '411012'
+        address_country: IN
+      AU:
+        street_address: 67 Linden Parade
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4060'
+        address_country: AU
+      NZ:
+        street_address: 133 Wren Road
+        address_locality: Wellington
+        postal_code: '6017'
+        address_country: NZ
+      SG:
+        street_address: 74 Marigold Road
+        address_locality: Singapore
+        postal_code: 018915
+        address_country: SG
+      MX:
+        street_address: Avenida Orchard 179
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44103'
+        address_country: MX
+      JP:
+        street_address: 158-2 Moss
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0041
+        address_country: JP
+      PH:
+        street_address: 8 Lantern Street
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6088'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: fast
+      disclosure: asks
+      delivery: standard
+    constraints:
+      dietary:
+      - halal
+      measurements:
+        chest: 102 cm
+        waist: 88 cm
+        foot: 28 cm
+  callum-tanglewood:
+    description: Pays with Google Pay only; approved without a challenge.
+    name: Callum Tanglewood
+    email: callum.tanglewood@example.com
+    phone: +1 202-555-0115
+    instruments:
+    - kind: google_pay
+      token: tok_gpay_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 125 Moss Lane
+        address_locality: Portland
+        address_region: OR
+        postal_code: '97281'
+        address_country: US
+      CA:
+        street_address: 154 Larkspur Avenue
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1M6
+        address_country: CA
+      GB:
+        street_address: 159 Orchard Road
+        address_locality: Leeds
+        postal_code: LS1 2NT
+        address_country: GB
+      EU:
+        street_address: Copperfieldallee 75
+        address_locality: München
+        postal_code: '80397'
+        address_country: DE
+      IN:
+        street_address: 52 Willowmere Marg
+        address_locality: Pune
+        address_region: MH
+        postal_code: '411073'
+        address_country: IN
+      AU:
+        street_address: 25 Tamarind Street
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4028'
+        address_country: AU
+      NZ:
+        street_address: 22 Birchwood Road
+        address_locality: Wellington
+        postal_code: '6054'
+        address_country: NZ
+      SG:
+        street_address: 19 Pennant Road
+        address_locality: Singapore
+        postal_code: '238881'
+        address_country: SG
+      MX:
+        street_address: Calle Marigold 62
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44123'
+        address_country: MX
+      JP:
+        street_address: 8-69 Larkspur
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0093
+        address_country: JP
+      PH:
+        street_address: 50 Moss Street
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1246'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: fast
+      disclosure: forgets
+      delivery: express
+    constraints:
+      allergens:
+      - soy
+  zofia-underhill:
+    description: Pays by card through Shopify's handler; approved.
+    name: Zofia Underhill
+    email: zofia.underhill@example.com
+    phone: +1 202-555-0116
+    instruments:
+    - kind: card
+      token: tok_shopify_card_ok
+      brand: visa
+    - kind: google_pay
+      token: tok_gpay_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 14 Tamarind Avenue
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62731'
+        address_country: US
+      CA:
+        street_address: 168 Linden Street
+        address_locality: Vancouver
+        address_region: BC
+        postal_code: V6B 3P7
+        address_country: CA
+      GB:
+        street_address: 100 Larkspur Road
+        address_locality: Manchester
+        postal_code: M1 1CL
+        address_country: GB
+      EU:
+        street_address: Brambleallee 45
+        address_locality: Köln
+        postal_code: '50661'
+        address_country: DE
+      IN:
+        street_address: 69 Ashgrove Road
+        address_locality: Bengaluru
+        address_region: KA
+        postal_code: '560057'
+        address_country: IN
+      AU:
+        street_address: 17 Kestrel Road
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4025'
+        address_country: AU
+      NZ:
+        street_address: 133 Linden Street
+        address_locality: Auckland
+        postal_code: '1048'
+        address_country: NZ
+      SG:
+        street_address: 74 Bramble Road
+        address_locality: Singapore
+        postal_code: '238866'
+        address_country: SG
+      MX:
+        street_address: Calle Fieldfare 56
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: 06085
+        address_country: MX
+      JP:
+        street_address: 1-111 Birchwood
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0014
+        address_country: JP
+      PH:
+        street_address: 9 Bramble Avenue
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1130'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: deliberate
+      disclosure: mixed
+      delivery: express
+    constraints:
+      measurements:
+        chest: 110 cm
+        waist: 96 cm
+        foot: 29 cm
+      conditions:
+      - pregnant
+  mateo-vexley:
+    description: Pays by Visa card; the bank approves without a challenge.
+    name: Mateo Vexley
+    email: mateo.vexley@example.com
+    phone: +1 202-555-0117
+    instruments:
+    - kind: card
+      token: tok_visa_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 44 Bramble Drive
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62739'
+        address_country: US
+      CA:
+        street_address: 179 Linden Avenue
+        address_locality: Vancouver
+        address_region: BC
+        postal_code: V6B 3A0
+        address_country: CA
+      GB:
+        street_address: 106 Birchwood Close
+        address_locality: London
+        postal_code: EC1A 1ED
+        address_country: GB
+      EU:
+        street_address: Lindenweg 150
+        address_locality: München
+        postal_code: '80314'
+        address_country: DE
+      IN:
+        street_address: 14 Orchard Lane
+        address_locality: Mumbai
+        address_region: MH
+        postal_code: '400028'
+        address_country: IN
+      AU:
+        street_address: 143 Fieldfare Street
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3023'
+        address_country: AU
+      NZ:
+        street_address: 118 Tamarind Road
+        address_locality: Auckland
+        postal_code: '1071'
+        address_country: NZ
+      SG:
+        street_address: 141 Tallow Avenue
+        address_locality: Singapore
+        postal_code: '238882'
+        address_country: SG
+      MX:
+        street_address: Avenida Fieldfare 78
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: 06083
+        address_country: MX
+      JP:
+        street_address: 171-3 Harbour
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0052
+        address_country: JP
+      PH:
+        street_address: 93 Foxglove Avenue
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6035'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: deliberate
+      disclosure: volunteers
+      delivery: pickup
+    constraints:
+      allergens:
+      - sesame
+      dietary:
+      - vegan
+  yuki-wintermere:
+    description: Pays by Mastercard; the bank approves without a challenge.
+    name: Yuki Wintermere
+    email: yuki.wintermere@example.com
+    phone: +1 202-555-0118
+    instruments:
+    - kind: card
+      token: tok_mc_ok
+      brand: mastercard
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 103 Fieldfare Drive
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62767'
+        address_country: US
+      CA:
+        street_address: 38 Larkspur Crescent
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1S8
+        address_country: CA
+      GB:
+        street_address: 12 Lantern Road
+        address_locality: Manchester
+        postal_code: M1 1BR
+        address_country: GB
+      EU:
+        street_address: Birchwoodallee 177
+        address_locality: München
+        postal_code: '80331'
+        address_country: DE
+      IN:
+        street_address: 156 Bramble Lane
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110048'
+        address_country: IN
+      AU:
+        street_address: 177 Orchard Parade
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3018'
+        address_country: AU
+      NZ:
+        street_address: 105 Sorrel Street
+        address_locality: Auckland
+        postal_code: '1064'
+        address_country: NZ
+      SG:
+        street_address: 13 Wren Avenue
+        address_locality: Singapore
+        postal_code: '238858'
+        address_country: SG
+      MX:
+        street_address: Calle Alder 159
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06040'
+        address_country: MX
+      JP:
+        street_address: 172-1 Tamarind
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0070
+        address_country: JP
+      PH:
+        street_address: 153 Saltmarsh Street
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6014'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: deliberate
+      disclosure: asks
+      delivery: pickup
+    constraints:
+      measurements:
+        bust: 86 cm
+        waist: 68 cm
+        hips: 92 cm
+      avoid_materials:
+      - nickel
+  femi-yarrowdale:
+    description: Pays by Amex; the bank approves without a challenge.
+    name: Femi Yarrowdale
+    email: femi.yarrowdale@example.com
+    phone: +1 202-555-0119
+    instruments:
+    - kind: card
+      token: tok_amex_ok
+      brand: amex
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 71 Foxglove Lane
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62711'
+        address_country: US
+      CA:
+        street_address: 159 Linden Street
+        address_locality: Vancouver
+        address_region: BC
+        postal_code: V6B 3M6
+        address_country: CA
+      GB:
+        street_address: 166 Wren Close
+        address_locality: Manchester
+        postal_code: M1 1XH
+        address_country: GB
+      EU:
+        street_address: Copperfieldweg 135
+        address_locality: Köln
+        postal_code: '50645'
+        address_country: DE
+      IN:
+        street_address: 30 Harbour Lane
+        address_locality: Mumbai
+        address_region: MH
+        postal_code: '400035'
+        address_country: IN
+      AU:
+        street_address: 36 Ashgrove Road
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3037'
+        address_country: AU
+      NZ:
+        street_address: 51 Lantern Street
+        address_locality: Auckland
+        postal_code: '1071'
+        address_country: NZ
+      SG:
+        street_address: 163 Kestrel Road
+        address_locality: Singapore
+        postal_code: '238819'
+        address_country: SG
+      MX:
+        street_address: Avenida Harbour 55
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44155'
+        address_country: MX
+      JP:
+        street_address: 9-71 Quarry
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0050
+        address_country: JP
+      PH:
+        street_address: 107 Copperfield Avenue
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6016'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: fast
+      disclosure: forgets
+      delivery: standard
+    constraints:
+      allergens:
+      - nickel
+  astrid-coldstream:
+    description: Pays by Visa card; completes the 3-D Secure challenge.
+    name: Astrid Coldstream
+    email: astrid.coldstream@example.com
+    phone: +1 202-555-0120
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_challenge
+      brand: visa
+    - kind: google_pay
+      token: tok_gpay_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 63 Saltmarsh Avenue
+        address_locality: Austin
+        address_region: TX
+        postal_code: '78750'
+        address_country: US
+      CA:
+        street_address: 18 Foxglove Street
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1F3
+        address_country: CA
+      GB:
+        street_address: 14 Heron Gardens
+        address_locality: Leeds
+        postal_code: LS1 2WZ
+        address_country: GB
+      EU:
+        street_address: Quarryallee 151
+        address_locality: Berlin
+        postal_code: '10108'
+        address_country: DE
+      IN:
+        street_address: 32 Linden Marg
+        address_locality: Bengaluru
+        address_region: KA
+        postal_code: '560088'
+        address_country: IN
+      AU:
+        street_address: 105 Heron Street
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2027'
+        address_country: AU
+      NZ:
+        street_address: 164 Saltmarsh Terrace
+        address_locality: Wellington
+        postal_code: '6038'
+        address_country: NZ
+      SG:
+        street_address: 174 Tamarind Avenue
+        address_locality: Singapore
+        postal_code: 018929
+        address_country: SG
+      MX:
+        street_address: Calle Meridian 15
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: 06048
+        address_country: MX
+      JP:
+        street_address: 16-7 Quarry
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0049
+        address_country: JP
+      PH:
+        street_address: 10 Fieldfare Avenue
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1209'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: fast
+      disclosure: mixed
+      delivery: standard
+    constraints:
+      dietary:
+      - dairy-free
+      measurements:
+        chest: 102 cm
+        waist: 88 cm
+        foot: 28 cm
+      conditions:
+      - high blood pressure
+  devika-dunmore-ashe:
+    description: Pays by Visa card; abandons the 3-D Secure challenge.
+    name: Devika Dunmore-Ashe
+    email: devika.dunmore-ashe@example.com
+    phone: +1 202-555-0121
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_challenge
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: abandon
+    addresses:
+      US:
+        street_address: 76 Fieldfare Drive
+        address_locality: Portland
+        address_region: OR
+        postal_code: '97254'
+        address_country: US
+      CA:
+        street_address: 147 Wren Crescent
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2E1
+        address_country: CA
+      GB:
+        street_address: 129 Lantern Lane
+        address_locality: Bristol
+        postal_code: BS1 4CY
+        address_country: GB
+      EU:
+        street_address: Lanternweg 66
+        address_locality: Hamburg
+        postal_code: '20079'
+        address_country: DE
+      IN:
+        street_address: 32 Willowmere Marg
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110017'
+        address_country: IN
+      AU:
+        street_address: 43 Wren Street
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2012'
+        address_country: AU
+      NZ:
+        street_address: 147 Saltmarsh Road
+        address_locality: Auckland
+        postal_code: '1055'
+        address_country: NZ
+      SG:
+        street_address: 82 Bramble Avenue
+        address_locality: Singapore
+        postal_code: '238842'
+        address_country: SG
+      MX:
+        street_address: Calle Wren 38
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44112'
+        address_country: MX
+      JP:
+        street_address: 117-5 Birchwood
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0076
+        address_country: JP
+      PH:
+        street_address: 158 Ashgrove Street
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6069'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: fast
+      disclosure: volunteers
+      delivery: express
+    constraints:
+      allergens:
+      - milk
+      measurements:
+        bust: 94 cm
+        hips: 100 cm
+        foot: 24.5 cm
+  rosalind-everhart:
+    description: Pays by Visa card; the bank fails the 3-D Secure check.
+    name: Rosalind Everhart
+    email: rosalind.everhart@example.com
+    phone: +1 202-555-0122
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_fail
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 158 Wren Avenue
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12222'
+        address_country: US
+      CA:
+        street_address: 118 Orchard Street
+        address_locality: Vancouver
+        address_region: BC
+        postal_code: V6B 3H5
+        address_country: CA
+      GB:
+        street_address: 29 Meridian Lane
+        address_locality: Bristol
+        postal_code: BS1 4SK
+        address_country: GB
+      EU:
+        street_address: Willowmerestraße 113
+        address_locality: Köln
+        postal_code: '50626'
+        address_country: DE
+      IN:
+        street_address: 170 Wren Lane
+        address_locality: Bengaluru
+        address_region: KA
+        postal_code: '560056'
+        address_country: IN
+      AU:
+        street_address: 141 Heron Road
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2042'
+        address_country: AU
+      NZ:
+        street_address: 84 Alder Road
+        address_locality: Auckland
+        postal_code: '1074'
+        address_country: NZ
+      SG:
+        street_address: 134 Birchwood Road
+        address_locality: Singapore
+        postal_code: 018959
+        address_country: SG
+      MX:
+        street_address: Calle Sorrel 90
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44153'
+        address_country: MX
+      JP:
+        street_address: 5-50 Marigold
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0010
+        address_country: JP
+      PH:
+        street_address: 164 Linden Street
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1189'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: deliberate
+      disclosure: asks
+      delivery: express
+    constraints:
+      measurements:
+        chest: 110 cm
+        waist: 96 cm
+        foot: 29 cm
+  tariq-fallowfield:
+    description: Pays by Visa card; declined for funds.
+    name: Tariq Fallowfield
+    email: tariq.fallowfield@example.com
+    phone: +1 202-555-0123
+    instruments:
+    - kind: card
+      token: tok_visa_decline_insufficient_funds
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 114 Lantern Drive
+        address_locality: Portland
+        address_region: OR
+        postal_code: '97204'
+        address_country: US
+      CA:
+        street_address: 73 Meridian Street
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1C8
+        address_country: CA
+      GB:
+        street_address: 10 Ashgrove Close
+        address_locality: Manchester
+        postal_code: M1 1JG
+        address_country: GB
+      EU:
+        street_address: Wrenallee 138
+        address_locality: Berlin
+        postal_code: '10127'
+        address_country: DE
+      IN:
+        street_address: 19 Kestrel Marg
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110019'
+        address_country: IN
+      AU:
+        street_address: 52 Pennant Road
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3088'
+        address_country: AU
+      NZ:
+        street_address: 156 Juniper Road
+        address_locality: Auckland
+        postal_code: '1055'
+        address_country: NZ
+      SG:
+        street_address: 82 Quarry Road
+        address_locality: Singapore
+        postal_code: 018946
+        address_country: SG
+      MX:
+        street_address: Avenida Foxglove 165
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06047'
+        address_country: MX
+      JP:
+        street_address: 163-1 Alder
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0008
+        address_country: JP
+      PH:
+        street_address: 162 Birchwood Avenue
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1234'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: deliberate
+      disclosure: forgets
+      delivery: pickup
+    constraints:
+      allergens:
+      - gluten
+      dietary:
+      - organic
+      avoid_materials:
+      - nickel
+  elin-greywell:
+    description: Pays by Visa card; the bank does not honour it.
+    name: Elin Greywell
+    email: elin.greywell@example.com
+    phone: +1 202-555-0124
+    instruments:
+    - kind: card
+      token: tok_visa_decline_do_not_honor
+      brand: visa
+    - kind: google_pay
+      token: tok_gpay_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 149 Marigold Lane
+        address_locality: Austin
+        address_region: TX
+        postal_code: '78727'
+        address_country: US
+      CA:
+        street_address: 152 Marigold Street
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1L0
+        address_country: CA
+      GB:
+        street_address: 59 Saltmarsh Close
+        address_locality: Bristol
+        postal_code: BS1 4EN
+        address_country: GB
+      EU:
+        street_address: Ashgrovestraße 31
+        address_locality: München
+        postal_code: '80301'
+        address_country: DE
+      IN:
+        street_address: 25 Ashgrove Marg
+        address_locality: Mumbai
+        address_region: MH
+        postal_code: '400050'
+        address_country: IN
+      AU:
+        street_address: 168 Birchwood Road
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3025'
+        address_country: AU
+      NZ:
+        street_address: 132 Foxglove Street
+        address_locality: Auckland
+        postal_code: '1047'
+        address_country: NZ
+      SG:
+        street_address: 159 Ashgrove Road
+        address_locality: Singapore
+        postal_code: 018917
+        address_country: SG
+      MX:
+        street_address: Calle Willowmere 95
+        address_locality: Monterrey
+        address_region: NL
+        postal_code: '64034'
+        address_country: MX
+      JP:
+        street_address: 9-68 Marigold
+        address_locality: Chiyoda
+        address_region: Tokyo
+        postal_code: 100-0026
+        address_country: JP
+      PH:
+        street_address: 112 Copperfield Avenue
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1296'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: deliberate
+      disclosure: mixed
+      delivery: pickup
+    constraints:
+      measurements:
+        bust: 86 cm
+        waist: 68 cm
+        hips: 92 cm
+      conditions:
+      - breastfeeding
+  oskar-hollins:
+    description: Pays with Google Pay only; approved without a challenge.
+    name: Oskar Hollins
+    email: oskar.hollins@example.com
+    phone: +1 202-555-0125
+    instruments:
+    - kind: google_pay
+      token: tok_gpay_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 145 Wren Drive
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62799'
+        address_country: US
+      CA:
+        street_address: 69 Moss Crescent
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2X5
+        address_country: CA
+      GB:
+        street_address: 63 Linden Road
+        address_locality: Manchester
+        postal_code: M1 1SK
+        address_country: GB
+      EU:
+        street_address: Lanternweg 175
+        address_locality: München
+        postal_code: '80328'
+        address_country: DE
+      IN:
+        street_address: 11 Linden Marg
+        address_locality: Pune
+        address_region: MH
+        postal_code: '411091'
+        address_country: IN
+      AU:
+        street_address: 112 Alder Street
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3088'
+        address_country: AU
+      NZ:
+        street_address: 60 Moss Road
+        address_locality: Auckland
+        postal_code: '1025'
+        address_country: NZ
+      SG:
+        street_address: 156 Copperfield Avenue
+        address_locality: Singapore
+        postal_code: 018963
+        address_country: SG
+      MX:
+        street_address: Avenida Birchwood 45
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: 06082
+        address_country: MX
+      JP:
+        street_address: 27-4 Tallow
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0066
+        address_country: JP
+      PH:
+        street_address: 158 Kestrel Street
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1143'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: fast
+      disclosure: volunteers
+      delivery: standard
+    constraints:
+      allergens:
+      - soy
+  imani-marrowby:
+    description: Pays by card through Shopify's handler; approved.
+    name: Imani Marrowby
+    email: imani.marrowby@example.com
+    phone: +1 202-555-0126
+    instruments:
+    - kind: card
+      token: tok_shopify_card_ok
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 65 Lantern Street
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12265'
+        address_country: US
+      CA:
+        street_address: 178 Pennant Crescent
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2G5
+        address_country: CA
+      GB:
+        street_address: 128 Ashgrove Gardens
+        address_locality: Bristol
+        postal_code: BS1 4DH
+        address_country: GB
+      EU:
+        street_address: Quarryweg 159
+        address_locality: Berlin
+        postal_code: '10108'
+        address_country: DE
+      IN:
+        street_address: 104 Tallow Marg
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110053'
+        address_country: IN
+      AU:
+        street_address: 6 Willowmere Street
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4018'
+        address_country: AU
+      NZ:
+        street_address: 9 Moss Road
+        address_locality: Auckland
+        postal_code: '1080'
+        address_country: NZ
+      SG:
+        street_address: 162 Fieldfare Road
+        address_locality: Singapore
+        postal_code: 018985
+        address_country: SG
+      MX:
+        street_address: Calle Saltmarsh 150
+        address_locality: Guadalajara
+        address_region: JAL
+        postal_code: '44112'
+        address_country: MX
+      JP:
+        street_address: 32-2 Orchard
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0056
+        address_country: JP
+      PH:
+        street_address: 91 Fieldfare Street
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1135'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: fast
+      disclosure: asks
+      delivery: standard
+    constraints:
+      dietary:
+      - vegetarian
+      measurements:
+        chest: 102 cm
+        waist: 88 cm
+        foot: 28 cm
+  card-3ds-frictionless:
+    description: Pays by Visa card; the bank authenticates it with 3-D Secure without a challenge (frictionless) and approves.
+    name: Wren Calloway
+    email: wren.calloway@example.com
+    phone: +1 202-555-0127
+    instruments:
+    - kind: card
+      token: tok_visa_3ds_frictionless
+      brand: visa
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 40 Bramble Lane
+        address_locality: Portland
+        address_region: OR
+        postal_code: '97241'
+        address_country: US
+      CA:
+        street_address: 31 Marigold Crescent
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1E5
+        address_country: CA
+      GB:
+        street_address: 172 Birchwood Gardens
+        address_locality: Bristol
+        postal_code: BS1 4FB
+        address_country: GB
+      EU:
+        street_address: Heronweg 9
+        address_locality: Berlin
+        postal_code: '10113'
+        address_country: DE
+      IN:
+        street_address: 113 Moss Marg
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110060'
+        address_country: IN
+      AU:
+        street_address: 101 Juniper Street
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4087'
+        address_country: AU
+      NZ:
+        street_address: 75 Saltmarsh Street
+        address_locality: Auckland
+        postal_code: '1082'
+        address_country: NZ
+      SG:
+        street_address: 105 Bramble Avenue
+        address_locality: Singapore
+        postal_code: 018946
+        address_country: SG
+      MX:
+        street_address: Avenida Sorrel 99
+        address_locality: Monterrey
+        address_region: NL
+        postal_code: '64090'
+        address_country: MX
+      JP:
+        street_address: 6-43 Ashgrove
+        address_locality: Osaka
+        address_region: Osaka
+        postal_code: 530-0076
+        address_country: JP
+      PH:
+        street_address: 120 Meridian Avenue
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6008'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: fast
+      disclosure: forgets
+      delivery: express
+    constraints:
+      allergens:
+      - sesame
+  shop-pay:
+    description: Pays with Shop Pay only; approved.
+    name: Mara Quillfeather
+    email: mara.quillfeather@example.com
+    phone: +1 202-555-0128
+    instruments:
+    - kind: shop_pay
+      token: tok_shop_pay_ok
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 167 Foxglove Street
+        address_locality: Springfield
+        address_region: IL
+        postal_code: '62770'
+        address_country: US
+      CA:
+        street_address: 169 Willowmere Street
+        address_locality: Toronto
+        address_region: 'ON'
+        postal_code: M5V 2U7
+        address_country: CA
+      GB:
+        street_address: 102 Ashgrove Gardens
+        address_locality: London
+        postal_code: EC1A 1TB
+        address_country: GB
+      EU:
+        street_address: Lanternallee 79
+        address_locality: Hamburg
+        postal_code: '20085'
+        address_country: DE
+      IN:
+        street_address: 29 Harbour Lane
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110059'
+        address_country: IN
+      AU:
+        street_address: 34 Copperfield Street
+        address_locality: Brisbane
+        address_region: QLD
+        postal_code: '4061'
+        address_country: AU
+      NZ:
+        street_address: 83 Sorrel Street
+        address_locality: Auckland
+        postal_code: '1094'
+        address_country: NZ
+      SG:
+        street_address: 81 Harbour Avenue
+        address_locality: Singapore
+        postal_code: 018911
+        address_country: SG
+      MX:
+        street_address: Avenida Fieldfare 141
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06021'
+        address_country: MX
+      JP:
+        street_address: 141-9 Linden
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0022
+        address_country: JP
+      PH:
+        street_address: 144 Saltmarsh Street
+        address_locality: Cebu City
+        address_region: Cebu
+        postal_code: '6011'
+        address_country: PH
+    style:
+      budget: tight
+      decisiveness: deliberate
+      disclosure: mixed
+      delivery: express
+    constraints:
+      measurements:
+        chest: 110 cm
+        waist: 96 cm
+        foot: 29 cm
+      conditions:
+      - takes warfarin
+      avoid_materials:
+      - nickel
+  shop-pay-declined:
+    description: Pays with Shop Pay; the payment is declined (the issuer does not honour it).
+    name: Idris Brightwater
+    email: idris.brightwater@example.com
+    phone: +1 202-555-0129
+    instruments:
+    - kind: shop_pay
+      token: tok_shop_pay_declined
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 30 Heron Avenue
+        address_locality: Austin
+        address_region: TX
+        postal_code: '78799'
+        address_country: US
+      CA:
+        street_address: 175 Ashgrove Street
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1L4
+        address_country: CA
+      GB:
+        street_address: 173 Copperfield Close
+        address_locality: Leeds
+        postal_code: LS1 2YS
+        address_country: GB
+      EU:
+        street_address: Harbourweg 76
+        address_locality: Hamburg
+        postal_code: '20027'
+        address_country: DE
+      IN:
+        street_address: 146 Willowmere Road
+        address_locality: New Delhi
+        address_region: DL
+        postal_code: '110006'
+        address_country: IN
+      AU:
+        street_address: 170 Willowmere Street
+        address_locality: Sydney
+        address_region: NSW
+        postal_code: '2010'
+        address_country: AU
+      NZ:
+        street_address: 105 Linden Road
+        address_locality: Auckland
+        postal_code: '1046'
+        address_country: NZ
+      SG:
+        street_address: 172 Larkspur Road
+        address_locality: Singapore
+        postal_code: '238807'
+        address_country: SG
+      MX:
+        street_address: Calle Tamarind 35
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06041'
+        address_country: MX
+      JP:
+        street_address: 25-5 Sorrel
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0057
+        address_country: JP
+      PH:
+        street_address: 19 Pennant Avenue
+        address_locality: Makati
+        address_region: Metro Manila
+        postal_code: '1217'
+        address_country: PH
+    style:
+      budget: normal
+      decisiveness: deliberate
+      disclosure: volunteers
+      delivery: pickup
+    constraints:
+      allergens:
+      - nickel
+      dietary:
+      - kosher
+  shop-pay-expired:
+    description: Pays with Shop Pay; the minted Shop Token's validity has run out before the store processes it.
+    name: Noor Fennimore
+    email: noor.fennimore@example.com
+    phone: +1 202-555-0130
+    instruments:
+    - kind: shop_pay
+      token: tok_shop_pay_expired
+    three_ds: complete
+    addresses:
+      US:
+        street_address: 87 Linden Lane
+        address_locality: Albany
+        address_region: NY
+        postal_code: '12238'
+        address_country: US
+      CA:
+        street_address: 97 Linden Avenue
+        address_locality: Ottawa
+        address_region: 'ON'
+        postal_code: K1P 1L9
+        address_country: CA
+      GB:
+        street_address: 4 Meridian Road
+        address_locality: London
+        postal_code: EC1A 1GD
+        address_country: GB
+      EU:
+        street_address: Pennantallee 45
+        address_locality: Berlin
+        postal_code: '10173'
+        address_country: DE
+      IN:
+        street_address: 57 Wren Lane
+        address_locality: Bengaluru
+        address_region: KA
+        postal_code: '560099'
+        address_country: IN
+      AU:
+        street_address: 67 Heron Parade
+        address_locality: Melbourne
+        address_region: VIC
+        postal_code: '3085'
+        address_country: AU
+      NZ:
+        street_address: 62 Ashgrove Terrace
+        address_locality: Wellington
+        postal_code: '6017'
+        address_country: NZ
+      SG:
+        street_address: 174 Saltmarsh Avenue
+        address_locality: Singapore
+        postal_code: '238827'
+        address_country: SG
+      MX:
+        street_address: Calle Larkspur 7
+        address_locality: Ciudad de Mexico
+        address_region: CDMX
+        postal_code: '06006'
+        address_country: MX
+      JP:
+        street_address: 142-6 Harbour
+        address_locality: Minato
+        address_region: Tokyo
+        postal_code: 105-0042
+        address_country: JP
+      PH:
+        street_address: 56 Orchard Street
+        address_locality: Quezon City
+        address_region: Metro Manila
+        postal_code: '1123'
+        address_country: PH
+    style:
+      budget: generous
+      decisiveness: deliberate
+      disclosure: asks
+      delivery: pickup
+    constraints:
+      measurements:
+        bust: 86 cm
+        waist: 68 cm
+        hips: 92 cm

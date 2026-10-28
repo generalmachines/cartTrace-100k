@@ -1,0 +1,129 @@
+# Category 5 of the store queue: Skincare / makeup.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Skincare / makeup
+slug: skincare-makeup
+index: 5
+summary: Own-brand skincare and makeup.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: hb-3-2-9
+      path: Health & Beauty > Personal Care > Cosmetics > Skin Care
+    - id: hb-3-2-6
+      path: Health & Beauty > Personal Care > Cosmetics > Makeup
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - skin_type
+  - shade
+  - ingredients
+  - allergens
+  - free_from
+  - conditions
+  - pack_size
+  - budget
+  - quantity
+  - subscription
+  - delivery_by
+intents:
+  replenish:
+    - id: skincare-makeup.replenish.1
+      text: I'm almost out of {product_name}. Same {pack_size} size, {quantity} please.
+      slots: [product_name, pack_size, quantity]
+    - id: skincare-makeup.replenish.2
+      text: Please reorder my {brand} {product_type} in shade {shade}.
+      slots: [brand, product_type, shade]
+    - id: skincare-makeup.replenish.3
+      text: Can I get my usual {product_type} on a repeat delivery? It's the {pack_size} one.
+      slots: [product_type, pack_size]
+  specify:
+    - id: skincare-makeup.specify.1
+      text: I need a {product_type} for {skin_type} skin with {ingredients} and no {allergens}, under {budget}.
+      slots: [product_type, skin_type, ingredients, allergens, budget]
+    - id: skincare-makeup.specify.2
+      text: Looking for a {free_from} {product_type} I can use while {conditions}.
+      slots: [free_from, product_type, conditions]
+  compare:
+    - id: skincare-makeup.compare.1
+      text: 'Compare your two best {product_type}s for {skin_type} skin under {budget}: ingredients and texture.'
+      slots: [product_type, skin_type, budget]
+    - id: skincare-makeup.compare.2
+      text: What's the difference between your {product_type}s with {ingredients}? Which is gentler?
+      slots: [product_type, ingredients]
+  discover:
+    - id: skincare-makeup.discover.1
+      text: My skin gets {skin_type} in winter. What routine would you suggest under {budget}?
+      slots: [skin_type, budget]
+    - id: skincare-makeup.discover.2
+      text: I want to try a {product_type} but I'm not sure of my shade; I'm usually {shade}.
+      slots: [product_type, shade]
+  express:
+    - id: skincare-makeup.express.1
+      text: Just send me a {free_from} {product_type} for {skin_type} skin by {delivery_by}.
+      slots: [free_from, product_type, skin_type, delivery_by]
+    - id: skincare-makeup.express.2
+      text: Pick a {product_type} in {shade} for me, nothing over {budget}.
+      slots: [product_type, shade, budget]
+hypotheses:
+  - id: skincare-makeup.full-ingredient-list
+    statement: The full ingredient list (INCI order) is text, not only an image of the packaging.
+    why: Shoppers screen for and against ingredients, and a list in an image is invisible to a text agent.
+    where: [get_product.description, get_product.metafields, get_product.attributes]
+    details: [ingredients]
+    judge_decision: judge.ingredient_constraint_met
+    evidence_grade: hypothesis
+  - id: skincare-makeup.skin-type-suitability
+    statement: The skin types and concerns a product is for are attributes.
+    why: For sensitive skin is the commonest filter, and marketing prose makes it hard to apply reliably.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.skin_type_matches_spec
+    evidence_grade: hypothesis
+  - id: skincare-makeup.shade-descriptions
+    statement: Shades are variant options with text descriptions of depth and undertone, not only swatch images.
+    why: Shade names carry no information without a description, and a wrong shade is a common return.
+    where: [get_product.options, get_product.description]
+    judge_decision: judge.shade_matches_spec
+    evidence_grade: hypothesis
+  - id: skincare-makeup.free-from-claims
+    statement: Free-from and certification claims (fragrance-free, non-comedogenic, vegan, cruelty-free) are attributes
+      with specific wording.
+    why: These claims are hard filters for many shoppers and can only be trusted when they are stated plainly.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.allergen_avoided
+    evidence_grade: hypothesis
+  - id: skincare-makeup.warnings-and-directions
+    statement: 'Directions and warnings are text: patch testing, sun sensitivity, retinoid or acid use during pregnancy.'
+    why: A shopper who mentions pregnancy or sensitivity should be warned, and the agent can only do that when the warning
+      reaches it.
+    where: [get_product.description, get_product.metafields]
+    details: [warnings, dosage]
+    judge_decision: judge.contraindication_flagged
+    evidence_grade: hypothesis
+  - id: skincare-makeup.size-per-variant
+    statement: Size in ml or g, with its price, is a variant option.
+    why: Travel and full sizes often share a title, so without the size the agent can buy the wrong one.
+    where: [get_product.options, get_product.attributes]
+    details: [pack_size]
+    judge_decision: judge.pack_size_matches_spec
+    evidence_grade: hypothesis
+  - id: skincare-makeup.subscription-options
+    statement: Repeat delivery is a selling plan with its interval and discount stated.
+    why: Replenish shoppers ask for a subscription, and the agent needs the plan to set one up instead of placing a one-off
+      order.
+    where: [get_product.options, policies]
+    judge_decision: judge.subscription_handled
+    evidence_grade: hypothesis
+  - id: skincare-makeup.opened-returns
+    statement: The returns policy for opened cosmetics is answerable through the policy tool.
+    why: Shade and reaction risks make returns a common question before buying.
+    where: [policies]
+    judge_decision: judge.policy_question_answered
+    evidence_grade: hypothesis

@@ -1,0 +1,128 @@
+# Category 2 of the store queue: Footwear.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Footwear
+slug: footwear
+index: 2
+summary: Shoes, sneakers, boots and sandals for adults, from own-brand and multi-brand stores.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: aa-8
+      path: Apparel & Accessories > Shoes
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - size
+  - size_system
+  - width
+  - measurements
+  - color
+  - material
+  - use_case
+  - budget
+  - quantity
+  - delivery_by
+  - returnable
+intents:
+  replenish:
+    - id: footwear.replenish.1
+      text: I'd like another pair of the {product_name} from {brand}, size {size} ({size_system}), in {color} like before.
+      slots: [product_name, brand, size, size_system, color]
+    - id: footwear.replenish.2
+      text: My {product_type} are worn through. Same model again, size {size}, {width} width please.
+      slots: [product_type, size, width]
+  specify:
+    - id: footwear.specify.1
+      text: I need {material} {product_type} in {color}, size {size} in {size_system} sizing, {width} width, under {budget}.
+      slots: [material, product_type, color, size, size_system, width, budget]
+    - id: footwear.specify.2
+      text: Looking for {product_type} for {use_case}. My foot is {measurements} long, and I'd like them by {delivery_by}.
+      slots: [product_type, use_case, measurements, delivery_by]
+  compare:
+    - id: footwear.compare.1
+      text: 'Compare your two best {product_type} for {use_case} under {budget}: cushioning, weight and how they suit
+        a {width} foot.'
+      slots: [product_type, use_case, budget, width]
+    - id: footwear.compare.2
+      text: Do your {brand} {product_type} fit like the other brands you sell? I'm a {size} in {size_system}.
+      slots: [brand, product_type, size, size_system]
+  discover:
+    - id: footwear.discover.1
+      text: I want comfortable {product_type} I can wear all day for {use_case}. What do you have under {budget}?
+      slots: [product_type, use_case, budget]
+    - id: footwear.discover.2
+      text: I need something in {color} that works for {use_case}. I'm not sure what style; any ideas?
+      slots: [color, use_case]
+  express:
+    - id: footwear.express.1
+      text: Need {product_type} in size {size} by {delivery_by}, anything well reviewed under {budget}.
+      slots: [product_type, size, delivery_by, budget]
+    - id: footwear.express.2
+      text: Just get me a pair of {color} {product_type} in {size} ({size_system}) that I can return if they don't fit.
+      slots: [color, product_type, size, size_system]
+hypotheses:
+  - id: footwear.size-system-labelled
+    statement: Each size option names its system (US men's, US women's, UK, EU), and a conversion is given where the store
+      sells across markets.
+    why: A US men's 9 is roughly a UK 8 and an EU 42, and the US men's and women's scales differ. Without the system an
+      agent converts sizes by guesswork.
+    where: [get_product.options, get_product.attributes]
+    details: [size_system]
+    judge_decision: judge.size_system_converted
+    evidence_grade: hypothesis
+  - id: footwear.foot-length-chart
+    statement: A size chart with foot length in cm or inches per size is text.
+    why: Foot length is the one measurement most shoppers can give, and it lets the agent choose a size across brands.
+    where: [get_product.description, get_product.metafields, policies]
+    details: [size_chart]
+    judge_decision: judge.size_matches_spec
+    evidence_grade: hypothesis
+  - id: footwear.width-options
+    statement: Width (narrow, regular, wide, extra wide) is a variant option or an attribute.
+    why: Wide-fit shoppers reject otherwise right shoes, and a width mentioned only in the title or an image is easy to
+      miss.
+    where: [get_product.options, get_product.attributes]
+    judge_decision: judge.width_matches_spec
+    evidence_grade: hypothesis
+  - id: footwear.fit-notes
+    statement: Fit notes say whether a model runs small or large and whether to size up or down, including for half sizes.
+    why: Fit varies by last and by brand, so we expect better size choices when the note reaches the agent.
+    where: [get_product.description, get_product.metafields]
+    judge_decision: judge.fit_matches_spec
+    evidence_grade: hypothesis
+  - id: footwear.materials
+    statement: Upper, lining and sole materials are stated (leather, vegan, waterproof membrane).
+    why: Vegan and waterproof are common hard requirements that only text can confirm.
+    where: [get_product.attributes, get_product.description]
+    details: [material]
+    judge_decision: judge.material_matches_spec
+    evidence_grade: hypothesis
+  - id: footwear.use-case-specs
+    statement: Intended use and key specs are attributes (running surface, support or stability, heel-to-toe drop, ankle
+      height).
+    why: A shopper asking for trail or stability shoes needs the agent to tell them apart from a lifestyle sneaker that
+      looks similar.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.use_case_matches_spec
+    evidence_grade: hypothesis
+  - id: footwear.stock-per-size
+    statement: Stock is reported per size and width variant.
+    why: Popular sizes sell out first, and an agent that cannot see per-size stock builds carts that fail.
+    where: [get_product.options]
+    judge_decision: judge.variant_available
+    evidence_grade: hypothesis
+  - id: footwear.returns-worn-indoors
+    statement: The returns policy for shoes tried on indoors (condition, window, exchange for another size) is answerable
+      through the policy tool.
+    why: Shoe buyers often order two sizes and return one, and the policy decides whether that is allowed.
+    where: [policies]
+    judge_decision: judge.policy_question_answered
+    evidence_grade: hypothesis

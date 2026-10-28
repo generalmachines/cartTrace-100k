@@ -1,0 +1,109 @@
+# Category 23 of the store queue: Books / stationery.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Books / stationery
+slug: books-stationery
+index: 23
+summary: Books, notebooks, pens, paper and office stationery.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: me-1
+      path: Media > Books
+    - id: os-4
+      path: Office Supplies > General Office Supplies
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - format
+  - edition
+  - language
+  - age
+  - condition
+  - specs
+  - compatibility
+  - personalization
+  - quantity
+  - budget
+  - delivery_by
+  - gift
+intents:
+  replenish:
+    - id: books-stationery.replenish.1
+      text: I need another {product_name} notebook with the same {specs}, {quantity} please.
+      slots: [product_name, specs, quantity]
+    - id: books-stationery.replenish.2
+      text: 'I need refills for my {brand} pen: the {product_type} that fit {compatibility}.'
+      slots: [brand, product_type, compatibility]
+  specify:
+    - id: books-stationery.specify.1
+      text: I need {product_name} in {format}, the {edition}, in {language}, under {budget}.
+      slots: [product_name, format, edition, language, budget]
+    - id: books-stationery.specify.2
+      text: Looking for a {condition} copy of {product_name}, delivered by {delivery_by}.
+      slots: [condition, product_name, delivery_by]
+  compare:
+    - id: books-stationery.compare.1
+      text: 'Compare the {format} with the other editions of {product_name}: price and when each ships.'
+      slots: [format, product_name]
+    - id: books-stationery.compare.2
+      text: Which of your {product_type}s has the better paper for fountain pens? I need {specs}.
+      slots: [product_type, specs]
+  discover:
+    - id: books-stationery.discover.1
+      text: I'm looking for a book for a child aged {age} who loves animals. Ideas?
+      slots: [age]
+    - id: books-stationery.discover.2
+      text: I want a nice journal to start writing in, something under {budget}.
+      slots: [budget]
+  express:
+    - id: books-stationery.express.1
+      text: Send {product_name} as a gift by {delivery_by}, signed if you have it.
+      slots: [product_name, delivery_by]
+    - id: books-stationery.express.2
+      text: Just pick a {product_type} with {personalization} on the cover, under {budget}.
+      slots: [product_type, personalization, budget]
+hypotheses:
+  - id: books-stationery.format-and-edition
+    statement: Format and edition are variant options with their ISBNs (hardcover, paperback, large print).
+    why: Editions of one title differ in price and content, and the ISBN is the exact match.
+    where: [get_product.options, get_product.attributes]
+    judge_decision: judge.variant_matches_spec
+    evidence_grade: hypothesis
+  - id: books-stationery.language-and-reading-age
+    statement: Language and reading age are attributes.
+    why: Children's books are chosen by reading age, and translations look identical in photos.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.age_suitability_correct
+    evidence_grade: hypothesis
+  - id: books-stationery.availability-dates
+    statement: Release, pre-order and dispatch dates are shown.
+    why: Pre-orders and back-orders break delivery dates that shoppers give.
+    where: [get_product.description, get_product.attributes, policies]
+    judge_decision: judge.delivery_by_respected
+    evidence_grade: hypothesis
+  - id: books-stationery.stationery-specs
+    statement: Stationery specs are attributes (paper size, ruling, gsm, refill compatibility).
+    why: Notebooks and refills are bought to an exact spec.
+    where: [get_product.attributes, get_product.options]
+    judge_decision: judge.spec_matches_spec
+    evidence_grade: hypothesis
+  - id: books-stationery.signed-and-personalised
+    statement: Signed and personalised options, and their lead times, are explicit.
+    why: Signed copies and personalisation change price, delivery and returns.
+    where: [get_product.options, get_product.description]
+    judge_decision: judge.personalization_handled
+    evidence_grade: hypothesis
+  - id: books-stationery.used-condition
+    statement: The condition of used copies is graded for each item.
+    why: Used books are priced by condition, and shoppers state the condition they accept.
+    where: [get_product.options, get_product.attributes]
+    judge_decision: judge.condition_matches_spec
+    evidence_grade: hypothesis

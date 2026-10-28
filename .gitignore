@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+var/
+worlds/
+dataset/
+config.local.json

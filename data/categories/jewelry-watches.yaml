@@ -1,0 +1,132 @@
+# Category 4 of the store queue: Jewelry / watches.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Jewelry / watches
+slug: jewelry-watches
+index: 4
+summary: Own-brand jewellery and watches.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: aa-6
+      path: Apparel & Accessories > Jewelry
+    - id: aa-6-11
+      path: Apparel & Accessories > Jewelry > Watches
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - metal
+  - stone
+  - size
+  - size_system
+  - specs
+  - allergens
+  - personalization
+  - recipient
+  - gift
+  - budget
+  - delivery_by
+  - returnable
+intents:
+  replenish:
+    - id: jewelry-watches.replenish.1
+      text: I lost one of my {product_name} earrings. Can I buy the same pair again?
+      slots: [product_name]
+    - id: jewelry-watches.replenish.2
+      text: I'd like another {product_type} from {brand}, the same one as before, in {metal}.
+      slots: [product_type, brand, metal]
+  specify:
+    - id: jewelry-watches.specify.1
+      text: I need a {metal} {product_type} with {stone}, ring size {size} ({size_system}), under {budget}.
+      slots: [metal, product_type, stone, size, size_system, budget]
+    - id: jewelry-watches.specify.2
+      text: Looking for a {product_type} with {specs}, delivered by {delivery_by}.
+      slots: [product_type, specs, delivery_by]
+    - id: jewelry-watches.specify.3
+      text: 'I need {product_type} that won''t irritate my skin: no {allergens}.'
+      slots: [product_type, allergens]
+  compare:
+    - id: jewelry-watches.compare.1
+      text: 'Compare two of your {product_type}s under {budget}: which is solid {metal} and which is plated?'
+      slots: [product_type, budget, metal]
+    - id: jewelry-watches.compare.2
+      text: Which of your watches suits daily wear better for someone who wants {specs}?
+      slots: [specs]
+  discover:
+    - id: jewelry-watches.discover.1
+      text: I need a gift for {recipient}, something small that will last, under {budget}.
+      slots: [recipient, budget]
+    - id: jewelry-watches.discover.2
+      text: I'm looking for an anniversary {product_type}. I like {metal} but I'm open to ideas.
+      slots: [product_type, metal]
+  express:
+    - id: jewelry-watches.express.1
+      text: Need a {product_type} engraved with {personalization} by {delivery_by}. Pick a nice one.
+      slots: [product_type, personalization, delivery_by]
+    - id: jewelry-watches.express.2
+      text: 'Quick gift: a {metal} {product_type} for {recipient}, under {budget}, gift wrapped.'
+      slots: [metal, product_type, recipient, budget]
+hypotheses:
+  - id: jewelry-watches.metal-purity
+    statement: Metal and purity are attributes that distinguish solid from plated or filled pieces (14k solid gold, gold
+      vermeil, 925 silver).
+    why: Plated and solid pieces look alike in photos and differ several times in price; a request for real gold can only
+      be checked from text.
+    where: [get_product.attributes, get_product.description, get_product.metafields]
+    details: [material]
+    judge_decision: judge.material_matches_spec
+    evidence_grade: hypothesis
+  - id: jewelry-watches.ring-size-guide
+    statement: Ring sizes name their system (US numbers, UK letters, EU circumference), and a sizing guide is text.
+    why: US and UK ring sizes use different scales, so an unlabelled size is a coin toss for the agent.
+    where: [get_product.options, policies, get_product.description]
+    details: [size_chart, size_system]
+    judge_decision: judge.size_system_converted
+    evidence_grade: hypothesis
+  - id: jewelry-watches.stone-details
+    statement: 'Stones are described: type, natural or lab-grown, carat, cut, colour, clarity and any certificate.'
+    why: Lab-grown and natural stones are priced differently, and shoppers often say which they want.
+    where: [get_product.attributes, get_product.metafields, get_product.description]
+    judge_decision: judge.spec_matches_spec
+    evidence_grade: hypothesis
+  - id: jewelry-watches.watch-specs
+    statement: 'Watch specs are attributes: case diameter, water resistance in metres or ATM, movement, strap material
+      and lug width.'
+    why: Waterproof means very different things; a number lets the agent check a request such as safe for swimming.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.spec_matches_spec
+    evidence_grade: hypothesis
+  - id: jewelry-watches.allergy-information
+    statement: Nickel content or hypoallergenic claims are stated, with what they mean.
+    why: Nickel allergy is common, and a vague hypoallergenic label is not enough for an agent to promise a safe choice.
+    where: [get_product.description, get_product.attributes]
+    details: [allergens]
+    judge_decision: judge.allergen_avoided
+    evidence_grade: hypothesis
+  - id: jewelry-watches.engraving-options
+    statement: Engraving is an option with its character limit, fonts, cost, extra lead time and any returns exclusion.
+    why: Engraving changes the price, the delivery date and whether the piece can be returned, and the agent must see
+      all three to commit.
+    where: [get_product.options, policies]
+    judge_decision: judge.personalization_handled
+    evidence_grade: hypothesis
+  - id: jewelry-watches.resizing-returns
+    statement: Resizing and returns, including exclusions for engraved or custom pieces, are answerable through the policy
+      tool.
+    why: Jewellery returns often hinge on resizing and personalisation, and shoppers ask before they buy.
+    where: [policies]
+    judge_decision: judge.policy_question_answered
+    evidence_grade: hypothesis
+  - id: jewelry-watches.gift-options
+    statement: Gift wrap, a gift message and a gift receipt without prices are options before checkout.
+    why: Jewellery is often a gift, and a shopper who asks for a gift receipt expects the agent to arrange it.
+    where: [get_product.options, policies]
+    judge_decision: judge.gift_options_handled
+    evidence_grade: hypothesis

@@ -1,0 +1,688 @@
+# The merge map of the category data-type union (carttrace.bench.union_types, D62): which observed keys state the same
+# thing, under one curated id with a plain name. It lists no type by itself: a type is in a category's union only when
+# a store of that category shows one of its keys, and every key no entry names keeps an id made from its own name
+# (`schema.offer.price-valid-until`, `label.front-rise`), so nothing a store shows is dropped.
+#
+# Written on 2026-10-13 from the keys the W42 capture pass (548 stores) and 2,668 live agent-view bundles actually
+# carried: every name below was seen on at least one store. Add a name here when a labeler merges an auto type into
+# a curated one (labels.jsonl status merged), and add the old id under `former` so labels and renames follow it.
+#
+# A type:
+#   id      <area>.<name>, lower snake case; never reused for another meaning
+#   name    what a labeler reads
+#   group   the section it is listed under (Product facts, Variant facts, Stock and availability, Price, Reviews and
+#           Q&A, Delivery, Returns and policies, Media, Badges and claims, Bundles, subscriptions and gifts,
+#           Identity and navigation, Store-level)
+#   row     the exposure taxonomy row (docs/STORE-EXPOSURE.md section 3); a checklist check on this row maps to it
+#   kinds   the brief's data kinds (carttrace.agents.brief); a check needing one of them maps to it
+#   keys    observed keys, exact or fnmatch patterns; exact keys win over patterns, patterns go in file order
+#   labels  free-label slugs: spec rows, "Label:" lines, section headings, "key: value" tags, app-state fields,
+#           schema.org PropertyValue names and agent-view metafields
+#   options variant option name slugs
+schema: mc.bench.union_types.v1
+version: union-types-2026-10-13
+types:
+# -- Product facts -----------------------------------------------------------------------------------------------------
+- id: product.title
+  name: Product title
+  group: Product facts
+  keys: [feed:title, product_js:title, ucp:title, graphql:name, schema:Product.name, schema:ProductGroup.name,
+         schema:Offer.name]
+  labels: [product-name, name]
+- id: product.description
+  name: Product description
+  group: Product facts
+  row: content.description
+  kinds: [description]
+  keys: [feed:body_html, product_js:description, product_js:content, "ucp:description*", "ucp:variants[].description*",
+         schema:Product.description, schema:ProductGroup.description, schema:Offer.description,
+         table:products.description_chars, canvas:content.description, "graphql:description*"]
+  labels: [description, product-description, details, product-details, overview, about-this-product, about,
+           details-about-product, body-html, short-description, long-description, what-it-is, summary]
+- id: product.materials
+  name: Materials and fabric composition
+  group: Product facts
+  row: content.specs
+  kinds: [materials]
+  keys: ["schema:*.material"]
+  labels: [material, materials, fabric, fabrics, fabric-content, composition, fabrication, fabric-composition, main,
+           shell, outer, lining, body-lining, sleeve-lining, upper, sole, insock, fill, filling, exterior, interior,
+           materials-care, material-care, fabric-care, fabric-and-care, composition-care, fabric-details,
+           material-composition, fabric-material, materiale, materiaux, rib, body, faux-fur]
+- id: product.care
+  name: Care and washing instructions
+  group: Product facts
+  row: content.specs
+  kinds: [care]
+  labels: [care, care-instructions, washing-instructions, wash-care, care-guide, how-to-care, machine-washable,
+           dry-clean-only, hand-wash, dishwasher-safe, care-and-maintenance, cleaning, cleaning-instructions]
+- id: product.fit_notes
+  name: Fit notes (fit type, model height and size, sizing advice)
+  group: Product facts
+  row: fit.guidance
+  labels: [fit, fit-notes, fit-size, size-fit, size-and-fit, product-fit, fit-type, model-wears, model-is-wearing,
+           models-height, model-height, model-size, fit-details, standard-sizing, size-fit-guide, fit-guide,
+           das-model-tragt-grosse, grosse-des-models, loading-your-fit-recommendation, classic-and-slim-fit,
+           extra-slim-fit, slim-fit, true-to-size]
+- id: product.size_chart
+  name: Size chart (measurements per size)
+  group: Product facts
+  row: size.chart
+  kinds: [size_chart]
+  keys: [page_table:size_chart, text:size_chart, canvas:size.chart]
+  labels: [size-guide, size-chart, sizing, sizing-guide, how-to-measure, garment-measurements, size-guide-units,
+           choose-size-guide-units, size-charts, sizing-chart, measurement-guide, to-fit-body-measurements]
+- id: product.measurements
+  name: Product or garment measurements (length, width, inseam, rise)
+  group: Product facts
+  row: content.specs
+  kinds: [dimensions]
+  keys: [schema:Product.width, schema:Product.height, schema:Product.depth]
+  labels: [dimensions, dimension, measurements, length, width, height, depth, inseam, front-rise, rise,
+           sleeve-length, top-length, base-length, regular-inseam, long-inseam, diameter, heel-height, chain-length,
+           handle-length, thickness, product-dimensions, overall-dimensions, general-dimensions, overall-depth,
+           exterior-dimensions, interior-dimensions, product-measurements, size-dimensions]
+- id: product.weight
+  name: Weight
+  group: Product facts
+  row: content.specs
+  kinds: [weight]
+  keys: [table:variants.weight_g, "feed:variants[].grams", "feed:variants[].weight", "product_js:variants[].weight",
+         schema:Product.weight]
+  labels: [weight, product-weight, net-weight, item-weight, net-wt, gewicht, gewicht-pro-einheit]
+- id: product.capacity
+  name: Capacity or volume
+  group: Product facts
+  row: content.specs
+  kinds: [capacity]
+  labels: [capacity, volume, interior-volume, exterior-volume]
+- id: product.specs
+  name: Specification table or section
+  group: Product facts
+  row: content.specs
+  keys: [canvas:content.specs, page_table:other]
+  labels: [specifications, specs, spec, technical-specifications, tech-specs, specification, product-specifications]
+- id: product.features
+  name: Features and benefits
+  group: Product facts
+  kinds: [description]
+  labels: [features, key-features, benefits, key-benefits, highlights, why-youll-love-it, why-we-love-it,
+           product-features]
+- id: product.ingredients
+  name: Ingredients
+  group: Product facts
+  row: content.ingredients
+  kinds: [ingredients]
+  labels: [ingredients, key-ingredients, other-ingredients, active-ingredients, inactive-ingredients,
+           active-ingredient, full-ingredients, ingredient-list, contains]
+- id: product.allergens
+  name: Allergens
+  group: Product facts
+  row: content.allergens
+  kinds: [allergens]
+  labels: [allergens, allergen-information, allergy-information, may-contain]
+- id: product.nutrition
+  name: Nutrition facts and serving size
+  group: Product facts
+  row: content.nutrition
+  kinds: [nutrition]
+  labels: [nutrition, nutrition-facts, nutritional-information, nutrition-information, serving-size,
+           servings-per-container, calories, amount-per-serving]
+- id: product.directions
+  name: Directions, dosage and how to use
+  group: Product facts
+  row: content.dosage
+  kinds: [dosage]
+  labels: [how-to-use, directions, instructions, application, suggested-use, dosage, how-it-works, use, usage]
+- id: product.warnings
+  name: Warnings and cautions
+  group: Product facts
+  row: content.warnings
+  kinds: [warnings]
+  labels: [warning, warnings, caution, safety-information, safety-warnings, keep-away-from-fire]
+- id: product.origin
+  name: Country of origin or where it is made
+  group: Product facts
+  row: content.description
+  kinds: [origin]
+  labels: [country-of-origin, made-in, origin, manufacturer, country-of-manufacture]
+- id: product.compatibility
+  name: Compatibility (what it fits or works with)
+  group: Product facts
+  row: content.compatibility
+  kinds: [compatibility]
+  keys: [canvas:content.compatibility]
+  labels: [compatible-with, compatibility, fits, works-with, compatible-models]
+- id: product.scent_notes
+  name: Scent and fragrance notes
+  group: Product facts
+  row: content.category_facts
+  kinds: [scent]
+  labels: [top-notes, heart-notes, base-notes, middle-notes, olfactive-family, scent,
+           fragrance-notes, scent-profile]
+- id: product.power
+  name: Power source, voltage or battery
+  group: Product facts
+  row: content.specs
+  kinds: [power]
+  labels: [power, voltage, battery, wattage, power-source, battery-life]
+- id: product.whats_included
+  name: What is included (set contents, pack contents)
+  group: Product facts
+  row: catalog.bundle
+  kinds: [bundle]
+  labels: [includes, whats-included, set-includes, this-set-includes, bundle-includes, included, in-the-box,
+           whats-in-the-box, pack-size, pack-includes, kit-includes]
+- id: product.category_facts
+  name: Category facts the canvas detector found in page text
+  group: Product facts
+  row: content.category_facts
+  keys: [canvas:content.category_facts]
+- id: product.documents
+  name: Product documents (manuals, certificates, safety sheets)
+  group: Product facts
+  row: content.documents
+  keys: [canvas:content.documents]
+  labels: [manual, manuals, user-guide, documents, downloads, spec-sheet, instruction-manual]
+- id: product.published_date
+  name: Date published or released
+  group: Product facts
+  keys: [table:products.published_at, feed:published_at, product_js:published_at]
+  labels: [published-at, go-live, release-date, launch-date, date-created]
+# -- Identity and navigation -------------------------------------------------------------------------------------------
+- id: identity.brand
+  name: Brand or vendor
+  group: Identity and navigation
+  row: identity.brand
+  kinds: [brand]
+  keys: [table:products.vendor, feed:vendor, product_js:vendor, schema:Brand.name, "schema:*.brand",
+         canvas:identity.brand]
+  labels: [brand, vendor, designer, brand-name]
+- id: identity.product_type
+  name: Product type or category
+  group: Identity and navigation
+  row: identity.brand
+  keys: [table:products.product_type, feed:product_type, product_js:type, "schema:*.category", "ucp:categories*"]
+  labels: [type, category, subcategory, product-type, primary-category, secondary-category, categories, department]
+- id: identity.tags
+  name: Product tags
+  group: Identity and navigation
+  row: identity.brand
+  keys: [table:products.tags, feed:tags, product_js:tags, ucp:tags]
+  labels: [tags]
+- id: identity.audience
+  name: Audience (gender, age group)
+  group: Identity and navigation
+  row: identity.brand
+  keys: ["schema:*.audience", "schema:*.gender", "schema:*.suggestedGender", "schema:*.suggestedAge"]
+  labels: [gender, audience, age, age-range, suitable-for, age-group, recommended-age]
+- id: identity.sku
+  name: SKU, style or product code
+  group: Identity and navigation
+  keys: [table:variants.sku, table:offers.sku, "feed:variants[].sku", "product_js:variants[].sku",
+         "ucp:variants[].sku", "schema:*.sku", "schema:*.productID", "schema:*.productId", schema:Product.productCode,
+         schema:ProductGroup.productGroupID, "graphql:sku"]
+  labels: [sku, product-code, item-number, item, style-number, style-code, stylecode, style-sku, artikelnummer,
+           produkt-code, model-number, model, part-number, item-no, product-id, code, style]
+- id: identity.gtin
+  name: Barcode, GTIN or MPN
+  group: Identity and navigation
+  row: identifiers.gtin
+  kinds: [identifiers]
+  keys: [table:variants.barcode, table:offers.gtin, "schema:*.gtin*", "schema:*.mpn", "feed:variants[].barcode",
+         "product_js:variants[].barcode", canvas:identifiers.gtin]
+  labels: [barcode, gtin, upc, ean, mpn, isbn]
+- id: nav.collections
+  name: Collections a product belongs to
+  group: Identity and navigation
+  row: nav.collections
+  keys: [table:products.collections, canvas:nav.collections]
+  labels: [collections, collection]
+- id: nav.recommendations
+  name: Related products and recommendations
+  group: Identity and navigation
+  row: nav.recommendations
+  keys: [canvas:nav.recommendations]
+  labels: [you-may-also-like, recently-viewed, shop-the-look, make-an-outfit-of-it, complete-the-look,
+           matching-items, related-products, customers-also-bought, pairs-well-with, frequently-bought-together]
+- id: store.site_search
+  name: Site search (the store's search address)
+  group: Identity and navigation
+  row: search
+  keys: ["schema:SearchAction.*", schema:EntryPoint.urlTemplate, "schema:PropertyValueSpecification.*"]
+# -- Variant facts -----------------------------------------------------------------------------------------------------
+- id: variant.options
+  name: Variant options and their values
+  group: Variant facts
+  row: variants.options
+  kinds: [options]
+  keys: [table:products.option_names, "feed:options[]*", "product_js:options*", "ucp:options[]*",
+         "ucp:variants[].options[]*", "ucp:selected[]*", "feed:variants[].title", "product_js:variants[].title",
+         "product_js:variants[].public_title", "product_js:variants[].name", "product_js:variants[].options",
+         "ucp:variants[].title", schema:ProductGroup.variesBy, schema:ProductGroup.hasVariant,
+         canvas:variants.options, "page_field:option*"]
+  labels: [options, variant, public-title, product-variant-name, variant-title, title]
+- id: variant.size
+  name: Size
+  group: Variant facts
+  row: variants.options
+  kinds: [options]
+  keys: ["schema:*.size"]
+  options: [size, sizes, us-size, uk-size, eu-size, band, cup, waist, shoe-size, ring-size]
+  labels: [size, sizes, select-size, choose-size, us-size, please-select-a-size, please-select-a-us-size]
+- id: variant.colour
+  name: Colour or shade
+  group: Variant facts
+  row: variants.options
+  kinds: [options]
+  keys: ["schema:*.color"]
+  options: [color, colour, colors, colours, shade, color-name, colour-name]
+  labels: [color, colour, colors, colours, couleur, farbe, select-color, shade, shades]
+- id: variant.cut
+  name: Cut or fit as a variant (regular, petite, long)
+  group: Variant facts
+  row: variants.options
+  kinds: [options]
+  options: [fit, cut, length, inseam-length, leg-length]
+  labels: [please-select-a-fit, choose-fit, choose-size-fit]
+# -- Stock and availability --------------------------------------------------------------------------------------------
+- id: variant.availability
+  name: In stock or sold out, per variant
+  group: Stock and availability
+  row: variants.availability
+  kinds: [availability]
+  keys: [table:variants.available, table:offers.availability, "feed:variants[].available", product_js:available,
+         "product_js:variants[].available", "ucp:variants[].availability*", "ucp:options[].values[].available",
+         "ucp:options[].values[].exists", "schema:*.availability", "schema:*.availability=in-stock",
+         "schema:*.availability=out-of-stock", "schema:*.availability=sold-out", page_field:availability,
+         "meta:og:availability", "meta:product:availability", canvas:variants.availability]
+  labels: [available, availability, in-stock, sold-out, out-of-stock, currently-out-of-stock, is-available,
+           available-for-sale, is-salable, instock, stock-level-status, purchasable]
+- id: stock.count
+  name: Stock count (units left)
+  group: Stock and availability
+  row: stock.count
+  kinds: [availability]
+  keys: ["product_js:variants[].inventory_quantity", "feed:variants[].inventory_quantity", canvas:stock.count]
+  labels: [inventory-quantity, stock-level, stock, inventory, only-left, quantity-available, stock-quantity]
+- id: stock.tracking
+  name: Stock tracking and oversell policy
+  group: Stock and availability
+  row: stock.count
+  keys: ["product_js:variants[].inventory_management", "product_js:variants[].inventory_policy*"]
+  labels: [inventory-management, inventory-policy]
+- id: stock.preorder
+  name: Preorder or backorder
+  group: Stock and availability
+  row: stock.preorder
+  kinds: [availability]
+  keys: ["schema:Offer.availability=pre-order", "schema:Offer.availability=back-order",
+         "schema:Offer.availability=preorder", "schema:AggregateOffer.availability=pre-order", canvas:stock.preorder]
+  labels: [pre-order, preorder, backorder, back-order, notify-me, notify-me-when-available, coming-soon]
+- id: stock.qty_limits
+  name: Quantity limits (minimum, maximum, increments)
+  group: Stock and availability
+  row: stock.qty_limits
+  keys: ["product_js:variants[].quantity_rule*"]
+  labels: [min, max, increment, minimum-quantity, maximum-quantity]
+- id: stock.pickup
+  name: Store pickup stock
+  group: Stock and availability
+  row: stock.pickup
+  keys: [canvas:stock.pickup]
+  labels: [in-store-pickup, click-collect, pickup, available-for-pickup, pick-up-in-store, buy-online-pick-up-in-store]
+- id: stock.cart_sold_out
+  name: Sold-out message on a cart write
+  group: Stock and availability
+  row: variants.availability
+  kinds: [availability]
+  keys: ["cart:messages[].code=merchandise-out-of-stock", "cart:messages[].code=out-of-stock"]
+# -- Price -------------------------------------------------------------------------------------------------------------
+- id: price.current
+  name: Price and currency
+  group: Price
+  row: price
+  kinds: [price]
+  keys: [table:variants.price_minor, table:offers.price_minor, "feed:variants[].price", product_js:price,
+         "product_js:price_*", "product_js:variants[].price", "ucp:variants[].price*", "ucp:price_range*",
+         schema:Offer.price, schema:Offer.priceCurrency, "schema:AggregateOffer.*Price", schema:AggregateOffer.priceCurrency,
+         "meta:og:price:*", "meta:product:price:*", page_field:price, page_field:currency, canvas:price,
+         "graphql:price*"]
+  labels: [price, current-price, sale-price, price-min, price-max, final-price, formatted-value, minimal-price,
+           max-price, price-varies, currency, currency-iso, price-currency]
+- id: price.compare_at
+  name: Compare-at or list price (a sale against a higher price)
+  group: Price
+  row: price.list
+  kinds: [price.list]
+  keys: [table:variants.compare_at_minor, table:offers.compare_at_minor, "feed:variants[].compare_at_price",
+         "feed:compare_at_price", "product_js:variants[].compare_at_price", product_js:compare_at_price,
+         "ucp:variants[].list_price", ucp:list_price_range, canvas:price.list]
+  labels: [compare-at-price, original-price, was-price, list-price, regular-price-was]
+- id: price.unit
+  name: Unit price (per 100 g, per item)
+  group: Price
+  row: price.unit
+  kinds: [price.unit]
+  keys: ["product_js:variants[].unit_price*", "product_js:variants[].selling_plan_allocations[].unit_price",
+         canvas:price.unit, "schema:UnitPriceSpecification.referenceQuantity"]
+  labels: [unit-price-per, price-per-unit]
+- id: price.discount
+  name: Automatic discount in the cart
+  group: Price
+  row: promo.automatic
+  kinds: [price.list]
+  keys: ["cart:totals[].type=items-discount", "cart:totals[].type=discount", "cart:totals[].type=order-discount"]
+- id: price.cart_total
+  name: Cart subtotal and total
+  group: Price
+  row: price
+  kinds: [price]
+  keys: ["cart:totals[].type=subtotal", "cart:totals[].type=total"]
+- id: price.taxable
+  name: Whether tax applies
+  group: Price
+  row: tax.display
+  keys: ["feed:variants[].taxable", "product_js:variants[].taxable", canvas:tax.display]
+  labels: [taxable]
+- id: price.promo_banner
+  name: Site-wide promotion or advertised code
+  group: Price
+  row: promo.banner
+  keys: [canvas:promo.banner]
+# -- Reviews and Q&A ---------------------------------------------------------------------------------------------------
+- id: reviews.rating
+  name: Review rating
+  group: Reviews and Q&A
+  row: reviews.rating
+  kinds: [reviews]
+  keys: [table:reviews_summary.rating, "schema:AggregateRating.ratingValue", "schema:*.aggregateRating",
+         "schema:AggregateRating.bestRating", "schema:AggregateRating.worstRating", canvas:reviews.rating]
+  labels: [rating, rating-value, average-rating, review-rating-values-total]
+- id: reviews.count
+  name: Review count
+  group: Reviews and Q&A
+  row: reviews.rating
+  kinds: [reviews]
+  keys: [table:reviews_summary.count, schema:AggregateRating.reviewCount, schema:AggregateRating.ratingCount]
+  labels: [review-count, number-of-reviews, rating-and-review-count, reviews-count, rating-count]
+- id: reviews.text
+  name: Review text
+  group: Reviews and Q&A
+  row: reviews.text
+  kinds: [reviews]
+  keys: ["schema:Review.*", "schema:*.review", "schema:Rating.*", canvas:reviews.text, app:reviews]
+  labels: [reviews, product-reviews, customer-reviews, ratings-reviews, write-a-review]
+- id: reviews.qa
+  name: Questions and answers, product FAQ
+  group: Reviews and Q&A
+  row: questions.answers
+  keys: ["schema:FAQPage.*", "schema:Question.*", "schema:Answer.*", canvas:questions.answers]
+  labels: [faq, faqs, frequently-asked-questions, questions-answers, questions, product-faq, q-a]
+# -- Delivery ----------------------------------------------------------------------------------------------------------
+- id: delivery.shipping_details
+  name: Shipping details in product markup (rate, destination, delivery time)
+  group: Delivery
+  row: shipping.cost
+  kinds: [shipping, delivery_estimate]
+  keys: [schema:Offer.shippingDetails, "schema:OfferShippingDetails.*", "schema:ShippingDeliveryTime.*",
+         "schema:ShippingService.*", "schema:ShippingConditions.*", table:offers.shipping_details]
+- id: delivery.estimate
+  name: Delivery promise (processing and transit time)
+  group: Delivery
+  row: delivery.estimate
+  kinds: [delivery_estimate]
+  keys: [policy:transit-days-min, policy:transit-days-max, policy:processing-days, canvas:delivery.estimate]
+  labels: [delivery, delivery-time, shipping-time, ships-in, estimated-delivery, next-day-delivery,
+           standard-delivery, delivery-on-next-working-day, express-delivery, expedited-express-shipping,
+           standard-delivery-to-europe, delivery-information]
+- id: delivery.free_threshold
+  name: Free shipping threshold
+  group: Delivery
+  row: shipping.cost
+  kinds: [shipping]
+  keys: [policy:free-shipping-threshold-minor]
+  labels: [free-shipping, free-delivery, free-fast-shipping]
+- id: delivery.cost
+  name: Shipping cost
+  group: Delivery
+  row: shipping.cost
+  kinds: [shipping]
+  keys: [canvas:shipping.cost]
+  labels: [shipping, shipping-cost, delivery-cost, shipping-rates, delivery-charges]
+- id: delivery.regions
+  name: Where it ships
+  group: Delivery
+  row: shipping.regions
+  keys: [canvas:shipping.regions]
+  labels: [shipping-regions, international-shipping, ships-to]
+- id: delivery.restrictions
+  name: Shipping restrictions
+  group: Delivery
+  row: shipping.restrictions
+  keys: [canvas:shipping.restrictions]
+- id: delivery.pickup
+  name: Local delivery or pickup options
+  group: Delivery
+  row: shipping.pickup
+  keys: [canvas:shipping.pickup]
+- id: delivery.requires_shipping
+  name: Whether the item ships (physical or digital)
+  group: Delivery
+  keys: [table:variants.requires_shipping, "feed:variants[].requires_shipping", "product_js:variants[].requires_shipping"]
+  labels: [requires-shipping]
+- id: policy.shipping
+  name: Shipping policy page
+  group: Delivery
+  row: shipping.cost
+  kinds: [shipping]
+  keys: [store_page:shipping, "cart:links[].type=shipping-policy"]
+  labels: [shipping-returns, delivery-returns, shipping-and-returns, see-shipping-returns-info]
+# -- Returns and policies ----------------------------------------------------------------------------------------------
+- id: returns.policy
+  name: Returns or refund policy
+  group: Returns and policies
+  row: returns.policy
+  kinds: [returns]
+  keys: [store_page:returns, "cart:links[].type=refund-policy", canvas:returns.policy, "schema:MerchantReturnPolicy.*",
+         "schema:*.hasMerchantReturnPolicy", table:offers.return_policy]
+  labels: [returns, return-policy, returns-exchanges, returns-and-exchanges, exchanges, refund-policy]
+- id: returns.window
+  name: Return window (days)
+  group: Returns and policies
+  row: returns.policy
+  kinds: [returns]
+  keys: [policy:returns-window-days, schema:MerchantReturnPolicy.merchantReturnDays, table:offers.return_days]
+  labels: [return-window]
+- id: returns.fee
+  name: Return fee or free returns
+  group: Returns and policies
+  row: returns.policy
+  kinds: [returns]
+  keys: [policy:returns-fee-minor, schema:MerchantReturnPolicy.returnFees, "schema:MerchantReturnPolicy.returnFees=*"]
+  labels: [free-returns, return-fee, restocking-fee]
+- id: returns.final_sale
+  name: Final sale or not returnable, per product
+  group: Returns and policies
+  row: returns.policy
+  kinds: [returns]
+  keys: ["schema:MerchantReturnPolicy.returnPolicyCategory=merchant-return-not-permitted"]
+  labels: [final-sale, final-sale-item, non-returnable, returnable, not-returnable, no-returns]
+- id: policy.warranty
+  name: Warranty or guarantee
+  group: Returns and policies
+  row: policy.warranty
+  kinds: [warranty]
+  keys: [store_page:warranty, canvas:policy.warranty]
+  labels: [warranty, guarantee, lifetime-warranty, warranty-information]
+- id: policy.privacy
+  name: Privacy policy
+  group: Returns and policies
+  row: policy.privacy
+  keys: [store_page:privacy, canvas:policy.privacy, "cart:links[].type=privacy-policy"]
+- id: policy.terms
+  name: Terms of service
+  group: Returns and policies
+  row: policy.terms
+  keys: [store_page:terms, canvas:policy.terms, "cart:links[].type=terms-of-service", "cart:links[].type=legal-notice"]
+- id: policy.subscription
+  name: Subscription policy
+  group: Returns and policies
+  row: catalog.subscription
+  kinds: [subscription]
+  keys: ["cart:links[].type=subscription-policy"]
+- id: policy.minimum_order
+  name: Minimum order value
+  group: Returns and policies
+  row: checkout.limits
+  keys: [policy:minimum-order-minor]
+  labels: [minimum-order, min-order]
+# -- Media -------------------------------------------------------------------------------------------------------------
+- id: media.images
+  name: Product images
+  group: Media
+  keys: [table:products.images, "ucp:media[].type", "ucp:media[].type=image", "ucp:variants[].media[].type",
+         "ucp:variants[].media[].type=image", "product_js:media[].media_type", "product_js:media[].media_type=image",
+         "schema:*.image", product_js:images, product_js:featured_image]
+  labels: [image, images, featured-image, media-type]
+- id: media.alt_text
+  name: Image alt text
+  group: Media
+  row: images.alt
+  kinds: [media_alt]
+  keys: [table:products.images_with_alt, "feed:variants[].featured_image.alt", "feed:images[].alt",
+         "product_js:media[].alt", "product_js:variants[].featured_image.alt", "product_js:variants[].featured_media.alt",
+         "ucp:media[].alt_text", "ucp:variants[].media[].alt_text", "meta:og:image:alt", schema:ImageObject.caption,
+         canvas:images.alt]
+  labels: [alt, alt-text]
+- id: media.video
+  name: Product video
+  group: Media
+  keys: ["product_js:media[].media_type=video", "product_js:media[].media_type=external-video",
+         "product_js:media[].duration", "product_js:media[].sources*", "product_js:media[].host",
+         "product_js:media[].external_id", "schema:VideoObject.*", "ucp:media[].type=video",
+         "ucp:variants[].media[].type=video"]
+  labels: [video, videos]
+- id: media.model_3d
+  name: 3D model
+  group: Media
+  keys: ["product_js:media[].media_type=model"]
+# -- Badges and claims -------------------------------------------------------------------------------------------------
+- id: badge.claims
+  name: Claims and certifications (vegan, gluten-free, organic, tested)
+  group: Badges and claims
+  row: content.badges
+  kinds: [dietary, certifications]
+  keys: [canvas:content.badges]
+  labels: [vegan, gluten-free, fragrance-free, dermatologist-tested, organic, cruelty-free, non-gmo, dairy-free,
+           certifications, certified, sustainability, recycled, paraben-free, sulfate-free, kosher, halal]
+- id: badge.merchandising
+  name: Merchandising badges (new, best seller, limited edition, sale)
+  group: Badges and claims
+  labels: [new, new-arrival, best-seller, bestseller, best-sellers, limited-edition, online-exclusive, most-popular,
+           sale, exclusive, trending, back-in-stock]
+# -- Bundles, subscriptions and gifts ----------------------------------------------------------------------------------
+- id: offer.subscription
+  name: Subscription or subscribe-and-save plans
+  group: Bundles, subscriptions and gifts
+  row: catalog.subscription
+  kinds: [subscription]
+  keys: ["product_js:selling_plan_groups*", "product_js:variants[].selling_plan_allocations*",
+         product_js:requires_selling_plan, "product_js:variants[].requires_selling_plan", canvas:catalog.subscription]
+  labels: [subscription, one-time-purchase, subscribe-save, subscribe-and-save, subscribe, requires-selling-plan,
+           selling-plan-group-id, selling-plan-id, per-delivery-price, deliver-every, delivery-frequency]
+- id: offer.bundle
+  name: Bundles, kits and multipacks
+  group: Bundles, subscriptions and gifts
+  row: catalog.bundle
+  kinds: [bundle]
+  keys: [canvas:catalog.bundle]
+  labels: [bundle, bundles, kit, multipack, value-set, bundle-and-save]
+- id: offer.gift_options
+  name: Gift wrap, gift box or message
+  group: Bundles, subscriptions and gifts
+  row: catalog.bundle
+  kinds: [gift]
+  labels: [gift-wrapping, gift-box, gift-message, gift-wrap, geschenkbox, add-gift-wrap, gift-note]
+- id: offer.gift_card
+  name: Gift card amounts
+  group: Bundles, subscriptions and gifts
+  options: [denominations, denomination, gift-card-amount]
+- id: offer.personalisation
+  name: Personalisation (monogram, engraving, custom options)
+  group: Bundles, subscriptions and gifts
+  row: catalog.bundle
+  kinds: [personalization]
+  labels: [monogram, monogram-option, monogram-colour, monogram-color, monogram-font, monogram-location, engraving,
+           personalisation, personalization, personalise, personalize, custom-sleeve-length-inch, add-left-pocket,
+           monogramm-optionen]
+# -- Store-level -------------------------------------------------------------------------------------------------------
+- id: store.contact
+  name: Contact details and customer service
+  group: Store-level
+  row: policy.contact
+  keys: [store_page:contact, canvas:policy.contact, "cart:links[].type=contact-information", "schema:ContactPoint.*",
+         schema:Organization.contactPoint, schema:Organization.telephone, schema:Organization.email,
+         schema:Corporation.contactPoint, schema:OnlineStore.contactPoint]
+  labels: [contact-us, customer-service, contact]
+- id: store.faq
+  name: Store FAQ page
+  group: Store-level
+  row: faq
+  keys: [store_page:faq, canvas:faq]
+- id: store.about
+  name: About the store (about page, organisation markup)
+  group: Store-level
+  keys: [store_page:about, "schema:Organization.*", "schema:WebSite.*", "schema:OnlineStore.*", "schema:Corporation.*",
+         "schema:PostalAddress.*", "schema:WebPage.*"]
+- id: store.size_guide
+  name: Store-wide size guide page
+  group: Store-level
+  row: size.chart
+  kinds: [size_chart]
+  keys: [store_page:size-guide]
+- id: store.payment_methods
+  name: Payment methods
+  group: Store-level
+  row: payment.methods
+  keys: ["payment_handler:*", canvas:payment.methods]
+- id: store.loyalty
+  name: Loyalty or member pricing
+  group: Store-level
+  row: account.loyalty
+  keys: [canvas:account.loyalty, "schema:MemberProgramTier.*", "schema:UnitPriceSpecification.validForMemberTier"]
+- id: store.checkout_gates
+  name: Age or regulated-goods gates
+  group: Store-level
+  row: checkout.gates
+  keys: [canvas:checkout.gates]
+- id: store.llms_txt
+  name: llms.txt for agents
+  group: Store-level
+  row: agent_files.llms_txt
+  keys: [store_file:llms-txt, canvas:agent_files.llms_txt]
+- id: store.agents_md
+  name: agents.md for agents
+  group: Store-level
+  row: agent_files.agents_md
+  keys: [store_file:agents-md, canvas:agent_files.agents_md]
+- id: store.sitemap
+  name: Product sitemap
+  group: Store-level
+  row: agent_files.sitemap
+  keys: [store_file:sitemap, canvas:agent_files.sitemap]
+- id: store.robots
+  name: robots.txt
+  group: Store-level
+  row: agent_files.robots
+  keys: [canvas:agent_files.robots]
+- id: store.ucp_discovery
+  name: UCP discovery document
+  group: Store-level
+  row: agent_files.ucp_discovery
+  keys: [canvas:agent_files.ucp_discovery, well_known:ucp]
+- id: store.market
+  name: Market and currency the store serves
+  group: Store-level
+  row: price.market
+  keys: [canvas:price.market]

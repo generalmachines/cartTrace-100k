@@ -1,0 +1,115 @@
+# Category 14 of the store queue: Sports / fitness.
+#
+# Hypotheses are claims to test with paired runs (the same store, task and day, with the detail visible
+# and hidden), not findings. Keep evidence_grade at hypothesis until those runs exist. Schema and rules:
+# carttrace.stores.categories; field names: _fields.yaml.
+schema: mc.category.v1
+name: Sports / fitness
+slug: sports-fitness
+index: 14
+summary: Training equipment, sports gear and sport-specific clothing from sports specialists.
+shopify_taxonomy:
+  version: 2026-08
+  approximate: true
+  note: Best-effort parent categories in Shopify's Standard Product Taxonomy (release 2026-08, github.com/Shopify/product-taxonomy).
+    The paths exist in that release; mapping this queue category onto them is our judgement, not an official mapping.
+  paths:
+    - id: sg-2
+      path: Sporting Goods > Fitness & General Exercise Equipment
+    - id: sg-1
+      path: Sporting Goods > Athletics
+    - id: sg-4
+      path: Sporting Goods > Outdoor Recreation
+hidden_spec:
+  - product_type
+  - brand
+  - product_name
+  - size
+  - size_system
+  - measurements
+  - weight_limit
+  - dimensions
+  - compatibility
+  - skill_level
+  - use_case
+  - budget
+  - delivery_by
+  - assembly
+intents:
+  replenish:
+    - id: sports-fitness.replenish.1
+      text: I need a new set of {product_name}; mine wore out. Same {size} please.
+      slots: [product_name, size]
+    - id: sports-fitness.replenish.2
+      text: Same {brand} {product_type} as before, please.
+      slots: [brand, product_type]
+  specify:
+    - id: sports-fitness.specify.1
+      text: I need a {product_type} for {use_case} that supports {weight_limit} and fits in {dimensions}, under {budget}.
+      slots: [product_type, use_case, weight_limit, dimensions, budget]
+    - id: sports-fitness.specify.2
+      text: Looking for a {product_type} for a {skill_level} player, size {size} ({size_system}).
+      slots: [product_type, skill_level, size, size_system]
+  compare:
+    - id: sports-fitness.compare.1
+      text: 'Compare your {product_type}s under {budget}: which is quieter, and which takes less space?'
+      slots: [product_type, budget]
+    - id: sports-fitness.compare.2
+      text: Which {product_type} works with {compatibility}?
+      slots: [product_type, compatibility]
+  discover:
+    - id: sports-fitness.discover.1
+      text: I'm getting into {use_case}. What do I need to start, under {budget}?
+      slots: [use_case, budget]
+    - id: sports-fitness.discover.2
+      text: I'm looking for a home workout setup for a small space. I'm a {skill_level}.
+      slots: [skill_level]
+  express:
+    - id: sports-fitness.express.1
+      text: Send me a {product_type} for {use_case} by {delivery_by}, {assembly}.
+      slots: [product_type, use_case, delivery_by, assembly]
+    - id: sports-fitness.express.2
+      text: Just pick a {product_type} in size {size}; my measurements are {measurements}.
+      slots: [product_type, size, measurements]
+hypotheses:
+  - id: sports-fitness.sizing-by-body
+    statement: Sizing guides map body measurements to sizes as text (bike frame size by height and inseam, gloves by hand
+      size).
+    why: Sports sizing depends on the body, not a label, and guides in images are invisible to a text agent.
+    where: [get_product.description, get_product.metafields, policies]
+    details: [size_chart]
+    judge_decision: judge.size_matches_spec
+    evidence_grade: hypothesis
+  - id: sports-fitness.load-and-resistance
+    statement: Load limits and resistance ranges are numbers (maximum user weight, dumbbell range, resistance levels).
+    why: Shoppers check equipment against their own weight and goals, which needs numbers.
+    where: [get_product.attributes, get_product.description]
+    judge_decision: judge.spec_matches_spec
+    evidence_grade: hypothesis
+  - id: sports-fitness.footprint
+    statement: Footprint, folded size and the space needed in use (ceiling height for a rower or a bike) are text.
+    why: Home equipment fails on space more often than on performance.
+    where: [get_product.attributes, get_product.description]
+    details: [dimensions]
+    judge_decision: judge.dimensions_within_spec
+    evidence_grade: hypothesis
+  - id: sports-fitness.compatibility-standards
+    statement: Compatibility is stated (app subscriptions, bike component standards, replacement parts by model).
+    why: Parts and accessories only help when they fit what the shopper already owns.
+    where: [get_product.description, get_product.attributes, get_product.metafields]
+    details: [compatibility]
+    judge_decision: judge.compatibility_matches_spec
+    evidence_grade: hypothesis
+  - id: sports-fitness.skill-and-use
+    statement: The intended skill level and use are attributes (beginner or competition; indoor or trail).
+    why: Beginners and experts need different gear, and the label is the agent's only signal.
+    where: [get_product.attributes, get_product.metafields]
+    judge_decision: judge.use_case_matches_spec
+    evidence_grade: hypothesis
+  - id: sports-fitness.heavy-item-delivery
+    statement: Delivery and assembly for heavy equipment (room of choice, assembly service) are options with prices and
+      lead times.
+    why: A treadmill left at the kerb is a failed purchase for many shoppers.
+    where: [get_product.options, policies]
+    judge_decision: judge.assembly_matches_spec
+    evidence_grade: hypothesis

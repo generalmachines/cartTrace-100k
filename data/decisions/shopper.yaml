@@ -1,0 +1,27 @@
+# The shopper. When the agent writes to the shopper, which hidden-spec field is it asking about? The shopper reveals a
+# field's value only when asked, so a wrong mapping leaks a preference the agent never asked for. Abstaining answers
+# none, which reveals nothing.
+#
+# Evidence:
+#   agent_message  the agent's latest message to the shopper
+#   fields         the hidden-spec fields the shopper can answer about: a list of field names, or a mapping of field
+#                  name to a short description ({"size": "US shoe size"}). They become options A, B, C and so on,
+#                  ahead of none and other, so pass at most 24.
+
+- id: shopper.field
+  kind: enum
+  description: >-
+    Maps the agent's question to the hidden-spec field it asks about, so the shopper can answer from the spec
+    without a chat call.
+  question: >-
+    The shopping agent sent the message above to the shopper. Which of the shopper's preferences is it asking about?
+  evidence: [agent_message, fields]
+  options_from: fields
+  options: [none, other]
+  option_notes:
+    none: it asks the shopper nothing, for example it reports progress or shows the cart
+    other: it asks about something that is not listed here
+  threshold: 0.7
+  abstain: none
+  status: shadow
+  version: 1

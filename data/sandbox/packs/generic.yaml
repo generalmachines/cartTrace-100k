@@ -1,0 +1,46 @@
+# The generic platform pack as data (D101): what it serves, how it treats each request field, how it
+# reshapes documents, its error shapes and codes, its checkout specifics, and the source of every
+# divergence from the protocol spec. Validated by carttrace.sandbox.platforms.spec (pack.schema.json) and checked
+# by `carttrace sandbox packs-check`; see docs/sandbox/PACKS.md.
+schema: mc.sandbox.pack.v1
+name: generic
+title: The sandbox's plain dialect
+basis: plain
+summary: 'What every pack spoke before platforms (D29): the release''s own documents, shapes and error responses, with nothing
+  a platform adds. A twin cut from an open catalog is served this way, and every other pack names only where it differs
+  from it. It follows the spec everywhere the suite asks, so it declares no divergence.'
+serves:
+  ucp:
+    releases:
+    - '2026-01-11'
+    - '2026-01-23'
+    - '2026-04-08'
+    - '2026-08-25'
+  mcp:
+    default: '2025-06-18'
+search:
+  mode: sandbox
+checkout:
+  line_items:
+    rule: a line over the stock is refused whole and the cart kept (core rules, CORE_RULES['sandbox'])
+  fulfillment:
+    rule: one shipping method per checkout; rates once a destination is known; the shopper picks
+  pickup:
+    rule: pickup locations listed as the release lists them (business_location destinations at 2026-08-25)
+  policy_links:
+  - - privacy_policy
+    - Privacy policy
+  - - terms_of_service
+    - Terms of service
+  - - refund_policy
+    - Refund policy
+  - - shipping_policy
+    - Shipping policy
+  links_cite:
+    assumed: the sandbox's four policy pages; no platform's links
+  discounts:
+    rule: codes from the store's policy (`policy.coupons`, `discount_codes`), one at a time as UCP's discount extension
+      says
+code:
+- name: carttrace.sandbox.surfaces.ucp
+  why: the release's own documents; a pack spec only names where a platform differs from them
