@@ -4,7 +4,7 @@ Why. A publishable stand-in for real store X (D85, D91) drew its 40 products fro
 product types, whatever X sells: a stand-in for a tea store held coffee syrup, crab cakes and frozen potatoes. The
 research of 2026-10-16 (docs/research/2026-10-16-open-fidelity.md, section 4) hand-checked five stores: 2 of 25
 sampled products were the kind of product X sells, in X's price band. A rule pick from X's capture got 20 of 25, and a
-Clef rerank of the rule's shortlist 21 of 25 at 120 model calls a store, so the rule stands alone.
+decision-model rerank of the rule's shortlist 21 of 25 at 120 model calls a store, so the rule stands alone.
 
 The rule. X's profile is read from its newest capture (carttrace.trace.capture_v2): the words of its product titles, product
 types and tags (stop words and X's own brand words dropped: its domain and vendors; a tag word only where a title or
@@ -80,7 +80,7 @@ _TITLE_KEY: Final = re.compile(r"\W+")
 BOILERPLATE_SHARE: Final = 0.9
 BOILERPLATE_MIN: Final = 20
 """A word on more than 90% of a store's products (of 20 or more) is dropped: one store's product types all read "... Hide
-- Not Regular - Only"; a tea store's "tea" (72% of that store's products) stays."""
+- Not Regular - Only"; a tea store's "tea" (72% of its products) stays."""
 MATCH_DEPTH: Final = 2.0
 """A member's n products are sampled from its top MATCH_DEPTH x n (see the module docstring for the measurement)."""
 MATCHED_ON: Final = "the words of the store's product titles, types and tags, and its price band"

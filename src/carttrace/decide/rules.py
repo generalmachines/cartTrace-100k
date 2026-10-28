@@ -1,10 +1,10 @@
-"""Rules answer a decision outright whenever plain code can, so Clef is asked only what needs reading.
+"""Rules answer a decision outright whenever plain code can, so the decision model is asked only what needs reading.
 
 Why rules come first. A rule is free, instant and certain, and D9 keeps safety checks and capacity arithmetic in code.
 Each rule is a pure function of the evidence its type declares. It returns an answer when the signal is unambiguous
 (an HTTP 429 is a rate limit; three identical calls in six steps is a loop) and None when the case needs reading,
-which passes the question on to Clef. Rules never read the clock, the network or a file, so the same evidence always
-gets the same answer.
+which passes the question on to the decision model. Rules never read the clock, the network or a file, so the same
+evidence always gets the same answer.
 
 Rules are registered by name in a `RuleBook`. A decision type names its rule in YAML, and the catalog refuses a type
 whose rule does not exist or reads evidence the type does not declare. Evidence reaches a rule as plain JSON, so a rule
@@ -109,8 +109,8 @@ _TRANSIENT_CODES = frozenset({"throttled", "timeout"})
 @RULES.rule("same_call_repeated", needs=("steps",))
 def same_call_repeated(evidence: Mapping[str, Any]) -> Answer | None:
     """Yes when one tool ran with the same arguments three or more times in the last six steps. No when there are
-    fewer than three steps in all, since nothing can have repeated three times yet. Otherwise Clef decides, because a
-    loop of near-identical calls (the same search with one word changed) needs reading."""
+    fewer than three steps in all, since nothing can have repeated three times yet. Otherwise the decision model
+    decides, because a loop of near-identical calls (the same search with one word changed) needs reading."""
     steps = _steps(evidence)
     if steps is None:
         return None
@@ -126,7 +126,7 @@ def same_call_repeated(evidence: Mapping[str, Any]) -> Answer | None:
 def calls_failing_in_a_row(evidence: Mapping[str, Any]) -> Answer | None:
     """Yes when the last five steps are all failed tool calls and none of them was throttled or timed out (those are
     the store's or the network's doing, and triage handles them). No when there are fewer than five steps in all,
-    which is too early to call an agent stuck. Otherwise Clef decides."""
+    which is too early to call an agent stuck. Otherwise the decision model decides."""
     steps = _steps(evidence)
     if steps is None:
         return None
@@ -141,8 +141,8 @@ def calls_failing_in_a_row(evidence: Mapping[str, Any]) -> Answer | None:
 @RULES.rule("cart_boundary", needs=("steps", "cart"))
 def cart_boundary(evidence: Mapping[str, Any]) -> Answer | None:
     """No while the cart is empty, because there is no cart to stop at yet. Yes when the harness refused a checkout or
-    payment call, because the agent has already tried to go past the cart. Otherwise Clef reads whether the cart is
-    finished."""
+    payment call, because the agent has already tried to go past the cart. Otherwise the decision model reads whether
+    the cart is finished."""
     if _cart_state(evidence.get("cart")) == "empty":
         return False
     for step in _steps(evidence) or []:
@@ -159,7 +159,7 @@ def cart_boundary(evidence: Mapping[str, Any]) -> Answer | None:
 def error_source_signals(evidence: Mapping[str, Any]) -> Answer | None:
     """The unambiguous signals: our harness refusing a call, HTTP 429, timeouts and connection failures, and 5xx
     replies attributed by who sent them (the store, our sandbox, a model server). Anything else, such as a 400 from
-    the store or a protocol error, needs the message read, so Clef decides."""
+    the store or a protocol error, needs the message read, so the decision model decides."""
     service = _text(evidence.get("service")).lower()
     status = _int(evidence.get("status"))
     code = _text(evidence.get("error_code")).lower()
@@ -179,7 +179,8 @@ def error_source_signals(evidence: Mapping[str, Any]) -> Answer | None:
 def next_action_policy(evidence: Mapping[str, Any]) -> Answer | None:
     """The retry policy where it is fixed. A refused call or an agent mistake goes back to the agent. Rate limits and
     network failures are retried until the call has failed three times; after that a throttling store is paused. A
-    store's own server error is retried once and then the store is skipped for the run. Anything else is for Clef."""
+    store's own server error is retried once and then the store is skipped for the run. Anything else is for the
+    decision model."""
     source = _text(evidence.get("error_source")).lower()
     code = _text(evidence.get("error_code")).lower()
     attempts = _int(evidence.get("attempts"))
@@ -202,16 +203,16 @@ def next_action_policy(evidence: Mapping[str, Any]) -> Answer | None:
 @RULES.rule("always_alert_rules", needs=("rule",))
 def always_alert_rules(evidence: Mapping[str, Any]) -> Answer | None:
     """Yes for the watch rules a person must always hear about: a model endpoint down, or the collector stopped.
-    Every other alert has already crossed a numeric threshold in the watch, and Clef reads its error text to decide
-    whether it is worth a person's attention."""
+    Every other alert has already crossed a numeric threshold in the watch, and the decision model reads its error text
+    to decide whether it is worth a person's attention."""
     return True if _text(evidence.get("rule")).lower() in ALWAYS_ALERT else None
 
 
 @RULES.rule("eligibility_preflight", needs=("robots_allowed", "http_status", "protocols"))
 def eligibility_preflight(evidence: Mapping[str, Any]) -> Answer | None:
     """blocked when robots.txt disallows our token or the store answers 401 or 403; no_protocol when preflight found no
-    agent protocol at all. A store that passes both still needs its notes read (an age gate, a login wall), so Clef
-    chooses between eligible, gated and needs_review."""
+    agent protocol at all. A store that passes both still needs its notes read (an age gate, a login wall), so the
+    decision model chooses between eligible, gated and needs_review."""
     if evidence.get("robots_allowed") is False:
         return "blocked"
     if _int(evidence.get("http_status")) in (401, 403):

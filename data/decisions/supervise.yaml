@@ -14,8 +14,8 @@
   kind: bool
   description: >-
     Is the agent repeating itself instead of making progress? The rule answers yes when one tool ran with the same
-    arguments three or more times in the last six steps, and no when there are fewer than three steps. Clef reads
-    the cases in between, such as the same search with one word changed.
+    arguments three or more times in the last six steps, and no when there are fewer than three steps. The decision
+    model reads the cases in between, such as the same search with one word changed.
   question: >-
     Is the agent repeating the same action, or cycling through the same few actions, without getting any closer to
     the shopper's goal?

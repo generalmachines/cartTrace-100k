@@ -2,8 +2,8 @@
 
 Why both questions go through the decision engine. A store or our agent must never be blamed for our own failures,
 and the retry policy has to read error text the rules cannot. Rules answer the clear signals (a refused call, a 429,
-a timeout, a 5xx by who sent it); Clef reads the rest. Every triage is logged, in the shared log and in the episode's
-bundle, which is how the types get calibrated.
+a timeout, a 5xx by who sent it); the decision model reads the rest. Every triage is logged, in the shared log and in
+the episode's bundle, which is how the types get calibrated.
 
 What changes behaviour. Only effective decisions (live types, no backend error), and only two answers: `skip_store`
 and `pause_store` take the store out of the rest of the run, because a person or a later run should look at it first.

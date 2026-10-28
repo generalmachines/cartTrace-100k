@@ -76,6 +76,13 @@ def cmd_replay(args: argparse.Namespace) -> int:
     return 0 if result.same else 1
 
 
+def server_root(url: str) -> str:
+    """The server root of an OpenAI-compatible endpoint. The chat client adds /v1/chat/completions itself, so the
+    .../v1 that servers and hosted APIs print as their base URL is dropped instead of being sent as /v1/v1/..."""
+    root = url.rstrip("/")
+    return root.removesuffix("/v1")
+
+
 def cmd_rerun(args: argparse.Namespace) -> int:
     from carttrace.collect.runner import run_manifest
     from carttrace.repro.replay import one_row, replay_settings
@@ -86,7 +93,7 @@ def cmd_rerun(args: argparse.Namespace) -> int:
     var = _scratch_var(args.worlds)
     base = replay_settings(_settings(var))
     agent = base.endpoints["agent"].model_copy(
-        update={"base_url": args.base_url, "model": args.model, "api_key_env": args.api_key_env}
+        update={"base_url": server_root(args.base_url), "model": args.model, "api_key_env": args.api_key_env}
     )
     settings = base.model_copy(update={"endpoints": {**base.endpoints, "agent": agent}})
     from carttrace.repro.published import load_published, published_ids
@@ -125,7 +132,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     replay.set_defaults(func=cmd_replay)
     rerun = sub.add_parser("rerun", help="run a trace's row again with your own model as the agent")
     common(rerun)
-    rerun.add_argument("--base-url", required=True, help="an OpenAI-compatible endpoint, e.g. http://127.0.0.1:8000/v1")
+    rerun.add_argument(
+        "--base-url",
+        required=True,
+        help="an OpenAI-compatible endpoint, e.g. http://127.0.0.1:8000/v1 (a trailing /v1 is optional)",
+    )
     rerun.add_argument("--model", required=True, help="the model name the endpoint serves")
     rerun.add_argument("--api-key-env", help="the environment variable holding the endpoint's API key, if any")
     rerun.set_defaults(func=cmd_rerun)

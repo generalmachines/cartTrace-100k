@@ -75,7 +75,7 @@ class StoreResult(BaseModel):
     profile: ProtocolProfile | None = None
     """The profile itself, as discovery captured it (source "live"); the id above is its hash."""
     detail: str = Field(default="", max_length=500)
-    """One plain line for people and for Clef: what the preflight saw."""
+    """One plain line for people and for the decision model: what the preflight saw."""
     traces_collected: int | None = Field(default=None, ge=0)
     latest_outcome: EndReason | None = None
     """End reason of the store's most recent episode."""

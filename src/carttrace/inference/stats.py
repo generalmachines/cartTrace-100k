@@ -6,9 +6,9 @@ it into var/status/collector.json, and the watch alerts from that file (idle com
 module never imports carttrace.collect; the snapshot's names follow the status file's EndpointLoad so the copy is direct.
 How many slots other processes hold is not known here: that comes from `GpuSlots.in_flight()`.
 
-Counted per HTTP request to a model server, retries excluded: one chat turn is one call, a Clef score over two labels
-is one call and over N > 2 labels N calls (plus a /tokenize call the first time each label is seen). Rates (calls per
-minute, tokens per second) cover the last minute, or the time since the counters started when that is shorter. Error
+Counted per HTTP request to a model server, retries excluded: one chat turn is one call, a decision-model score over two
+labels is one call and over N > 2 labels N calls (plus a /tokenize call the first time each label is seen). Rates (calls
+per minute, tokens per second) cover the last minute, or the time since the counters started when that is shorter. Error
 counts and latency percentiles cover the last ten minutes. Time comes from an injected Clock, so tests freeze it.
 """
 

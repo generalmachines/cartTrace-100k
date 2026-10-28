@@ -1,6 +1,6 @@
 # Triage. A tool call or a model call failed: where did the failure come from, and what should the runner do next?
 # Rules answer the clear signals (our harness refusing a call, HTTP 429, timeouts, connection errors, 5xx by who sent
-# them); Clef reads the error text for the rest.
+# them); the decision model reads the error text for the rest.
 #
 # Evidence for triage.error_source:
 #   service     who we were talking to: store (a live store), sandbox, model (a model server) or internal
@@ -40,9 +40,9 @@
 - id: triage.next_action
   kind: enum
   description: >-
-    What the runner does after a failed call. The rule holds the fixed retry policy, and Clef reads the cases it
-    does not cover. Abstaining skips the store for the run, which keeps traffic polite without anyone having to lift
-    a pause.
+    What the runner does after a failed call. The rule holds the fixed retry policy, and the decision model reads the
+    cases it does not cover. Abstaining skips the store for the run, which keeps traffic polite without anyone having to
+    lift a pause.
   question: Given the failed call above and where it came from, what should the collection runner do next?
   evidence: [error_source, error_code, status, attempts, message]
   options: [retry, skip_store, pause_store, continue]

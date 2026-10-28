@@ -107,7 +107,7 @@ FieldDecider = Callable[[str, Mapping[str, str]], Awaitable[str | None]]
 """(agent message, field name to label) -> the field it asks about, "other", or None for nothing."""
 FIELD_TYPE = "shopper.field"
 MAX_FIELDS = 24
-"""shopper.field letters its options for Clef, two of which are none and other."""
+"""shopper.field letters its options for the decision model, two of which are none and other."""
 CONTACT_FIELDS = frozenset({"email", "phone"})
 REFUSED_FIELDS = frozenset(REFUSAL_KEYWORDS)
 """Details the shopper never has to give a shop, and refuses plainly when asked."""

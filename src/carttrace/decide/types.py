@@ -1,9 +1,9 @@
 """The contract of the router and decision engines: what a decision type is and what a decision returns.
 
 Why typed. Collection, supervision, triage, alerting and judging all need many small decisions made fast. A decision
-with a fixed answer space can be answered by a rule, or by Clef scoring label tokens in one forward pass, and either
-way the result is a value with a probability that can be logged, replayed, calibrated against human labels and
-compared across model versions. Free text cannot.
+with a fixed answer space can be answered by a rule, or by the decision model scoring label tokens in one forward pass,
+and either way the result is a value with a probability that can be logged, replayed, calibrated against human labels
+and compared across model versions. Free text cannot.
 """
 
 from __future__ import annotations
@@ -14,8 +14,8 @@ from pydantic import BaseModel, ConfigDict, Field
 
 Kind = Literal["bool", "enum", "multi"]
 DecidedBy = Literal["rule", "clef-flash", "clef", "fallback", "abstain"]
-"""fallback (D61) is a configured model that is not the agent under test, asked only when both Clef stages failed; it
-is never recorded as clef. D56's qwen stage is gone, and no decision log on record names it."""
+"""fallback (D61) is a configured model that is not the agent under test, asked only when both decision-model stages
+failed; it is never recorded as clef. D56's qwen stage is gone, and no decision log on record names it."""
 ModelStageName = Literal["clef-flash", "clef", "fallback"]
 Status = Literal["shadow", "live"]
 Answer = str | list[str] | bool
@@ -33,13 +33,14 @@ class DecisionType(BaseModel):
     options: list[str] = Field(default_factory=list)
     """Answer labels for enum and multi; for bool the labels are always yes and no."""
     question: str
-    """The question Clef is asked, with {placeholders} filled from the evidence."""
+    """The question the decision model is asked, with {placeholders} filled from the evidence."""
     evidence: list[str] = Field(default_factory=list)
     """Evidence keys the question needs; the caller supplies them and the engine refuses when one is missing."""
     rule: str | None = None
-    """Name of a function in carttrace.decide.rules that may answer outright, or return None to pass to Clef."""
+    """Name of a function in carttrace.decide.rules that may answer outright, or return None to pass to the decision
+    model."""
     threshold: float = 0.8
-    """Minimum probability of the winning answer for Clef's answer to stand."""
+    """Minimum probability of the winning answer for the decision model's answer to stand."""
     escalate: bool = True
     """Ask clef when clef-flash is below threshold."""
     abstain: str | list[str] | bool
@@ -51,7 +52,7 @@ class DecisionType(BaseModel):
     """An evidence key whose value adds options at call time, placed before the static options: a list of labels, or
     a mapping of label to a one-line note. shopper.field takes the hidden-spec field names this way."""
     option_notes: dict[str, str] = Field(default_factory=dict)
-    """A one-line note per static option, shown to Clef beside the option."""
+    """A one-line note per static option, shown to the decision model beside the option."""
     max_chars: int = 6000
     """Character budget for the rendered evidence. A longer value keeps its head and tail, and the cut is marked."""
     description: str = ""
@@ -77,7 +78,8 @@ class StageAnswer(BaseModel):
     endpoint: str | None = None
     probabilities_from: Literal["logprobs", "text"] | None = None
     """How a fallback stage read its probabilities: "logprobs" from the next token's log probabilities, or "text" from
-    the answer's text with the configured decide.fallback.text_confidence. None for Clef, which scores label tokens."""
+    the answer's text with the configured decide.fallback.text_confidence. None for the decision model, which scores
+    label tokens."""
     tokens: int | None = None
     latency_ms: int | None = None
     cost_usd: float | None = None
@@ -108,7 +110,8 @@ class Decision(BaseModel):
     context: dict[str, Any] = Field(default_factory=dict)
     """Caller-supplied ids (episode_id, run_id, store_id) for joining the log back to traces."""
     prompt_sha: str | None = None
-    """sha256 of the prompts and labels prepared for Clef; None when a rule decided first or no model is configured."""
+    """sha256 of the prompts and labels prepared for the decision model; None when a rule decided first or no model is
+    configured."""
     decided_at: str | None = None
     """RFC 3339 time the engine finished the decision, from its injected clock."""
     stages: list[StageAnswer] = Field(default_factory=list)

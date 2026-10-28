@@ -1,7 +1,7 @@
 """The decision log: every decision the engine makes, one canonical JSON line each, readable back as Decisions.
 
 Why a log. A decision type goes live only after it agrees with human labels, and a judge's verdict is trusted only if
-each Clef answer behind it can be traced: the type and version, the hash of the evidence, the answer and the
+each decision-model answer behind it can be traced: the type and version, the hash of the evidence, the answer and the
 probabilities, who decided (a rule, clef-flash, clef, or an abstention), the model snapshot and the latency. Lines are
 `Decision.model_dump(mode="json")`, so they parse straight back into Decisions. Several processes (the runner, the
 watch, the judge) may share `var/decisions/decisions.jsonl`, so each line goes through

@@ -1,9 +1,10 @@
 """Components are Lego blocks: one interface, any number of implementations, and config.json choosing one by name.
 
 Why a registry and not if-chains. The project wants every part replaceable without touching its callers: storage (local
-or S3), the chat backend, the scorer (Clef or recorded), the notifier (Slack or a file), the sheet backend (Google
-Sheets or CSV), the infographic renderer (Excalidraw or matplotlib), imagery (H3, Qwen-Image or none), the explainer
-(Sonnet or a template). Each package declares its implementations as import strings in a module-level `PLUGINS` table:
+or S3), the chat backend, the scorer (a decision model or recorded), the notifier (Slack or a file), the sheet backend
+(Google Sheets or CSV), the infographic renderer (Excalidraw or matplotlib), imagery (H3, Qwen-Image or none), the
+explainer (Sonnet or a template). Each package declares its implementations as import strings in a module-level
+`PLUGINS` table:
 
     PLUGINS = {"storage.blobstore": {"local": "carttrace.storage.local:LocalBlobStore", "s3": "carttrace.storage.s3:S3BlobStore"}}
 
