@@ -123,13 +123,13 @@ The dataset is CC BY 4.0. The product data in it keeps the licence of its source
 
 ## Citation
 
-If you use the dataset or this kit, please cite the paper, *CartTrace-100k: How Shopping Agents Fare Across Stores,
+If you use the dataset or this kit, please cite the paper, *CartTrace-100k: Analyzing Agent Behavior Across Stores,
 Categories and Commerce Protocols* ([PDF](https://generalmachines.ai/papers/carttrace-100k.pdf)). GitHub's "Cite this
 repository" reads the same entry from `CITATION.cff`.
 
 ```bibtex
 @misc{carttrace100k,
-  title     = {CartTrace-100k: How Shopping Agents Fare Across Stores, Categories and Commerce Protocols},
+  title     = {CartTrace-100k: Analyzing Agent Behavior Across Stores, Categories and Commerce Protocols},
   author    = {Pratham Bhatnagar and Deepanshu Pal},
   year      = {2026},
   publisher = {General Machines},
