@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use CartTrace-100k or this replay kit, please cite it as below."
-title: "CartTrace-100k: How Shopping Agents Fare Across Stores, Categories and Commerce Protocols"
+title: "CartTrace-100k: Analyzing Agent Behavior Across Stores, Categories and Commerce Protocols"
 type: software
 authors:
   - given-names: "Pratham"
@@ -13,7 +13,7 @@ version: 1.0.0
 keywords: [AI agents, agentic commerce, UCP, ACP, AP2, MPP, MCP, WebMCP, trajectories, reproducibility]
 preferred-citation:
   type: data
-  title: "CartTrace-100k: How Shopping Agents Fare Across Stores, Categories and Commerce Protocols"
+  title: "CartTrace-100k: Analyzing Agent Behavior Across Stores, Categories and Commerce Protocols"
   authors:
     - given-names: "Pratham"
       family-names: "Bhatnagar"
@@ -27,7 +27,7 @@ preferred-citation:
   notes: "Paper: https://generalmachines.ai/papers/carttrace-100k.pdf"
 references:
   - type: report
-    title: "CartTrace-100k: How Shopping Agents Fare Across Stores, Categories and Commerce Protocols"
+    title: "CartTrace-100k: Analyzing Agent Behavior Across Stores, Categories and Commerce Protocols"
     authors:
       - given-names: "Pratham"
         family-names: "Bhatnagar"
